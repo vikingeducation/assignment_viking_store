@@ -17,6 +17,11 @@ namespace :db do
   task populate: :environment do
     make_users
     make_address
+    make_payment
+    make_product
+    make_category
+    make_cart
+    make_order
 
   end
 end
@@ -139,3 +144,56 @@ def make_address
  end
 end
 
+def make_payment
+  months, years = [],[]
+  (1..12).each {|i| months << i}
+  (2014..2020).each {|i| years << i}
+  (1..330).each do |n|
+      cc = Faker::Number.number(16)
+      exp_month = months.sample
+      exp_year = years.sample
+      ccv = rand(999)
+      Payment.create!(user_id: n, cc_number: cc, exp_month: exp_month,
+        exp_year: exp_year, ccv: ccv)
+  end
+end
+
+def make_product
+  30.times do |n| #create 30 products
+    title = Faker::Commerce.product_name
+    description = Faker::Hacker.say_something_smart
+    price = Faker::Commerce.price
+    sku = Faker::Lorem.characters(6)
+    Product.create!(title: title, description: description,
+      price: price, sku: sku)
+  end
+end
+
+def make_category
+  products = []
+  (1..30).each {|i| products << i } #30 products
+  6.times do |n| #6 categories
+    name = Faker::Lorem.words(2)[0]
+    description = Faker::Hacker.say_something_smart
+    Category.create!(product_id: products.sample, name: name, 
+      description: description)
+  end
+end
+
+def make_cart
+  (1..150).each do |n| #150 active carts
+    products = []
+    (1..30).each {|i| products << i } #30 products
+    quantity = []
+    (1..10).each {|i| quantity << i} #up to 10 units
+    Cart.create!(user_id: n, product_id: products.sample,
+      product_quantity: quantity.sample)
+  end
+end
+
+def make_order
+  (1..100).each do |n| #100 historical orders
+    Order.create!(cart_id: n)
+  end
+
+end
