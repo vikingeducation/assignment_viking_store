@@ -34,23 +34,24 @@ def sample_cities
   [cities, towns, villages]
 end
 
+SAMPLECITIES = sample_cities
+
 def generate_addresses(user_id)
   (rand(6)).times do
-    city_instance = sample_cities.sample.sample
+    city_instance = SAMPLECITIES.sample.sample
     a = Address.new({user_id: user_id, street_address: Faker::Address.street_address, city: city_instance["city"], state: city_instance["state"], zip: Faker::Address.zip_code.to_i})
     a.save
   end
+  address_choices = (Address.select(:id).where(:user_id => user_id)).to_a
+  address_choices[0] ? [address_choices.sample[:id], address_choices.sample[:id]] : [nil, nil]
 end
 
 #generate users, 100 users
 (20*SCALAR).times do |x|
   sample_name = Faker::Name.name
-  generate_addresses(x+1)
-  address_choices = (Address.select(:id).where(:user_id => x+1)).to_a
-  billing_address = address_choices[0] ? address_choices.sample[:id] : nil
-  shipping_address = address_choices[0] ? address_choices.sample[:id] : nil
+  address_samples = generate_addresses(x+1)
 
-  u = User.new({id: x+1, name: sample_name, email: Faker::Internet.email(sample_name), phone_number: Faker::PhoneNumber.phone_number, default_billing_address: billing_address, default_shipping_address: shipping_address})
+  u = User.new({id: x+1, name: sample_name, email: Faker::Internet.email(sample_name), phone_number: Faker::PhoneNumber.phone_number, default_billing_address: address_samples[0], default_shipping_address: address_samples[1]})
 
   u.save
 end
