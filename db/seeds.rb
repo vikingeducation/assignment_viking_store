@@ -106,8 +106,16 @@ def generate_contents(order_id)
 end
 
 #generate orders
+def no_cart?(user_id)
+  Order.where(:placed => false, :user_id => user_id).empty?
+end
+
 def completion(user)
-  user[:default_billing_address] && rand(5) > 0 # must prevent multiple carts Order.find(user[:id]).where("completed = false")
+  if no_cart?(user[:id])
+    user[:default_billing_address] && rand(5) > 0
+  else
+    true
+  end
 end
 
 def placement_date(user)
@@ -116,13 +124,15 @@ end
 
 (SCALAR*25).times do
   sample_user = User.find(rand(User.count)+1)
-  completed_order = completion(sample_user)
-  o = Order.new()
-  o[:user_id]          = sample_user.id
-  o[:shipping_address] = random_user_address(sample_user.id)
-  o[:billing_address]  = random_user_address(sample_user.id)
-  o[:placed]           = completed_order
-  o[:when_placed]      = completed_order ? placement_date(sample_user) : nil
-  o.save
-  generate_contents(o[:id])
+  if sample_user[:default_billing_address] || no_cart?(sample_user[:id])
+    completed_order = completion(sample_user)
+    o = Order.new()
+    o[:user_id]          = sample_user.id
+    o[:shipping_address] = random_user_address(sample_user.id)
+    o[:billing_address]  = random_user_address(sample_user.id)
+    o[:placed]           = completed_order
+    o[:when_placed]      = completed_order ? placement_date(sample_user) : nil
+    o.save
+    generate_contents(o[:id])
+  end
 end
