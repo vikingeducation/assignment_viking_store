@@ -16,7 +16,7 @@ SCALAR.times do
 end
 
 (SCALAR**2).times do
-  p = Product.new({title: Faker::Commerce.product_name, category: sample_categories.sample, description: Faker::Lorem.sentence, sku: rand(SCALAR**3)+1, price: Faker::Commerce.price})
+  p = Product.new({title: Faker::Commerce.product_name, category: sample_categories.sample, description: Faker::Lorem.sentence, sku: rand(SCALAR**4)+1, price: Faker::Commerce.price})
   p.save
 end
 
@@ -41,17 +41,25 @@ end
 
 SAMPLECITIES = sample_cities
 
+def random_user_addresses(user_id)
+  address_choices = (Address.select(:id).where(:user_id => user_id)).to_a
+  address_choices[0] ? [address_choices.sample[:id], address_choices.sample[:id]] : [nil, nil]
+end
+
 def generate_addresses(user_id)
   (rand(6)).times do
     city_instance = SAMPLECITIES.sample.sample
     a = Address.new({user_id: user_id, street_address: Faker::Address.street_address, city: city_instance["city"], state: city_instance["state"], zip: Faker::Address.zip_code.to_i})
     a.save
   end
-  address_choices = (Address.select(:id).where(:user_id => user_id)).to_a
-  address_choices[0] ? [address_choices.sample[:id], address_choices.sample[:id]] : [nil, nil]
+  random_user_addresses(user_id)
 end
 
 #generate users, 20*SCALAR users (100)
+def creation_date
+
+end
+
 (20*SCALAR).times do |x|
   sample_name = Faker::Name.name
   address_samples = generate_addresses(x+1)
@@ -61,10 +69,21 @@ end
   u.save
 end
 
-def creation_date
-
+#generate orders
+def completion(user)
+  user[:default_billing_address] && rand(5) > 0
 end
 
-#generate orders
+def placement_date
+  rand([Time.now - 12.month, Time.now - 8.month, Time.now - 4.month].sample..Time.now)
+end
+
+(SCALAR*25).times do
+  sample_user = User.find(rand(User.count)+1)
+  random_addresses = random_user_addresses(sample_user.id)
+  completed_order = completion(sample_user)
+  o = Order.new({user_id: sample_user.id, shipping_address: random_addresses[0], billing_address: random_addresses[1], placed: completed_order, when_placed: placement_date})
+  o.save
+end
 
 #generate order contents
