@@ -49,7 +49,7 @@ def gen_categories
 end
 
 def gen_products
-  @products = (1..(30*SEED_MULTIPLIER)).to_a
+  @products = (1..(50*SEED_MULTIPLIER)).to_a
 end
 
 def gen_orders
@@ -62,9 +62,10 @@ def make_product
     description = Faker::Hacker.say_something_smart
     price = Faker::Commerce.price
     sku = Faker::Lorem.characters(6)
+    create = Faker::MakeDate.months_ago(2)
     cat_id = @categories.sample
     Product.create!(title: title, description: description,
-      price: price, sku: sku, category_id: cat_id)
+      price: price, sku: sku, category_id: cat_id, created_at: create)
   end
 end
 

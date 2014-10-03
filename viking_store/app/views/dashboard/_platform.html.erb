@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Last 7 Days</div>
+	<table class="table">
+		<thead>
+			<td>Item</td>
+			<td>Data</td>
+		</thead>
+		<tr>
+			<td>New Users</td>
+			<td><%= User.where('created_at > ?',1.week.ago).count %></td>
+		</tr>
+		<tr>
+			<td>Orders</td>
+			<td><%= Order.where('is_placed = ? AND placed_at > ?',true,1.week.ago).count %></td>
+		</tr>
+		<tr>
+			<td>New Products</td>
+			<td><%= Product.where('created_at > ?',1.week.ago).count %></td>
+		</tr>
+		<tr>
+			<td>Revenue</td>
+			<td>Test 4</td>
+		</tr>
+
+	</table>
+
+</div>
