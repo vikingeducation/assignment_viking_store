@@ -228,15 +228,15 @@ def make_order_contents
   (1..100).each do |i| #100-scaled initial orders
     product_id = @products.sample
     quantity = (1..10).to_a.sample
-    OrderContents.create!(product_id: product_id,
+    OrderContent.create!(product_id: product_id,
       order_id: i, quantity: quantity)
   end
 
   (1..@orders.length).each do |n|
     product_id = @products.sample
     quantity = (1..10).to_a.sample
-    OrderContents.create!(product_id: product_id,
-      order_id: (100+i), quantity: quantity)
+    OrderContent.create!(product_id: product_id,
+      order_id: (100+n), quantity: quantity)
   end
 end
 
@@ -257,7 +257,7 @@ def make_order
     shipping = Address.where(user_id: user_id).sample.id
     placed_at = Faker::MakeDate.months_ago(4)
     Order.create!(user_id: user_id, billing_address_id: billing,
-      shipping_address_id: shipping, is_placed: true, placed_at: placed_at)
+      shipping_address_id: shipping, is_placed: false, placed_at: placed_at)
   end
 
 end
