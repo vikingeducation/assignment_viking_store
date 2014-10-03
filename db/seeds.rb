@@ -9,7 +9,10 @@
 SCALAR = 5
 
 #generate products
-(6*SCALAR).times do
+SCALAR.times do
+  sample_category = Faker::Commerce.department
+  SCALAR.times do
+  end
 end
 
 #generate addresses, SCALAR+SCALAR^2+SCALAR^3 cities
@@ -42,9 +45,18 @@ end
 #generate users, 100 users
 (20*SCALAR).times do |x|
   sample_name = Faker::Name.name
-  u = User.new({id: x, name: sample_name, email: Faker::Internet.email(sample_name), phone_number: Faker::PhoneNumber.phone_number})
-  generate_addresses(u[:id])
+  generate_addresses(x+1)
+  address_choices = (Address.select(:id).where(:user_id => x+1)).to_a
+  billing_address = address_choices[0] ? address_choices.sample[:id] : nil
+  shipping_address = address_choices[0] ? address_choices.sample[:id] : nil
+
+  u = User.new({id: x+1, name: sample_name, email: Faker::Internet.email(sample_name), phone_number: Faker::PhoneNumber.phone_number, default_billing_address: billing_address, default_shipping_address: shipping_address})
+
   u.save
+end
+
+def creation_date
+
 end
 
 #generate orders
