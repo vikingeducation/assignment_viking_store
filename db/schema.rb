@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141003024949) do
+ActiveRecord::Schema.define(version: 20141003025651) do
 
   create_table "addresses", force: true do |t|
     t.integer  "user_id",                                  null: false
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20141003024949) do
     t.integer  "zip"
     t.string   "country",        default: "United States"
     t.boolean  "active",         default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", force: true do |t|
+    t.integer  "user_id",                          null: false
+    t.integer  "shipping_address"
+    t.integer  "billing_address"
+    t.boolean  "placed",           default: false
+    t.datetime "when_placed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
