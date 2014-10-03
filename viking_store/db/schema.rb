@@ -11,37 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141002193957) do
+ActiveRecord::Schema.define(version: 20141003125559) do
 
   create_table "addresses", force: true do |t|
     t.integer  "user_id"
-    t.string   "street1"
-    t.string   "city1"
-    t.string   "state1"
-    t.integer  "zip1"
-    t.boolean  "default_address1", default: false
-    t.string   "street2"
-    t.string   "city2"
-    t.string   "state2"
-    t.integer  "zip2"
-    t.boolean  "default_address2", default: false
-    t.string   "street3"
-    t.string   "city3"
-    t.string   "state3"
-    t.integer  "zip3"
-    t.boolean  "default_address3", default: false
-    t.string   "street4"
-    t.string   "city4"
-    t.string   "state4"
-    t.integer  "zip4"
-    t.boolean  "default_address4", default: false
-    t.string   "street5"
-    t.string   "city5"
-    t.string   "state5"
-    t.integer  "zip5"
-    t.boolean  "default_address5", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "street_address"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.boolean  "is_active",      default: true
   end
 
   create_table "carts", force: true do |t|
@@ -53,17 +33,28 @@ ActiveRecord::Schema.define(version: 20141002193957) do
   end
 
   create_table "categories", force: true do |t|
-    t.integer  "product_id"
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "orders", force: true do |t|
-    t.integer  "cart_id"
+  create_table "order_contents", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "order_id"
+    t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "orders", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
+    t.boolean  "is_placed",           default: false
+    t.datetime "placed_at"
   end
 
   create_table "payments", force: true do |t|
@@ -83,6 +74,7 @@ ActiveRecord::Schema.define(version: 20141002193957) do
     t.string   "sku"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
   end
 
   create_table "users", force: true do |t|
@@ -92,6 +84,8 @@ ActiveRecord::Schema.define(version: 20141002193957) do
     t.integer  "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "default_billing_address_id"
+    t.integer  "default_shipping_address_id"
   end
 
 end

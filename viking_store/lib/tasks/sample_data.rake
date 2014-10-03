@@ -15,140 +15,197 @@ end
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
+    SEED_MULTIPLIER = 1
+    
+    gen_addresses
+    gen_users
+    gen_categories
+    gen_products
+    gen_orders
+
+
     make_users
     make_address
-    make_payment
     make_product
     make_category
-    make_cart
+    make_payment
+    make_order_contents
     make_order
+
 
   end
 end
 
-def make_users #make 330 users total
-  10.times do |n| #10 users from 6 months ago
+def gen_addresses
+   @addresses = (1..(100*SEED_MULTIPLIER)).to_a
+end
+
+def gen_users
+  @users = (1..(330*SEED_MULTIPLIER)).to_a
+end
+
+def gen_categories
+  @categories = (1..(6*SEED_MULTIPLIER)).to_a
+end
+
+def gen_products
+  @products = (1..(30*SEED_MULTIPLIER)).to_a
+end
+
+def gen_orders
+  @orders = (1..(200*SEED_MULTIPLIER)).to_a
+end
+
+def make_product
+  (@products.length).times do |n| #create products
+    title = Faker::Commerce.product_name
+    description = Faker::Hacker.say_something_smart
+    price = Faker::Commerce.price
+    sku = Faker::Lorem.characters(6)
+    cat_id = @categories.sample
+    Product.create!(title: title, description: description,
+      price: price, sku: sku, category_id: cat_id)
+  end
+end
+
+def make_users #make da usahs (total users is 330*SEED_MULTIPLIER)
+  (10*SEED_MULTIPLIER).times do |n| #users from 6 months ago
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = Faker::Internet.email
     phone = Faker::Number.number(10)
     create = Faker::MakeDate.months_ago(6)
+    billing_address = @addresses.sample
+    shipping_address = @addresses.sample
     User.create!(first_name: first_name, last_name: last_name, 
-    email: email, phone: phone, created_at: create)
+    email: email, phone: phone, created_at: create,
+    default_billing_address_id: billing_address,
+    default_shipping_address_id: shipping_address)
   end
 
-  20.times do |n| #20 users from 5 months ago
+  (20*SEED_MULTIPLIER).times do |n| #users from 5 months ago
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = Faker::Internet.email
     phone = Faker::Number.number(10)
     create = Faker::MakeDate.months_ago(5)
+    billing_address = @addresses.sample
+    shipping_address = @addresses.sample
     User.create!(first_name: first_name, last_name: last_name, 
-    email: email, phone: phone, created_at: create)
+    email: email, phone: phone, created_at: create,
+    default_billing_address_id: billing_address,
+    default_shipping_address_id: shipping_address)
   end
 
-  40.times do |n| #40 users from 4 months ago
+  (40*SEED_MULTIPLIER).times do |n| #40 users from 4 months ago
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = Faker::Internet.email
     phone = Faker::Number.number(10)
     create = Faker::MakeDate.months_ago(4)
+    billing_address = @addresses.sample
+    shipping_address = @addresses.sample
     User.create!(first_name: first_name, last_name: last_name, 
-    email: email, phone: phone, created_at: create)
+    email: email, phone: phone, created_at: create,
+    default_billing_address_id: billing_address,
+    default_shipping_address_id: shipping_address)
   end
 
-  60.times do |n| #60 users from 3 months ago
+  (60*SEED_MULTIPLIER).times do |n| #60 users from 3 months ago
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = Faker::Internet.email
     phone = Faker::Number.number(10)
     create = Faker::MakeDate.months_ago(3)
+    billing_address = @addresses.sample
+    shipping_address = @addresses.sample
     User.create!(first_name: first_name, last_name: last_name, 
-    email: email, phone: phone, created_at: create)
+    email: email, phone: phone, created_at: create,
+    default_billing_address_id: billing_address,
+    default_shipping_address_id: shipping_address)
   end
 
-  80.times do |n| #80 users from 2 months ago
+  (80*SEED_MULTIPLIER).times do |n| #80 users from 2 months ago
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = Faker::Internet.email
     phone = Faker::Number.number(10)
     create = Faker::MakeDate.months_ago(2)
+    billing_address = @addresses.sample
+    shipping_address = @addresses.sample
     User.create!(first_name: first_name, last_name: last_name, 
-    email: email, phone: phone, created_at: create)
+    email: email, phone: phone, created_at: create,
+    default_billing_address_id: billing_address,
+    default_shipping_address_id: shipping_address)
   end
 
-  120.times do |n| #120 users from 1 months ago
+  (120*SEED_MULTIPLIER).times do |n| #120 users from 1 months ago
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = Faker::Internet.email
     phone = Faker::Number.number(10)
     create = Faker::MakeDate.months_ago(1)
+    billing_address = @addresses.sample
+    shipping_address = @addresses.sample
     User.create!(first_name: first_name, last_name: last_name, 
-    email: email, phone: phone, created_at: create)
+    email: email, phone: phone, created_at: create,
+    default_billing_address_id: billing_address,
+    default_shipping_address_id: shipping_address)
   end
 
 end
 
 def make_address
-  users = []
-  (1..330).each {|i| users << i}
-
- (1..330).each do |n| #everyone gets a first address
-  street = Faker::Address.street_address
-  city = Faker::Address.city
-  state = Faker::Address.state_abbr
-  zip = Faker::Address.zip
-  Address.create(user_id: n, street1: street,
-    city1: city, state1: state, zip1: zip,
-    default_address1: true)
- end
-
- (1..200).each do |n| #200  people get a second address
+   (1..@users.length).each do |n| #everyone gets a first address
     street = Faker::Address.street_address
     city = Faker::Address.city
     state = Faker::Address.state_abbr
     zip = Faker::Address.zip
-    Address.update(n, street2: street,
-      city2: city, state2: state, zip2: zip,
-      default_address2: false)
- end
-
-  (1..100).each do |n| #100  people get a third address
+    Address.create(user_id: n, street_address: street,
+      city: city, state: state, zip: zip)
+   end
+  (1..((@users.length)/2)).each do |n| #half the users get a second address
     street = Faker::Address.street_address
     city = Faker::Address.city
     state = Faker::Address.state_abbr
     zip = Faker::Address.zip
-    Address.update(n, street3: street,
-      city3: city, state3: state, zip3: zip,
-      default_address3: false)
- end
+    Address.create(user_id: n, street_address: street,
+      city: city, state: state, zip: zip)
+   end
 
-  (1..50).each do |n| #50  people get a fourth address
+   (1..((@users.length)/3)).each do |n| #one-third of users get a third address
     street = Faker::Address.street_address
     city = Faker::Address.city
     state = Faker::Address.state_abbr
     zip = Faker::Address.zip
-    Address.update(n, street4: street,
-      city4: city, state4: state, zip4: zip,
-      default_address4: false)
- end
+    Address.create(user_id: n, street_address: street,
+      city: city, state: state, zip: zip)
+   end
 
-  (1..20).each do |n| #20  people get a fifth address
+  (1..((@users.length)/4)).each do |n| #one-fourth of users get a fourth address
     street = Faker::Address.street_address
     city = Faker::Address.city
     state = Faker::Address.state_abbr
     zip = Faker::Address.zip
-    Address.update(n, street5: street,
-      city5: city, state5: state, zip5: zip,
-      default_address5: false)
- end
+    Address.create(user_id: n, street_address: street,
+      city: city, state: state, zip: zip)
+   end
+
+  (1..((@users.length)/5)).each do |n| #one-fifth of users get a fifth address
+    street = Faker::Address.street_address
+    city = Faker::Address.city
+    state = Faker::Address.state_abbr
+    zip = Faker::Address.zip
+    Address.create(user_id: n, street_address: street,
+      city: city, state: state, zip: zip)
+   end
 end
 
 def make_payment
   months, years = [],[]
   (1..12).each {|i| months << i}
   (2014..2020).each {|i| years << i}
-  (1..330).each do |n|
+  (1..@users.length).each do |n|
       cc = Faker::Number.number(16)
       exp_month = months.sample
       exp_year = years.sample
@@ -158,42 +215,49 @@ def make_payment
   end
 end
 
-def make_product
-  30.times do |n| #create 30 products
-    title = Faker::Commerce.product_name
-    description = Faker::Hacker.say_something_smart
-    price = Faker::Commerce.price
-    sku = Faker::Lorem.characters(6)
-    Product.create!(title: title, description: description,
-      price: price, sku: sku)
-  end
-end
-
 def make_category
-  products = []
-  (1..30).each {|i| products << i } #30 products
-  6.times do |n| #6 categories
+  (1..@categories.length).each do |n| #6 categories
     name = Faker::Lorem.words(2)[0]
     description = Faker::Hacker.say_something_smart
-    Category.create!(product_id: products.sample, name: name, 
-      description: description)
+    Category.create!(name: name, description: description)
   end
 end
 
-def make_cart
-  (1..150).each do |n| #150 active carts
-    products = []
-    (1..30).each {|i| products << i } #30 products
-    quantity = []
-    (1..10).each {|i| quantity << i} #up to 10 units
-    Cart.create!(user_id: n, product_id: products.sample,
-      product_quantity: quantity.sample)
+
+def make_order_contents
+  (1..100).each do |i| #100-scaled initial orders
+    product_id = @products.sample
+    quantity = (1..10).to_a.sample
+    OrderContents.create!(product_id: product_id,
+      order_id: i, quantity: quantity)
+  end
+
+  (1..@orders.length).each do |n|
+    product_id = @products.sample
+    quantity = (1..10).to_a.sample
+    OrderContents.create!(product_id: product_id,
+      order_id: (100+i), quantity: quantity)
   end
 end
+
 
 def make_order
-  (1..100).each do |n| #100 historical orders
-    Order.create!(cart_id: n)
+  100.times do |i| #100 placed orders
+    user_id = @users.sample
+    billing = Address.where(user_id: user_id).sample.id
+    shipping = Address.where(user_id: user_id).sample.id
+    placed_at = Faker::MakeDate.months_ago(4)
+    Order.create!(user_id: user_id, billing_address_id: billing,
+      shipping_address_id: shipping, is_placed: true, placed_at: placed_at)
+  end
+
+  (@orders.length).times do |i| #100-scaled non-placed orders (carts)
+    user_id = @users.sample
+    billing = Address.where(user_id: user_id).sample.id
+    shipping = Address.where(user_id: user_id).sample.id
+    placed_at = Faker::MakeDate.months_ago(4)
+    Order.create!(user_id: user_id, billing_address_id: billing,
+      shipping_address_id: shipping, is_placed: true, placed_at: placed_at)
   end
 
 end
