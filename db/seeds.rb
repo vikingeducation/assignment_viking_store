@@ -9,13 +9,18 @@
 SCALAR = 5
 
 #generate products
+sample_categories = []
+
 SCALAR.times do
-  sample_category = Faker::Commerce.department
-  SCALAR.times do
-  end
+  sample_categories << Faker::Commerce.department
 end
 
-#generate addresses, SCALAR+SCALAR^2+SCALAR^3 cities
+(SCALAR**2).times do
+  p = Product.new({title: Faker::Commerce.product_name, category: sample_categories.sample, description: Faker::Lorem.sentence, sku: rand(SCALAR**3)+1, price: Faker::Commerce.price})
+  p.save
+end
+
+#generate addresses, SCALAR+SCALAR^2+SCALAR^3 cities (155)
 def sample_city
   {"city" => Faker::Address.city, "state" => Faker::Address.state, "zip" => (Faker::Address.zip_code).to_i}
 end
@@ -46,7 +51,7 @@ def generate_addresses(user_id)
   address_choices[0] ? [address_choices.sample[:id], address_choices.sample[:id]] : [nil, nil]
 end
 
-#generate users, 100 users
+#generate users, 20*SCALAR users (100)
 (20*SCALAR).times do |x|
   sample_name = Faker::Name.name
   address_samples = generate_addresses(x+1)
