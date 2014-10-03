@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fname: MyString
+  lname: MyString
+  email: MyString
+  billing_id: 1
+  shipping_id: MyString
+  integer: MyString
+
+two:
+  fname: MyString
+  lname: MyString
+  email: MyString
+  billing_id: 1
+  shipping_id: MyString
+  integer: MyString
