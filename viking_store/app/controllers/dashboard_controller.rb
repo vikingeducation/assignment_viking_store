@@ -18,6 +18,14 @@ class DashboardController < ApplicationController
     @orders_all = Order.orders(all)
     @products_all = Product.products(all)
     @revenue_all = OrderContent.revenue(all)    
-    
+
+
+    @state1 = Address.get_top_city(0)
+    @state2 = Address.get_top_city(1)
+    @state3 = Address.get_top_city(2)
+
+    @state_count1 = Address.get_top_count(0)
+    @state_count2 = Address.get_top_count(1)
+    @state_count3 = Address.get_top_count(2)
   end
 end
