@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-SCALAR = 5 # Seed multiplier
+SCALAR = 5 # Seed multiplier; caution: exponential data increase
 
 #generate products
 sample_categories = []
@@ -78,7 +78,7 @@ def creation_date
   rand(date_range)
 end
 
-(20*SCALAR).times do |x|
+(SCALAR**3).times do |x|
   sample_name = Faker::Name.name
   generate_addresses(x+1)
 
@@ -122,7 +122,7 @@ def placement_date(user)
   rand(user[:created_at]..Time.now)
 end
 
-(SCALAR*25).times do
+(SCALAR**3).times do
   sample_user = User.find(rand(User.count)+1)
   if sample_user[:default_billing_address] || no_cart?(sample_user[:id])
     completed_order = completion(sample_user)
