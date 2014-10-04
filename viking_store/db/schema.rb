@@ -24,14 +24,6 @@ ActiveRecord::Schema.define(version: 20141003125559) do
     t.boolean  "is_active",      default: true
   end
 
-  create_table "carts", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "product_id"
-    t.integer  "product_quantity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "categories", force: true do |t|
     t.string   "name"
     t.text     "description"
