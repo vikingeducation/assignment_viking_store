@@ -11,11 +11,11 @@
 		</tr>
 		<tr>
 			<td>Orders</td>
-			<td><%= Order.where('is_placed = ? AND placed_at > ?',true,1.week.ago).count %></td>
+			<td><%= @orders_last_week %></td>
 		</tr>
 		<tr>
 			<td>New Products</td>
-			<td><%= Product.where('created_at > ?',1.week.ago).count %></td>
+			<td><%= @products_from_last_week %></td>
 		</tr>
 		<tr>
 			<td>Revenue</td>

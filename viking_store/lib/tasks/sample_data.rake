@@ -29,8 +29,8 @@ namespace :db do
     make_product
     make_category
     make_payment
-    make_order_contents
     make_order
+    make_order_contents
 
 
   end
@@ -229,15 +229,17 @@ def make_order_contents
   (1..100).each do |i| #100-scaled initial orders
     product_id = @products.sample
     quantity = (1..10).to_a.sample
+    current_price = Product.find(product_id).price
     OrderContent.create!(product_id: product_id,
-      order_id: i, quantity: quantity)
+      order_id: i, quantity: quantity, current_price: current_price)
   end
 
   (1..@orders.length).each do |n|
     product_id = @products.sample
     quantity = (1..10).to_a.sample
+    current_price = Product.find(product_id).price
     OrderContent.create!(product_id: product_id,
-      order_id: (100+n), quantity: quantity)
+      order_id: (100+n), quantity: quantity, current_price: current_price)
   end
 end
 
