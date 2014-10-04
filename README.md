@@ -1,9 +1,13 @@
-viking_store
-============
+# Viking Store
+==================
 
-An assignment for <a href="vikingcodeschool.com">The Viking Code School</a>
+Paul H. Hyman (phyman.com | GitHub: phyman)
+Ahbi
 
-The Viking Store e-commerce application for Viking Commerce Inc
+Viking Store data model with a populated database containing:
+* mock user details
+* demographic info, and
+* historical orders as necessary
 
+[Another fine project brought to you by the Viking Code School](http://vikingcodeschool.com)
 
--Abhi

@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+<<<<<<< HEAD
 
 
 module Faker
@@ -146,3 +147,5 @@ end
 
 
 
+=======
+>>>>>>> 4ac5860660b93e501b8cc7739ba3e5052ec35712
