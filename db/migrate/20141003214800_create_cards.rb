@@ -4,7 +4,7 @@ class CreateCards < ActiveRecord::Migration
       t.integer :user_id
       t.integer :number
       t.integer :exp_month
-      t.integer :exp_month
+      t.integer :exp_year
       t.integer :ccv
 
       t.timestamps
