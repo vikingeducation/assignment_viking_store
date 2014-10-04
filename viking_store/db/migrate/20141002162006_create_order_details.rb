@@ -1,10 +1,10 @@
 class CreateOrderDetails < ActiveRecord::Migration
   def change
     create_table :order_details do |t|
-    	# method for creating order_id ref
-    	# method for creating product_id ref
-    	t.string :price
-    	t.string :quantity
+    	t.integer	 	:order_id,	null: false
+    	t.integer  	:price,			null: false
+    	t.integer  	:quantity
+    	t.boolean		:checked_out,	default: true,	null: false
 
       t.timestamps
     end

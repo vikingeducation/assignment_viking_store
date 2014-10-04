@@ -1,7 +1,9 @@
 class CreateOrders < ActiveRecord::Migration
   def change
     create_table :orders do |t|
-    	# method for generating user_id ref
+    	t.integer 	:user_id 
+    	t.integer 	:product_id
+    	t.integer		:quantity,	default: 1,	null: false
     	
       t.timestamps
     end
