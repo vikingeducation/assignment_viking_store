@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-	def self.orders_last_week
-		Order.where('is_placed = ? AND placed_at > ?',true,1.week.ago).count
+	def self.orders(time)
+		Order.where('is_placed = ? AND placed_at > ?',true,time).count
 	end
 end
