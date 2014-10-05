@@ -47,5 +47,13 @@ class DashboardController < ApplicationController
     @highest_average_first = OrderContent.highest_average[1]
     @highest_average_last = OrderContent.highest_average[2]
 
+    @average_order_7 = @revenue_7 / @orders_7
+    @average_order_30 = @revenue_30 / @orders_30 
+    @average_order_all = @revenue_all / @orders_all
+
+    @largest_order_7 = OrderContent.largest_order(week)
+    @largest_order_30 = OrderContent.largest_order(month)
+    @largest_order_all = OrderContent.largest_order(all)
+
   end
 end

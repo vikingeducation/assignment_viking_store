@@ -53,4 +53,9 @@ class OrderContent < ActiveRecord::Base
     [max,@user_first,@user_last]
   end
 
+  def self.largest_order(time) #panel 3 largest order
+    OrderContent.joins("JOIN orders ON orders.id  = order_contents.id").where('orders.is_placed = ? AND orders.placed_at > ?',true, time).select("quantity*current_price AS revenue").order("revenue DESC")[0].revenue
+  end
+
+
 end

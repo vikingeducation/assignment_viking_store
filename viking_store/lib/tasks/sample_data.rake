@@ -15,7 +15,7 @@ end
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-    SEED_MULTIPLIER = 30
+    SEED_MULTIPLIER = 3
     
     gen_addresses
     gen_users
@@ -226,7 +226,7 @@ end
 
 
 def make_order_contents
-  (1..100).each do |i| #100-scaled initial orders
+  (1..100*SEED_MULTIPLIER).each do |i| #100-scaled initial orders
     product_id = @products.sample
     quantity = (1..10).to_a.sample
     current_price = Product.find(product_id).price
@@ -239,13 +239,13 @@ def make_order_contents
     quantity = (1..10).to_a.sample
     current_price = Product.find(product_id).price
     OrderContent.create!(product_id: product_id,
-      order_id: (100+n), quantity: quantity, current_price: current_price)
+      order_id: ((100*SEED_MULTIPLIER)+n), quantity: quantity, current_price: current_price)
   end
 end
 
 
 def make_order
-  100.times do |i| #100 placed orders
+  (100*SEED_MULTIPLIER).times do |i| #100-scaled placed orders
     user_id = @users.sample
     billing = Address.where(user_id: user_id).sample.id
     shipping = Address.where(user_id: user_id).sample.id
