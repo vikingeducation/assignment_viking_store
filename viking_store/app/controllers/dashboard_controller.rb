@@ -42,5 +42,10 @@ class DashboardController < ApplicationController
     @highest_lifetime = OrderContent.highest_lifetime
     @highest_lifetime_first = OrderContent.highest_lifetime_first
     @highest_lifetime_last = OrderContent.highest_lifetime_last
+
+    @highest_average = OrderContent.highest_average[0]
+    @highest_average_first = OrderContent.highest_average[1]
+    @highest_average_last = OrderContent.highest_average[2]
+
   end
 end
