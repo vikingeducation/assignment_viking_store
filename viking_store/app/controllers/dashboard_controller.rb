@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  include ActionView::Helpers::NumberHelper
+
   def index
   	week = 1.week.ago
   	month = 1.month.ago
