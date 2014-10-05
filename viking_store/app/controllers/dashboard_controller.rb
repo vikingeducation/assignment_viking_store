@@ -40,5 +40,7 @@ class DashboardController < ApplicationController
     @highest_single_value = OrderContent.highest_single_value
 
     @highest_lifetime = OrderContent.highest_lifetime
+    @highest_lifetime_first = OrderContent.highest_lifetime_first
+    @highest_lifetime_last = OrderContent.highest_lifetime_last
   end
 end
