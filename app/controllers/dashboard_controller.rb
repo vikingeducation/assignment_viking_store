@@ -13,10 +13,10 @@ class DashboardController < ApplicationController
     @month_revenue = OrderContent.revenue_during(1.month.ago)
 
     # total orders
-    @total_orders = Order.orders_during(10.years.ago) # TODO fix this for all time
-    @total_new_users = User.users_during(2.years.ago)
-    @total_new_products = Product.products_during(2.years.ago)
-    @total_revenue =  OrderContent.revenue_during(10.years.ago)
+    @total_orders = Order.orders_during() # TODO fix this for all time
+    @total_new_users = User.users_during()
+    @total_new_products = Product.products_during()
+    @total_revenue =  OrderContent.revenue_during()
 
     # Top geo stats
     @first_state = Billing.top_3_states(1)[0]

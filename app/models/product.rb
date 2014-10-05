@@ -1,7 +1,11 @@
 class Product < ActiveRecord::Base
-  def self.products_during(interval)
+  def self.products_during(interval=nil)
   # return a count of users over an internal of time
-  Product.where("created_at > ?", interval).count
+    if interval
+      Product.where("created_at > ?", interval).count
+    else
+      Product.count
+    end
   end
 end
 
