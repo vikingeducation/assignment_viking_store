@@ -55,5 +55,10 @@ class DashboardController < ApplicationController
     @largest_order_30 = OrderContent.largest_order(month)
     @largest_order_all = OrderContent.largest_order(all)
 
+    @most_orders_placed_count = OrderContent.most_orders_placed[0]
+    @most_orders_placed_first = OrderContent.most_orders_placed[1]
+    @most_orders_placed_last = OrderContent.most_orders_placed[2]
+
+
   end
 end

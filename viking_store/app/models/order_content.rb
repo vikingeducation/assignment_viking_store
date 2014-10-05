@@ -57,5 +57,12 @@ class OrderContent < ActiveRecord::Base
     OrderContent.joins("JOIN orders ON orders.id  = order_contents.id").where('orders.is_placed = ? AND orders.placed_at > ?',true, time).select("quantity*current_price AS revenue").order("revenue DESC")[0].revenue
   end
 
+  def self.most_orders_placed
+    count = @user_first = OrderContent.joins("JOIN orders ON orders.id  = order_contents.id").where('orders.is_placed = ?',true).group(:user_id).select("COUNT(order_id) AS count_orders,user_id").order("count_orders DESC")[0].count_orders
+    @user_first = User.find(OrderContent.joins("JOIN orders ON orders.id  = order_contents.id").where('orders.is_placed = ?',true).group(:user_id).select("COUNT(order_id) AS count_orders,user_id").order("count_orders DESC")[0].user_id).first_name
+    @user_last = User.find(OrderContent.joins("JOIN orders ON orders.id  = order_contents.id").where('orders.is_placed = ?',true).group(:user_id).select("COUNT(order_id) AS count_orders,user_id").order("count_orders DESC")[0].user_id).last_name
+    [count,@user_first,@user_last]
+  end
+
 
 end
