@@ -23,3 +23,59 @@
 	</table>
 
 </div>
+
+<div class="panel panel-default">
+	
+	<div class="panel-heading">Top 3 Cities Users Live In</div>
+	
+	<table class="table">
+		<thead>
+			<td>Item</td>
+			<td>Data</td>
+		</thead>
+		<tr>
+			<td><%= @city1 %></td>
+			<td><%= @city_count1 %></td>
+		</tr>
+		<tr>
+			<td><%= @city2 %></td>
+			<td><%= @city_count2 %></td>
+		</tr>
+		<tr>
+			<td><%= @city3 %></td>
+			<td><%= @city_count3 %></td>
+		</tr>
+
+	</table>
+
+</div>
+
+<div class="panel panel-default">
+	
+	<div class="panel-heading">Top 3 Cities Users Live In</div>
+	
+	<table class="table">
+		<thead>
+			<td>Item</td>
+			<td>Name</td>
+			<td>Data</td>
+		</thead>
+		<tr>
+			<td>Highest Single Order Value</td>
+			<td><%= @highest_first%> <%= @highest_last%></td>
+			<td>$<%= @highest_single_value %></td>
+		</tr>
+ 		<tr>
+			<td>Highest Lifetime Value</td>
+			<td>NAME</td>
+			<td>$<%= @highest_lifetime %></td>
+		</tr>
+<!--		<tr>
+			<td><%= @city3 %></td>
+			<td><%= @city1 %></td>
+			<td><%= @city_count3 %></td>
+		</tr> -->
+
+	</table>
+
+</div>
