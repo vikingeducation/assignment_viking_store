@@ -98,8 +98,7 @@ def make_order
     billing_address = @addresses.sample
     shipping_address = @addresses.sample
     when_placed = Faker::MakeDate.months_ago( rand(0..6) )
-    Order.create!(order_id: order_id, user_id: user_id, billing_address: billing_address
-      shipping_address: shipping_address, when_placed: when_place)
+    Order.create!(order_id: order_id, user_id: user_id, billing_address: billing_address, shipping_address: shipping_address, when_placed: when_place)
   end
 end
 
