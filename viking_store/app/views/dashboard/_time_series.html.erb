@@ -8,41 +8,52 @@
 			<td>Quantity</td>
 			<td>Value
 		</thead>
-		<tr>
-			<td><%= 1.day.ago %></td>
-			<td><%= Order.orders(1.day.ago) %></td>
-			<td><%= OrderContent.revenue(1.day.ago) %></td>
-		</tr>
-		<tr>
-			<td><%= 2.day.ago %></td>
-			<td><%= Order.orders(2.days.ago) %></td>
-			<td><%= OrderContent.revenue(2.day.ago) %></td>
-		</tr>
-		<tr>
-			<td><%= 3.day.ago %></td>
-			<td><%= Order.orders(3.days.ago) %></td>
-			<td><%= OrderContent.revenue(3.day.ago) %></td>
-		</tr>
-		<tr>
-			<td><%= 4.day.ago %></td>
-			<td><%= Order.orders(4.days.ago) %></td>
-			<td><%= OrderContent.revenue(4.day.ago) %></td>
-		</tr>
-		<tr>
-			<td><%= 5.day.ago %></td>
-			<td><%= Order.orders(5.days.ago) %></td>
-			<td><%= OrderContent.revenue(5.day.ago) %></td>
-		</tr>
-		<tr>
-			<td><%= 6.day.ago %></td>
-			<td><%= Order.orders(6.days.ago) %></td>
-			<td><%= OrderContent.revenue(6.day.ago) %></td>
-		</tr>
-		<tr>
-			<td><%= 1.week.ago %></td>
-			<td><%= Order.orders(1.week.ago) %></td>
-			<td><%= OrderContent.revenue(1.week.ago) %></td>
-		</tr>
+
+		<% (1..7).each do |n| %>
+			<% if n==1 %>
+			<tr>
+				<td><%= 1.day.ago %></td>
+				<td><%= Order.orders(1.day.ago) %></td>
+				<td><%= OrderContent.revenue(1.day.ago) %></td>
+			</tr>
+			<% else %>
+			<tr>
+				<td><%= n.day.ago %></td>
+				<td><%= Order.orders(n.day.ago) - Order.orders((n-1).days.ago) %></td>
+				<td><%= OrderContent.revenue(n.day.ago) - OrderContent.revenue((n-1).day.ago) %></td>
+			</tr>
+			<% end %>
+		<% end %>
+
+	</table>
+
+</div>
+<div class="panel panel-default">
+	
+	<div class="panel-heading">Orders By Day</div>
+	
+	<table class="table">
+		<thead>
+			<td>Date</td>
+			<td>Quantity</td>
+			<td>Value
+		</thead>
+
+		<% (1..7).each do |n| %>
+			<% if n==1 %>
+			<tr>
+				<td><%= 1.week.ago %></td>
+				<td><%= Order.orders(1.week.ago) %></td>
+				<td><%= OrderContent.revenue(1.week.ago) %></td>
+			</tr>
+			<% else %>
+			<tr>
+				<td><%= n.week.ago %></td>
+				<td><%= Order.orders(n.week.ago) - Order.orders((n-1).weeks.ago) %></td>
+				<td><%= OrderContent.revenue(n.week.ago) - OrderContent.revenue((n-1).week.ago) %></td>
+			</tr>
+			<% end %>
+		<% end %>
 
 	</table>
 
