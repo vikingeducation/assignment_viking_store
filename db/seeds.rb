@@ -143,7 +143,19 @@ def make_users
 
 end
 
+def delete_all
+  User.delete_all
+  Address.delete_all
+  Billing.delete_all
+  OrderContent.delete_all
+  Order.delete_all
+  Category.delete_all
+  Payment.delete_all
+  Product.delete_all
+end
+###############
 
+delete_all
 gen_addresses
 gen_address_apt
 gen_users

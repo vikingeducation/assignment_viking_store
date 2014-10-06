@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
       User.where("created_at > ?", interval).count
     else
       User.count
+    end
   end
 
 end
