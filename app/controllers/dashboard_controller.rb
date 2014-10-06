@@ -1,22 +1,22 @@
-class DashboardController < ApplicationController
+ class DashboardController < ApplicationController
   def index
     # for the last 7 days: 4 instance vars -
-    @week_orders = Order.orders_during(1.week.ago)
-    @week_new_users = User.users_during(1.week.ago)
-    @week_new_products = Product.products_during(1.week.ago)
-    @week_revenue = OrderContent.revenue_during(1.week.ago)
+    @week_orders = Order.orders_since(1.week.ago)
+    @week_new_users = User.users_since1.week.ago)
+    @week_new_products = Product.products_since(1.week.ago)
+    @week_revenue = OrderContent.revenue_since(1.week.ago)
 
     # month
-    @month_orders = Order.orders_during(1.month.ago)
-    @month_new_users = User.users_during(1.month.ago)
-    @month_new_products = Product.products_during(1.month.ago)
-    @month_revenue = OrderContent.revenue_during(1.month.ago)
+    @month_orders = Order.orders_since(1.month.ago)
+    @month_new_users = User.users_since(1.month.ago)
+    @month_new_products = Product.products_since(1.month.ago)
+    @month_revenue = OrderContent.revenue_since(1.month.ago)
 
     # total orders
-    @total_orders = Order.orders_during() # TODO fix this for all time
-    @total_new_users = User.users_during()
-    @total_new_products = Product.products_during()
-    @total_revenue =  OrderContent.revenue_during()
+    @total_orders = Order.orders_since() # TODO fix this for all time
+    @total_new_users = User.users_since()
+    @total_new_products = Product.products_since()
+    @total_revenue =  OrderContent.revenue_since()
 
     # Top geo stats
     @first_state = Billing.top_3_states(1)[0]
@@ -48,10 +48,21 @@ class DashboardController < ApplicationController
     @month_aov = @month_orders/@month_revenue
     @total_aov = @total_orders/@total_revenue
 
-    @week_lov = lov_during(1.week.ago)
-    @month_lov = lov_during(1.month.ago)
-    @total_lov =lov_during(10.years.ago)
+    @week_lov = lov_since(1.week.ago)
+    @month_lov = lov_since(1.month.ago)
+    @total_lov =lov_since()
 
+    #time series
+    @last_seven_days_orders = []
+    @last_seven_weeks_orders = []
+    @last_seven_days_rev = []
+    @last_seven weeks_rev = []
+    (0..6).each do |i|
+        @last_seven_days_orders << Order.orders_on(Date.today - i.days)
+        @last_seven_weeks_orders << Order.orders_in(Time.now.beginning_of_week - i.weeks)
+        @last_seven_days_rev << OrderContent.orders_on(Date.today - i.days)
+        @last_seven_weeks_rev << OrderContent.orders_in(Time.now.beginning_of_week - i.weeks)
+    end
   end
 
 end
