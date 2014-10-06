@@ -8,12 +8,12 @@ class OrderContent < ActiveRecord::Base
 
   end
 
-def return_highest_lv
-  @first_name = User.find(OrderContent.joins("JOIN orders ON orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id, SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].user_id).first_name
+  def return_highest_lv
+    @first_name = User.find(OrderContent.joins("JOIN orders ON orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id, SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].user_id).first_name
 
-  @last_name = User.find(OrderContent.joins("JOIN orders on orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id ,SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].user_id).last_name
+    @last_name = User.find(OrderContent.joins("JOIN orders on orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id ,SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].user_id).last_name
 
-  @value = OrderContent.joins("JOIN orders on orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id,SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].revenue [@first_name.to_s + @last_name.to_s, @value]
+    @value = OrderContent.joins("JOIN orders on orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id,SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].revenue [@first_name.to_s + @last_name.to_s, @value]
   end
 
   def revenue_since(interval=nil)
@@ -24,6 +24,7 @@ def return_highest_lv
     end
   end
 
+  # TODO - use SQL to render averages
   # def avg_val(interval)
   #   @value = OrderContent.joins("JOIN orders ON orders.order_id = order_contents.order_id").where('orders.when_placed > ?', interval).select("quantity*current_price AS revenue").reduce(:+) / OrderContent.where("when_placed > ?", interval).count
   # end

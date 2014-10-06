@@ -143,6 +143,7 @@ def make_users
 
 end
 
+# clean all the previous data out of the DB
 def delete_all
   User.delete_all
   Address.delete_all

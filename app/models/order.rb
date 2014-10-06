@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.orders_in(start_date)
-    Order.where("when_placed > ? AND when_placed < ?", start_date, start_date+7)).count
+    Order.where("when_placed > ? AND when_placed < ?", start_date, start_date+7).count
   end
 
 end
