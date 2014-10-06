@@ -1,0 +1,74 @@
+<div class="panel"> 
+  <div class="header">Last 7 Days</div>
+  <table class="table">
+    <thead>
+      <td>Item</td>
+      <td>Data</td>
+    </thead>
+    <tr>
+      <td>Number of Orders</td>
+      <td><%= @week_orders %></td>
+    </tr>
+    <tr>
+      <td>Total Revenue</td>
+      <td><%= @week_revenue %></td>
+    </tr>
+    <tr>
+      <td>Average Order Value</td>
+      <td><%= @week_aov %></td>
+    </tr>
+    <tr>
+      <td>Largest Order Value</td>
+      <td><%= @week_lov %></td>
+    </tr>
+  </table>
+</div>
+<div class="panel"> 
+  <div class="header">Last 30 Days</div>
+  <table class="table">
+    <thead>
+      <td>Item</td>
+      <td>Data</td>
+    </thead>
+    <tr>
+      <td>Number of Orders</td>
+      <td><%= @month_orders %></td>
+    </tr>
+    <tr>
+      <td>Total Revenue</td>
+      <td><%= @month_revenue %></td>
+    </tr>
+    <tr>
+      <td>Average Order Value</td>
+      <td><%= @month_aov %></td>
+    </tr>
+    <tr>
+      <td>Largest Order Value</td>
+      <td><%= @month_lov %></td>
+    </tr>
+  </table>
+</div>
+<div class="panel"> 
+  <div class="header">Total</div>
+  <table class="table">
+    <thead>
+      <td>Item</td>
+      <td>Data</td>
+    </thead>
+    <tr>
+      <td>Number of Orders</td>
+      <td><%= @total_orders %></td>
+    </tr>
+    <tr>
+      <td>Total Revenue</td>
+      <td><%= @total_revenue %></td>
+    </tr>
+    <tr>
+      <td>Average Order Value</td>
+      <td><%= @total_aov %></td>
+    </tr>
+    <tr>
+      <td>Largest Order Value</td>
+      <td><%= @total_lov %></td>
+    </tr>
+  </table>

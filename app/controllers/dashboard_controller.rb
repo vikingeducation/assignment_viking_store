@@ -36,21 +36,22 @@
       @third_city_count = Billing.citycount(3)[1]
 
       # Top user with
-      @highest_so_name = return_highest_so[0]
-      @highest_so_value = return_highest_so[1]
-      @highest_lv_name = return_highest_lv[0]
-      @highest_lv_value = return_highest_lv[1]
+      @highest_so_name = OrderContent.return_highest_so[0]
+      @highest_so_value = OrderContent.return_highest_so[1]
+      @highest_lv_name = OrderContent.return_highest_lv[0]
+      @highest_lv_value = OrderContent.return_highest_lv[1]
       @highest_aov =
-      @most_orders_placed = return_highest_order_count
+      @most_orders_placed_name = OrderContent.return_highest_order_count[0]
+      @most_orders_placed_value = OrderContent.return_highest_order_count[1]
 
       # Order stats
       @week_aov = @week_orders/@week_revenue # TODO - fix with AR calls
       @month_aov = @month_orders/@month_revenue
       @total_aov = @total_orders/@total_revenue
 
-      @week_lov = lov_since(1.week.ago)
-      @month_lov = lov_since(1.month.ago)
-      @total_lov =lov_since()
+      @week_lov = OrderContent.lov_since(1.week.ago)
+      @month_lov = OrderContent.lov_since(1.month.ago)
+      @total_lov = OrderContent.lov_since()
 
       #time series
       @last_seven_days_orders = []

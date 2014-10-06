@@ -4,7 +4,7 @@ class OrderContent < ActiveRecord::Base
   @first_name = User.find(OrderContent.joins("JOIN orders ON orders.order_id  = order_contents.id").where("orders.is_placed = ?",true).select("user_id, order_contents.quantity * order_contents.current_price AS revenue").order("revenue DESC")[0].user_id).first_name
   @last_name = User.find(OrderContent.joins("JOIN orders ON orders.order_id  = order_contents.id").where("orders.is_placed = ?",true).select("user_id, order_contents.quantity * order_contents.current_price AS revenue").order("revenue DESC")[0].user_id).last_name
   @value = OrderContent.joins("JOIN orders ON orders.order_id  = order_contents.id").where("orders.is_placed = ?",true).select("user_id, order_contents.quantity * order_contents.current_price AS revenue").order("revenue DESC")[0].revenue
-  [@first_name.to_s + @last_name.to_s, @value]
+  return [@first_name.to_s + @last_name.to_s, @value]
 
   end
 
@@ -13,7 +13,8 @@ class OrderContent < ActiveRecord::Base
 
     @last_name = User.find(OrderContent.joins("JOIN orders on orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id ,SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].user_id).last_name
 
-    @value = OrderContent.joins("JOIN orders on orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id,SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].revenue [@first_name.to_s + @last_name.to_s, @value]
+    @value = OrderContent.joins("JOIN orders on orders.order_id = order_contents.order_id").where("orders.is_placed = ?",true).select("user_id,SUM(order_contents.quantity * order_contents.current_price) AS revenue").group(:user_id).order("revenue DESC")[0].revenue 
+    return [@first_name.to_s + @last_name.to_s, @value]
   end
 
   def revenue_since(interval=nil)
