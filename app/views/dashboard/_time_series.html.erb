@@ -1,0 +1,40 @@
+<div class="panel">
+  
+  <div class="header">Orders By Day</div>
+  
+  <table class="table">
+    <thead>
+      <td>Date</td>
+      <td>Quantity</td>
+      <td>Value
+    </thead>
+    <% (0..6).each do |x| %>
+      <tr>
+        <td><%= Date.today - x %></td>
+        <td><%= @last_seven_days_orders[x] %></td>
+        <td><%= @last_seven_days_rev[x] %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="panel">
+  
+  <div class="header">Orders By Week</div>
+  
+  <table class="table">
+    <thead>
+      <td>Date</td>
+      <td>Quantity</td>
+      <td>Value
+    </thead>
+    <% (0..6).each do |i| %>
+      <tr>
+        <td><%= Time.now.beginning_of_week - i.weeks %></td>
+        <td><%= @last_seven_weeks_orders %></td>
+        <td><%= @last_seven_weeks_rev %></td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>
