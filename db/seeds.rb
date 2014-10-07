@@ -5,8 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-<<<<<<< HEAD
-
 
 module Faker
   class MakeDate < Base
@@ -72,7 +70,7 @@ def make_billings
   end
 end
 
-def gen_products
+def make_products
   (1..@products.length).each do |n| #everyone gets a first address
     product = Faker::Commerce.product_name
     product_description = Faker::Hacker.say_something_smart
@@ -100,8 +98,7 @@ def make_order
     billing_address = @addresses.sample
     shipping_address = @addresses.sample
     when_placed = Faker::MakeDate.months_ago( rand(0..6) )
-    Order.create!(order_id: order_id, user_id: user_id, billing_address: billing_address
-      shipping_address: shipping_address, when_placed: when_place)
+    Order.create!(order_id: order_id, user_id: user_id, billing_address: billing_address, shipping_address: shipping_address, when_placed: when_placed)
   end
 end
 
@@ -122,7 +119,8 @@ def make_order_contents
     sku = @products.sample
     order_id = @orders.sample
     quantity = (1..10).to_a.sample
-    OrderContent.create!(sku: sku, order_id: order_id, quantity: quantity)
+    current_price = Faker::Commerce.price
+    OrderContent.create!(sku: sku, order_id: order_id, quantity: quantity, current_price: current_price)
   end
 end
 
@@ -137,7 +135,7 @@ def make_users
       default_shipping = rand(1..120)
       default_billing = rand(1..120)
       User.create!(:first_name => first_name, :last_name => last_name,
-      :email => email, :phone => phone, :created_at => create,
+      :user_email => email, :phone => phone, :created_at => create,
       :default_billing => default_billing,
       :default_shipping => default_shipping)
     end
@@ -145,7 +143,34 @@ def make_users
 
 end
 
+# clean all the previous data out of the DB
+def delete_all
+  User.delete_all
+  Address.delete_all
+  Billing.delete_all
+  OrderContent.delete_all
+  Order.delete_all
+  Category.delete_all
+  Payment.delete_all
+  Product.delete_all
+end
+###############
 
-
-=======
->>>>>>> 4ac5860660b93e501b8cc7739ba3e5052ec35712
+##
+# delete table contents and re-populate
+delete_all
+gen_addresses
+gen_address_apt
+gen_users
+gen_categories
+gen_products
+gen_orders
+gen_orders_contents
+make_address
+make_billings
+make_products
+make_category
+make_order
+make_payment
+make_order_contents
+make_users
