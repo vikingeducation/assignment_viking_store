@@ -1,0 +1,11 @@
+<h3>Product ID: <%=@product.id.nil? ? "N/A" : @product.id %><h3>
+<div class="row">
+	<div class="col-xs-6">
+		<%=form_for @product do |f| %>
+		Product Name: <%= f.text_field :name, {class: "form-group"} %><!--  The name must be 4-16 characters long and present -->
+		Product Price: <%= f.number_field :name, {class: "form-group"} %><!--  The price must be money (2 decimal float) and present -->
+		Product Category <%=f.select :category_id, Category.all.collect{ |c| c.id}, {class: "form-group"} %>
+		<%= f.submit "Submit", class: "submit-btn btn btn-primary btn-lg" %>
+		<% end %>
+	</div>
+</div>
