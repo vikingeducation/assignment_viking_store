@@ -59,7 +59,7 @@ seed.times do
   p.description = Faker::Lorem.paragraph
   p.sku = Faker::Code.isbn
   p.price = Faker::Commerce.price
-  p.category_id = rand(101)
+  p.category_id = rand(100 + 1)
   p.save
 
   o = Order.new
