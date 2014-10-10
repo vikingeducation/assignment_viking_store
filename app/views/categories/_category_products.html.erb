@@ -1,0 +1,16 @@
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+  <tr>
+    <th>ID #</th>
+    <th>Product Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @category_products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
