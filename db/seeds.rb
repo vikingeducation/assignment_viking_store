@@ -20,7 +20,7 @@ Card.delete_all
 OrderContent.delete_all
 
 
-SEED_MULTIPLIER = 10
+SEED_MULTIPLIER = 1
 LOWEST_MAX = 100
 seed = SEED_MULTIPLIER * LOWEST_MAX
 
@@ -59,7 +59,7 @@ seed.times do
   p.description = Faker::Lorem.paragraph
   p.sku = Faker::Code.isbn
   p.price = Faker::Commerce.price
-  p.category_id = k.id
+  p.category_id = rand(101)
   p.save
 
   o = Order.new
