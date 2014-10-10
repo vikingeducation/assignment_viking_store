@@ -1,0 +1,5 @@
+<h1>Edit Category</h1>
+<%=render 'category_form'%>
+<%=link_to(category_path, method: :delete, data: { confirm: "Are you sure?" }) do %>
+  <div class="btn btn-default btn-lg btn-danger">Delete Category!</div>
+<%end%>

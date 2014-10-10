@@ -1,0 +1,5 @@
+<h3>Category ID: <%=@category.id.nil? ? "N/A" : @category.id %><h3>
+<%=form_for @category do |f| %>
+Category Name: <%= f.text_field :name %><!--  The name must be 4-16 characters long and present -->
+<%= f.submit "Submit", class: "submit-btn btn btn-primary btn-lg" %>
+<% end %>
