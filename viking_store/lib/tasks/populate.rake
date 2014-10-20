@@ -259,6 +259,4 @@ def make_order
       shipping_address_id: shipping, checked_out: false, checkout_time: placed_at)
   end
 
-
-
 end
