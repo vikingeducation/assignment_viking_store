@@ -227,15 +227,19 @@ def make_order_details
   (1..100).each do |i| #100-scaled initial orders
     product_id = @products.sample
     quantity = (1..10).to_a.sample
+    current_price = Product.find(product_id).price
+    order_total = (quantity) * (current_price) 
     OrderDetail.create!(product_id: product_id,
-      order_id: i, quantity: quantity)
+      order_id: i, quantity: quantity, price: order_total)
   end
 
   (1..@orders.length).each do |n|
     product_id = @products.sample
     quantity = (1..10).to_a.sample
+    current_price = Product.find(product_id).price
+    order_total = (quantity) * (current_price)
     OrderDetail.create!(product_id: product_id,
-      order_id: (100+n), quantity: quantity)
+      order_id: (100+n), quantity: quantity, price: order_total)
   end
 end
 
@@ -246,8 +250,9 @@ def make_order
     billing = Address.where(user_id: user_id).sample.id
     shipping = Address.where(user_id: user_id).sample.id
     placed_at = Faker::MakeDate.months_ago(4)
+    checkout_time = placed_at + rand(14).days
     Order.create!(user_id: user_id, billing_address_id: billing,
-      shipping_address_id: shipping, checked_out: true, checkout_time: placed_at)
+      shipping_address_id: shipping, created_at: placed_at, checked_out: true, checkout_time: checkout_time)
   end
 
   (@orders.length).times do |i| #100-scaled non-placed orders (carts)
@@ -256,7 +261,7 @@ def make_order
     shipping = Address.where(user_id: user_id).sample.id
     placed_at = Faker::MakeDate.months_ago(4)
     Order.create!(user_id: user_id, billing_address_id: billing,
-      shipping_address_id: shipping, checked_out: false, checkout_time: placed_at)
+      shipping_address_id: shipping, checked_out: false, created_at: placed_at)
   end
 
 end
