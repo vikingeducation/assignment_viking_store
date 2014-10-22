@@ -47,17 +47,16 @@ class AnalyticsDashboardController < ApplicationController
      @city_2_count                  = Address.top_city_count(1)
      @city_3_count                  = Address.top_city_count(2)
 
- #    @highest_order_user_first      = OrderDetail.highest_first_name
- #    @highest_order_user_second     = OrderDetail.highest_lat_name
- #    @highest_order_value           = OrderDetail.highest_order_value
+     @highest_order_first_name      = OrderDetail.highest_order_first_name
+     @highest_order_last_name       = OrderDetail.highest_order_last_name
 
- #    @highest_lifetime_user_first   = OrderDetail.highest_lifetime_first_name
- #    @highest_lifetime_user_last    = OrderDetail.highest_lifetime_last_name
- #    @highest_lifetime_value        = OrderDetail.highest_lifetime_order_value
+     @highest_lifetime_user_first   = OrderDetail.highest_lifetime_user_first
+     @highest_lifetime_user_last    = OrderDetail.highest_lifetime_user_last
+     @highest_lifetime_order_value  = OrderDetail.highest_lifetime_order_value
 
- #    @highest_avg_order_first       = OrderDetail.highest_avg_order_first_name
- #    @highest_avg_order_last        = OrderDetail.highest_avg_order_last_name
- #    @highest_avg_order_value       = OrderDetail.highest_avg_order_value
+	   @highest_avg_order_first       = OrderDetail.highest_avg_order_first
+	   @highest_avg_order_last        = OrderDetail.highest_avg_order_last
+	   @highest_avg_order_value       = OrderDetail.highest_avg_order_value
 
  #    @most_orders_placed_first      = OrderDetail.most_orders_placed
  #    @most_orders_placed_last       = OrderDetail.most_orders_placed
