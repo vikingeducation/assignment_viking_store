@@ -15,7 +15,7 @@ end
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-    SCALE = 3
+    SCALE = 10
     
     generate_addresses
     generate_users
