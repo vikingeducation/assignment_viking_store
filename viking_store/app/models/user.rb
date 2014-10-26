@@ -6,5 +6,8 @@ class User < ActiveRecord::Base
 	def self.all_users
 		User.count
 	end
+
+	has_many :addresses
+	has_many :orders
 	
 end

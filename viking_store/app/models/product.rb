@@ -7,4 +7,5 @@ class Product < ActiveRecord::Base
 		Product.count
 	end
 	
+	belongs_to :category
 end

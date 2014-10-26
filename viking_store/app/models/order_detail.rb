@@ -79,5 +79,6 @@ class OrderDetail < ActiveRecord::Base
   	group(:user_id).order(price: :desc)[0].price
   end
   
+  belongs_to :order
   
 end

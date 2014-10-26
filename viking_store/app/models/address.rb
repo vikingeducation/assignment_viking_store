@@ -15,4 +15,7 @@ class Address < ActiveRecord::Base
 	def self.top_city_count(num)
 		Address.group(:city).select("city, count(city) AS city_count").order("city_count DESC").limit(3)[num].city_count
 	end
+
+	belongs_to :user
+	
 end

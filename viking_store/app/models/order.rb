@@ -7,4 +7,7 @@ class Order < ActiveRecord::Base
   	Order.count
   end
 
+  belongs_to :user
+  has_many   :order_details
+
 end
