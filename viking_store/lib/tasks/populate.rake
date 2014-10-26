@@ -224,7 +224,7 @@ end
 
 
 def make_order_details
-  (1..100).each do |i| #100-scaled initial orders
+  (1..(@orders.length/2)).each do |i| 
     product_id = @products.sample
     quantity = (1..10).to_a.sample
     current_price = Product.find(product_id).price
@@ -239,14 +239,14 @@ def make_order_details
     current_price = Product.find(product_id).price
     order_total = (quantity) * (current_price)
     OrderDetail.create!(product_id: product_id,
-      order_id: (100+n), quantity: quantity, price: order_total)
+      order_id: ((1..@orders.length).to_a.sample), quantity: quantity, price: order_total)
   end
 end
 
 
 def make_order
-  100.times do |i| #100 placed orders
-    user_id = @users.sample
+  (@orders.length/2).times do |i| 
+    user_id = rand(1..50*SCALE)
     billing = Address.where(user_id: user_id).sample.id
     shipping = Address.where(user_id: user_id).sample.id
     placed_at = Faker::MakeDate.months_ago(4)
@@ -256,7 +256,7 @@ def make_order
   end
 
   (@orders.length).times do |i| #100-scaled non-placed orders (carts)
-    user_id = @users.sample
+    user_id = rand(1..50*SCALE)
     billing = Address.where(user_id: user_id).sample.id
     shipping = Address.where(user_id: user_id).sample.id
     placed_at = Faker::MakeDate.months_ago(4)

@@ -80,5 +80,6 @@ class OrderDetail < ActiveRecord::Base
   end
   
   belongs_to :order
+  belongs_to :product
   
 end
