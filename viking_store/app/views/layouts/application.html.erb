@@ -11,7 +11,15 @@
 </head>
 <body>
 
+<div class="container">
+  <h1>Viking Store Admin Portal</h1>
+  <%= flash.now[:notice] %>
+  
+  <%= render '/shared/navigation' %>
 <%= yield %>
+
+
+</div> <!-- /container -->
 
 </body>
 </html>
