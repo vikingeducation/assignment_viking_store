@@ -1,0 +1,56 @@
+ <div class="col-md-9 box">
+    <h3>Category <%="#{@category.id}: #{@category.title}" %></h3>
+
+    
+    <div class="row">
+      <div class="col-md-2">
+        <strong>Category ID:</strong>
+      </div>
+      
+      <div class="col-md-10">
+        <%= @category.id %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <strong>Name:</strong>
+      </div>
+
+      <div class="col-md-10">
+        <%= @category.title %>
+      </div>
+    </div>
+
+    <%= link_to "Edit Category", edit_category_path(@category) %><br>
+    <%= link_to "Delete Category", "#" %><br>
+
+    <h4>Products in <%= @category.title %>:</h4>
+    
+    <% if @products %>
+      <div class="panel panel-default">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @products.each do |prod| %>
+            <tr>
+              <td><%= prod.id %></td>
+              <td><%= link_to "#{prod.title}", "#" %></td>
+            </tr>
+          <% end %>
+           
+          </tbody>
+        </table>
+    	</div>
+    <% else %>
+      <p>No Products Available</p>
+    <% end %>
+
+
+  </div>

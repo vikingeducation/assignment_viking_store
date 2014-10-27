@@ -1,0 +1,35 @@
+<section>
+  <div class="col-md-9 box">
+    <h3>Category <%="#{@category.id}: #{@category.title}" %></h3>
+
+    <%= form_for @category do |f| %>
+      <div class="row">
+        <div class="col-md-2">
+          <strong>Category ID:</strong>
+        </div>
+     
+        <div class="col-md-10">
+          <%= @category.id %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <strong>Name:</strong>
+        </div>
+      
+        <div class="col-md-10">
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.submit "Update Category", class: "btn btn-primary btn-lg" %>
+        </div>
+      </div>
+    <% end %>
+    
+    <%= link_to "Delete Category", "#" %>
+  </div>
+</section>
