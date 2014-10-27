@@ -38,6 +38,9 @@ group :development do
 	gem 'binding_of_caller', '~> 0.7.2'
 end
 
+# Bootstrap gem
+gem "twitter-bootstrap-rails"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
