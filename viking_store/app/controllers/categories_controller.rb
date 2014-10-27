@@ -39,7 +39,17 @@ class CategoriesController < ApplicationController
   		render :edit
   	end
   end
-
+  
+  def destroy
+  	session[:return_to] ||= request.referer
+  	if Category.find(params[:id]).destroy
+  		flash[:success] = "Category has been deleted."
+  		redirect_to categories_path
+  	else
+  		flash[:error] = "Uh oh, couldn't delete for some reason"
+  		redirect_to session.delete[:return_to]
+  	end
+  end
 
 
   private
