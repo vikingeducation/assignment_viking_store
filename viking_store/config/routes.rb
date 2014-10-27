@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/dashboard' => 'analytics_dashboard#dashboard'
 
   resources :categories
+  resources :products
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
