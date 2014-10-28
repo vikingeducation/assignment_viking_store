@@ -13,9 +13,7 @@ class Product < ActiveRecord::Base
 	has_many   :orders, through: :order_details
 
 	validates :title, :presence => true, 
-                    :length => { :minimum => 4,
-                                 :maximum => 16,
-                               }
+                    :length => { in: 1..16 }
 
   validates :price, :presence => true,
                     :numericality => { :less_than_or_equal_to => 10000 }

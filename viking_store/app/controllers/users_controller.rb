@@ -25,12 +25,6 @@ class UsersController < ApplicationController
 		@shipping   = Address.find(@user.default_shipping_id)
 	end
 
-	
-
-	def show
-		@user = User.find(params[:id])
-	end
-
 	def edit
 		@user = User.find(params[:id])
 	end
