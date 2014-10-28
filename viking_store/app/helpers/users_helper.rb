@@ -30,6 +30,21 @@ module UsersHelper
 		end
 	end
 
+  def checked_out(order)
+  	order.checked_out ? "PLACED" : content_tag(:span, "UNPLACED", class: "unplaced")
+  end
+  
+  def cart(user)
+    if has_cart?(user)
+    	user.orders.find_by(:checked_out => false)
+    else
+    	nil
+    end
+  end
+
+  def has_cart?(user)
+  	user.orders.where(:checked_out => false).count >= 1
+  end
 
 
 end

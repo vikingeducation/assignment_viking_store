@@ -7,61 +7,61 @@
     <h4>Demographic Information</h4>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>First Name</strong>
       </div>
       
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= @user.first_name %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Last Name</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= @user.last_name %>
       </div>
     </div>
 
      <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Email</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= @user.email %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Telephone</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= @user.phone_number %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Default Billing Address</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= format_address(billing_address(@user)) %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Default Shipping Address</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= format_address(shipping_address(@user)) %>
       </div>
     </div>
@@ -69,53 +69,57 @@
     <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_user_path(@user) %><br>
     <%= link_to  "Delete #{@user.first_name} #{@user.last_name}", user_path(@user), data: { confirm: "Are you sure?" }, method: :delete %><br>
     <%= link_to "View Saved Addresses", "#" %><br>
-    <%= link_to "View Unplaced Order (Cart)", "#" %>
+    <% if has_cart?(@user) %>
+      <%= link_to "View Unplaced Order (Cart)", "#" %>
+    <% else %>
+      <%= content_tag(:span, "View Unplaced Order (cart)", class: "no-cart") %>
+    <% end %>
   </div>
 
   <div class="col-md-12 sub-box">
     <h3>Credit Card Information</h3>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>First Name</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= @user.first_name %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Last Name</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= @user.last_name %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Number</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= @user.phone_number %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Expiration</strong>
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-8">
         <%= "#{@user.credit_cards.first.expiration_month} - #{@user.credit_cards.first.experiation_year}" %>
       </div>
     </div>
 
-    <%= link_to "Remove Card", "#" %>
+    <%= link_to  "Remove Card", "#", data: { confirm: "Are you sure?" }, method: :delete %>
   </div>
 
   <div class="col-md-12 sub-box">
@@ -148,9 +152,9 @@
         <% @user.orders.each do |order| %>
           <tr>
             <td><%= order.id %></td>
-            <td><%= order.created_at %></td>
-            <td><%= "replace" %></td>
-            <td><%= "replace" %></td>
+            <td><%= order.created_at.strftime("%m-%d-%Y") %></td>
+            <td><%= order.products.sum("price") %></td>
+            <td><%= checked_out(order) %></td>
             <td><%= link_to "show", "#" %></td>
             <td><%= link_to "edit", "#" %></td>
             <td><%= link_to  "delete", "#", data: { confirm: "Are you sure?" }, method: :delete %></td>
