@@ -18,8 +18,8 @@ class Product < ActiveRecord::Base
                                }
 
   validates :price, :presence => true,
-                    :numericality => { :less_than_or_equal_to => 9999 }
+                    :numericality => { :less_than_or_equal_to => 10000 }
 
   validates :category, :presence => true
-  
+
 end

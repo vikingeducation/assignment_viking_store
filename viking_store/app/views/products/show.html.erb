@@ -66,8 +66,8 @@
     </div>
 
  
-    <%= link_to "Edit Product", "#" %>
-    <%= link_to "Delete Product", "#" %>
+    <%= link_to "Edit Product", edit_product_path(@product) %><br>
+    <%= link_to  "Delete Product", product_path(@product), data: { confirm: "Are you sure?" }, method: :delete %>
    
    
   </div>
