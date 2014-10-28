@@ -3,10 +3,13 @@ Rails.application.routes.draw do
   root 'admin#index'
   
   get '/dashboard' => 'analytics_dashboard#dashboard'
-
+  get '/addresses' => 'addresses#index'
+  
   resources :categories
   resources :products
-  resources :users
+  resources :users do 
+    resources :addresses
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

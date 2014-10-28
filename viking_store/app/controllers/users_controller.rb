@@ -41,5 +41,22 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def destroy
+		session[:return_to] ||= request.referer
+		if User.find(params[:id]).destroy
+			flash[:success] = "User was deleted"
+			redirect_to users_path
+		else
+			flash[:error] = "The person was too cool to get rid of, try again"
+			redirect_to session.delete[:return_to]
+		end
+	end
+
+	private
+
+	def user_params
+		params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :default_shipping_id, :default_billing_id)
+	end
+
 
 end
