@@ -8,5 +8,7 @@ class Product < ActiveRecord::Base
 	end
 	
 	belongs_to :category
-	has_many   :orders, :through => :order_details
+
+	has_many   :order_details
+	has_many   :orders, through: :order_details
 end
