@@ -42,6 +42,17 @@ class ProductsController < ApplicationController
   	end
   end
  
+  def destroy
+    session[:return_to] ||= request.referer
+    if Product.find(params[:id]).destroy
+    	flash[:success] = "Product was deleted"
+    	redirect_to products_path
+    else
+    	flash[:error] = "Uh oh, couldn't delete. Weird."
+    	redirect_to session.delete[:return_to]
+    end
+  end
+  
   private
 
   def product_params
