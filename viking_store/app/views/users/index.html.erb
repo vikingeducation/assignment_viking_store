@@ -32,9 +32,9 @@
 	          <td><%= user.created_at.strftime("%m-%d-%Y") %></td>
 	          <td><%= shipping_address(user).city %></td>
 	          <td><%= shipping_address(user).state %></td>
-	          <td><%= user.orders.count %></td>
+	          <td><%= link_to "#{user.orders.count}", "#" %></td>
 	          <td><%= last_order(user) %></td>
-	          <td><%= link_to "show", "#" %></td>
+	          <td><%= link_to "show", user_path(user) %></td>
 	          <td><%= link_to "edit", "#" %></td>
 	          <td><%= link_to "delete", "#" %></td>
 	        </tr>
