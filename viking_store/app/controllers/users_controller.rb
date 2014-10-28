@@ -9,5 +9,9 @@ class UsersController < ApplicationController
 		@shipping   = Address.find(@user.default_shipping_id)
 	end
 
+	def new
+		@user = User.new
+	end
+
 
 end
