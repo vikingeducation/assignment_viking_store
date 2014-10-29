@@ -1,0 +1,66 @@
+<section>
+  <div class="col-md-9 box">
+    <h3>Edit <%="#{@user.first_name} #{@user.last_name}'s Address" </h3>
+
+    <%= form_for [@user, @address] do |f| %>
+       <div class="row">
+        <div class="col-md-3">
+          <strong>Owner ID</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= @user.id %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Owner Name</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= link_to "#{@user.first_name} #{@user.last_name} (click to view user)", user_path(@user) %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Street</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.text_field :street_name, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>City</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.text_field :city, class: "form-control", placeholder: "Phone Number" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>State</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.collection_select( :state_id, State.all, :id, :state, prompt: 'Please Select' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.submit "Update Address", class: "btn btn-primary btn-lg" %>
+        </div>
+      </div>
+
+      <%= link_to "Delete Address", "#" %>
+    <% end %>
+  
+  </div>
+</section>

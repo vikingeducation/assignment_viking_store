@@ -42,6 +42,52 @@
     </table>
 	</div>
 
+<% if @user %>
+	<div class="sub-box">
+	  <h3><%= "#{@user.first_name} #{@user.last_name}'s Addresses" %></h3>
+     <%= link_to "Create a #{@user.first_name} #{@user.last_name} Address", new_user_address(@user), class: "btn btn-primary btn-default" %>
+
+    <div class="panel panel-default">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Orders</th>
+          <th>Created</th>
+          <th>SHOW</th>
+          <th>EDIT</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      <% @user.addresses.each do |add| %>
+        <tr>
+          <td><%= add.id %></td>
+          <td><%= link_to "#{add.user.first_name} #{add.user.last_name}", user_path(add.user) %></td>
+          <td><%= add.street_address %></td>
+          <td><%= add.city %></td>
+          <td><%= add.state %></td>
+          <td><%= "replace" %></td>
+          <td><%= add.created_at.strftime("%m-%d-%Y") %></td>
+          <td><%= link_to "show", "#" %></td>
+          <td><%= link_to "edit", edit_user_address_path(add.user, add) %></td>
+          <td><%= link_to "delete", "#" %></td>
+        </tr>
+      <% end %>
+       
+      </tbody>
+    </table>
+
+	  </div>
+	</div>
+	<% end %>
+
 
   </div>
 </section>
