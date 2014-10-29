@@ -17,5 +17,12 @@ class Address < ActiveRecord::Base
 	end
 
 	belongs_to :user
+
+	validates :street_address, :presence => true
+	validates :city,  :presence => true
+	validates :state, :presence => true,
+	                  format: { with: /[A-Z][A-Z]/ } 
+	validates :zip,   :presence => true,
+	                  format: { with: /^\d{5}(?:[-\s]\d{4})?$/ }
 	
 end
