@@ -33,7 +33,7 @@
           <td><%= "replace" %></td>
           <td><%= add.created_at.strftime("%m-%d-%Y") %></td>
           <td><%= link_to "show", "#" %></td>
-          <td><%= link_to "edit", "#" %></td>
+          <td><%= link_to "edit", edit_user_address_path(add.user, add) %></td>
           <td><%= link_to "delete", "#" %></td>
         </tr>
       <% end %>
@@ -76,7 +76,7 @@
           <td><%= "replace" %></td>
           <td><%= add.created_at.strftime("%m-%d-%Y") %></td>
           <td><%= link_to "show", "#" %></td>
-          <td><%= link_to "edit", edit_user_address_path(add.user, add) %></td>
+          <td><%= link_to "edit", "#" %></td>
           <td><%= link_to "delete", "#" %></td>
         </tr>
       <% end %>
