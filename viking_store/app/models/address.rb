@@ -21,8 +21,9 @@ class Address < ActiveRecord::Base
 	validates :street_address, :presence => true
 	validates :city,  :presence => true
 	validates :state, :presence => true,
-	                  format: { with: /[A-Z][A-Z]/ } 
+	                  format: { with: /[A-Z][A-Z]/ } ,
+	                  :length => { is: 2 }
 	validates :zip,   :presence => true,
-	                  format: { with: /^\d{5}(?:[-\s]\d{4})?$/ }
+	                  format: { with: /\d{5}(?:[-\s]\d{4})?/ }
 	
 end
