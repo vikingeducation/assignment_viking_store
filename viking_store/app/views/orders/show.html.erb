@@ -1,0 +1,147 @@
+<div class="col-md-9 box">
+   
+   <h2>Order <%= "#{@order.id}" %></h2>
+
+  <div class="col-md-12 sub-box">
+   
+    <h3>Logistical Information</h3>
+    
+    <h4>Basic Information</h4>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Customer ID</strong>
+      </div>
+      
+      <div class="col-md-8">
+        <%= @user.id %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Customer</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= link_to "#{@user.first_name} #{@user.last_name} (click to view user", user_path(@user) %>
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col-md-4">
+        <strong>Telephone</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= @user.phone_number %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Date Placed</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= @order.created_at %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong># Products</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= @order.order_details.all.sum("quantity") %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Order Value</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= @order.products.sum("price") %>
+      </div>
+    </div>
+ 
+    <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_user_path(@user) %><br>
+    
+    <h4>Order Status:</h4>
+
+    <%= checked_out(@order) %>
+    
+    <h4>Shipping Address</h4>
+    
+    <div class="row">
+      <div class="col-md-8">
+        <%= format_address(billing_address(@user)) %>
+      </div>
+    </div>
+
+    <h4>Shipping Address</h4>
+    
+    <div class="row">
+      <div class="col-md-8">
+        <%= format_address(shipping_address(@user)) %>
+      </div>
+    </div>
+
+    <h4>Billing Card</h4>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Last 4 Digits</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= @user.credit_cards.first.card_number.to_s[-4..-1] %>
+      </div>
+    </div>
+
+    <%= link_to "Edit Order", "#" %>
+    <%= link_to "Delete Order", "#" %>
+
+
+  </div>
+
+  <div class="col-md-12 sub-box">
+    <h3>Order Contents</h3>
+
+    <div class="panel panel-default">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product ID</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+        </thead>
+        <tbody>
+
+        <% @order.products.each do |product| %>
+          <tr>
+            <td><%= product.id %></td>
+            <td><%= link_to "#{product.title}", product_path(product) %></td>
+            <td><%= "replace" %></td>
+            <td><%= product.price %></td>
+            <td><%= "replace" %></td>
+            <td><%= "replace" %></td>
+          </tr>
+        <% end %>
+         
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
+
+
+</div>

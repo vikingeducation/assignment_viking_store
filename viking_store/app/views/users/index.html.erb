@@ -25,7 +25,7 @@
 	      </thead>
 	      <tbody>
 
-	      <% @users.each do |user| %>
+	      <% @users[0..100].each do |user| %>
 	        <tr>
 	          <td><%= user.id %></td>
 	          <td><%= "#{user.first_name} #{user.last_name}" %></td>

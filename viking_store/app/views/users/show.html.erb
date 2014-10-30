@@ -68,12 +68,14 @@
  
     <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_user_path(@user) %><br>
     <%= link_to  "Delete #{@user.first_name} #{@user.last_name}", user_path(@user), data: { confirm: "Are you sure?" }, method: :delete %><br>
-    <%= link_to "View Saved Addresses", "#" %><br>
+    <%= link_to "View Saved Addresses", user_addresses_path(@user) %><br>
+
     <% if has_cart?(@user) %>
-      <%= link_to "View Unplaced Order (Cart)", "#" %>
+      <%= link_to "View Unplaced Order (Cart)", user_orders_path(@user) %>
     <% else %>
       <%= content_tag(:span, "View Unplaced Order (cart)", class: "no-cart") %>
     <% end %>
+
   </div>
 
   <div class="col-md-12 sub-box">

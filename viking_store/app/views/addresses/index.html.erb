@@ -23,7 +23,7 @@
       </thead>
       <tbody>
 
-      <% @addresses.each do |add| %>
+      <% @addresses[0..100].each do |add| %>
         <tr>
           <td><%= add.id %></td>
           <td><%= link_to "#{add.user.first_name} #{add.user.last_name}", user_path(add.user) %></td>
@@ -45,7 +45,7 @@
 <% if @user %>
 	<div class="sub-box">
 	  <h3><%= "#{@user.first_name} #{@user.last_name}'s Addresses" %></h3>
-     <%= link_to "Create a #{@user.first_name} #{@user.last_name} Address", new_user_address(@user), class: "btn btn-primary btn-default" %>
+     <%= link_to "Create a New Address for #{@user.first_name} #{@user.last_name}", new_user_address_path(@user), class: "btn btn-primary btn-default" %>
 
     <div class="panel panel-default">
 
@@ -53,7 +53,6 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>User</th>
           <th>Address</th>
           <th>City</th>
           <th>State</th>
@@ -69,7 +68,6 @@
       <% @user.addresses.each do |add| %>
         <tr>
           <td><%= add.id %></td>
-          <td><%= link_to "#{add.user.first_name} #{add.user.last_name}", user_path(add.user) %></td>
           <td><%= add.street_address %></td>
           <td><%= add.city %></td>
           <td><%= add.state %></td>
