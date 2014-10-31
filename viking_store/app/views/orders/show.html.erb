@@ -128,10 +128,9 @@
           <tr>
             <td><%= product.id %></td>
             <td><%= link_to "#{product.title}", product_path(product) %></td>
-            <td><%= "replace" %></td>
+            <td><%= @order.order_details.find_by(:product_id => product.id).quantity %></td>
             <td><%= product.price %></td>
-            <td><%= "replace" %></td>
-            <td><%= "replace" %></td>
+            <td><%= @order.products.where(:id => product.id).sum("price") %></td>
           </tr>
         <% end %>
          
