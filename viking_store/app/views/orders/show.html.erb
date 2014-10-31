@@ -128,9 +128,9 @@
           <tr>
             <td><%= product.id %></td>
             <td><%= link_to "#{product.title}", product_path(product) %></td>
-            <td><%= @order.order_details.find_by(:product_id => product.id).quantity %></td>
+            <td><%= @order.order_details.sum("quantity") %></td>
             <td><%= product.price %></td>
-            <td><%= @order.products.where(:id => product.id).sum("price") %></td>
+            <td><%= @order.products.where(:id => product.id).sum("price") * product_quantity(@order) %></td>
           </tr>
         <% end %>
          
