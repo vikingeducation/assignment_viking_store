@@ -4,6 +4,11 @@ class OrdersController < ApplicationController
     @user   = User.find(params[:user_id]) if params[:user_id]
 	end
 
+	def new
+    @order = Order.new
+    @user = User.find(params[:user_id])
+	end
+
 	def show
   @order = Order.find(params[:id])
 	@user   = @order.user
