@@ -1,4 +1,7 @@
 class AnalyticsDashboardController < ApplicationController
+	
+	layout "dashboard"
+
 	def dashboard
 
 		@week    = 7.days.ago
