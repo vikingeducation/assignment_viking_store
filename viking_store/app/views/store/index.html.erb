@@ -1,0 +1,80 @@
+<div class="container">
+
+	<div class="store-header">
+	  <img src="http://s3.amazonaws.com/viking_education/demos/viking_store_app/viking_ship_background_medium.jpg" width = "50%" height = "50%">
+	  <span class="header-title">The Viking Store</span>
+	</div>
+
+	<div class="col-md-12">
+	  The Best Viking Gear on the Whole Web
+	</div>
+
+	<div class="col-md-12">
+	  Choose from among our lineup of fine items below
+	</div>
+
+	<div class = "col-md-3 pull-right category-select">
+	  <%= form_tag admin_products_path, method: :get do %>
+	    <%= collection_select :category, :id, Category.all, :id, :title %>
+	    <%= submit_tag "Apply Filter" %>
+	  <% end %>
+  </div>
+
+  <div class="row">
+	  <div class="col-md-3 product-box">
+	  	<p class="product-title">Silent Night</p>
+	  	<p class="product-price">price</p>
+	  	<%= image_tag "axe_silent_night_small.jpg", class: "product-image" %>
+	  	<button class="product-btn">Add to Cart</button>
+	  </div>
+	  <div class="col-md-3 product-box">
+	  	<p class="product-title">Dainty Daisy</p>
+	  	<p class="product-price">price</p>
+	  	<%= image_tag "axe_dainty_daisy_small.jpg", class: "product-image" %>
+	  	<button class="product-btn">Add to Cart</button>
+	  </div>
+	  <div class="col-md-3 product-box">
+	  	<p class="product-title">Double Trouble</p>
+	  	<p class="product-price">price</p>
+	  	<%= image_tag "axe_double_trouble_small.jpg", class: "product-image" %>
+	  	<button class="product-btn">Add to Cart</button>
+	  </div>
+  </div><!-- /row -->
+  
+  <div class="row">
+	  <div class="col-md-3 product-box">
+	  	<p class="product-title">Whispering Wind</p>
+	  	<p class="product-price">price</p>
+	  	<%= image_tag "axe_whispering_wind_small.jpg", class: "product-image" %>
+	  	<button class="product-btn">Add to Cart</button>
+	  </div>
+	  <div class="col-md-3 product-box">
+	  	<p class="product-title">Cunning Cutter</p>
+	  	<p class="product-price">price</p>
+	  	<%= image_tag "axe_cunning_cutter_small.jpg", class: "product-image" %>
+	  	<button class="product-btn">Add to Cart</button>
+	  </div>
+	  <div class="col-md-3 product-box">
+	  	<p class="product-title">Kingmaker</p>
+	  	<p class="product-price">price</p>
+	  	<%= image_tag "axe_kingmaker_small.jpg", class: "product-image" %>
+	  	<button class="product-btn">Add to Cart</button>
+	  </div>
+  </div><!-- /row -->
+
+  <div class="col-md-12 footer">
+    
+    <%= link_to "Admin Login", "#" %>
+
+    <div class="footer-contact">
+      <h4>CONTACT</h4>
+      <span>IMAGE</span><span>1-000-000-0000</span><br />
+      <span>IMAGE</span><span>contact@vikingstore.com</span>
+    </div>
+
+
+
+  </div>
+
+
+</div>

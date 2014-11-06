@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   # root route will change
-  root 'admin#index'
+  root 'store#index'
   get '/admin' => 'admin#index'
 
   namespace :admin do
