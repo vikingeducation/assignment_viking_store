@@ -1,4 +1,4 @@
-class Admin::AnalyticsDashboardController < ApplicationController
+class Admin::AnalyticsDashboardController < AdminController
 	
 	layout "dashboard"
 
