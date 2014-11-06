@@ -1,4 +1,4 @@
-class AddressesController < ApplicationController
+class Admin::AddressesController < ApplicationController
 	def index
 		@addresses = Address.all
 		@user = User.find(params[:user_id]) if params[:user_id]

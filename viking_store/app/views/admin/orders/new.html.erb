@@ -24,7 +24,7 @@
       </div>
 
       <div class="col-md-8">
-        <%= link_to "#{@user.first_name} #{@user.last_name} (click to view user)", user_path(@user) %>
+        <%= link_to "#{@user.first_name} #{@user.last_name} (click to view user)", admin_user_path(@user) %>
       </div>
     </div>
 
@@ -48,10 +48,10 @@
       </div>
     </div>
  
-    <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_user_path(@user) %><br>
+    <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_admin_user_path(@user) %><br>
     
     
-    <%= form_for @order do |f| %>
+    <%= form_for [:admin, @order] do |f| %>
 
       <%= label :billing_id, "Billing Address" %><br>
       <%= f.collection_select(:default_billing_id, @user.addresses, :id, :street_address, prompt: 'Please Select', selected: @order.billing_address_id) %><br>

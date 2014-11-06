@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class Admin::ProductsController < ApplicationController
 	def index
 		@products = Product.all
 	end
@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
 
     if @product.save
     	flash[:success] = "Prodcut added"
-    	redirect_to products_path
+    	redirect_to action: :index
     else
     	flash.now[:error] = "Hmm...product was probably wack"
     	render :new
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
 
   	if @product.update(product_params)
   		flash[:success] = "Product has been update"
-  		redirect_to product_path(@product)
+  		redirect_to admin_product_path(@product)
   	else
   		flash.now[:error] = "Whoa, sorry but it wasn't updated"
   		render :edit
@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
     session[:return_to] ||= request.referer
     if Product.find(params[:id]).destroy
     	flash[:success] = "Product was deleted"
-    	redirect_to products_path
+    	redirect_to action: :index
     else
     	flash[:error] = "Uh oh, couldn't delete. Weird."
     	redirect_to session.delete[:return_to]

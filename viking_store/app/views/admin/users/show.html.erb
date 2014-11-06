@@ -66,12 +66,12 @@
       </div>
     </div>
  
-    <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_user_path(@user) %><br>
-    <%= link_to  "Delete #{@user.first_name} #{@user.last_name}", user_path(@user), data: { confirm: "Are you sure?" }, method: :delete %><br>
-    <%= link_to "View Saved Addresses", user_addresses_path(@user) %><br>
+    <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_admin_user_path(@user) %><br>
+    <%= link_to  "Delete #{@user.first_name} #{@user.last_name}", admin_user_path(@user), data: { confirm: "Are you sure?" }, method: :delete %><br>
+    <%= link_to "View Saved Addresses", admin_user_addresses_path(@user) %><br>
 
     <% if has_cart?(@user) %>
-      <%= link_to "View Unplaced Order (Cart)", user_orders_path(@user) %>
+      <%= link_to "View Unplaced Order (Cart)", admin_user_orders_path(@user) %>
     <% else %>
       <%= content_tag(:span, "View Unplaced Order (cart)", class: "no-cart") %>
     <% end %>
@@ -127,9 +127,9 @@
   <div class="col-md-12 sub-box">
     <h3>Admin Actions for <%="#{@user.first_name} #{@user.last_name}" %></h3>
 
-    <%= link_to "Create Order", new_user_order_path(@user), class: "btn btn-primary btn-default" %><br>
+    <%= link_to "Create Order", new_admin_user_order_path(@user), class: "btn btn-primary btn-default" %><br>
   
-    <%= link_to "Create Address", new_user_address_path(@user), class: "btn btn-primary btn-default" %>
+    <%= link_to "Create Address", new_admin_user_address_path(@user), class: "btn btn-primary btn-default" %>
   </div>
 
   <div class="col-md-12 sub-box">

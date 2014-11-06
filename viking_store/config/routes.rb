@@ -1,21 +1,27 @@
 Rails.application.routes.draw do
 
+  # root route will change
   root 'admin#index'
-  
-  get '/dashboard' => 'analytics_dashboard#dashboard'
-  get '/addresses' => 'addresses#index'
-  
-  resources :categories
-  resources :products
+  get '/admin' => 'admin#index'
 
-  resources :users do 
-    resources :addresses
-    resources :orders
-  end
+  namespace :admin do
 
-  resources :orders do
+    get '/dashboard' => 'analytics_dashboard#dashboard'
+    get '/addresses' => 'addresses#index'
+
+    resources :categories
+    resources :products
+
+    resources :users do 
+      resources :addresses
+      resources :orders
+    end
+
+    resources :orders do
     resources :order_details
+    end
   end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

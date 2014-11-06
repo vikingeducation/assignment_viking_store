@@ -2,7 +2,7 @@
   <div class="col-md-9 box">
     <h3>Category <%="#{@category.id}: #{@category.title}" %></h3>
 
-    <%= form_for @category do |f| %>
+    <%= form_for [:admin, @category] do |f| %>
       <div class="row">
         <div class="col-md-2">
           <strong>Category ID:</strong>
@@ -30,6 +30,6 @@
       </div>
     <% end %>
     
-    <%= link_to "Delete Category", category_path(@category), data: { confirm: "Are you sure?" }, method: :delete %>
+    <%= link_to "Delete Category", admin_category_path(@category), data: { confirm: "Are you sure?" }, method: :delete %>
   </div>
 </section>

@@ -3,7 +3,7 @@
     <h3>Viking Store Users</h3>
 
     
-    <%= link_to "Create a New User", new_user_path, class: "btn btn-primary btn-default" %>
+    <%= link_to "Create a New User", new_admin_user_path, class: "btn btn-primary btn-default" %>
   
 
     <div class="panel panel-default">
@@ -34,8 +34,8 @@
 	          <td><%= shipping_address(user).state %></td>
 	          <td><%= link_to "#{user.orders.count}", "#" %></td>
 	          <td><%= last_order(user) %></td>
-	          <td><%= link_to "show", user_path(user) %></td>
-	          <td><%= link_to "edit", edit_user_path(user) %></td>
+	          <td><%= link_to "show", admin_user_path(user) %></td>
+	          <td><%= link_to "edit", edit_admin_user_path(user) %></td>
 	          <td><%= link_to "delete", "#" %></td>
 	        </tr>
 	      <% end %>

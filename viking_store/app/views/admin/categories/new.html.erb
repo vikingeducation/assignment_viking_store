@@ -2,7 +2,7 @@
   <div class="col-md-9 box">
     <h3>New Category</h3>
 
-    <%= form_for @category do |f| %>
+    <%= form_for [:admin, @category] do |f| %>
       <div class="row">
         <div class="col-md-2">
           <strong>Category ID:</strong>

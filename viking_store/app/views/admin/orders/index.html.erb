@@ -1,7 +1,7 @@
 <section>
   <div class="col-md-9 box">
     <h3>All Orders</h3>
-    <h4>Create new orders from within <%= link_to "User", users_path %> profiles</h4>
+    <h4>Create new orders from within <%= link_to "User", admin_users_path %> profiles</h4>
   
 
     <div class="panel panel-default">
@@ -28,7 +28,7 @@
 	      <% @orders[0..100].each do |order| %>
 	        <tr>
 	          <td><%= order.id %></td>
-	          <td><%= link_to "#{order.user.id}", user_path(order.user) %></td>
+	          <td><%= link_to "#{order.user.id}", admin_user_path(order.user) %></td>
 	          <td><%= Address.find(order.user.default_shipping_id).street_address %></td>
 	          <td><%= Address.find(order.user.default_shipping_id).city %></td>
 	          <td><%= Address.find(order.user.default_shipping_id).state %></td>
@@ -36,8 +36,8 @@
 	          <td><%= order.products.sum("price") %></td>
 	          <td><%= checked_out(order) %></td>
 	          <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
-	          <td><%= link_to "show", order_path(order) %></td>
-	          <td><%= link_to "edit", edit_order_path(order) %></td>
+	          <td><%= link_to "show", admin_order_path(order) %></td>
+	          <td><%= link_to "edit", edit_admin_order_path(order) %></td>
 	          <td><%= link_to "delete", "#" %></td>
 	        </tr>
 	      <% end %>
@@ -75,7 +75,7 @@
 		      <% @user.orders.each do |order| %>
 		        <tr>
 		          <td><%= order.id %></td>
-		          <td><%= link_to "#{order.user.id}", user_path(order.user) %></td>
+		          <td><%= link_to "#{order.user.id}", admin_user_path(order.user) %></td>
 		          <td><%= Address.find(order.user.default_shipping_id).street_address %></td>
 		          <td><%= Address.find(order.user.default_shipping_id).city %></td>
 		          <td><%= Address.find(order.user.default_shipping_id).state %></td>
