@@ -27,7 +27,7 @@
 	          <td><%= prod.id %></td>
 	          <td><%= prod.title %></td>
 	          <td><%= prod.price %></td>
-	          <td><%= link_to "#{prod.category.title}", category_path(prod.category) %></td>
+	          <td><%= link_to "#{prod.category.title}", admin_category_path(prod.category) %></td>
 	          <td><%= link_to "show", admin_product_path(prod.id) %></td>
 	          <td><%= link_to "edit", edit_admin_product_path(prod.id) %></td>
 	          <td><%= link_to  "delete", admin_product_path(prod), data: { confirm: "Are you sure?" }, method: :delete %></td>

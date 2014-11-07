@@ -5,11 +5,11 @@
 	  <span class="header-title">The Viking Store</span>
 	</div>
 
-	<div class="col-md-12">
+	<div class="col-md-12 banner">
 	  The Best Viking Gear on the Whole Web
 	</div>
 
-	<div class="col-md-12">
+	<div class="col-md-12 sub-banner">
 	  Choose from among our lineup of fine items below
 	</div>
 
@@ -21,6 +21,9 @@
   </div>
 
   <div class="row">
+	  <%= render @products %>
+  </div>
+  <!--  <div class="row">
 	  <div class="col-md-3 product-box">
 	  	<p class="product-title">Silent Night</p>
 	  	<p class="product-price">price</p>
@@ -39,28 +42,8 @@
 	  	<%= image_tag "axe_double_trouble_small.jpg", class: "product-image" %>
 	  	<button class="product-btn">Add to Cart</button>
 	  </div>
-  </div><!-- /row -->
+  </div> /product row -->
   
-  <div class="row">
-	  <div class="col-md-3 product-box">
-	  	<p class="product-title">Whispering Wind</p>
-	  	<p class="product-price">price</p>
-	  	<%= image_tag "axe_whispering_wind_small.jpg", class: "product-image" %>
-	  	<button class="product-btn">Add to Cart</button>
-	  </div>
-	  <div class="col-md-3 product-box">
-	  	<p class="product-title">Cunning Cutter</p>
-	  	<p class="product-price">price</p>
-	  	<%= image_tag "axe_cunning_cutter_small.jpg", class: "product-image" %>
-	  	<button class="product-btn">Add to Cart</button>
-	  </div>
-	  <div class="col-md-3 product-box">
-	  	<p class="product-title">Kingmaker</p>
-	  	<p class="product-price">price</p>
-	  	<%= image_tag "axe_kingmaker_small.jpg", class: "product-image" %>
-	  	<button class="product-btn">Add to Cart</button>
-	  </div>
-  </div><!-- /row -->
 
   <div class="col-md-12 footer">
     

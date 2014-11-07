@@ -1,17 +1,18 @@
-<div class="container">
+<!-- <div class="container"> -->
 
-  <div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar navbar-default">
     <div class="navbar-header pull-left">
-      <a class="navbar-brand" href="#">LOGO</a>
+      <%= link_to "LOGO", root_path, class: "navbar-brand" %>
     </div>
   <div class="navbar-header pull-left">
-      <a class="navbar-brand" href="#">Viking Store</a>
+      
+      <%= link_to "Viking Store", root_path, class: "navbar-brand" %>
     </div>
     <div class="navbar-header pull-right">
       <a href="#">CART</a>
       <button type="button" class="btn btn-default navbar-btn">YOUR CART</button>
-      <button type="button" class="btn btn-default navbar-btn">SIGN IN/OUT</button>
+      <button type="button" class="btn btn-default navbar-btn"><%= link_to "Sign In", :action => 'login' %></button>
 	  </div>
   </div><!-- /nav -->
     
-</div><!-- /container -->
+<!-- </div>/container -->

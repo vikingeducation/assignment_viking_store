@@ -1,8 +1,8 @@
-class StoreController < ApplicationController
-	
-	layout 'store'
+class AccessController < ApplicationController
 
-	def index
+	before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
+
+  def index
     # display text & links
   end
 
@@ -23,7 +23,7 @@ class StoreController < ApplicationController
       session[:user_id] = found_user.id
       session[:last_name] = found_user.last_name
       flash[:notice] = "You are now logged in."
-      redirect_to(:action => 'index')
+      redirect_to(:controller => 'store', :action => 'index')
     else
       flash[:notice] = "Invalid last name/email combination."
       redirect_to(:action => 'login')
