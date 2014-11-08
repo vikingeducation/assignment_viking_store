@@ -20,29 +20,9 @@
 	  <% end %>
   </div>
 
-  <div class="row">
-	  <%= render @products %>
-  </div>
-  <!--  <div class="row">
-	  <div class="col-md-3 product-box">
-	  	<p class="product-title">Silent Night</p>
-	  	<p class="product-price">price</p>
-	  	<%= image_tag "axe_silent_night_small.jpg", class: "product-image" %>
-	  	<button class="product-btn">Add to Cart</button>
-	  </div>
-	  <div class="col-md-3 product-box">
-	  	<p class="product-title">Dainty Daisy</p>
-	  	<p class="product-price">price</p>
-	  	<%= image_tag "axe_dainty_daisy_small.jpg", class: "product-image" %>
-	  	<button class="product-btn">Add to Cart</button>
-	  </div>
-	  <div class="col-md-3 product-box">
-	  	<p class="product-title">Double Trouble</p>
-	  	<p class="product-price">price</p>
-	  	<%= image_tag "axe_double_trouble_small.jpg", class: "product-image" %>
-	  	<button class="product-btn">Add to Cart</button>
-	  </div>
-  </div> /product row -->
+  <% @products.each do |product| %>
+    <%= render :partial => 'product', :locals => { :product => product } %>
+  <% end %>
   
 
   <div class="col-md-12 footer">
