@@ -1,25 +1,27 @@
-<div class="login">
-  <%= form_tag do %>
+<h1>Register Below</h1>
+
+<div class="signup">
+  <%= form_for [:admin, @user], :controller => 'store', :action => 'create' do |f| %>
   <table>
     <tr>
-      <td><%= label_tag(:first_name) %></td>
-      <td><%= text_field_tag(:first_name) %></td>
+      <td><%= f.label(:first_name) %></td>
+      <td><%= f.text_field(:first_name) %></td>
     </tr>
     <tr>
-      <td><%= label_tag(:last_name) %></td>
-      <td><%= password_field_tag(:last_name) %></td>
+      <td><%= f.label(:last_name) %></td>
+      <td><%= f.text_field(:last_name) %></td>
     </tr>
      <tr>
-      <td><%= label_tag(:email) %></td>
-      <td><%= text_field_tag(:email) %></td>
+      <td><%= f.label(:email) %></td>
+      <td><%= f.text_field(:email) %></td>
     </tr>
     <tr>
-      <td><%= label_tag(:phone_number) %></td>
-      <td><%= password_field_tag(:phone_number) %></td>
+      <td><%= f.label(:phone_number) %></td>
+      <td><%= f.text_field(:phone_number) %></td>
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td><%= submit_tag("Sign Up") %></td>
+      <td><%= f.submit("Sign Up") %></td>
     </tr>
   </table>
   <% end %>

@@ -12,7 +12,7 @@ class Admin::UsersController < AdminController
 
 		if @user.save
 			flash[:success] = "User was created!"
-			redirect_to user_path(@user)
+			redirect_to admin_user_path(@user)
 		else
 			flash.now[:error] = "Woops, I guess he's not coole enough. Didn't save"
 			render :new

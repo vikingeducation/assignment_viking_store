@@ -7,7 +7,7 @@
     </tr>
     <tr>
       <td><%= label_tag(:email) %></td>
-      <td><%= password_field_tag(:email) %></td>
+      <td><%= text_field_tag(:email) %></td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -18,5 +18,6 @@
 </div>
 
 <div>
-  <p>Don't have an account?<p>
+  <p>Don't have an account?</p>
   <p>Sign up <%= link_to "HERE", :action => 'signup' %></p>
+</div>

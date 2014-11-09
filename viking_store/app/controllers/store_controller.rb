@@ -3,8 +3,11 @@ class StoreController < ApplicationController
 	layout 'store'
 
 	def index
-    # display text & links
-    @products = Product.all
+    if params[:category_id]
+      @products = Product.where(:category_id => params[:category_id])
+    else
+    	@products = Product.all
+    end
   end
 
   def login
@@ -12,20 +15,35 @@ class StoreController < ApplicationController
   end
 
   def signup
-    #sign up form
+  	@user = User.new
   end
+
+  def create
+		@user = User.new(user_params)
+
+		if @user.save
+			flash[:success] = "User was created!"
+			redirect_to root_path
+		else
+			flash.now[:error] = "Woops, I guess he's not coole enough. Didn't save"
+			render 'signup'
+		end
+	end
 
   def attempt_login
     if params[:last_name].present? && params[:email].present?
-      found_user = AdminUser.where(:last_name => params[:last_name]).first
+      found_user = User.where(:last_name => params[:last_name].capitalize).first
+      if found_user.email == params[:email]
+      	authorized_user = found_user
+      end
     end
-    if found_user
+    if authorized_user
       # mark user as logged in
       session[:user_id] = found_user.id
-      flash[:notice] = "You are now logged in."
+      flash[:success] = "You are now logged in"
       redirect_to(:action => 'index')
     else
-      flash[:notice] = "Invalid last name/email combination."
+      flash[:error] = "Invalid last name and/or email"
       redirect_to(:action => 'login')
     end
   end
@@ -36,5 +54,11 @@ class StoreController < ApplicationController
     flash[:notice] = "Logged out"
     redirect_to(:action => "login")
   end
+
+  private
+
+  def user_params
+		params.require(:user).permit(:first_name, :last_name, :email, :phone_number)
+	end
 
 end

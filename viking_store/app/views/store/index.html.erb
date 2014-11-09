@@ -13,9 +13,9 @@
 	  Choose from among our lineup of fine items below
 	</div>
 
-	<div class = "col-md-3 pull-right category-select">
-	  <%= form_tag admin_products_path, method: :get do %>
-	    <%= collection_select :category, :id, Category.all, :id, :title %>
+	<div class = "col-md-3 col-md-offset-9 category-select">
+	  <%= form_tag root_path, method: :get do %>
+	    <%= collection_select nil, :category_id, Category.all, :id, :title %>
 	    <%= submit_tag "Apply Filter" %>
 	  <% end %>
   </div>
