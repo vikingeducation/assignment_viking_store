@@ -9,9 +9,13 @@
       <%= link_to "Viking Store", root_path, class: "navbar-brand" %>
     </div>
     <div class="navbar-header pull-right">
-      <a href="#">CART</a>
-      <button type="button" class="btn btn-default navbar-btn">YOUR CART</button>
-      <button type="button" class="btn btn-default navbar-btn"><%= link_to "Sign In", :action => 'login' %></button>
+      <%= image_tag "" %>
+      <button type="button" class="btn btn-default navbar-btn"><%= link_to "Your Cart", :controller => "checkout", :action => "edit" %></button>
+      <% if current_user %>
+        <button type="button" class="btn btn-default navbar-btn"><%= link_to "Sign Out", :controller => 'store', :action => 'logout' %></button>
+      <% else %>
+        <button type="button" class="btn btn-default navbar-btn"><%= link_to "Sign In", :controller => 'store', :action => 'login' %></button>
+      <% end %>
 	  </div>
   </div><!-- /nav -->
     

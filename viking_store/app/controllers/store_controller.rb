@@ -51,7 +51,7 @@ class StoreController < ApplicationController
   def logout
     # mark user as logged out
     session[:user_id] = nil
-    flash[:notice] = "Logged out"
+    flash[:success] = "You have been logged out"
     redirect_to(:action => "login")
   end
 

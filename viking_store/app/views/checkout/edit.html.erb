@@ -1,0 +1,52 @@
+<h1>Shopping Cart Contents</h1>
+
+<% if @cart_contents %>
+
+  <%= form_tag(:action => 'update') do |x| %>
+ 
+    
+	<div class="container">
+		<div class="col-md-12 box">
+
+		  <% @cart_contents.each do |content| %>
+		    <div class="row">
+				  <div class="col-md-5 cart-box-left sub-box">
+				    <%= image_tag "#" %>
+				    <p><%= Product.find(content.product_id).title %></p>
+				    <p>Category</p>
+				    <p><%= number_to_currency(content.price) %></p>
+				  </div>
+				  <div class="col-md-4 cart-box-right sub-box">
+				    <div class="col-md-6">
+				      <p>Quantity</p>
+				      <p><%= text_field_tag(:quantity, content.quantity)%></p>
+				      <p>check box</p>
+				    </div>
+				    <div class="col=md-6">
+				      <p>Total Price</p>
+				      <p><%=number_to_currency(content.price * content.quantity) %></p>
+				    </div>
+				  </div>
+				</div>
+		  <% end %>
+	
+
+
+	    <div class="row">
+				  <div class="col-md-5 total-box sub-box">
+				    <p>Total</p>
+				    <p><%= @cart_contents.sum("price * quantity") %></p>
+				  </div>
+				  <div class="col-md-4 cart-box-right sub-box">
+				    <div class="col-md-6">
+				    <%= submit_tag "Update Contents" %>
+				    <button><%= link_to "Check Out", "#" %></button>
+				    </div>
+				  </div>
+				</div>
+
+		</div>
+	</div>
+<% end %>
+
+<% end %>
