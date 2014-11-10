@@ -5,9 +5,30 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def sign_in(user)
+  	session[:current_user_id] = user.id
+  	current_user = user
+  end
+
+  def sign_out
+  	session.delete(:current_user_id) && current_user = nil
+  end
+
   def current_user
-  	@current_user ||= User.find(session[:user_id]) if session[:user_id]
+  	return nil unless session[:current_user_id]
+  	@current_user ||= User.find(session[:current_user_id])
   end
 
   helper_method :current_user
+
+  def current_user=(user)
+  	@current_user = user
+  end
+
+  def signed_in_user?
+  	!!current_user # allows to return a boolean instead of object or nil
+  end
+
+  helper_method :signed_in_user?
+  
 end
