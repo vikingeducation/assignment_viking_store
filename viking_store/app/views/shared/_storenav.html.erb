@@ -12,7 +12,7 @@
       <%= image_tag "" %>
       <button type="button" class="btn btn-default navbar-btn"><%= link_to "Your Cart", :controller => "checkout", :action => "edit" %></button>
       <% if current_user %>
-        <button type="button" class="btn btn-default navbar-btn"><%= link_to "Sign Out", :controller => 'sessions', :action => 'destroy' %></button>
+        <button type="button" class="btn btn-default navbar-btn"><%= link_to "Sign Out", session_path, :method => "DELETE" %></button>
       <% else %>
         <button type="button" class="btn btn-default navbar-btn"><%= link_to "Sign In", :controller => 'sessions', :action => 'new' %></button>
       <% end %>

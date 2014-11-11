@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/admin' => 'admin#index'
 
   resources :store, :only => [:new, :index, :show, :create]
-  resources :sessions, :only => [:new, :create, :destroy]
+  resource :session, :only => [:new, :create, :destroy]
 
   namespace :admin do
 
