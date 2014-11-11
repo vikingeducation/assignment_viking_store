@@ -10,8 +10,8 @@ class StoreController < ApplicationController
     end
   end
 
-  def login
-    # login form
+  def show
+    # will be for store products
   end
 
   def signup
@@ -22,7 +22,7 @@ class StoreController < ApplicationController
 		@user = User.new(user_params)
 
 		if @user.save
-			flash[:success] = "User was created!"
+			flash[:success] = "Thank you for making an account!"
 			redirect_to root_path
 		else
 			flash.now[:error] = "Woops, I guess he's not coole enough. Didn't save"
@@ -30,30 +30,6 @@ class StoreController < ApplicationController
 		end
 	end
 
-  def attempt_login
-    if params[:last_name].present? && params[:email].present?
-      found_user = User.where(:last_name => params[:last_name].capitalize).first
-      if found_user.email == params[:email]
-      	authorized_user = found_user
-      end
-    end
-    if authorized_user
-      # mark user as logged in
-      session[:user_id] = found_user.id
-      flash[:success] = "You are now logged in"
-      redirect_to(:action => 'index')
-    else
-      flash[:error] = "Invalid last name and/or email"
-      redirect_to(:action => 'login')
-    end
-  end
-
-  def logout
-    # mark user as logged out
-    session[:user_id] = nil
-    flash[:success] = "You have been logged out"
-    redirect_to(:action => "login")
-  end
 
   private
 

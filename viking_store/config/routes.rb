@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   root 'store#index'
   get '/admin' => 'admin#index'
 
+  resources :store, :only => [:new, :index, :show, :create]
+  resources :sessions, :only => [:new, :create, :destroy]
+
   namespace :admin do
 
     get '/dashboard' => 'analytics_dashboard#dashboard'

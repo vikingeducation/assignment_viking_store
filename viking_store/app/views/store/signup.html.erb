@@ -1,7 +1,7 @@
 <h1>Register Below</h1>
 
 <div class="signup">
-  <%= form_for [:admin, @user], :controller => 'store', :action => 'create' do |f| %>
+  <%= form_for @user do |f| %>
   <table>
     <tr>
       <td><%= f.label(:first_name) %></td>
