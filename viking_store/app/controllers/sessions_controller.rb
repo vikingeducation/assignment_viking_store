@@ -22,6 +22,7 @@ class SessionsController < ApplicationController
   def destroy
 		session.delete(:current_user_id)
 		current_user = nil
+		session.delete(:cart)
 		flash[:success] = "You have signed out successfully."
 		redirect_to root_path
   end
