@@ -2,5 +2,5 @@
 	<p class="product-title"><%= product.title %></p>
 	<p class="product-price"><%= product.price %></p>
 	<%= image_tag "#", class: "product-image" %>
-	<button class="product-btn">Add to Cart</button>
+	<%= link_to "View Product", store_path(product), class: "btn btn-default product-btn" %>
 </div>

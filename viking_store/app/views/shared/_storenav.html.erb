@@ -10,7 +10,7 @@
     </div>
     <div class="navbar-header pull-right">
       <%= image_tag "" %>
-      <button type="button" class="btn btn-default navbar-btn"><%= link_to "Your Cart", :controller => "checkout", :action => "edit" %></button>
+      <button type="button" class="btn btn-default navbar-btn"><%= link_to "Your Cart", edit_cart_path(0) %></button>
       <% if current_user %>
         <button type="button" class="btn btn-default navbar-btn"><%= link_to "Sign Out", session_path, :method => "DELETE" %></button>
       <% else %>

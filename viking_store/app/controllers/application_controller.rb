@@ -31,4 +31,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :signed_in_user?
 
+  def set_return_path
+    session[:return_to] = request.referer
+  end
+
 end

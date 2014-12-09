@@ -1,0 +1,60 @@
+<h1>Your Shopping Cart</h1>
+
+<% if @cart != {} %>
+
+<%= form_tag cart_path, {:method => "PUT"} do %>
+  <% @cart.each do |product_id, quantity| %>
+
+    <div class="col-md-8">
+      <div class="col-md-3">Image</div>
+        <div class="col-md-6">
+          <%= Product.find(product_id).title %>
+        </div>
+        <div class="col-md-3">
+          <%= Product.find(product_id).category.title %>
+        </div>
+        <div class="col-md-3">
+          <%= Product.find(product_id).price %>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="col-md-6">
+        <%= label_tag :quantity %>
+        <%= text_field_tag "[order]#{product_id}", quantity, class: "form-control" %>
+      </div>
+      <div class="col-md-6">
+        <%= label_tag :total_price %>
+        <%= number_to_currency(Product.find(product_id).price * quantity) %>
+      </div> 
+      <div>
+        <%= label_tag "Remove product" %>
+        <%= check_box_tag "[remove]#{product_id}" %>
+      </div>
+    </div>
+
+    <!-- bottom panel -->
+
+    <div claas="col-md-8">
+      Total
+      <%= number_to_currency(@total) %>
+    </div>
+
+    <div class="col-md-4">
+      <div>
+        <%= submit_tag "Update Cart", class: "btn btn-default" %>
+      </div>
+      <div>
+
+        <%= link_to "Check Out", "#", class: "btn btn-primary" %>
+        <p>Please update cart total before checking out</p>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% else %>
+
+  Your shopping cart is empty. 
+
+<% end %>

@@ -11,7 +11,7 @@ class StoreController < ApplicationController
   end
 
   def show
-    # will be for store products
+    @product = Product.find(params[:id])
   end
 
   def signup
