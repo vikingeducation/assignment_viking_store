@@ -1,0 +1,168 @@
+<div class="col-md-9 box">
+   
+  <h2>Edit Order <%= "#{@order.id}" %></h2>
+
+  <div class="col-md-12 sub-box">
+   
+    <h3>Logistical Information</h3>
+    
+    <h4>Basic Information</h4>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Customer ID</strong>
+      </div>
+      
+      <div class="col-md-8">
+        <%= @user.id %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Customer</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= link_to "#{@user.first_name} #{@user.last_name} (click to view user)", admin_user_path(@user) %>
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col-md-4">
+        <strong>Telephone</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= @user.phone_number %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Date Placed</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= "N/A" %>
+      </div>
+    </div>
+ 
+    <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_admin_user_path(@user) %><br>
+    
+    
+    <%= form_for @order do |f| %>
+
+      <%= f.radio_button :checked_out, true %>
+      <%= label :checked_out_true, "PLACED" %>
+      <%= f.radio_button :checked_out, false %>
+      <%= label :checked_out_false, "UNPLACED" %>
+      <p>-- Only one unplaced order allowed!</p>
+
+      <%= label :billing_id, "Billing Address" %><br>
+      <%= f.collection_select(:default_billing_id, @user.addresses, :id, :street_address, prompt: 'Please Select', selected: @order.billing_address_id) %><br>
+      <br>
+
+      <%= label :shipping_id, "Shipping Address" %><br>
+      <%= f.collection_select(:default_shipping_id, @user.addresses, :id, :street_address, prompt: 'Please Select', selected: @order.shipping_address_id) %><br>
+      <br>
+
+      <%= f.submit "Update Order Information", class: "btn btn-primary btn-default" %>
+    
+
+    <% end %>
+  </div>
+  
+  <div class="col-md-12 sub-box">
+
+    <h3>Edit Order Contents</h3>
+    <%= form_for [:admin, @order] do |f| %>
+
+      <div class="panel panel-default">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total Price</th>
+              <th>REMOVE</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          <% @order.order_details.each do |order_detail| %>
+            <tr>
+              <td><%= order_detail.product_id %></td>
+              <td><%= f.text_field "#{order_detail.quantity}", value: order_detail.quantity %></td>
+              <td><%= order_detail.product.price %></td>
+              <td><%= order_detail.price %></td>
+              <td><%= link_to "remove", "#" %></td>
+            </tr>
+          <% end %>
+           
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+    
+  </div>
+    
+
+  <div class="col-md-12 sub-box">
+
+    <h3>Add Products to Order</h3>
+    <p>Add up to 5 products at a time</p>
+    <%= form_for @order do |f| %>
+
+      <div class="panel panel-default">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          <% 1.upto(5) do |i| %>
+            <tr>
+              <td><%= f.text_field "product_id[#{i}]", value: "" %></td>
+              <td><%= f.text_field "product_quantity[#{i}]", value: "" %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    <% end %>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

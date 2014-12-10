@@ -1,0 +1,69 @@
+<div class="col-md-9 box">
+   
+  <h2>New Order for <%= "#{@user.first_name} #{@user.last_name}" %></h2>
+
+  <div class="col-md-12 sub-box">
+   
+    <h3>Logistical Information</h3>
+    
+    <h4>Basic Information</h4>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Customer ID</strong>
+      </div>
+      
+      <div class="col-md-8">
+        <%= @user.id %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Customer</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= link_to "#{@user.first_name} #{@user.last_name} (click to view user)", admin_user_path(@user) %>
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col-md-4">
+        <strong>Telephone</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= @user.phone_number %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <strong>Date Placed</strong>
+      </div>
+
+      <div class="col-md-8">
+        <%= "N/A" %>
+      </div>
+    </div>
+ 
+    <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s Information", edit_admin_user_path(@user) %><br>
+    
+    
+    <%= form_for [:admin, @order] do |f| %>
+
+      <%= label :billing_id, "Billing Address" %><br>
+      <%= f.collection_select(:default_billing_id, @user.addresses, :id, :street_address, prompt: 'Please Select', selected: @order.billing_address_id) %><br>
+      <br>
+
+      <%= label :shipping_id, "Shipping Address" %><br>
+      <%= f.collection_select(:default_shipping_id, @user.addresses, :id, :street_address, prompt: 'Please Select', selected: @order.shipping_address_id) %><br>
+      <br>
+
+      <%= f.submit "Create Order in Shopping Cart", class: "btn btn-primary btn-default" %>
+      <p>You can add products on the next screen, once it's been created</p>
+
+    <% end %>
+  </div>
+</div>

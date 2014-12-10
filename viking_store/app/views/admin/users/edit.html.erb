@@ -1,0 +1,80 @@
+<section>
+  <div class="col-md-9 box">
+    <h3>New User</h3>
+
+    <h4>Demographic Information</h4>
+
+    <%= form_for [:admin, @user] do |f| %>
+       <div class="row">
+        <div class="col-md-3">
+          <strong>First Name</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.text_field :first_name, class: "form-control", placeholder: "Last Name" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Last Name</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Email</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Telephone</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.text_field :phone_number, class: "form-control", placeholder: "Phone Number" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Default Billing Address</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.collection_select( :default_billing_id, @user.addresses, :id, :street_address, prompt: 'Please Select', selected: @user.default_billing_id) %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Default Shipping Address</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= f.collection_select( :default_shipping_id, @user.addresses, :id, :street_address, prompt: 'Please Select', selected: @user.default_shipping_id) %>
+        </div>
+      </div>
+
+      <%= link_to "View Saved Addresses", "#" %>
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.submit "Update #{@user.first_name} #{@user.last_name}", class: "btn btn-primary btn-lg" %>
+        </div>
+      </div>
+
+      <%= link_to "Delete #{@user.first_name} #{@user.last_name}", "#" %>
+    <% end %>
+  
+  </div>
+</section>

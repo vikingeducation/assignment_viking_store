@@ -1,0 +1,414 @@
+<h1>Viking Store Analytics Dashboard</h1>
+
+<%= link_to "Back to Admin Portal", root_path %><br />
+
+<!--- OVERALL PLATFORM PANE -->
+
+<div class="col-md-4 col-md-offset-1 pane-box">
+  <h3>1. Overall Platform</h3>
+ 
+  <div class="panel panel-default">
+    <div class="panel-heading">Last 7 Days</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>New Users</td>
+          <td><%= @new_users_7 %></td>
+        </tr>
+        <tr>
+          <td>Orders</td>
+          <td><%= @orders_7 %></td>
+        </tr>
+        <tr>
+          <td>New Products</td>
+          <td><%= @new_prods_7 %></td>
+        </tr>
+        <tr>
+          <td>Revenue</td>
+          <td><%= @revenue_7 %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">Last 30 Days</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>New Users</td>
+          <td><%= @new_users_30 %></td>
+        </tr>
+        <tr>
+          <td>Orders</td>
+          <td><%= @orders_30 %></td>
+        </tr>
+        <tr>
+          <td>New Products</td>
+          <td><%= @new_prods_30 %></td>
+        </tr>
+        <tr>
+          <td>Revenue</td>
+          <td><%= @revenue_30 %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Total</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Users</td>
+          <td><%= @total_users %></td>
+        </tr>
+        <tr>
+          <td>Orders</td>
+          <td><%= @total_orders %></td>
+        </tr>
+        <tr>
+          <td>Products</td>
+          <td><%= @total_products %></td>
+        </tr>
+        <tr>
+          <td>Revenue</td>
+          <td><%= @total_revenue %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- USER DEMOGRAPHICS PANE -->
+
+<div class="col-md-4 col-md-offset-1 pane-box">
+  <h3>2. User Demographics and Behavior</h3>
+ 
+  <div class="panel panel-default">
+    <div class="panel-heading">Top 3 States Users Live In</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @state_1 %></td>
+          <td><%= @state_1_count %></td>
+        </tr>
+        <tr>
+          <td><%= @state_2 %></td>
+          <td><%= @state_2_count %></td>
+        </tr>
+        <tr>
+          <td><%= @state_3 %></td>
+          <td><%= @state_3_count %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">Top 3 Cities Users Live In</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @city_1 %></td>
+          <td><%= @city_1_count %></td>
+        </tr>
+        <tr>
+          <td><%= @city_2 %></td>
+          <td><%= @city_2_count %></td>
+        </tr>
+        <tr>
+          <td><%= @city_3 %></td>
+          <td><%= @city_3_count %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Top User With...</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>User</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Highest Single Order Value</td>
+          <td><%= "#{@highest_order_first_name} #{@highest_order_last_name}" %></td>
+          <td><%= @highest_order_value %></td>
+        </tr>
+        <tr>
+          <td>Highest Lifetime Value</td>
+          <td><%= "#{@highest_lifetime_user_first} #{@highest_lifetime_user_last}" %></td>
+          <td><%= @highest_lifetime_order_value %></td>
+        </tr>
+        <tr>
+          <td>Highest Average Order Value</td>
+          <td><%= "#{@highest_avg_order_first} #{@highest_avg_order_last}" %></td>
+          <td><%= @highest_avg_order_value %></td>
+        </tr>
+        <tr>
+          <td>Most Orders Placed</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ORDER STATISTICS PANE -->
+
+<div class="col-md-4 col-md-offset-1 pane-box">
+  <h3>3. Order Statistics</h3>
+ 
+  <div class="panel panel-default">
+    <div class="panel-heading">Last 7 Days</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Number of Orders</td>
+          <td><%= @orders_7 %></td>
+        </tr>
+        <tr>
+          <td>Total Revenue</td>
+          <td><%= @revenue_7 %></td>
+        </tr>
+        <tr>
+          <td>Average Order Value</td>
+          <td><%= @avg_order_7 %></td>
+        </tr>
+        <tr>
+          <td>Largest Order Value</td>
+          <td><%= @largest_order_7 %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">Last 30 Days</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Number of Orders</td>
+          <td><%= @orders_30 %></td>
+        </tr>
+        <tr>
+          <td>Total Revenue</td>
+          <td><%= @revenue_30 %></td>
+        </tr>
+        <tr>
+          <td>Average Order Value</td>
+          <td><%= @avg_order_30 %></td>
+        </tr>
+        <tr>
+          <td>Largest Order Value</td>
+          <td><%= @largest_order_30 %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Total</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Number of Orders</td>
+          <td><%= @total_orders %></td>
+        </tr>
+        <tr>
+          <td>Total Revenue</td>
+          <td><%= @total_revenue %></td>
+        </tr>
+        <tr>
+          <td>Average Order Value</td>
+          <td><%= @avg_order_value %></td>
+        </tr>
+        <tr>
+          <td>Largest Order Value</td>
+          <td><%= @highest_order_value %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- TIME SERIES DATA PANE -->
+
+
+<div class="col-md-4 col-md-offset-1 pane-box">
+  <h3>4. Time Series Data</h3>
+ 
+  <div class="panel panel-default">
+    <div class="panel-heading">Orders By Day</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Quantity</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Today</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>Yeseterday</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">Orders By Week</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Quantity</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>replace</td>
+          <td>replace</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

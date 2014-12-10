@@ -1,0 +1,43 @@
+<section>
+  <div class="col-md-9 box">
+    <h3>Products</h3>
+
+    
+    <%= link_to "Add New Product", new_admin_product_path, class: "btn btn-primary btn-default" %>
+  
+
+    <div class="panel panel-default">
+
+	    <table class="table">
+	      <thead>
+	        <tr>
+	          <th>ID</th>
+	          <th>Name</th>
+	          <th>Price</th>
+	          <th>Category</th>
+	          <th>SHOW</th>
+	          <th>EDIT</th>
+	          <th>DELETE</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+
+	      <% @products.each do |prod| %>
+	        <tr>
+	          <td><%= prod.id %></td>
+	          <td><%= prod.title %></td>
+	          <td><%= prod.price %></td>
+	          <td><%= link_to "#{prod.category.title}", admin_category_path(prod.category) %></td>
+	          <td><%= link_to "show", admin_product_path(prod.id) %></td>
+	          <td><%= link_to "edit", edit_admin_product_path(prod.id) %></td>
+	          <td><%= link_to  "delete", admin_product_path(prod), data: { confirm: "Are you sure?" }, method: :delete %></td>
+	        </tr>
+	      <% end %>
+	       
+	      </tbody>
+	    </table>
+		</div>
+
+
+  </div>
+</section>

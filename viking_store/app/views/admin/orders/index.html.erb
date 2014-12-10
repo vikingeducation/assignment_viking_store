@@ -1,0 +1,99 @@
+<section>
+  <div class="col-md-9 box">
+    <h3>All Orders</h3>
+    <h4>Create new orders from within <%= link_to "User", admin_users_path %> profiles</h4>
+  
+
+    <div class="panel panel-default">
+
+	    <table class="table">
+	      <thead>
+	        <tr>
+	          <th>ID</th>
+	          <th>User ID</th>
+	          <th>Address</th>
+	          <th>City</th>
+	          <th>State</th>
+	          <th>Quantity</th>
+	          <th>Total Value</th>
+	          <th>Status</th>
+	          <th>Date Placed</th>
+	          <th>SHOW</th>
+	          <th>EDIT</th>
+	          <th>DELETE</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+
+	      <% @orders[0..100].each do |order| %>
+	        <tr>
+	          <td><%= order.id %></td>
+	          <td><%= link_to "#{order.user.id}", admin_user_path(order.user) %></td>
+	          <td><%= Address.find(order.user.default_shipping_id).street_address %></td>
+	          <td><%= Address.find(order.user.default_shipping_id).city %></td>
+	          <td><%= Address.find(order.user.default_shipping_id).state %></td>
+	          <td><%= order.order_details.all.sum("quantity") %></td>
+	          <td><%= order.products.sum("price") %></td>
+	          <td><%= checked_out(order) %></td>
+	          <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+	          <td><%= link_to "show", admin_order_path(order) %></td>
+	          <td><%= link_to "edit", edit_admin_order_path(order) %></td>
+	          <td><%= link_to "delete", "#" %></td>
+	        </tr>
+	      <% end %>
+	       
+	      </tbody>
+	    </table>
+		</div>
+
+		<% if @user %>
+      <div class="sub-box">
+	      <h3><%= "#{@user.first_name} #{@user.last_name}'s Orders" %></h3>
+        <%= link_to "Create a New Order for #{@user.first_name} #{@user.last_name}", "#", class: "btn btn-primary btn-default" %>
+		  
+		  <div class="panel panel-default">
+
+		    <table class="table">
+		      <thead>
+		        <tr>
+		          <th>ID</th>
+		          <th>User ID</th>
+		          <th>Address</th>
+		          <th>City</th>
+		          <th>State</th>
+		          <th>Quantity</th>
+		          <th>Total Value</th>
+		          <th>Status</th>
+		          <th>Date Placed</th>
+		          <th>SHOW</th>
+		          <th>EDIT</th>
+		          <th>DELETE</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+
+		      <% @user.orders.each do |order| %>
+		        <tr>
+		          <td><%= order.id %></td>
+		          <td><%= link_to "#{order.user.id}", admin_user_path(order.user) %></td>
+		          <td><%= Address.find(order.user.default_shipping_id).street_address %></td>
+		          <td><%= Address.find(order.user.default_shipping_id).city %></td>
+		          <td><%= Address.find(order.user.default_shipping_id).state %></td>
+		          <td><%= order.order_details.all.sum("quantity") %></td>
+		          <td><%= order.products.sum("price") %></td>
+		          <td><%= checked_out(order) %></td>
+		          <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+		          <td><%= link_to "show", "#" %></td>
+		          <td><%= link_to "edit", "#" %></td>
+		          <td><%= link_to "delete", "#" %></td>
+		        </tr>
+		      <% end %>
+		       
+		      </tbody>
+		    </table>
+			</div>
+
+		<% end %>
+
+  </div>
+</section>

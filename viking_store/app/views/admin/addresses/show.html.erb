@@ -1,0 +1,62 @@
+<section>
+  <div class="col-md-9 box">
+    <h3>Edit <%="#{@user.first_name} #{@user.last_name}'s Address" %></h3>
+
+    <%= form_for [@user, @address] do |f| %>
+       <div class="row">
+        <div class="col-md-3">
+          <strong>Owner ID</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= @user.id %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Owner Name</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= link_to "#{@user.first_name} #{@user.last_name} (click to view user)", user_path(@user) %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Street</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= @address.street_address %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>City</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= @address.city %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>State</strong>
+        </div>
+      
+        <div class="col-md-9">
+          <%= @address.state %> 
+        </div>
+      </div>
+
+      <%= link_to "Edit Address", edit_user_address_path(@user) %>
+
+      <%= link_to "Delete Address", "#" %>
+    <% end %>
+  
+  </div>
+</section>

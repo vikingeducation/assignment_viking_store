@@ -1,0 +1,43 @@
+<div class="container">
+
+	<div class="store-header">
+	  <img src="http://s3.amazonaws.com/viking_education/demos/viking_store_app/viking_ship_background_medium.jpg" width = "50%" height = "50%">
+	  <span class="header-title">The Viking Store</span>
+	</div>
+
+	<div class="col-md-12 banner">
+	  The Best Viking Gear on the Whole Web
+	</div>
+
+	<div class="col-md-12 sub-banner">
+	  Choose from among our lineup of fine items below
+	</div>
+
+	<div class = "col-md-3 col-md-offset-9 category-select">
+	  <%= form_tag root_path, method: :get do %>
+	    <%= collection_select nil, :category_id, Category.all, :id, :title %>
+	    <%= submit_tag "Apply Filter" %>
+	  <% end %>
+  </div>
+
+  <% @products.each do |product| %>
+    <%= render :partial => 'product', :locals => { :product => product } %>
+  <% end %>
+  
+
+  <div class="col-md-12 footer">
+    
+    <%= link_to "Admin Login", "#" %>
+
+    <div class="footer-contact">
+      <h4>CONTACT</h4>
+      <span>IMAGE</span><span>1-000-000-0000</span><br />
+      <span>IMAGE</span><span>contact@vikingstore.com</span>
+    </div>
+
+
+
+  </div>
+
+
+</div>
