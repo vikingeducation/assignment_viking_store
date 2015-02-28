@@ -10,6 +10,8 @@ User.destroy_all
 Address.destroy_all
 Order.destroy_all
 OrderProduct.destroy_all
+PaymentMethod.destroy_all
+# CustomerProfile.destroy_all
 
 # Scale edited here.
 scale = 1
@@ -18,3 +20,7 @@ scale = 1
 product_categories = generate_product_categories(5 * scale)
 products = generate_products(25 * scale)
 users = generate_users(200 * scale)
+addresses = []
+orders = []
+order_products = []
+payment_methods = []

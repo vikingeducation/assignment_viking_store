@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228045947) do
+ActiveRecord::Schema.define(version: 20150228051300) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_1"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20150228045947) do
     t.datetime "updated_at",          null: false
   end
 
+  create_table "customer_profiles", force: :cascade do |t|
+    t.string   "phone_number"
+    t.integer  "default_shipping_address_id"
+    t.integer  "default_billing_address_id"
+    t.integer  "default_payment_method_id"
+    t.integer  "shopping_cart_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "order_products", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "product_id"
@@ -33,11 +43,21 @@ ActiveRecord::Schema.define(version: 20150228045947) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "customer_id"
+    t.integer  "customer_profile_id"
     t.integer  "shipping_address_id"
     t.integer  "billing_address_id"
     t.integer  "payment_method_id"
     t.boolean  "shopping_cart"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  create_table "payment_methods", force: :cascade do |t|
+    t.integer  "customer_profile_id"
+    t.string   "name_on_card"
+    t.string   "card_number"
+    t.datetime "exp_date"
+    t.integer  "security_code"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
