@@ -8,10 +8,19 @@ def fake_product_category
 end
 
 def fake_product
-  { name: Faker::Commerce.product_name,
+  { sku: next_product_sku,
+    name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
     price: Faker::Commerce.price,
-    product_category_id: (rand(5) + 1) }
+    product_category_id: ProductCategory.all.sample.id }
+end
+
+def next_product_sku
+  if Product.last.nil?
+    1
+  else
+    Product.last.sku + 1
+  end
 end
 
 def fake_user(joined: joined)
@@ -30,24 +39,6 @@ def fake_address(customer_profile_id: customer_profile_id)
     zip_code: Faker::Address.zip_code }
 end
 
-# def fake_order(shopping_cart:)
-
-# end
-
-# def fake_shopping_cart
-#   { shopping_cart: true,
-
-
-#   }
-
-#   create_table "orders", force: :cascade do |t|
-#     t.integer  "customer_profile_id"
-#     t.integer  "shipping_address_id"
-#     t.integer  "billing_address_id"
-#     t.integer  "payment_method_id"
-#   end
-# end
-
 def fake_payment_method(customer_profile_id: customer_profile_id, name: name)
   { customer_profile_id: customer_profile_id,
     name_on_card: name,
@@ -57,29 +48,28 @@ def fake_payment_method(customer_profile_id: customer_profile_id, name: name)
 end
 
 def generate_single_customer_profile(user: user)
-  cp = CustomerProfile.new
-  cp.phone_number = Faker::PhoneNumber.phone_number
+  cp = CustomerProfile.create
+
+  cp.update(phone_number: Faker::PhoneNumber.phone_number)
 
   address = Address.create fake_address(customer_profile_id: cp.id)
-  cp.default_shipping_address_id = address.id
-  cp.default_billing_address_id = address.id
+  cp.update(default_shipping_address_id: address.id)
+  cp.update(default_billing_address_id: address.id)
 
   pmt_method = PaymentMethod.create fake_payment_method(customer_profile_id: cp.id, name: user.name)
-  cp.default_payment_method_id = pmt_method.id
+  cp.update(default_payment_method_id: pmt_method.id)
 
   creation_date = Faker::Time.between(user.created_at,Time.now)
-  cp.created_at = creation_date
-  cp.updated_at = creation_date
+  cp.update(created_at: creation_date)
+  cp.update(updated_at: creation_date)
 
-  shopping_cart = Order.create ({
+  shopping_cart = Order.create({
     customer_profile_id: cp.id,
     shopping_cart: true,
     created_at: creation_date,
     updated_at: creation_date
     })
-  cp.shopping_cart_id = shopping_cart.id
-
-  cp.save
+  cp.update(shopping_cart_id: shopping_cart.id)
 end
 
 # generate_fake_objects
@@ -126,7 +116,40 @@ end
 
 def generate_customer_profiles(qty)
   User.all.sample(qty).each do |user|
-    cp = generate_single_customer_profile(user: user)
-    user.update(customer_profile_id: cp.id)
+    generate_single_customer_profile(user: user)
+    user.update(customer_profile_id: CustomerProfile.last.id)
+  end
+end
+
+def generate_extra_addresses(qty)
+  qty.times do
+    cp = CustomerProfile.all.sample
+    Address.create fake_address(customer_profile_id: cp.id)
+  end
+end
+
+def generate_historical_orders(qty)
+  qty.times do
+    cp = CustomerProfile.all.sample
+    order_created_at = Faker::Time.between(cp.created_at,Time.now)
+    Order.create(
+      { customer_profile_id: cp.id,
+        shipping_address_id: cp.default_shipping_address_id,
+        billing_address_id: cp.default_billing_address_id,
+        payment_method_id: cp.default_payment_method_id,
+        shopping_cart: false,
+        created_at: order_created_at,
+        updated_at: order_created_at })
+    add_random_products_to_order(order_id: Order.last.id)
+  end
+end
+
+def add_random_products_to_order(order_id: order_id)
+  3.times do
+    OrderProducts.create(
+    { order_id: order_id,
+      product_id: Product.all.sample.id,
+      })
+
   end
 end

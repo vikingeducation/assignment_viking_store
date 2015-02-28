@@ -4,14 +4,14 @@
 require_relative 'seeds_helper'
 
 # Wipe the slate clean with each run of seeds.rb.
-ProductCategory.destroy_all
-Product.destroy_all
-User.destroy_all
-Address.destroy_all
-Order.destroy_all
-OrderProduct.destroy_all
-PaymentMethod.destroy_all
-CustomerProfile.destroy_all
+ProductCategory.delete_all
+Product.delete_all
+User.delete_all
+Address.delete_all
+Order.delete_all
+OrderProduct.delete_all
+PaymentMethod.delete_all
+CustomerProfile.delete_all
 
 # Scale edited here.
 scale = 1
@@ -21,3 +21,4 @@ generate_product_categories(5 * scale)
 generate_products(25 * scale)
 generate_users(200 * scale)   # Must be multiple of 5
 generate_customer_profiles(150) # Must be less than users
+generate_extra_addresses(50)
