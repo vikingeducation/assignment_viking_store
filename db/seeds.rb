@@ -7,6 +7,9 @@ require_relative 'seeds_helper'
 ProductCategory.destroy_all
 Product.destroy_all
 User.destroy_all
+Address.destroy_all
+Order.destroy_all
+OrderProduct.destroy_all
 
 # Scale edited here.
 scale = 1
