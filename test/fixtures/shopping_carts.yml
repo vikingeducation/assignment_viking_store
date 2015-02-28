@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item: MyString
+  quantity: 1
+  item_total_cost: 9.99
+  grand_total: 9.99
+  checked_out: false
+  customer: MyString
+
+two:
+  item: MyString
+  quantity: 1
+  item_total_cost: 9.99
+  grand_total: 9.99
+  checked_out: false
+  customer: MyString
