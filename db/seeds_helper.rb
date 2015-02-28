@@ -147,8 +147,7 @@ def add_random_products_to_order(order_id: order_id)
     OrderProduct.create(
     { order_id: order_id,
       product_id: Product.all.sample.id,
-      product_qty: (rand(4)+1)
-      })
+      product_qty: (rand(4)+1) })
   end
 end
 
