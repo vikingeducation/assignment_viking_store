@@ -146,10 +146,18 @@ end
 
 def add_random_products_to_order(order_id: order_id)
   3.times do
-    OrderProducts.create(
+    OrderProduct.create(
     { order_id: order_id,
       product_id: Product.all.sample.id,
+      product_qty: (rand(4)+1)
       })
+  end
+end
 
+def fill_shopping_carts(qty)
+  qty.times do
+    cp = CustomerProfile.all.sample
+    shopping_cart_id = cp.shopping_cart_id
+    add_random_products_to_order(order_id: shopping_cart_id)
   end
 end
