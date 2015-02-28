@@ -9,6 +9,7 @@
 
 # Wipe the slate clean with each run of seeds.rb.
 ProductCategory.destroy_all
+Product.destroy_all
 
 # Entry generators live here.
 
@@ -18,5 +19,27 @@ def fake_product_category(id: id)
     description: Faker::Lorem.paragraph }
 end
 
+def generate_product_categories(qty)
+  qty.times do |id|
+    ProductCategory.create(fake_product_category(id: id))
+  end
+end
+
+def fake_product(sku: sku)
+  { sku: (sku + 1),
+    name: Faker::Commerce.product_name,
+    description: Faker::Lorem.paragraph,
+    price: Faker::Commerce.price,
+    product_category_id: (rand(5) + 1) }
+end
+
+def generate_products(qty)
+  qty.times do |sku|
+    Product.create(fake_product(sku: sku))
+  end
+end
+
 # Repopulate all the categories.
-product_categories = 5.times { |time|  ProductCategory.create(fake_product_category(id: time)) }
+scale = 2
+product_categories = generate_product_categories(5 * scale)
+products = generate_products(25 * scale)
