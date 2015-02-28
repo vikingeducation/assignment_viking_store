@@ -20,4 +20,4 @@ scale = 1
 generate_product_categories(5 * scale)
 generate_products(25 * scale)
 generate_users(200 * scale)   # Must be multiple of 5
-generate_customer_profiles(1) # Must be less than users
+generate_customer_profiles(150) # Must be less than users
