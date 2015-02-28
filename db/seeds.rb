@@ -23,7 +23,7 @@ scale = 1
 # Repopulate all the categories.
 generate_product_categories(5 * scale)
 generate_products(25 * scale)
-generate_users(200 * scale)   # Must be multiple of 5
+generate_users(200 * scale)
 generate_customer_profiles(150 * scale) # Must be less than users
 generate_extra_addresses(50 * scale)
 generate_historical_orders(100 * scale)

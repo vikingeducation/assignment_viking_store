@@ -8,19 +8,17 @@ def fake_product_category
 end
 
 def fake_product
-  { sku: next_product_sku,
+  { sku: random_fake_sku,
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
     price: Faker::Commerce.price,
     product_category_id: ProductCategory.all.sample.id }
 end
 
-def next_product_sku
-  if Product.last.nil?
-    1
-  else
-    Product.last.sku + 1
-  end
+def random_fake_sku
+  sku = ("A".."Z").to_a.sample(3)
+  sku << ("0".."9").to_a.sample(4)
+  sku.join
 end
 
 def fake_user(joined: joined)
