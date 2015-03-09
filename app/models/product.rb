@@ -27,6 +27,8 @@ class Product < ActiveRecord::Base
             presence: true
 
 
+  scope :of_category, ->(category_id){ where(category_id: category_id)}
+
   def self.containing_only_category(category)
     joins(:category).where("products.category_id = ?", category.id)
   end

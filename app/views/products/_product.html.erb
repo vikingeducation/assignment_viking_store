@@ -7,7 +7,8 @@
     </header>
     <div class="row middle">
       <div class="col-md-12 description">
-        <p><%= product.description %></p>
+        <p><strong>Category: </strong><%=product.category.name %></p>
+        <p><strong>Description: </strong><%= product.description %></p>
       </div>
       <div class = "col-md-12 image-wrapper">
         <%= image_tag "https://s3.amazonaws.com/viking_education/demos/viking_store_app/axe_whispering_wind_small.jpg",

@@ -64,10 +64,14 @@
 
 article.product-panel {
   margin-top: 15px;
-  min-height: 400px;
+  min-height: 450px;
 
   .product-wrapper {
     padding: 15px;
+  }
+
+  p {
+    margin: 0;
   }
 
   a {
@@ -91,7 +95,7 @@ article.product-panel {
     position: relative;
 
     .price-ribbon {
-      padding: 2px;
+      padding: 3px;
       border: 2px solid #333;
       border-radius: 2px;
       position: absolute;
