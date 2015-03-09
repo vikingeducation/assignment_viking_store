@@ -9,6 +9,51 @@
   text-align: center;
   color: #aaa;
   border-bottom: 1px solid $flag-dark-blue;
+  padding: 10px;
+}
+
+#store-headline {
+  h1 {
+    font-size: 56px;
+    margin: 0;
+    line-height:2em;
+  }
+  position: absolute;
+  width: 50%;
+  top: 30%;
+  right: 25%;
+  color: black;
+  opacity: 1.0;
+  background-color: rgba(255, 255, 255, 1.0);
+  line-height: 2em;
+  z-index: 50;
+}
+
+#store-banner {
+  background-image: url("http://s3.amazonaws.com/viking_education/demos/viking_store_app/viking_ship_background_medium.jpg");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  min-height: 500px;
+  margin-bottom: 0;
+}
+
+#store-subhed {
+  background-color: #333;
+  border-radius: 0;
+  height: 6em;
+  h3 {
+    color: white;
+    font-size: 2em;
+    margin: 0;
+    line-height: 3em;
+    height: 3em;
+  }
+}
+
+.products {
+  padding-top: 15px;
 }
 
 article.product-panel {

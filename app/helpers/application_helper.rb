@@ -8,4 +8,8 @@ module ApplicationHelper
     end
   end
 
+  def view_cart_link
+    link_to "View Cart", edit_cart_path(0)
+  end
+
 end
