@@ -8,7 +8,7 @@
 .ugly-banner {
   text-align: center;
   color: #aaa;
-  border-bottom: 1px solid $flag-dark-blue;
+  border-bottom: 1px solid $dark-grey;
   padding: 10px;
 }
 
@@ -18,15 +18,21 @@
     margin: 0;
     line-height:2em;
   }
+
   position: absolute;
   width: 50%;
-  top: 30%;
+  top: 40%;
   right: 25%;
   color: black;
   opacity: 1.0;
   background-color: rgba(255, 255, 255, 1.0);
   line-height: 2em;
   z-index: 50;
+
+  @media(max-width: 992px){
+    width: 100%;
+    left: 0;
+  }
 }
 
 #store-banner {
@@ -58,6 +64,7 @@
 
 article.product-panel {
   margin-top: 15px;
+  min-height: 400px;
 
   .product-wrapper {
     padding: 15px;
@@ -78,16 +85,29 @@ article.product-panel {
 
   .middle {
     background-color: #eee;
-    border-left: 1px solid $flag-dark-blue;
-    border-right: 1px solid $flag-dark-blue;
-    min-height: 100px;
+    border-left: 1px solid $dark-grey;
+    border-right: 1px solid $dark-grey;
+    min-height: 300px;
+    position: relative;
 
-    div.description {
-      .price-ribbon {
-        padding: 2px;
+    .price-ribbon {
+      padding: 2px;
+      border: 2px solid #333;
+      border-radius: 2px;
+      position: absolute;
+      top: 2em;
+      right: 2em;
+    }
+
+    .description {
+
+    }
+
+    .image-wrapper {
+      img {
         border: 1px solid #333;
-        border-radius: 2px;
       }
+      padding: 10px;
     }
   }
 
@@ -95,5 +115,9 @@ article.product-panel {
     text-align: center;
     background: $dark-normal;
     border-radius: 0 0 5px 5px;
+    padding: 10px;
+    input {
+      color: $orange-accent;
+    }
   }
 }

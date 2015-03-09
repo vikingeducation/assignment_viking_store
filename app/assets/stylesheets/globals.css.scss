@@ -11,6 +11,9 @@ h1 {
 nav.navbar{
   border-bottom: 2px solid black;
   background-color: #fff;
+  a {
+    color: #000;
+  }
 
 }
 
@@ -27,6 +30,13 @@ nav.navbar{
   background-color: #333;
   color: $white;
 
+  h4 {
+    color: $orange-accent;
+  }
+
+  li {
+    list-style-type: none;
+  }
   a {
     color: $white;
     text-decoration: underline;
@@ -34,6 +44,11 @@ nav.navbar{
       color: $white;
       background-color: $flag-light-blue;
     }
+  }
+
+  img {
+    width: 21px;
+    height: 21px;
   }
 }
 
@@ -53,6 +68,6 @@ button.btn-swedish, input.btn-swedish, a.btn-swedish {
 }
 
 .panel {
-  border: 1px solid $flag-dark-blue;
+  border: 1px solid $dark-grey;
   padding:20px;
 }
