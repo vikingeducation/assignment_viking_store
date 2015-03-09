@@ -1,4 +1,4 @@
-<article class="col-md-4 col-xs-6 product-panel">
+<article class="col-md-4 col-sm-6 col-xs-12 product-panel">
   <div class = "product-wrapper">
     <header class="row product-header">
       <div class="col-md-12">
@@ -6,18 +6,22 @@
       </div>
     </header>
     <div class="row middle">
-      <div class="col-md-8 description">
+      <div class="col-md-12 description">
         <p><%= product.description %></p>
       </div>
-      <div class="price-ribbon col-md-4">
-        <%= number_to_currency(product.price) %>
+      <div class = "col-md-12 image-wrapper">
+        <%= image_tag "https://s3.amazonaws.com/viking_education/demos/viking_store_app/axe_whispering_wind_small.jpg",
+          class: "img-responsive" %>
+        <div class="price-ribbon col-md-2">
+          <%= number_to_currency(product.price) %>
+        </div>
       </div>
     </div>
     <footer class="row product-footer">
       <div class="col-md-12">
         <%= form_tag carts_path(0), method: "POST" do %>
           <%= hidden_field_tag(:item, product.id) %>
-          <p><%=submit_tag "Add to Cart", class: "btn btn-swedish btn-submit" %></p>
+          <%=submit_tag "Add to Cart", class: "btn btn-swedish btn-submit" %>
         <% end %>
       </div>
     </footer>
