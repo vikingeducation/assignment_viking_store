@@ -1,0 +1,55 @@
+@import 'colors';
+
+h1 {
+  text-align: center;
+}
+
+.navbar-offset {
+  padding-top: 50px;
+}
+
+nav.navbar-swedish {
+  background: $dark-normal;
+  a {
+    color: $white;
+  }
+
+  li a:hover {
+    background: $normal-light;
+  }
+}
+
+#main-footer {
+  background: #333;
+  background-color: #333;
+  color: $white;
+
+  a {
+    color: $white;
+    text-decoration: underline;
+    &:hover {
+      color: $white;
+      background-color: $flag-light-blue;
+    }
+  }
+}
+
+button.btn-swedish, input.btn-swedish, a.btn-swedish {
+  background: $normal-dark;
+  color: $white;
+  &:hover {
+    color: $white;
+    background: $light-normal;
+  }
+}
+
+.field_with_errors {
+  * {
+    border-color: red;
+  }
+}
+
+.panel {
+  border: 1px solid $flag-dark-blue;
+  padding:20px;
+}

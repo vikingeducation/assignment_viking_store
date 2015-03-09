@@ -1,18 +1,32 @@
 Rails.application.routes.draw do
 
-  root 'dashboard#index'
-  get 'analytics' => 'dashboard#index'
 
-  # custom route just for the addresses index
-  # all other views are nested under a particular user
-  get 'addresses' => 'addresses#index'
 
-  resources :categories
-  resources :products
+  root 'products#index'
+  resources :products, only: [:index, :show]
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :users, only: [:new, :create, :edit, :update, :destroy]
+  resources :orders, only: [:edit, :update, :destroy, :create]
+  resources :carts, only: [:edit, :update, :create, :destroy]
+  resources :credit_cards, only: [:destroy]
 
-  resources :users do
-    resources :addresses
+
+  namespace :admin do
+    root 'dashboard#index'
+    resources :categories
+    resources :products
+    resources :addresses, only: [:index]
+    resources :orders, only: [:index]
+    resources :purchases, only: [:create, :update, :destroy]
+    resources :users do
+      resources :addresses
+      resources :orders
+    end
+    resources :credit_cards, only: [:destroy]
   end
+
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

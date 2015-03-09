@@ -1,61 +1,90 @@
-  <%= form_for @user do |f| %>
-  <div class = "row">
-    <div class = "col-md-12">
-      <h3>Demographic Info</h3>
-    </div>
-  </div>
+<%= render "shared/errors", :object => @user %>
 
-  <div class = "row">
-    <div class = "col-md-3">
-      <strong>First Name</strong>
-    </div>
-    <div class = "col-md-9">
-      <%= f.text_field :first_name, value: @user.first_name %>
-    </div>
-  </div>
+<%= form_for @user do |user_fields| %>
 
-  <div class = "row">
-    <div class = "col-md-3">
-      <strong>Last Name</strong>
-    </div>
-    <div class = "col-md-9">
-      <%= f.text_field :last_name, value: @user.last_name %>
-    </div>
-  </div>
 
-  <div class = "row">
-    <div class = "col-md-3">
-      <strong>Email:</strong>
-    </div>
-    <div class = "col-md-9">
-      <%= f.email_field :email, value: @user.email %>
-    </div>
-  </div>
+  <%= user_fields.fields_for :addresses do |address_fields| %>
+    <div class = "panel col-md-6 col-xs-12">
+        <div class="form-group">
+          <%= address_fields.label :street_address %>
+          <%= address_fields.text_field :street_address, {class:"form-control"} %>
+        </div>
+        <div class="form-group">
+          <%= address_fields.label :city_id %>
+          <%= address_fields.text_field :city_id, {class:"form-control"} %>
+        </div>
 
-  <% if request.path == "/users/edit" %>
-    <%= render "address_dropdowns" %>
-  <% else %>
-    <%= render partial: "address_inputs", locals: {f: f} %>
+        <div class="form-group">
+          <%= address_fields.collection_select :state_id, State.all, :id, :name, {prompt: "Pick a State"}, {:class => "form-control"} %>
+        </div>
+
+        <div class="form-group">
+          <%= address_fields.label :zip_code %>
+          <%= address_fields.text_field :zip_code, {class:"form-control"} %>
+        </div>
+
+        <div class="form-group">
+          <%= user_fields.radio_button :billing_id, address_fields.index %>
+          <%= address_fields.label :billing_address %>
+        </div>
+
+        <div class="form-group">
+          <%= user_fields.radio_button :shipping_id, address_fields.index %>
+          <%= address_fields.label :shipping_address %>
+        </div>
+
+        <% if address_fields.object.persisted? %>
+
+          <div class="form-group">
+            <%= address_fields.check_box :_destroy%>
+            <%= address_fields.label :delete %>
+          </div>
+
+        <% end %>
+    </div>
+
   <% end %>
 
+<div class = "panel col-md-6 col-xs-12">
 
-  <div class = "row">
-    <div class = "col-md-12">
-      <%= link_to "View Saved Addresses", user_addresses_path(@user) %>
-    </div>
+  <div class="form-group">
+    <%= user_fields.label :email %>
+    <%= user_fields.email_field :email, {class:"form-control"}%>
   </div>
 
-
-  <%= f.submit "Update #{name(@user)}", class: "btn btn-primary
-                                    btn-lg btn-block btn-create"%>
-
-
-  <div class = "row">
-    <div class = "col-md-12">
-        <%=link_to "Delete #{name(@user)}", user_path(@user),
-                    data: { confirm: "Are you sure?" }, method: :delete %>
-    </div>
+  <div class="form-group">
+    <%= user_fields.label :confirm_email %>
+    <%= user_fields.email_field :email, {class:"form-control"} %>
   </div>
 
+  <div class="form-group">
+    <%= user_fields.label :first_name %>
+    <%= user_fields.text_field :first_name, {class:"form-control"} %>
+  </div>
+  <div class="form-group">
+    <%= user_fields.label :last_name %>
+    <%= user_fields.text_field :last_name, {class:"form-control"} %>
+  </div>
+  <div class="form-group">
+    <%= user_fields.label :phone_number %>
+    <%= user_fields.text_field :phone_number, {class:"form-control"} %>
+  </div>
+</div>
 
-<% end %> <!--form -->
+<% if @user.persisted? %>
+  <div class = "panel col-md-6 col-xs-12">
+    <h3>Submit Changes</h3>
+    <%= user_fields.submit "Edit Your Profile", {class: "btn btn-swedish btn-block"} %>
+    <%= link_to("Delete my account", user_path(@user.id), method: "delete", data: {confirm: "Do you really want to quit this site when we know where you live and have axes?"})%>
+  </div>
+<% else %>
+  <div class = "panel col-md-6 col-xs-12">
+    <h3>Complete Sign Up</h3>
+    <%= user_fields.submit "Sign Up", {class: "btn btn-swedish btn-block"} %>
+  </div>
+
+<% end %>
+
+
+
+<% end %>
