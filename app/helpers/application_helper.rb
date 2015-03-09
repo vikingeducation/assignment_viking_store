@@ -1,14 +1,11 @@
 module ApplicationHelper
 
-
-
- #deprecated in favor of model method now included in Address.rb
-  def full_address(address)
-    if address
-      "#{address.street_address}#{address.secondary_address}, #{address.city}, #{address.state} #{address.zip}"
+  def sign_in_button
+    if @current_user
+      link_to "Sign Out", session_path(@current_user), :method => "DELETE"
     else
-      "N/A"
+      link_to "Sign In", new_session_path
     end
   end
-  
+
 end

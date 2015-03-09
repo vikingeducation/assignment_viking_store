@@ -1,28 +1,23 @@
-<nav class = "col-md-2" id="admin-navbar">
-  <h4>Navigation Options</h4>
-  <div class = "row">
-    <div class = "col-md-12">
-      <%= link_to "Users", users_path %>
+<nav class="navbar navbar-swedish navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "Viking Store", root_path, :class => "navbar-brand" %>
     </div>
-    <div class = "col-md-12">
-      <%= link_to "Addresses", addresses_path %>
-    </div>
-
-    <div class = "col-md-12">
-      <%= link_to "Orders", "#" %>
-    </div>
-
-    <div class = "col-md-12">
-      <%= link_to "Products", products_path %>
-    </div>
-
-    <div class = "col-md-12">
-      <%= link_to "Categories", categories_path %>
-    </div>
-
-    <div class = "col-md-12">
-      <hr />
-      <%= link_to "Analytics Dashboard", analytics_path %>
-    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= link_to "View Cart", edit_cart_path(0) %>
+        </li>
+        <li>
+          <%= sign_in_button %>
+        </li>
+      </ul>
+    </div><!--/.navbar-collapse -->
   </div>
 </nav>
