@@ -7,6 +7,12 @@ class OrderContents < ActiveRecord::Base
   # for any ONE order, a product ID should only appear once
   validates :product_id, uniqueness: { scope: :order_id }
 
+  # all that terrible join table business boils down to THIS now
+  def value
+    product.price * quantity
+  end
+
+
   def self.revenue(last_x_days = nil)
 
     if last_x_days

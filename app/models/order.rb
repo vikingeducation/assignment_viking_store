@@ -14,15 +14,32 @@ class Order < ActiveRecord::Base
   has_many :order_contents
   has_many :products, through: :order_contents
 
+  belongs_to :credit_card
+
 
   validates :user_id,
             presence: true,
             numericality: { is_integer: true }
 
 
+  accepts_nested_attributes_for :order_contents, :reject_if => :all_blank,
+                                            :allow_destroy => true
+
   def date_placed
     checkout_date && order.id ?
                      checkout_date.strftime("%Y-%m-%d") : nil
+  end
+
+  def quantity
+    order_contents.sum(:quantity)
+  end
+
+  def value
+    products.sum("quantity * price")
+  end
+
+  def checked_out?
+    checkout_date.present?
   end
 
   def self.checked_out

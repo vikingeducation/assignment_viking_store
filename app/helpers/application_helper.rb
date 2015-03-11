@@ -12,4 +12,7 @@ module ApplicationHelper
     link_to "View Cart", edit_cart_path(0)
   end
 
+  def display_if(object)
+     object.present? ? object : "N/A"
+  end
 end

@@ -55,7 +55,7 @@
             </tr>
           </thead>
           <tbody>
-            <%= f.fields_for :purchases do |purchase_fields| %>
+            <%= f.fields_for :order_contents do |purchase_fields| %>
               <tr>
                 <td><%= purchase_fields.collection_select :product_id, Product.all, :id, :name, {:include_blank => 'None'}, :class => "form-control" %></td>
 

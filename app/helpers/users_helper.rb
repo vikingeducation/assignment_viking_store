@@ -42,9 +42,6 @@ module UsersHelper
     user.billing_address ? user.billing_address.state.name : "N/A"
   end
 
-  def phone_number(user)
-    user.billing_address ? user.billing_address.phone_number : "N/A"
-  end
 
   def name(user)
     "#{user.first_name} #{user.last_name}"
@@ -60,6 +57,10 @@ module UsersHelper
 
   def status(order)
     order.checkout_date ? "PLACED" : content_tag(:span, "UNPLACED", class: "unplaced")
+  end
+
+  def cart_link(user)
+    user.orders.all? { |o| o.checked_out? } ? "Unplaced Order" : (link_to "Unplaced Order", admin_user_order_path(user.id, user.orders.where(checkout_date: nil).first.id))
   end
 
   private

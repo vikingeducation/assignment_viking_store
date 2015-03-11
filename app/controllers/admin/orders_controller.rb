@@ -16,12 +16,14 @@ class Admin::OrdersController < AdminController
   def new
     @order = Order.new(user_id: params[:user_id])
     @user = @order.user
-    3.times { @order.purchases.build({quantity: nil}) }
+    3.times { @order.order_contents.build({quantity: nil}) }
   end
 
   def create
     @order = Order.new(whitelisted_order_params)
     @user = @order.user
+    @order.checkout_date ||= Time.now
+
     if @order.save
       flash[:success] = "Order created successfully."
       redirect_to admin_user_orders_path
@@ -39,7 +41,7 @@ class Admin::OrdersController < AdminController
   def edit
     @order = Order.find(params[:id])
     @user = @order.user
-    3.times { @order.purchases.build({quantity: nil}) }
+    3.times { @order.order_contents.build({quantity: nil}) }
   end
 
   def update
@@ -70,6 +72,6 @@ class Admin::OrdersController < AdminController
   private
 
   def whitelisted_order_params
-    params.require(:order).permit(:user_id, :billing_id, :shipping_id, :checked_out, :checkout_date, :credit_card_id, {:purchases_attributes => [:id, :quantity, :_destroy, :order_id, :product_id]})
+    params.require(:order).permit(:user_id, :billing_id, :shipping_id, :checkout_date, :credit_card_id, {:order_contents_attributes => [:id, :quantity, :_destroy, :order_id, :product_id]})
   end
 end

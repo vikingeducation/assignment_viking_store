@@ -19,6 +19,29 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, format: { with: /@/ }
 
+
+  accepts_nested_attributes_for :addresses, :allow_destroy => true
+
+  def completed_orders
+    orders.where.not(checkout_date: nil)
+  end
+
+  def last_checkout_date
+    orders.where.not(:checkout_date => nil).
+          order("checkout_date DESC")
+          .pluck(:checkout_date).first ||
+          "n/a"
+  end
+
+
+  def name
+    "#{first_name} #{last_name}"
+  end
+
+  def cart
+    orders.find_by(:checkout_date => nil)
+  end
+
   def self.new_users(last_x_days = nil)
     if last_x_days
       where("created_at > ?", Time.now - last_x_days.days).size

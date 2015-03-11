@@ -30,7 +30,7 @@ class Admin::DashboardController < AdminController
       @new_users[day] = User.new_users(day)
       @new_orders[day] = Order.new_orders(day)
       @new_products[day] = Product.new_products(day)
-      @revenue[day] = Purchase.revenue(day)
+      @revenue[day] = OrderContents.revenue(day)
       @largest_order[day] = Order.largest_value(day)
     end
   end
