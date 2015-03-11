@@ -12,6 +12,9 @@
   padding: 10px;
 }
 
+#store-row {
+  position: relative;
+}
 #store-headline {
   h1 {
     font-size: 56px;
@@ -21,7 +24,7 @@
 
   position: absolute;
   width: 50%;
-  top: 40%;
+  top: 35%;
   right: 25%;
   color: black;
   opacity: 1.0;

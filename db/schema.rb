@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301185126) do
+ActiveRecord::Schema.define(version: 20150310001747) do
 
   create_table "addresses", force: true do |t|
     t.string   "street_address",    null: false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20150301185126) do
     t.integer  "user_id",                                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "ccv"
   end
 
   add_index "credit_cards", ["card_number"], name: "index_credit_cards_on_card_number", unique: true
@@ -64,11 +65,12 @@ ActiveRecord::Schema.define(version: 20150301185126) do
 
   create_table "orders", force: true do |t|
     t.datetime "checkout_date"
-    t.integer  "user_id",       null: false
+    t.integer  "user_id",        null: false
     t.integer  "shipping_id"
     t.integer  "billing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "credit_card_id"
   end
 
   create_table "products", force: true do |t|

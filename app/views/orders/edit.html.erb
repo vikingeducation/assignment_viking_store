@@ -18,7 +18,7 @@
     </div>
     <br>
     <br>
-    <%= fields_for @order.credit_card do |credit_fields|%>
+  <%= fields_for @order.credit_card do |credit_fields|%>
     <div class="form-group">
       <%= credit_fields.label :id, "Card Number" %>
       <%= credit_fields.text_field :card_number, class: "col-xs-6 form-control" %>
@@ -53,7 +53,7 @@
           </tr>
         </thead>
         <tbody>
-          <%= render 'order', :purchases => @order.purchases %>
+          <%= render 'order', :contents => @order.order_contents %>
         </tbody>
       </table>
 

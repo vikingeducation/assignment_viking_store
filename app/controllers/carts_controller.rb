@@ -14,7 +14,9 @@ class CartsController < ApplicationController
       flash[:error] = "Product is invalid"
     end
 
-    redirect_to products_path
+    # preserves an existing product filter if you have one
+    # passed to this action via hidden field
+    redirect_to products_path({products_filter: params[:products_filter]})
   end
 
   def edit

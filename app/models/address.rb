@@ -24,4 +24,8 @@ class Address < ActiveRecord::Base
   validates :city_id, :state_id,
                       numericality: { only_integer: true },
                       presence: true
+
+  def full_address
+    "#{street_address}, #{city.name}, #{state.name} #{zip_code}"
+  end
 end

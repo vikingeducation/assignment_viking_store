@@ -1,8 +1,8 @@
-<% purchases.each do |purchase| %>
+<% contents.each do |order_contents| %>
   <tr>
-    <td><%= purchase.product.name %></td>
-    <td><%= purchase.quantity %></td>
-    <td><%= number_to_currency(purchase.product.price) %></td>
-    <td><%= number_to_currency(purchase.value) %></td>
+    <td><%= order_contents.product.name %></td>
+    <td><%= order_contents.quantity %></td>
+    <td><%= number_to_currency(order_contents.product.price) %></td>
+    <td><%= number_to_currency(order_contents.value) %></td>
   </tr>
 <% end %>

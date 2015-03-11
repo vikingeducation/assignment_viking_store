@@ -10,31 +10,26 @@ class OrdersController < ApplicationController
 
 		if current_user.cart.present?
 			@order = current_user.cart.first
-			@order.purchases.destroy_all
+			@order.order_contents.destroy_all
 		else
-			@order = current_user.orders.build(checked_out: false)
+			@order = current_user.orders.build
 		end
 
 		session[:cart].each do |k, v|
-			@order.purchases.build(product_id: k,
+			@order.order_contents.build(product_id: k,
 									 					 quantity: v)
 		end
-
-    if current_user.credit_card
-      @order.credit_card = current_user.credit_card
-    end
 
 		@order.save!
 		redirect_to edit_order_path(@order)
 	end
 
 	def edit
-		@order = current_user.cart.first # let's see what we can pass
-		@order.build_credit_card(user_id: @order.user.id) unless @order.credit_card
+		@order = current_user.cart # let's see what we can pass
+		@order.build_credit_card(user_id: @order.user.id) unless current_user.credit_cards.present?
 
-    @total = 0
-    @order.purchases.each do |purchase|
-      @total += (purchase.product.price * purchase.quantity)
+    @total = @order.order_contents.inject do |total, order_contents|
+      total + (order_contents.value)
     end
 	end
 
@@ -44,7 +39,6 @@ class OrdersController < ApplicationController
 
 		if @order.credit_card.save && @order.update(checkout_params) && (@order.billing && @order.shipping && @order.credit_card)
 			flash[:success] = "You just bought some axes!"
-			@order.checked_out = true
 			@order.checkout_date = Time.now
 			@order.save
 			session.delete(:cart)

@@ -9,11 +9,11 @@
 <table class="table table-striped table-bordered">
   <tr>
     <td>Times Ordered</td>
-    <td><%= checked_out(true) %></td>
+    <td><%= @product.orders.checked_out.count %></td>
   </tr>
   <tr>
     <td>Carts In</td>
-    <td><%= checked_out(false) %></td>
+    <td><%= @product.orders.carts.count %></td>
   </tr>
 </table>
 
