@@ -58,12 +58,18 @@ class User < ActiveRecord::Base
       group("states.name")
   end
 
+  # Returns the three cities with the most users.
+  # JOINs addresses to users' billing_id, and cities to addresses.
+  # GROUPs the cities by name.
+  # ORDERs them by descending count.
+  # LIMIT to the first three.
+  #Creates an ActiveRecord relation where each record has an attribute "city_name" and "users_in_city".
   def self.top_three_cities
     select("cities.name AS city_name, COUNT(*) AS users_in_city").
       joins("JOIN addresses ON users.billing_id = addresses.id JOIN cities ON cities.id = addresses.city_id").
-      limit(3).
       order("users_in_city DESC").
-      group("cities.name")
+      group("cities.name").
+      limit(3)
   end
 
   def self.top_order
