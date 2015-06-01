@@ -61,3 +61,195 @@ The secret here is that the `billing_id` is actually the index *in `:addresses_a
 
 *NOTE: This solution repo is copyrighted material for your private use only and not to be shared outside of Viking Code School.*
 
+
+### SEEDING
+Seeding the Viking Store
+By now, you've spent hours and hours on SQL alone, then more hours learning how to translate it back into ActiveRecord. Hopefully, data models are starting to make more sense for you at this point.
+
+As for this assignment, there were two equally weighty parts to the assignment: setting up the data models in the first place, then seeding them up with useful fake data. This solution will walk through each one separately.
+
+Data Model Planning
+
+You've already had experience planning out the model for a store, so this part of the assignment should have been relatively familiar. Even so, it was more complex than the earlier examples.
+
+Don't Forget Your Join Tables
+
+When you got to the prospect of an Order having many Products in it, but the same Product showing up in multiple Orders, hopefully you realized, Many to Many!
+
+Seeding is Simpler Than You Think
+
+The hardest part about seeding is that there are so many steps. The easiest part is that every single step is something you could have walked through in Rails Console first. seeds.rb is just a Ruby script of things you could have done in Rails Console if you wanted, triggered by the command rake db:seed. (As a matter of fact, keeping Rails Console open for exploratory coding is a really good idea while writing this thing.)
+
+Build Independent Objects Before Dependent Objects
+
+The complicated thing about seeding this database is just making sure you build the right model objects in the right order. For example, if an address is going to have a user_id as part of a has-many relationship, you need to build the users first so you can access those IDs. If you did things in the wrong order, you probably found yourself circling back and adding new IDs to objects later on, which gets very confusing.
+
+The steps of this seeds file roughly look like: - build a
+
+
+
+The Admin dashboards for the Viking Store--Solution
+=======
+
+If you made it through this assignment, you've built your first Rails app that's actually of use to businesses! You have also written some awfully complex SQL queries for a beginner, and you should feel proud. It is very easy for a self-taught Rails developer never to know quite how ActiveRecord works under the hood, but you are already beginning to understand that everything it does is just a SQL query you could have written by hand.
+
+
+##A Question Worth Asking
+"Which model needs this query method attached?"
+
+**Answer:** The kind of object your class method returns, or the model you're looking for information about.
+
+**Example:** You want a class method to give you all Products that are in a certain Category. That method should be on Product, not on Category, because you are asking a question that gives you a Product back.
+
+```language-ruby
+def self.containing_only_category(category)
+  joins(:category).where("products.category_id = ?", category.id)
+end
+
+# use example
+# baked_goods_id = Category.where(:name => "Baked Goods").first.id
+# Product.containing_only_category(baked_goods_id)
+```
+
+### Remember to use Aliases
+
+You're still doing SQL in the complex queries, so don't forget to alias the results of your calculations. Because Rails is dynamically generating methods on ActiveRecord relations, you will suddenly be able to access those aliases as methods.
+
+Take a close look at the following query (it finds the total cash value of the most expensive order ever placed), and notice that `value` only exists as a working method on the last line because it was aliased into existence on the first line. It *also* exists in your `order` clause to be used in additional SQL. Convenient!
+
+```language-ruby
+   select("SUM(order_contents.quantity * products.price) AS value").
+      joins("JOIN order_contents ON orders.id = order_contents.order_id JOIN products ON products.id = order_contents.product_id").
+      where(:checked_out => true).
+      order("value DESC").
+      group("orders.id").
+      first.
+      value
+```
+
+###This One View Does Many Things
+You are doing a whole lot of different calculations and spitting them out into a single complex view. . .
+####So Partialize Your Views
+You know this, but it is extra important in a complex dashboard that inevitably loops through a whole lot of pieces.
+
+####(And Also DRY Out Your Variables In the Controller)
+This dashboard is unusual because it calls for so many specially-built queries all in one place. Build variables for your data sets to avoid clogging up your views with complex method calls to the model.
+
+```language-ruby
+    def index
+
+      ...
+      @top_states = User.top_three_states
+      @top_cities = User.top_three_cities
+
+      @top_order = User.top_order
+      @highest_lifetime = User.highest_lifetime
+      @highest_average = User.highest_average_order
+      @most_orders = User.most_orders
+
+      ...
+    end
+```
+
+Further, since you're iterating over the same queries over each day in the last week, as well as other queries over 7, 30, and all-time time frames, you should find a way to DRY that out as well. This solution did so by creating special methods that return an array of results.
+
+```
+ # run setup_time_series(0..6) in #index action
+
+ def setup_time_series(day_range)
+    @order_days = []
+    @daily_revenue = []
+    @order_weeks = []
+    @weekly_revenue = []
+
+    day_range.each do |x|
+      @order_days << Order.orders_on(x)
+      @daily_revenue << Order.daily_revenue(x)
+      @order_weeks << Order.orders_in(x)
+      @weekly_revenue << Order.weekly_revenue(x)
+    end
+
+  end
+```
+
+
+The reason for this somewhat confusing code is a victory in the view, where you can just iterate over `@order_days.each` and `@weekly_revenue.each` to get quick access to your results.
+
+###View Tip: the `number_with_precision` method
+
+Since you're saving your numbers as precision floats, you need a way to convert to 2 decimal places if you want to display a dollar amount. Thankfully, there's a pretty slick Rails view helper method to handle that for you. `number_with_precision` takes a number as its first parameter, and then options like `:precision` and `:delimiter` in its options hash, spitting out the number you want in the format you want.
+
+Example:
+`<%= number_with_precision( 1232141244.9925803832, :precision => 2, :delimiter => ',') %>` will return `1,232,141,244.99`. Stick a dollar sign on the front, and you're done!
+
+
+
+
+CRUDdy Solution to CRUDdy Store Interfaces
+======================
+
+Now you're CRUDding with power.
+
+Welcome to the rest of your Rails career. You will be doing this so many times from here on out. You've done it before, but now you actually have a sense of database objects and associations, backed up with the validations that make your data actually mean something.
+
+Some tips:
+
+- be careful with overzealousness on validations with `:presence => true`
+    + if an object could lack that field or association for even a short time during the creation process, you might get into trouble
+- if you're validating the length of something, you're validating its presence too
+- Remember, the same `form_for` can handle `:new` and `:edit` actions
+    + let `new.html.erb` and `edit.html.erb` just point to the same partial
+
+
+Adminiffic!
+===========
+
+You just admin-ed the CRUD out of this assignment. Great job!
+
+This was in many ways similar to the week's assignment, but working with nested resources gave you a couple new things to think about.
+
+## Don't Get Confused About Whose Page It Is
+As the mockups guided you to see, a User show page can still have a partial that runs you through that user's addresses, another for their orders, and another for their products. Even with all the extra resources flying around, that's still *their* show-page, and all those extra variables are associations on the main subject of the request. It can be a simple `user_path(@user)` to get to that page, and it makes sense that you want to see a whole user's activity in one place. Thinking in terms of routes and controller actions is a good move whenever you get confused about this sort of thing. Just ask, "What is actually the point of the request, and what are they asking for? What other resources are just additional pieces of information that are tied to that primary resource request?"
+
+##How Did You Solve the Addresses Index Problem?
+
+As the mockup and Pivotal Tracker showed it, Addresses are a nested resource mostly only worth seeing through the lens of the User that owns them. You should be able to look at a User's addresses by visiting `/users/4/addresses`. You should be able to show a particular address by going to a path like `/users/4/addresses/9` -- the show page for an address should have easy access to the information of the user that inputted it. But what about when you put your Admin hat on and need to look at the entire set of addresses? This doesn't seem like something you can solve by just declaring a single set of RESTful routes.
+
+Instead, do it like this:
+
+```language-ruby
+# in routes.rb
+
+# the main set of CRUD actions for an address
+resources :users do
+  resources :addresses
+end
+
+# and now we add one more custom route
+get '/addresses', 'addresses#index'
+```
+
+That way, you can still just visit `/addresses` and have access to a non-user-specific set of addresses.
+
+Further, you can then use the same controller action and the same view to handle both scenarios.
+
+```language-ruby
+@user = User.find(params[:user_id])
+
+# verbose way
+if @user
+  @addresses = @user.addresses
+else
+  @addresses = Address.all
+end
+
+# or for the cool ternary operator one-liner way
+@addresses = @user ? @user.addresses : Address.all
+```
+
+Done this way, in the view, you don't need any conditionals on rendering the addresses partials, because either way, @addresses is a collection of objects.
+The only conditional you need in the view at all is a quick `if` statement to decide whether the heading is 'Addresses' or "Jane Doe's Addresses". You don't even need to write the same `index.html.erb` twice, because Rails is definitely smart enough to check `/app/views/addresses` for your file if you're making a request for an index of addresses, no matter what the route that sent you there.
+
+
+*NOTE: This solution repo is copyrighted material for your private use only and not to be shared outside of Viking Code School.*
+
