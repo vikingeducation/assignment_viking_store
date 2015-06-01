@@ -53,9 +53,9 @@ class Order < ActiveRecord::Base
 
   def self.new_orders(last_x_days = nil)
     if last_x_days
-      where("checkout_date > ?", Time.now - last_x_days.days).size
+      where("checkout_date > ?", last_x_days.days.ago).count
     else
-      where.not(:checkout_date => nil).size
+      where.not(:checkout_date => nil).count
     end
   end
 
