@@ -114,12 +114,9 @@ Further, since you're iterating over the same queries over each day in the last 
 
 The reason for this somewhat confusing code is a victory in the view, where you can just iterate over `@order_days.each` and `@weekly_revenue.each` to get quick access to your results.
 
-####View Tip: the `number_with_precision` method
-
-Since you're saving your numbers as precision floats, you need a way to convert to 2 decimal places if you want to display a dollar amount. Thankfully, there's a pretty slick Rails view helper method to handle that for you. `number_with_precision` takes a number as its first parameter, and then options like `:precision` and `:delimiter` in its options hash, spitting out the number you want in the format you want.
-
-Example:
-`<%= number_with_precision( 1232141244.9925803832, :precision => 2, :delimiter => ',') %>` will return `1,232,141,244.99`. Stick a dollar sign on the front, and you're done!
+####Look For ActionView Formatting Methods
+If you find yourself formatting numbers or dates for the view in the same way over and over, there's a high probability that this formatting has been built into a Rails view helper method.
+For instance, our solution uses `number_to_currency` to render dollar figures properly. [Check out the docs here](http://api.rubyonrails.org/classes/ActionView/Helpers/NumberHelper.html#method-i-number_to_currency) and poke around ActionView for other interesting stuff.
 
 
 ##Unit 9
