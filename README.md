@@ -18,7 +18,7 @@ In this phase of the app, you were asked to design the data models for an e-comm
 When you got to the prospect of an Order having many Products in it, but the same Product showing up in multiple Orders, hopefully you realized, Many to Many!
 
 
-####Seeding
+#####Seeding
 I hope you had some fun with the Faker gem!
 
 The hardest part about seeding is that there are so many steps. The easiest part is that every single step is something you could have walked through in Rails Console first. `seeds.rb` is just a Ruby script of things you could have done in Rails Console if you wanted, triggered by the command `rake db:seed`. (As a matter of fact, keeping Rails Console open for exploratory coding is a really good idea while writing this thing.)
@@ -29,6 +29,98 @@ The file is heavily commented, so give it a look. Remember that this is run as a
 
 
 ###Project: The Viking Store Analytics Dashboard
+
+If you made it through this assignment, you've built your first Rails app that's actually of use to businesses! You have also written some awfully complex SQL queries for a beginner, and you should feel proud. It is very easy for a self-taught Rails developer never to know quite how ActiveRecord works under the hood, but you are already beginning to understand that everything it does is just a SQL query you could have written by hand.
+
+Here are some highlights of a good solution.
+
+####Put Class Methods in the Right Place
+
+Always a question worth asking: "Which model needs this query method attached?"
+
+**Answer:** The kind of object your class method returns, or the model you're looking for information about.
+
+**Example:** You want a class method to give you all Products that are in a certain Category. That method should be on Product, not on Category, because you are asking a question that gives you a Product back.
+
+```language-ruby
+def self.containing_only_category(category)
+  joins(:category).where("products.category_id = ?", category.id)
+end
+
+# use example
+# baked_goods_id = Category.where(:name => "Baked Goods").first.id
+# Product.containing_only_category(baked_goods_id)
+```
+
+####Alias Your Query Values
+
+You're still doing SQL in the complex queries, so don't forget to alias the results of your calculations. Because Rails is dynamically generating methods on ActiveRecord relations, you will suddenly be able to access those aliases as methods.
+
+Take a close look at the following query (it finds the total cash value of the most expensive order ever placed), and notice that `value` only exists as a working method on the last line because it was aliased into existence on the first line. It *also* exists in your `order` clause to be used in additional SQL. Convenient!
+
+```language-ruby
+   select("SUM(order_contents.quantity * products.price) AS value").
+      joins("JOIN order_contents ON orders.id = order_contents.order_id JOIN products ON products.id = order_contents.product_id").
+      where(:checked_out => true).
+      order("value DESC").
+      group("orders.id").
+      first.
+      value
+```
+
+####Manage This Complicated View with Partials and DRY Variables
+
+You are doing a whole lot of different calculations and spitting them out onto one page. **Using partials** will help you simplify a complex view that inevitably loops through a whole lot of pieces.
+
+This dashboard is unusual because it calls for so many specially-built queries all in one place. **DRY up your methods** to build variables for your data sets to avoid clogging up your views with complex method calls to the model.
+
+```language-ruby
+    def index
+
+      ...
+      @top_states = State.three_with_most_users
+      @top_cities = City.three_with_most_users
+      
+      @top_order = User.top_order
+      @highest_lifetime = User.highest_lifetime
+      @highest_average = User.highest_average_order
+      @most_orders = User.most_orders
+
+      ...
+    end
+```
+
+Further, since you're iterating over the same queries over each day in the last week, as well as other queries over 7, 30, and all-time time frames, you should find a way to DRY that out as well. This solution did so by creating special methods that return an array of results.
+
+```
+ # run setup_time_series(0..6) in #index action
+
+ def setup_time_series(day_range)
+    @order_days = []
+    @daily_revenue = []
+    @order_weeks = []
+    @weekly_revenue = []
+
+    day_range.each do |x|
+      @order_days << Order.orders_on(x)
+      @daily_revenue << Order.daily_revenue(x)
+      @order_weeks << Order.orders_in(x)
+      @weekly_revenue << Order.weekly_revenue(x)
+    end
+
+  end
+```
+
+
+The reason for this somewhat confusing code is a victory in the view, where you can just iterate over `@order_days.each` and `@weekly_revenue.each` to get quick access to your results.
+
+####View Tip: the `number_with_precision` method
+
+Since you're saving your numbers as precision floats, you need a way to convert to 2 decimal places if you want to display a dollar amount. Thankfully, there's a pretty slick Rails view helper method to handle that for you. `number_with_precision` takes a number as its first parameter, and then options like `:precision` and `:delimiter` in its options hash, spitting out the number you want in the format you want.
+
+Example:
+`<%= number_with_precision( 1232141244.9925803832, :precision => 2, :delimiter => ',') %>` will return `1,232,141,244.99`. Stick a dollar sign on the front, and you're done!
+
 
 ##Unit 9
 ###Assignment: Viking Store CRUD-dy Interfaces
@@ -116,99 +208,6 @@ The secret here is that the `billing_id` is actually the index *in `:addresses_a
 
 
 
-The Admin dashboards for the Viking Store--Solution
-=======
-
-If you made it through this assignment, you've built your first Rails app that's actually of use to businesses! You have also written some awfully complex SQL queries for a beginner, and you should feel proud. It is very easy for a self-taught Rails developer never to know quite how ActiveRecord works under the hood, but you are already beginning to understand that everything it does is just a SQL query you could have written by hand.
-
-
-##A Question Worth Asking
-"Which model needs this query method attached?"
-
-**Answer:** The kind of object your class method returns, or the model you're looking for information about.
-
-**Example:** You want a class method to give you all Products that are in a certain Category. That method should be on Product, not on Category, because you are asking a question that gives you a Product back.
-
-```language-ruby
-def self.containing_only_category(category)
-  joins(:category).where("products.category_id = ?", category.id)
-end
-
-# use example
-# baked_goods_id = Category.where(:name => "Baked Goods").first.id
-# Product.containing_only_category(baked_goods_id)
-```
-
-### Remember to use Aliases
-
-You're still doing SQL in the complex queries, so don't forget to alias the results of your calculations. Because Rails is dynamically generating methods on ActiveRecord relations, you will suddenly be able to access those aliases as methods.
-
-Take a close look at the following query (it finds the total cash value of the most expensive order ever placed), and notice that `value` only exists as a working method on the last line because it was aliased into existence on the first line. It *also* exists in your `order` clause to be used in additional SQL. Convenient!
-
-```language-ruby
-   select("SUM(order_contents.quantity * products.price) AS value").
-      joins("JOIN order_contents ON orders.id = order_contents.order_id JOIN products ON products.id = order_contents.product_id").
-      where(:checked_out => true).
-      order("value DESC").
-      group("orders.id").
-      first.
-      value
-```
-
-###This One View Does Many Things
-You are doing a whole lot of different calculations and spitting them out into a single complex view. . .
-####So Partialize Your Views
-You know this, but it is extra important in a complex dashboard that inevitably loops through a whole lot of pieces.
-
-####(And Also DRY Out Your Variables In the Controller)
-This dashboard is unusual because it calls for so many specially-built queries all in one place. Build variables for your data sets to avoid clogging up your views with complex method calls to the model.
-
-```language-ruby
-    def index
-
-      ...
-      @top_states = User.top_three_states
-      @top_cities = User.top_three_cities
-
-      @top_order = User.top_order
-      @highest_lifetime = User.highest_lifetime
-      @highest_average = User.highest_average_order
-      @most_orders = User.most_orders
-
-      ...
-    end
-```
-
-Further, since you're iterating over the same queries over each day in the last week, as well as other queries over 7, 30, and all-time time frames, you should find a way to DRY that out as well. This solution did so by creating special methods that return an array of results.
-
-```
- # run setup_time_series(0..6) in #index action
-
- def setup_time_series(day_range)
-    @order_days = []
-    @daily_revenue = []
-    @order_weeks = []
-    @weekly_revenue = []
-
-    day_range.each do |x|
-      @order_days << Order.orders_on(x)
-      @daily_revenue << Order.daily_revenue(x)
-      @order_weeks << Order.orders_in(x)
-      @weekly_revenue << Order.weekly_revenue(x)
-    end
-
-  end
-```
-
-
-The reason for this somewhat confusing code is a victory in the view, where you can just iterate over `@order_days.each` and `@weekly_revenue.each` to get quick access to your results.
-
-###View Tip: the `number_with_precision` method
-
-Since you're saving your numbers as precision floats, you need a way to convert to 2 decimal places if you want to display a dollar amount. Thankfully, there's a pretty slick Rails view helper method to handle that for you. `number_with_precision` takes a number as its first parameter, and then options like `:precision` and `:delimiter` in its options hash, spitting out the number you want in the format you want.
-
-Example:
-`<%= number_with_precision( 1232141244.9925803832, :precision => 2, :delimiter => ',') %>` will return `1,232,141,244.99`. Stick a dollar sign on the front, and you're done!
 
 
 
