@@ -27,7 +27,7 @@
     <tr>
       <td>Revenue</td>
       <td>
-        $<%= number_with_precision(revenue, :precision => 2, :delimiter => ',') %>
+        <%= number_to_currency(revenue) %>
       </td>
     </tr>
   </tbody>
