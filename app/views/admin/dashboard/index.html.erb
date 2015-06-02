@@ -88,7 +88,7 @@
                   <%= @top_order.user_first_name + " " + @top_order.user_last_name %>
                 </td>
                 <td>
-                  $<%= number_with_precision(@top_order.value, :precision => 2, :delimiter => ',') %>
+                  <%= number_with_precision(@top_order.value, :precision => 2, :delimiter => ',') %>
                 </td>
               </tr>
               <tr>
