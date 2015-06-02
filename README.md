@@ -25,7 +25,7 @@ The hardest part about seeding is that there are so many steps. The easiest part
 
 [Here is the seeds file of the solution app.](https://github.com/vikingeducation/solution_viking_store_final/blob/master/db/seeds.rb)
 
-The crucial thing is to make sure you build the right model objects in the right order. For example, if an address is going to have a user_id as part of a has-many relationship, you need to build the users first so you can access those IDs. If you did things in the wrong order, you probably found yourself circling back and adding new IDs to objects later on, which gets very confusing.
+The file is heavily commented, so give it a look. Remember that this is run as a script, so it's crucial that you create independent objects before dependent objects. For example, if an address is going to have a user_id as part of a has-many relationship, you need to build the users first so you can access those IDs. If you did things in the wrong order, you probably found yourself circling back and adding new IDs to objects later on, which gets very confusing.
 
 
 ###Project: The Viking Store Analytics Dashboard
