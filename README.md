@@ -2,6 +2,55 @@ The Compleat Viking Store
 ===========
 This solution represents the canonical Viking Code School solution for the 3-week-long Viking Store project. It is an evolving project, so please let us know right away if anything isn't working for you!
 
+* * *
+
+##Unit 8
+###Assignment: Setting up the DB
+In this phase of the app, you were asked to design the data models for an e-commerce site and seed the model with fake data.
+
+####Data Model Planning
+
+[Here is the schema of the solution app.](https://github.com/vikingeducation/solution_viking_store_final/blob/master/db/schema.rb) You'll use this schema and the related seeds file for the next phases, so if you don't understand any of the choices we made, please ask for clarification.
+
+
+#####Don't Forget Your Join Tables
+
+When you got to the prospect of an Order having many Products in it, but the same Product showing up in multiple Orders, hopefully you realized, Many to Many!
+
+
+####Seeding
+I hope you had some fun with the Faker gem!
+
+The hardest part about seeding is that there are so many steps. The easiest part is that every single step is something you could have walked through in Rails Console first. `seeds.rb` is just a Ruby script of things you could have done in Rails Console if you wanted, triggered by the command `rake db:seed`. (As a matter of fact, keeping Rails Console open for exploratory coding is a really good idea while writing this thing.)
+
+[Here is the seeds file of the solution app.](https://github.com/vikingeducation/solution_viking_store_final/blob/master/db/seeds.rb)
+
+The crucial thing is to make sure you build the right model objects in the right order. For example, if an address is going to have a user_id as part of a has-many relationship, you need to build the users first so you can access those IDs. If you did things in the wrong order, you probably found yourself circling back and adding new IDs to objects later on, which gets very confusing.
+
+
+###Project: The Viking Store Analytics Dashboard
+
+##Unit 9
+###Assignment: Viking Store CRUD-dy Interfaces
+
+###Project: The Viking Store Admin Back-End
+
+##Unit 10
+###Assignment: The Viking Store Product Pages
+
+###Project: The Viking Store Checkout Process
+
+***
+
+###Template
+In this phase of the Viking Store app, you were asked to...
+
+Some gists of the relevant files, if limited.
+
+***
+
+#JUMBLED STUFF BELOW HERE
+
 ##Admin Stuff is Namespaced
 
 As requested in the assignment, everything from Weeks 1 and 2, which represents the Admin CRUD and analytics dashboard functionality, is now namespaced under the `admin/` routes. That means that there's an `Admin::UsersController`, a whole bunch of routes under `namespace :admin`, and countless forms rewritten to look like `form_for [:admin, @user] do |f|`. It was a slog to change all the routes and move all those files, but Rails error messages are a pretty clear guide to what's missing, especially using gems like `better_errors`.
@@ -63,28 +112,7 @@ The secret here is that the `billing_id` is actually the index *in `:addresses_a
 
 
 ### SEEDING
-Seeding the Viking Store
-By now, you've spent hours and hours on SQL alone, then more hours learning how to translate it back into ActiveRecord. Hopefully, data models are starting to make more sense for you at this point.
 
-As for this assignment, there were two equally weighty parts to the assignment: setting up the data models in the first place, then seeding them up with useful fake data. This solution will walk through each one separately.
-
-Data Model Planning
-
-You've already had experience planning out the model for a store, so this part of the assignment should have been relatively familiar. Even so, it was more complex than the earlier examples.
-
-Don't Forget Your Join Tables
-
-When you got to the prospect of an Order having many Products in it, but the same Product showing up in multiple Orders, hopefully you realized, Many to Many!
-
-Seeding is Simpler Than You Think
-
-The hardest part about seeding is that there are so many steps. The easiest part is that every single step is something you could have walked through in Rails Console first. seeds.rb is just a Ruby script of things you could have done in Rails Console if you wanted, triggered by the command rake db:seed. (As a matter of fact, keeping Rails Console open for exploratory coding is a really good idea while writing this thing.)
-
-Build Independent Objects Before Dependent Objects
-
-The complicated thing about seeding this database is just making sure you build the right model objects in the right order. For example, if an address is going to have a user_id as part of a has-many relationship, you need to build the users first so you can access those IDs. If you did things in the wrong order, you probably found yourself circling back and adding new IDs to objects later on, which gets very confusing.
-
-The steps of this seeds file roughly look like: - build a
 
 
 
