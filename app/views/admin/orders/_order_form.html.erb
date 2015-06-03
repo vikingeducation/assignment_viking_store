@@ -11,10 +11,10 @@
           <div class="form-group">
             <%= f.label "Order Placed", :class => "col-xs-2 control-label" %>
             <div class="col-xs-2 col-xs-offset-1 radio">
-              <%= f.radio_button :checked_out, true %><%= f.label "PLACED" %>
+              <%= f.radio_button :checked_out?, true %><%= f.label "PLACED" %>
             </div>
             <div class="col-xs-2 radio">
-              <%= f.radio_button :checked_out, false %><%= f.label "UNPLACED" %>
+              <%= f.radio_button :checked_out?, false %><%= f.label "UNPLACED" %>
             </div>
           </div>
         <% else %>
