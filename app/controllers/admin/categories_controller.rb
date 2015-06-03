@@ -1,4 +1,7 @@
 class Admin::CategoriesController < AdminController
+
+  before_action :set_category, only: [:show, :edit, :update, :destroy]
+
   def index
     @categories = Category.all
   end
@@ -19,15 +22,12 @@ class Admin::CategoriesController < AdminController
   end
 
   def show
-    @category = Category.find(params[:id])
   end
 
   def edit
-    @category = Category.find(params[:id])
   end
 
   def update
-    @category = Category.find(params[:id])
     if @category.update_attributes(whitelisted_category_params)
       flash[:success] = "Category updated successfully."
       redirect_to admin_categories_path
@@ -38,8 +38,6 @@ class Admin::CategoriesController < AdminController
   end
 
   def destroy
-    @category = Category.find(params[:id])
-
     session[:return_to] ||= request.referer
     if @category.destroy
       flash[:success] = "Category deleted successfully."
@@ -51,6 +49,10 @@ class Admin::CategoriesController < AdminController
   end
 
   private
+
+  def set_category
+    @category = Category.find(params[:id])
+  end
 
   def whitelisted_category_params
     params.require(:category).permit(:name)
