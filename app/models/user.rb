@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
           "n/a"
   end
 
-
   def name
     "#{first_name} #{last_name}"
   end
