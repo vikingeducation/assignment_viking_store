@@ -12,6 +12,9 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
+          <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
+        </li>
+        <li>
           <%= link_to "View Cart", edit_cart_path(0) %>
         </li>
         <li>
