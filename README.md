@@ -33,7 +33,13 @@ The file is heavily commented, so give it a look. Remember that this is run as a
 
 If you made it through this assignment, you've built your first Rails app that's actually of use to businesses! You have also written some awfully complex SQL queries for a beginner, and you should feel proud. It is very easy for a self-taught Rails developer never to know quite how ActiveRecord works under the hood, but you are already beginning to understand that everything it does is just a SQL query you could have written by hand.
 
-If you want to compare your dashboard data to ours, [a summary of the results can be found in the public directory](public/example_data.md).
+If you want to compare your dashboard data to ours, [a summary of the results can be found in the public directory](public/example_data.md). For a more extensive comparison, you can download the repo to your own PC and run the seeds file with the following commands:
+
+```
+$ git clone https://github.com/vikingeducation/solution_viking_store_final.git
+$ cd solution_viking_store_final
+$ rake db:setup
+```
 
 Here are some highlights of a good solution.
 
