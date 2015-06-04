@@ -19,8 +19,10 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, format: { with: /@/ }
 
-
-  accepts_nested_attributes_for :addresses, :allow_destroy => true
+  # ":reject_if => :all_blank" keeps the blank form from failing validation.
+  accepts_nested_attributes_for :addresses,
+                                :allow_destroy => true,
+                                :reject_if => :all_blank
 
   def completed_orders
     orders.where.not(checkout_date: nil)
