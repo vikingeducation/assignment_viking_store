@@ -6,8 +6,8 @@ class Admin::DashboardController < AdminController
     @time_frames = [7, 30, @all_time]
     setup_overall_platform(@time_frames)
 
-    @top_states = User.top_three_states
-    @top_cities = User.top_three_cities
+    @top_states = State.three_with_most_users
+    @top_cities = City.three_with_most_users
 
     @top_order = User.top_order
     @highest_lifetime = User.highest_lifetime

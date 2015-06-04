@@ -1,4 +1,7 @@
 class Admin::ProductsController < AdminController
+
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
+
   def index
     @products = Product.all
   end
@@ -19,15 +22,12 @@ class Admin::ProductsController < AdminController
   end
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update_attributes(whitelisted_product_params)
       flash[:success] = "Product updated successfully."
       redirect_to admin_products_path
@@ -38,7 +38,6 @@ class Admin::ProductsController < AdminController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     session[:return_to] ||= request.referer
     if @product.destroy
       flash[:success] = "Product deleted successfully."
@@ -50,6 +49,10 @@ class Admin::ProductsController < AdminController
   end
 
   private
+
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
   def whitelisted_product_params
     params.require(:product).permit(:name, :sku, :price, :category_id)
