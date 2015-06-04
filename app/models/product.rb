@@ -35,9 +35,9 @@ class Product < ActiveRecord::Base
 
   def self.new_products(last_x_days = nil)
     if last_x_days
-      where("created_at > ?", Time.now - last_x_days.days).size
+      where("created_at > ?", Time.now - last_x_days.days).count
     else
-      all.size
+      count
     end
   end
 
