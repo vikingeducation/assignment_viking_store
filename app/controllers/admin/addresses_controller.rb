@@ -1,8 +1,9 @@
 class Admin::AddressesController < AdminController
+
+  before_action :set_address, only: [:show, :edit, :update, :destroy]
+
   def index
-    if params[:user_id].nil?
-      @addresses = Address.all
-    else
+    if params[:user_id]
       if User.exists?(params[:user_id])
         @user = User.find(params[:user_id])
         @addresses = Address.where(user_id: @user.id)
@@ -10,6 +11,8 @@ class Admin::AddressesController < AdminController
         flash[:error] = "Invalid User Id"
         redirect_to admin_addresses_path
       end
+    else
+      @addresses = Address.all
     end
   end
 
@@ -18,7 +21,7 @@ class Admin::AddressesController < AdminController
   end
 
   def create
-    @address = Address.new(whitelisted_address_params)
+    address = Address.new(whitelisted_address_params)
     if @address.save
       flash[:success] = "Address created successfully."
       redirect_to admin_user_addresses_path(@address.user_id)
@@ -29,16 +32,13 @@ class Admin::AddressesController < AdminController
   end
 
   def show
-    @address = Address.find(params[:id])
     @user = @address.user
   end
 
   def edit
-    @address = Address.find(params[:id])
   end
 
   def update
-    @address = Address.find(params[:id])
     if @address.update_attributes(whitelisted_address_params)
       flash[:success] = "Address updated successfully."
       redirect_to admin_user_addresses_path
@@ -49,7 +49,6 @@ class Admin::AddressesController < AdminController
   end
 
   def destroy
-    @address = Address.find(params[:id])
     session[:return_to] ||= request.referer
     if @address.destroy
       flash[:success] = "Address deleted successfully."
@@ -61,6 +60,10 @@ class Admin::AddressesController < AdminController
   end
 
   private
+
+  def set_address
+    @address = Address.find(params[:id])
+  end
 
   def whitelisted_address_params
     params.require(:address).permit(:street_address, :state_id, :city_id, :user_id, :zip_code)

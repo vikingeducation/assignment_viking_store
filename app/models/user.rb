@@ -19,8 +19,10 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, format: { with: /@/ }
 
-
-  accepts_nested_attributes_for :addresses, :allow_destroy => true
+  # ":reject_if => :all_blank" keeps the blank form from failing validation.
+  accepts_nested_attributes_for :addresses,
+                                :allow_destroy => true,
+                                :reject_if => :all_blank
 
   def completed_orders
     orders.where.not(checkout_date: nil)
@@ -33,7 +35,6 @@ class User < ActiveRecord::Base
           "n/a"
   end
 
-
   def name
     "#{first_name} #{last_name}"
   end
@@ -44,28 +45,13 @@ class User < ActiveRecord::Base
 
   def self.new_users(last_x_days = nil)
     if last_x_days
-      where("created_at > ?", Time.now - last_x_days.days).size
+      where("created_at > ?", Time.now - last_x_days.days).count
     else
-      all.size
+      count
     end
   end
 
-  def self.top_three_states
-    select("states.name AS state_name, COUNT(*) AS users_in_state").
-      joins("JOIN addresses ON users.billing_id = addresses.id JOIN states ON states.id = addresses.state_id").
-      limit(3).
-      order("users_in_state DESC").
-      group("states.name")
-  end
-
-  def self.top_three_cities
-    select("cities.name AS city_name, COUNT(*) AS users_in_city").
-      joins("JOIN addresses ON users.billing_id = addresses.id JOIN cities ON cities.id = addresses.city_id").
-      limit(3).
-      order("users_in_city DESC").
-      group("cities.name")
-  end
-
+  #JOIN creates a table with Users, Orders, OrderContents and Products. WHERE screen for only checked out orders. GROUP combines rows into orders. ORDER sorts them by DESCending value and then FIRST returns the top order.
   def self.top_order
     select("users.first_name AS user_first_name, users.last_name AS user_last_name, SUM(order_contents.quantity * products.price) AS value").
       joins("JOIN orders ON users.id = orders.user_id JOIN order_contents ON orders.id = order_contents.order_id JOIN products ON order_contents.product_id = products.id").

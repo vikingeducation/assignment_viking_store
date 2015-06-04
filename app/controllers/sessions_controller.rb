@@ -15,7 +15,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    user = current_user
     if sign_out
       flash[:success] = "Signed out"
       redirect_to root_path

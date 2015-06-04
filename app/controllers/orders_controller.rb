@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 	def create
 
 		if current_user.cart.present?
-			@order = current_user.cart.first
+			@order = current_user.cart
 			@order.order_contents.destroy_all
 		else
 			@order = current_user.orders.build
@@ -25,19 +25,27 @@ class OrdersController < ApplicationController
 	end
 
 	def edit
-		@order = current_user.cart # let's see what we can pass
-		@order.build_credit_card(user_id: @order.user.id) unless current_user.credit_cards.present?
-
-    @total = @order.order_contents.inject do |total, order_contents|
-      total + (order_contents.value)
+		@order = current_user.cart
+    if current_user.credit_cards.present?
+      @order.credit_card = current_user.credit_cards.first
+    else
+      @order.build_credit_card(user_id: @order.user.id)
     end
 	end
 
 	def update
 		@order = Order.find(params[:id])
-    @order.build_credit_card(whitelisted_credit_card)
 
-		if @order.credit_card.save && @order.update(checkout_params) && (@order.billing && @order.shipping && @order.credit_card)
+    if current_user.credit_cards.present?
+      @order.credit_card = current_user.credit_cards.first
+    else
+      @order.build_credit_card(whitelisted_credit_card)
+      unless @order.credit_card.save
+        flash[:error] = "There's something wrong with that credit card!"
+      end
+    end
+
+		if @order.update(checkout_params) && order_payment_info_complete?
 			flash[:success] = "You just bought some axes!"
 			@order.checkout_date = Time.now
 			@order.save
@@ -69,8 +77,7 @@ class OrdersController < ApplicationController
   def checkout_params
   	params.require(:order).permit(:id,
   																:shipping_id,
-  																:billing_id,
-  																)
+  																:billing_id)
   end
 
   def whitelisted_credit_card
@@ -78,4 +85,7 @@ class OrdersController < ApplicationController
     params.require(:credit_card).permit(:id, :card_number, :exp_month, :exp_year, :ccv, :user_id)
   end
 
+  def order_payment_info_complete?
+    @order.billing_address && @order.shipping_address && @order.credit_card
+  end
 end

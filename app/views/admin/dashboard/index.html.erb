@@ -88,7 +88,7 @@
                   <%= @top_order.user_first_name + " " + @top_order.user_last_name %>
                 </td>
                 <td>
-                  $<%= number_with_precision(@top_order.value, :precision => 2, :delimiter => ',') %>
+                  <%= number_to_currency(@top_order.value) %>
                 </td>
               </tr>
               <tr>
@@ -97,7 +97,7 @@
                   <%= @highest_lifetime.user_first_name + " " + @highest_lifetime.user_last_name %>
                 </td>
                 <td>
-                  $<%= number_with_precision(@highest_lifetime.value, :precision => 2, :delimiter => ',') %>
+                  <%= number_to_currency(@highest_lifetime.value) %>
                 </td>
               </tr>
               <tr>
@@ -106,7 +106,7 @@
                   <%= @highest_average.user_first_name + " " + @highest_average.user_last_name %>
                 </td>
                 <td>
-                  $<%= number_with_precision(@highest_average.value, :precision => 2, :delimiter => ',') %>
+                  <%= number_to_currency(@highest_average.value) %>
                 </td>
               </tr>
               <tr>
@@ -164,7 +164,7 @@
                 <tr>
                   <td><%= (Time.now - index.day).strftime("%m/%d") %></td>
                   <td><%= entry %></td>
-                  <td>$<%= number_with_precision( @daily_revenue[index], :precision => 2, :delimiter => ',') %></td>
+                  <td><%= number_to_currency(@daily_revenue[index]) %></td>
                 <tr>
               <% end %>
             </tbody>
@@ -188,7 +188,7 @@
                 <tr>
                   <td><%= (Time.now.midnight - Time.now.wday - (7 * index).days).strftime("%m/%d") %></td>
                   <td><%= entry %></td>
-                  <td>$<%= number_with_precision( @weekly_revenue[index], :precision => 2, :delimiter => ',') %></td>
+                  <td><%= number_to_currency(@weekly_revenue[index]) %></td>
                 <tr>
               <% end %>
             </tbody>
