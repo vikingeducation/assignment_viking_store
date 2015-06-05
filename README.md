@@ -248,16 +248,3 @@ Once in the controller, it calls the following method on any user that successfu
 The secret here is that the `billing_id` is actually the index *in `:addresses_attributes`* of the address you chose. Since the addresses have now persisted, you can match them by attributes like street address, then set that address you have found to `@user.billing_address`. This isn't perfect if there are exact duplicates, and might be a good thing to test if you ever wrote an Rspec suite for this assignment, but it provides the user experience asked for with the least overhead on the form itself.
 
 *NOTE: This solution repo is copyrighted material for your private use only and not to be shared outside of Viking Code School.*
-
-***
-
-###Template
-In this phase of the Viking Store app, you were asked to...
-
-Some gists of the relevant files, if limited.
-
-
-
-
-
-
