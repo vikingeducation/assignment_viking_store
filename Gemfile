@@ -41,5 +41,17 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # Note: Need to pull this fork directly because
+  # the original uses pry-debugger which doesn't work
+  # with Ruby 2
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+  gem 'pry-byebug'
+  gem 'faker'
+  
+end
+
+group :development do
+  gem "better_errors"
 end
 
