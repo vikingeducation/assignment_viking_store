@@ -4,55 +4,55 @@
 
 Item | Data
 ----|-----
-New Users | 1
-Orders | 13
+New Users | 0
+Orders | 8
 New Products | 100
-Revenue | $19,632.02
+Revenue | $11,666.55
 
 ###Last 30 Days
 
 Item | Data
 ----|-----
 New Users | 6
-Orders | 25
+Orders | 29
 New Products | 100
-Revenue | $39,260.79
+Revenue | $40,707.60
 
 ###Total
 
 Item | Data
 ----|-----
 New Users | 100
-Orders | 202
+Orders | 206
 New Products | 100
-Revenue | $490,557.81
+Revenue | $446,736.33
 
 ##User Demographics and Behavior
 
 ###Top 3 States users live in
 
-City | Users
+State | Users
 ----|-----
-Ohio | 5
-Connecticut | 4
-Georgia | 4
+Massachusetts | 	5
+Minnesota	| 5
+Oregon	| 5
 
 ###Top 3 cities users live in
 
-State | Users
+City | Users
 ----|----
-Wolffburgh | 6
-East Jaydon | 4
-East Clairemouth | 3
+Hamillland | 4
+West Hannah | 4
+East Nicholausfurt | 3
 
 ###Top user with...
 
 Item | User | Quantity
 ----|----|----
-Highest Single Order Value | Anika McDermott | $4,493.42
-Highest Lifetime Value | Anika McDermott | $16,462.84
-Highest Average Order Value | Kian Kuphal | $3,728.79
-Most Orders Placed | Cornell Kuphal | 8
+Highest Single Order Value	 | Darrin Haag | $5,758.67
+Highest Lifetime Value	| Nolan Cartwright | $12,902.07
+Highest Average Order Value | Elliott Blick | $2,952.69
+Most Orders Placed | Nolan Cartwright | 9
 
 ##Order Statistics
 
@@ -60,28 +60,43 @@ Most Orders Placed | Cornell Kuphal | 8
 
 Item | Data
 ----|-----
-Number of Orders | 13
-Total Revenue | $19,632.02
-Average Order Value | $1,510.16
-Largest Order Value | $3,300.60
+Number of Orders | 8
+Total Revenue | $11,666.55
+Average Order Value | $1,458.32
+Largest Order Value | $2,678.73
 
 ###Last 30 Days
 
 Item | Data
 ----|-----
-Number of Orders | 25
-Total Revenue | $39,260.79
-Average Order Value | $1,570.43
-Largest Order Value | $3,300.60
+Number of Orders | 29
+Total Revenue | $40,707.60
+Average Order Value | $1,403.71
+Largest Order Value | $5,758.67
 
 ###Total
 
 Item | Data
 ----|-----
-Number of Orders | 202
-Total Revenue | $490,557.81
-Average Order Value | $2,428.50
-Largest Order Value | $4,493.42
+Number of Orders | 206
+Total Revenue | $446,736.33
+Average Order Value | $2,168.62
+Largest Order Value | $5,758.67
 
-###Time Series Data
-This section will be extremely variable depending on a lot of things, including what time of day you ran your seeds file. For the record, the seeds file was run at 1 PM Pacific Daylight Time and the numbers were captured within ten minutes of the run. If your table shows 7 orders with revenue of $12,366.18 for the most recent 24 hour period, that matches the solutions.
+##Time Series Data
+
+###Orders by day
+
+Days ago | Quantity | Value
+----|----|----
+today | 0 | $0.00
+1 | 0 | $0.00
+2 | 0 | $0.00
+3 | 3 | $4,313.23
+4 | 2 | $4,848.54
+5 | 0 | $0.00
+6 | 3 | $2,504.78
+
+###Orders by week
+
+This will vary depending on how you grouped your days into weeks (e.g. relative to today, always Sunday-to-Saturday) and what day of the week you ran the seeds file. Here's a smell-check: Do the orders for the most recent 7 days in the table above match the figures for the most recent week?
