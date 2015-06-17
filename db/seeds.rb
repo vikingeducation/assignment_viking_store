@@ -2,7 +2,6 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 
-
 # Blow away all the existing records every time.
 
 User.destroy_all
