@@ -38,7 +38,13 @@ If you want to compare your dashboard data to ours, [a summary of the results ca
 ```
 $ git clone https://github.com/vikingeducation/solution_viking_store_final.git
 $ cd solution_viking_store_final
+$ bundle install
 $ rake db:setup
+```
+Then you can launch the app on any non-default port (e.g. 4000) and view both apps in separate tabs of your browser.
+
+```
+$ rails s -p 4000
 ```
 
 Here are some highlights of a good solution.
