@@ -1,4 +1,13 @@
-viking_store
-============
+[The Viking Store][1]
+=====================
+Rails Project from [Viking Code School][2]
+------------------------------------------
 
-The Viking Store e-commerce application for Viking Commerce Inc
+### Student: [Adam Kinson][3]
+
+The Viking Store e-commerce application for Viking Commerce Inc.
+
+
+[1]: #
+[2]: https://github.com/kinsona/assignment_viking_store
+[3]: http://www.vikingcodeschool.com/unit-8-databases-sql-and-activerecord/assignment-setting-up-the-db
