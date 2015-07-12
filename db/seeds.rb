@@ -22,6 +22,9 @@ end
 clear_seeds
 
 
+# build in seed multiplier
+
+
 # Create 100 users.
 # This fails but continues looping if email is not unique,
 # which guarantees that I'll end up with the right number
@@ -57,14 +60,32 @@ end
 # Generate 0 to 5 addresses for each user, picking one for default billing & one for default shipping; randomize ZIP codes
 User.all.each do |user|
 
-  # if ordered
+  # Assume 80% of users have placed orders
+  if rand < 0.8
     # gen 1-5 addresses
-    # gen 1-3 credit cards
-    # gen 1-3 orders
-  # else
-    # no addresses
+    generate_addresses(user)
 
-  # Generate 0 to 5 addresses for each user
+    # gen 1-3 credit cards
+    generate_cards(user)
+
+    # gen 1-3 orders
+    generate_orders(user)
+  else
+    # no addresses
+  end
+
+
+  # Assume 25% of all users have active shopping carts
+  if rand < 0.25
+    generate_order_without_shipment(user)
+  else
+  end
+
+end
+
+
+# Generate 0 to 5 addresses for each user
+def generate_addresses(user)
   rand(0..5).times do
     a = Address.new
     a.first_name = user.first_name
@@ -87,9 +108,11 @@ User.all.each do |user|
     user_addresses.sample.update(:default_shipping => true)
     user_addresses.sample.update(:default_billing => true)
   end
+end
 
   # Create cards for 80% of users
-  if rand < 0.8 do
+def generate_cards(user)
+  rand(1..3).times do
     c = CreditCard.new
     c.number = Faker::Business.credit_card_number
     c.expiration_month = rand(1..12)
@@ -98,12 +121,55 @@ User.all.each do |user|
     c.default_billing = true
     c.user_id = user.id
   end
+end
 
+
+# Create 100 orders (plus shipments) for the past year, growing over time
+def generate_orders(user)
+  o = Order.new
+  o_p = OrderProduct.new
+  s = Shipment.new
+
+  o.user_id = user.id
+  o.billing_address_id = Address.where(:user_id => o.user_id, :default_billing => true)
+  o.billing_card_id = CreditCard.where(:user_id => o.user_id, :default_billing => true)
+
+  s.tracking_number = Faker::Lorem.characters(18)
+  s.shipping_date = Time.now
+  s.shipping_address_id = Address.where(:user_id => o.user_id, :default_shipping => true)
+  s.order_id = o.id
+
+  o.shipment_id = s.id
+
+  o_p.order_id = o.id
+  o_p.product_id = Product.order("RANDOM()").first
+  o_p.quantity = rand(1..4)
+
+  o.save!
+  s.save!
+  o_p.save!
+end
+
+
+def generate_order_without_shipment(user)
+  o = Order.new
+  o_p = OrderProduct.new
+
+  o.user_id = user.id
+  o.billing_address_id = Address.where(:user_id => o.user_id, :default_billing => true)
+  o.billing_card_id = CreditCard.where(:user_id => o.user_id, :default_billing => true)
+
+  o_p.order_id = o.id
+  o_p.product_id = Product.order("RANDOM()").first
+  o_p.quantity = rand(1..4)
+
+  o.save!
+  o_p.save!
 end
 
 
 
-# Create 6 categories
+# Create 6 product categories
 while ProductCategory.count < 6 do
   c = ProductCategory.new
   c.name = Faker::Commerce.department
@@ -137,27 +203,6 @@ end
 
 
 
-# Create 100 orders (plus shipments) for the past year, growing over time
-while Order.count < 100 do
-  o = Order.new
-  o_p = OrderProduct.new
-
-  # Grab random user
-  o.user_id = User.where().order("RANDOM()").first
-  o.billing_address_id = Address.where(:user_id => o.user_id, :default_billing => true)
-  o.billing_card_id
-  o.shipment_id
-
-  o_p.order_id = o.id
-  o_p.product_id = Product.order("RANDOM()").first
-  o_p.quantity = rand(1..4)
-
-end
 
 
 
-# Create 25 active carts (not yet shipped)
-
-
-
-# build in seed multiplier
