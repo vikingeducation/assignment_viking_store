@@ -41,5 +41,18 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # Faker gem for creating seed data
+  gem 'faker'
+
+  # Jazz Hands for fancier debugging and table views
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+  gem 'pry-byebug'
 end
 
+
+# Better Errors
+group :development do
+  gem 'better_errors'
+end
+gem 'binding_of_caller'
