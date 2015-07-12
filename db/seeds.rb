@@ -57,7 +57,7 @@ end
 # Generate 0 to 5 addresses for each user, picking one for default billing & one for default shipping; randomize ZIP codes
 User.all.each do |user|
 
-  rand(0..5).times do |iteration|
+  rand(0..5).times do
     a = Address.new
     a.first_name = user.first_name
     a.last_name = user.last_name
@@ -74,7 +74,7 @@ User.all.each do |user|
   end
 
   user_addresses = Address.where(:user_id => user.id)
-  unless user_addresses.size.empty?
+  unless user_addresses.empty?
     user_addresses.sample.update(:default_shipping => true)
     user_addresses.sample.update(:default_billing => true)
   end
@@ -84,8 +84,34 @@ end
 
 
 # Create 6 categories
+while ProductCategory.count < 6 do
+  c = ProductCategory.new
+  c.name = Faker::Commerce.department
+  c.description = Faker::Lorem.sentence
+
+  c.save
+end
+
 
 # Create 2-5 products per category
+ProductCategory.all.each do |category|
+
+  rand(2..5).times do
+    product = Product.new
+    detail = ProductDetail.new
+
+    detail.title = Faker::Commerce.product_name
+    detail.description = Faker::Lorem.paragraph(3)
+    detail.price = Faker::Commerce.price
+    detail.product_category_id = category.id
+    detail.save!
+
+    product.sku = Faker::Lorem.characters(16)
+    product.product_detail_id = detail.id
+    product.save!
+  end
+
+end
 
 
 # Create 100 orders (plus shipments) for the past year, growing over time
