@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
+
+
+
 # Clear all existing tables
 def clear_seeds
   Address.destroy_all
@@ -29,58 +33,58 @@ clear_seeds
 # This fails but continues looping if email is not unique,
 # which guarantees that I'll end up with the right number
 # of users even if Faker randomly tries to make duplicates
-while User.count < 100 do
 
-  u = User.new
-  u.email = Faker::Internet.email
-  u.first_name = Faker::Name.first_name
-  u.last_name = Faker::Name.last_name
-  u.phone = Faker::PhoneNumber.phone_number
+def generate_users
+  while User.count < 100 do
 
-  u.save
+    u = User.new
+    u.email = Faker::Internet.email
+    u.first_name = Faker::Name.first_name
+    u.last_name = Faker::Name.last_name
+    u.phone = Faker::PhoneNumber.phone_number
 
+    u.save
+
+  end
 end
 
 
 # Create 100 city options (not affected by seed mult)
-city_options = Array.new(100){ Faker::Address.city }.uniq
-while city_options.size < 100 do
-  city_options << Faker::Address.city
-  city_options.uniq!
+def generate_cities
+  city_options = Array.new(100){ Faker::Address.city }.uniq
+  while city_options.size < 100 do
+    city_options << Faker::Address.city
+    city_options.uniq!
+  end
 end
 
+
 # Create 5-10 state options (not affected by seed mult)
-state_options = Array.new(8){ Faker::Address.state_abbr }.uniq
-while state_options.size < 8 do
-  state_options << Faker::Address.state_abbr
-  state_options.uniq!
+def generate_states
+  state_options = Array.new(8){ Faker::Address.state_abbr }.uniq
+  while state_options.size < 8 do
+    state_options << Faker::Address.state_abbr
+    state_options.uniq!
+  end
 end
 
 
 # Generate 0 to 5 addresses for each user, picking one for default billing & one for default shipping; randomize ZIP codes
-User.all.each do |user|
+def generate_user_orders
+  User.all.each do |user|
 
-  # Assume 80% of users have placed orders
-  if rand < 0.8
-    # gen 1-5 addresses
-    generate_addresses(user)
+    # Assume 80% of users have placed orders
+    if rand < 0.8
+      generate_addresses(user)
+      generate_cards(user)
+      generate_orders(user)
+    end
 
-    # gen 1-3 credit cards
-    generate_cards(user)
 
-    # gen 1-3 orders
-    generate_orders(user)
-  else
-    # no addresses
+    # Assume 25% of all users have active shopping carts
+    generate_order_without_shipment(user) if rand < 0.25
+
   end
-
-
-  # Assume 25% of all users have active shopping carts
-  if rand < 0.25
-    generate_order_without_shipment(user)
-  else
-  end
-
 end
 
 
@@ -109,6 +113,7 @@ def generate_addresses(user)
     user_addresses.sample.update(:default_billing => true)
   end
 end
+
 
   # Create cards for 80% of users
 def generate_cards(user)
@@ -170,39 +175,35 @@ end
 
 
 # Create 6 product categories
-while ProductCategory.count < 6 do
-  c = ProductCategory.new
-  c.name = Faker::Commerce.department
-  c.description = Faker::Lorem.sentence
+def generate_categories
+  while ProductCategory.count < 6 do
+    c = ProductCategory.new
+    c.name = Faker::Commerce.department
+    c.description = Faker::Lorem.sentence
 
-  c.save
+    c.save
+  end
 end
 
 
 # Create 2-5 products per category
-ProductCategory.all.each do |category|
+def generate_products
+  ProductCategory.all.each do |category|
 
-  rand(2..5).times do
-    product = Product.new
-    detail = ProductDetail.new
+    rand(2..5).times do
+      product = Product.new
+      detail = ProductDetail.new
 
-    detail.title = Faker::Commerce.product_name
-    detail.description = Faker::Lorem.paragraph(3)
-    detail.price = Faker::Commerce.price
-    detail.product_category_id = category.id
-    detail.save!
+      detail.title = Faker::Commerce.product_name
+      detail.description = Faker::Lorem.paragraph(3)
+      detail.price = Faker::Commerce.price
+      detail.product_category_id = category.id
+      detail.save!
 
-    product.sku = Faker::Lorem.characters(16)
-    product.product_detail_id = detail.id
-    product.save!
+      product.sku = Faker::Lorem.characters(16)
+      product.product_detail_id = detail.id
+      product.save!
+    end
+
   end
-
 end
-
-
-
-
-
-
-
-
