@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712162907) do
+ActiveRecord::Schema.define(version: 20150712163413) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name",                       null: false
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20150712162907) do
     t.string   "state",                            null: false
     t.string   "zip",                              null: false
     t.boolean  "default_shipping", default: false, null: false
+    t.boolean  "default_billing",  default: false, null: false
+    t.integer  "user_id",                          null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "number",                           null: false
+    t.integer  "expiration_month",                 null: false
+    t.integer  "expiration_year",                  null: false
+    t.integer  "security_code",                    null: false
     t.boolean  "default_billing",  default: false, null: false
     t.integer  "user_id",                          null: false
     t.datetime "created_at",                       null: false
