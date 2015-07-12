@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712162429) do
+ActiveRecord::Schema.define(version: 20150712162611) do
 
   create_table "order_products", force: :cascade do |t|
     t.integer  "order_id",   null: false
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 20150712162429) do
   end
 
   add_index "products", ["sku"], name: "index_products_on_sku"
+
+  create_table "shipments", force: :cascade do |t|
+    t.string   "tracking_number",     null: false
+    t.datetime "shipping_date",       null: false
+    t.integer  "shipping_address_id", null: false
+    t.integer  "order_id",            null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "shipments", ["tracking_number"], name: "index_shipments_on_tracking_number"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",      null: false
