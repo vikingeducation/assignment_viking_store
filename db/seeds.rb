@@ -57,6 +57,14 @@ end
 # Generate 0 to 5 addresses for each user, picking one for default billing & one for default shipping; randomize ZIP codes
 User.all.each do |user|
 
+  # if ordered
+    # gen 1-5 addresses
+    # gen 1-3 credit cards
+    # gen 1-3 orders
+  # else
+    # no addresses
+
+  # Generate 0 to 5 addresses for each user
   rand(0..5).times do
     a = Address.new
     a.first_name = user.first_name
@@ -73,10 +81,22 @@ User.all.each do |user|
     a.save!
   end
 
+  # Pick default addresses
   user_addresses = Address.where(:user_id => user.id)
   unless user_addresses.empty?
     user_addresses.sample.update(:default_shipping => true)
     user_addresses.sample.update(:default_billing => true)
+  end
+
+  # Create cards for 80% of users
+  if rand < 0.8 do
+    c = CreditCard.new
+    c.number = Faker::Business.credit_card_number
+    c.expiration_month = rand(1..12)
+    c.expiration_year = rand(2016..2018)
+    c.security_code = rand(100..9999)
+    c.default_billing = true
+    c.user_id = user.id
   end
 
 end
@@ -114,10 +134,30 @@ ProductCategory.all.each do |category|
 end
 
 
+
+
+
 # Create 100 orders (plus shipments) for the past year, growing over time
+while Order.count < 100 do
+  o = Order.new
+  o_p = OrderProduct.new
+
+  # Grab random user
+  o.user_id = User.where().order("RANDOM()").first
+  o.billing_address_id = Address.where(:user_id => o.user_id, :default_billing => true)
+  o.billing_card_id
+  o.shipment_id
+
+  o_p.order_id = o.id
+  o_p.product_id = Product.order("RANDOM()").first
+  o_p.quantity = rand(1..4)
+
+end
+
 
 
 # Create 25 active carts (not yet shipped)
+
 
 
 # build in seed multiplier
