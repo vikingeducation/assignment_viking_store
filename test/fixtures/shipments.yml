@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tracking_number: MyString
+  shipping_date: 2015-07-12 12:26:11
+  shipping_address_id: 1
+  order_id: 1
+
+two:
+  tracking_number: MyString
+  shipping_date: 2015-07-12 12:26:11
+  shipping_address_id: 1
+  order_id: 1
