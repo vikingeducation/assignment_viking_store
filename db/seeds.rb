@@ -31,7 +31,7 @@ class SampleData
 
 
 
-  # Create 100 users.
+  # Create 100 users, staggering join dates over 12 months.
   # This fails but continues looping if email is not unique,
   # which guarantees that I'll end up with the right number
   # of users even if Faker randomly tries to make duplicates
@@ -44,6 +44,8 @@ class SampleData
       u.first_name = Faker::Name.first_name
       u.last_name = Faker::Name.last_name
       u.phone = Faker::PhoneNumber.phone_number
+
+      # u.created_at = Time.now - 60*60*24*7
 
       u.save
 
@@ -75,6 +77,46 @@ class SampleData
 
     state_options
   end
+
+
+
+  # Create 6 product categories
+  def generate_categories
+    while ProductCategory.count < 6 * @seeds_multiplier do
+      c = ProductCategory.new
+      c.name = Faker::Commerce.department
+      c.description = Faker::Lorem.sentence
+
+      c.save
+    end
+  end
+
+
+  # Create 2-5 products per category
+  def generate_products
+    ProductCategory.all.each do |category|
+
+      min_num = 2 * @seeds_multiplier
+      max_num = 5 * @seeds_multiplier
+
+      rand(min_num..max_num).times do
+        product = Product.new
+        detail = ProductDetail.new
+
+        detail.title = Faker::Commerce.product_name
+        detail.description = Faker::Lorem.paragraph(3)
+        detail.price = Faker::Commerce.price
+        detail.product_category_id = category.id
+        detail.save!
+
+        product.sku = Faker::Lorem.characters(16)
+        product.product_detail_id = detail.id
+        product.save!
+      end
+
+    end
+  end
+
 
 
   # Generate 0 to 5 addresses for each user, picking one for default billing & one for default shipping; randomize ZIP codes
@@ -178,8 +220,6 @@ class SampleData
     o_p = OrderProduct.new
 
     o.user_id = user.id
-    #o.billing_address_id = Address.where(:user_id => user.id, :default_billing => true).first.id
-    #o.billing_card_id = CreditCard.where(:user_id => user.id, :default_billing => true).first.id
 
     o.save!
     o_p.order_id = o.id
@@ -189,46 +229,9 @@ class SampleData
     o_p.save!
   end
 
-
-
-  # Create 6 product categories
-  def generate_categories
-    while ProductCategory.count < 6 * @seeds_multiplier do
-      c = ProductCategory.new
-      c.name = Faker::Commerce.department
-      c.description = Faker::Lorem.sentence
-
-      c.save
-    end
-  end
-
-
-  # Create 2-5 products per category
-  def generate_products
-    ProductCategory.all.each do |category|
-
-      min_num = 2 * @seeds_multiplier
-      max_num = 5 * @seeds_multiplier
-
-      rand(min_num..max_num).times do
-        product = Product.new
-        detail = ProductDetail.new
-
-        detail.title = Faker::Commerce.product_name
-        detail.description = Faker::Lorem.paragraph(3)
-        detail.price = Faker::Commerce.price
-        detail.product_category_id = category.id
-        detail.save!
-
-        product.sku = Faker::Lorem.characters(16)
-        product.product_detail_id = detail.id
-        product.save!
-      end
-
-    end
-  end
-
 end
+
+
 
 sample = SampleData.new(1)
 sample.clear_seeds
