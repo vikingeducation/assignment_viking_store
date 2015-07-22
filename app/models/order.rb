@@ -97,7 +97,7 @@ class Order < ActiveRecord::Base
 
   private
 
-  # JOIN creates a table of Orders, OrderContents and Products. WHERE eliminates rows before our cutoff date. GROUP combines the Orders into one row so we can see the value. Then the rows are sorted with the ORDER keyword (which is, confusingly, the same as the name of our Order model.) They are sorted by descending value, so the FIRST record is the largest, and by adding the VALUE command, we return just the integer and not the whole table row.
+  # JOIN creates a table of Orders, OrderContent and Products. WHERE eliminates rows before our cutoff date. GROUP combines the Orders into one row so we can see the value. Then the rows are sorted with the ORDER keyword (which is, confusingly, the same as the name of our Order model.) They are sorted by descending value, so the FIRST record is the largest, and by adding the VALUE command, we return just the integer and not the whole table row.
   def self.largest_value_since(date)
     select("orders.id, SUM(order_contents.quantity * products.price) AS value").
       joins("JOIN order_contents ON orders.id = order_contents.order_id JOIN products ON products.id = order_contents.product_id").
