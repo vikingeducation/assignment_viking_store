@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  #JOIN creates a table with Users, Orders, OrderContents and Products. WHERE screen for only checked out orders. GROUP combines rows into orders. ORDER sorts them by DESCending value and then FIRST returns the top order.
+  #JOIN creates a table with Users, Orders, OrderContent and Products. WHERE screen for only checked out orders. GROUP combines rows into orders. ORDER sorts them by DESCending value and then FIRST returns the top order.
   def self.top_order
     select("users.first_name AS user_first_name, users.last_name AS user_last_name, SUM(order_contents.quantity * products.price) AS value").
       joins("JOIN orders ON users.id = orders.user_id JOIN order_contents ON orders.id = order_contents.order_id JOIN products ON order_contents.product_id = products.id").
