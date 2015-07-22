@@ -3,7 +3,7 @@
 <p>Product ID: <%= @product.id %></p>
 <p>Name: <%= @product.name %></p>
 <p>Price: <%= number_to_currency(@product.price) %></p>
-<p>Category: <%= @product.category.name %></p>
+<p>Category: <%= @product.category.name if @product.category %></p>
 
 <h4>Products Statistics:</h4>
 <table class="table table-striped table-bordered">

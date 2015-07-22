@@ -91,7 +91,7 @@ def midnight_tonight
   (Time.now.to_date + 1).to_time
 end
 
-# This method returns a date that's random but weighted toward the current date.
+# This method returns a random date
 def creation_date
   time_frames = []
   (MULTIPLIER**2).times do |x|
