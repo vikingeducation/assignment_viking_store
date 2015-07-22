@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310001747) do
+ActiveRecord::Schema.define(version: 20150722160520) do
 
   create_table "addresses", force: true do |t|
     t.string   "street_address",    null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150310001747) do
 
   add_index "credit_cards", ["card_number"], name: "index_credit_cards_on_card_number", unique: true
 
-  create_table "order_contents", force: true do |t|
+  create_table "order_content", force: true do |t|
     t.integer  "order_id",               null: false
     t.integer  "product_id",             null: false
     t.integer  "quantity",   default: 1, null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150310001747) do
     t.datetime "updated_at"
   end
 
-  add_index "order_contents", ["order_id", "product_id"], name: "index_order_contents_on_order_id_and_product_id", unique: true
+  add_index "order_content", ["order_id", "product_id"], name: "index_order_content_on_order_id_and_product_id", unique: true
 
   create_table "orders", force: true do |t|
     t.datetime "checkout_date"
