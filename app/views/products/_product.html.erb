@@ -8,7 +8,7 @@
 
     <div class="row middle">
       <div class="col-md-12 description">
-        <p><strong>Category: </strong><%=product.category.name %></p>
+        <p><strong>Category: </strong><%=product.category.name if product.category %></p>
         <p><strong>Description: </strong><%= product.description %></p>
       </div>
       <div class = "col-md-12 image-wrapper">
