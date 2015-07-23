@@ -30,10 +30,10 @@ id   name    description   price   stock
 int  string  string        int     int
 
 Table 6: Orders
-id   UserID
-int  id
+id   UserID checkout
+int  id        datetime
 
-Table 7: Products-Orders Join
+Table 7: Packing_list
 ProductID   OrderID   Quantity
 int         int       int
 
