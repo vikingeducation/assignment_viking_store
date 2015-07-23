@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723185440) do
+ActiveRecord::Schema.define(version: 20150723221704) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "ap"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20150723185440) do
     t.date     "exp",        null: false
     t.string   "CVC",        null: false
     t.string   "type",       null: false
-    t.string   "billing_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -70,6 +69,8 @@ ActiveRecord::Schema.define(version: 20150723185440) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  add_index "products", ["sku"], name: "index_products_on_sku", unique: true
 
   create_table "shipments", force: :cascade do |t|
     t.integer  "user_id",             null: false
