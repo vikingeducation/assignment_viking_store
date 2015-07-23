@@ -4,7 +4,7 @@ class CreateOrders < ActiveRecord::Migration
       t.integer :shipping_address_id
       t.integer :billing_address_id
       t.datetime :checkout_date
-      t.references :users
+      t.references :user
 
       t.timestamps null: false
     end
