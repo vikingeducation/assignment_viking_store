@@ -10,11 +10,17 @@ MULTIPLIER = 10
 city_name = Array.new(100){Faker::Address.city}
 state_name = Array.new(10){Faker::Address.state}
 
+def create_users(start_date, end_date)
+  User.create(first_name: Faker::first_name, last_name: Faker::last_name, email: Faker::Internet.email, created_at: Faker::Date.between(start_date, end_date))
+end
 
 Rake::Task['db:reset'].invoke
 
-(MULTIPLIER*10).times do |i|
-  User.create(first_name: Faker::first_name, last_name: Faker::last_name, email: Faker::Internet.email, created_at: Faker::Date.between(3.years.ago, 2.years.ago))
+#staggers more users towards now
+(MULTIPLIER*2).times do |i|
+  create_users(3.years.ago, 2.years.ago)
+  2.times {create_users(2.years.ago, 1.years.ago)}
+  3.times {create_users(1.years.ago, Time.now)}
 end
 
 
