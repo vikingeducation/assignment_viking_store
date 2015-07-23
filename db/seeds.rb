@@ -11,7 +11,7 @@ city_name = Array.new(100){Faker::Address.city}
 state_name = Array.new(10){Faker::Address.state}
 
 def create_users(start_date, end_date)
-  User.create(first_name: Faker::first_name, last_name: Faker::last_name, email: Faker::Internet.email, created_at: Faker::Date.between(start_date, end_date))
+  User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name  , email: Faker::Internet.email, created_at: Faker::Date.between(start_date, end_date))
 end
 
 Rake::Task['db:reset'].invoke

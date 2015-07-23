@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723175840) do
+ActiveRecord::Schema.define(version: 20150723213535) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street",     null: false
@@ -20,6 +20,47 @@ ActiveRecord::Schema.define(version: 20150723175840) do
     t.string   "zip_code",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "billings", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "address_id", null: false
+    t.integer  "cc_number",  null: false
+    t.string   "cc_type",    null: false
+    t.date     "cc_exp",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.datetime "check_out",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "packing_lists", force: :cascade do |t|
+    t.integer  "product_id", null: false
+    t.integer  "order_id",   null: false
+    t.integer  "quantity",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name",                                null: false
+    t.integer  "category_id"
+    t.decimal  "price",       precision: 5, scale: 2, null: false
+    t.text     "description",                         null: false
+    t.integer  "stock",                               null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "user_addresses", force: :cascade do |t|
