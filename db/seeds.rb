@@ -7,27 +7,23 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
-MULTIPLIER=20
+MULTIPLIER = 20
 
-def generate_word (str)
-  letters = Array("A".."z")
-  result = str
-  6.times{ result += letters.sample }
-  result
-end
 
 #Generate users
  MULTIPLIER.times do 
-  User.create(first_name:  Faker::Name.first_name,
-              last_name: Faker::Name.last_name,
-              email: Faker::Internet.email,
-              password: "#{rand(0..9)}#{Faker::Name.last_name}")
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  User.create(first_name:  first_name,
+              last_name: last_name,
+              email: "#{first_name}#{last_name}@domain.com",
+              password: "#{rand(0..9)}#{last_name}")
             end
 
 
 #Generate Addresses
 
-30.times do
+((MULTIPLIER / 0.8).to_i).times do
     Address.create(ap: rand(1..999),
                   bld: Faker::Address.building_number,
                   street: Faker::Address.street_name,
@@ -38,13 +34,13 @@ end
   end
 
 #Generate Billing
-15.times do 
+((MULTIPLIER / 0.8).to_i).times do
     Billing.create( creditcard: Faker::Business.credit_card_number,
                     first_name:  Faker::Name.first_name,
                     last_name: Faker::Name.last_name,
                     exp: Faker::Business.credit_card_expiry_date,
-                    "CVC" => "#{rand(0..999)}",
-                    type: Faker::Business.credit_card_type
+                    "CVC" => "#{rand(101..999)}",
+                    card_issuer: Faker::Business.credit_card_type
               )
   end
 
@@ -56,7 +52,7 @@ end
 #Generate Products
 def get_unique_sku
   results = []
-  while resuts >= 50
+  until results.length >= 50
     new_code = Faker::Code.ean
     results << new_code unless results.include?(new_code)
   end
@@ -74,12 +70,21 @@ sku_array = get_unique_sku
     )
 end
 
-# Generate orders
-10.times do 
-  Order.create(billing_id: rand(1..15),
+# Generate orders and shipments
+10.times do
+  current_order = Order.create(billing_id: rand(1..15),
                 buyer_id: rand(1..20),
-                shipping_address_id: rand(1..30)             
+                shipping_address_id: rand(1..30),
+                created_at: 
     )
+
+  user = User.find(current_order.buyer_id)
+  user.default_shipping_address = current_order.shipping_address_id
+  user.save
+  Shipment.create(user_id: current_order.buyer_id,
+                  shipment_address_id: user.default_shipping_address,
+                  pack_date: current_order.created_at + 86400
+                  )
 
 end
 
@@ -87,37 +92,15 @@ end
 10.times do
   num=rand(1..10)
   rand(1..5).times do
-    Product_order.create( order_id: num,
+    ProductOrder.create( order_id: num,
                           product_id: rand(1..50),
-                          product_quantity: rand(1..3),
+                          product_quantity: rand(1..3)
       )
   end
-  User_billing.create(buyer_id: Order.find(num).buyer_id,
+  UserBilling.create(buyer_id: Order.find(num).buyer_id,
                       billing_id: rand(1..15)
                       )
 end
-
-
-# Generate Shipments
-20.times do
-  order = Order.find(rand(1...30))
-  user.default_shipping_address = rand(1...30)
-  Shipment.create(user_id: order.buyer_id,
-                  shipment_address_id: user.default_shipping_address,
-                  pack_date: order.created_at
-                  )
-end
-
-
-
-
-
-
-
-
-
-
-
 
 
 
