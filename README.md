@@ -43,9 +43,10 @@ User: 1) User ID, int (PK) - Implicit
       2) First_name, string, 1-40 char
       3) Last_name, string, 1-40 char
       4) Email, string, 5-40 char
-      5) Default Address ID
+      5) Default Shipping_Address ID
       6) Password
       7) phone
+      8) Default Billing_Address ID
 
 Address 1) Address ID, int (PK) - Implicit
         2) City, string < 30 char
@@ -76,8 +77,13 @@ JOIN Billing_User 1) User_id
  Product:  1) name, string 1-50 char
               2) description, string, 500 char
               3) price, float
-              4) amount in stock, int >= 0
-              5) Product ID, int (PK)
+              4) SKU number
+              5) Category ID
+              6) amount in stock, int >= 0
+              7) Product ID, int (PK)
+
+  Category: 1) Name
+            2) Description
 
 JOIN Product_Order 
                       1) Order #, int (FK)

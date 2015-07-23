@@ -5,9 +5,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_name , null: false
       t.string :email, null: false
       t.string :password, null: false
-      t.string :default_address
+      t.integer :default_shipping_address
+      t.integer :default_billing_address
       t.string :phone
-
 
       t.timestamps null: false
     end
