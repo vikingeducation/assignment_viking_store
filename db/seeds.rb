@@ -92,10 +92,10 @@ end
 100.times do
   customer = users.sample.id
   #if user has no CC on file, find another
-  until Billing.find_by(:user_id => customer)
-    user_make_order(users.sample.id)
+  unless Billing.find_by(:user_id => customer)
     customer = users.sample.id
   end
+  user_make_order(customer)
 end
 
 
