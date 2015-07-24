@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20150723213535) do
   create_table "billings", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "address_id", null: false
-    t.integer  "cc_number",  null: false
+    t.string   "cc_number",  null: false
     t.string   "cc_type",    null: false
     t.date     "cc_exp",     null: false
     t.datetime "created_at", null: false
