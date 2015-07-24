@@ -13,11 +13,11 @@ Table 1: Users
 id   first_name   last_name   emails
 int  string       string      string
 
-Table 2: Addresses *street =first line
+Table 2: Addresses *street =first line           #now has 150 address
 id   street    city    state    zip
 int  string    string  string   int
 
-Table 3: Users-Addresses Join: aka User_address
+Table 3: Users-Addresses Join: aka User_address   #
 UserID   AddressID
 int      int
 
