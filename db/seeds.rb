@@ -38,23 +38,24 @@ end
   3.times {create_users(1.years.ago, Time.now)}
 end
 
-#0-5 addresses for users
-# default for shipping if selected
-# user-address table first??
-# generate address first??? address table
 
 (MULTIPLIER * 15).times do |address|
   create_address
 end
 
+
+#creates user address join table
+#0-5 addresses for users
 users = User.all
+addresses = Address.all
 users.each do |user|
-
-
-
-
-
-
+  user_num_addy = rand(0..5)
+  user_addy = addresses.sample(user_num_addy)
+  user_num_addy.times do |i|
+    User_addresses.create(user_id: user.id, address_id: user_addy[i].id)
+    user.default_shipping ||= user_addy[i].id
+  end
+end
 
 
 #~6 categories
