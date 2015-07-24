@@ -71,21 +71,23 @@ sku_array = get_unique_sku
 end
 
 # Generate orders and shipments
-10.times do
-  current_order = Order.create(billing_id: rand(1..15),
+
+  12.downto(1) do |index|
+    rand(1..8).times do
+      current_order = Order.create(billing_id: rand(1..15),
                 buyer_id: rand(1..20),
                 shipping_address_id: rand(1..30),
-                created_at: 
-    )
-
-  user = User.find(current_order.buyer_id)
-  user.default_shipping_address = current_order.shipping_address_id
-  user.save
-  Shipment.create(user_id: current_order.buyer_id,
-                  shipment_address_id: user.default_shipping_address,
-                  pack_date: current_order.created_at + 86400
-                  )
-
+                created_at: Time.now - 86400*rand(1..30)*index)
+              
+  
+      user = User.find(current_order.buyer_id)
+      user.default_shipping_address = current_order.shipping_address_id
+      user.save
+      Shipment.create(user_id: current_order.buyer_id,
+                      shipment_address_id: user.default_shipping_address,
+                      pack_date: current_order.created_at + 86400
+                      )
+    end
 end
 
 # Generate products_orders and Generate User_billings
