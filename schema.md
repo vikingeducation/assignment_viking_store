@@ -70,6 +70,7 @@ States
 
 - id SERIAL
 - name VARCHAR(32)
+- abbreviation VARCHAR(2)
 - country_id INTEGER FK
 
 ---
@@ -78,6 +79,7 @@ Countries
 
 - id SERIAL
 - name VARCHAR(32)
+- abbreviation VARCHAR(3)
 
 ---
 
@@ -95,8 +97,9 @@ Products
 - name VARCHAR(32)
 - description TEXT
 - units INTEGER
-- sku VARCHAR(255) UNIQUE
-- price DECIMAL(9,2)
+- sku VARCHAR(32) UNIQUE
+- price DECIMAL(9, 2)
+- product_category_id INTEGER FK
 
 ---
 
@@ -111,7 +114,7 @@ ProductCategories
 Orders
 
 - id SERIAL
-- order_status_id INTEGER
+- is_paid TINYINT
 - user_id INTEGER FK
 - shipment_id INTEGER FK
 
@@ -125,25 +128,12 @@ OrderItem
 
 ---
 
-OrderStatuses
-
-- id SERIAL
-- name VARCHAR(32)
-
----
-
 Shipments
 
 - id SERIAL
+- departure_time DATETIME
+- arrival_time DATETIME
 - destination_id INTEGER FK
-- shipment_status_id INTEGER FK
-
----
-
-ShipmentStatuses
-
-- id SERIAL
-- name VARCHAR(32)
 
 ---
 
@@ -156,6 +146,13 @@ Addresses
 - state_id INTEGER FK
 - zip_code_id INTEGER FK
 - country_id INTEGER FK
+
+---
+
+AddressesUsers
+
+- user_id INTEGER FK
+- address_id INTEGER FK
 
 
 
