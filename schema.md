@@ -95,7 +95,8 @@ Products
 - name VARCHAR(32)
 - description TEXT
 - units INTEGER
-- sku VARCHAR(255) UNIQUE FK
+- sku VARCHAR(255) UNIQUE
+- price DECIMAL(9,2)
 
 ---
 

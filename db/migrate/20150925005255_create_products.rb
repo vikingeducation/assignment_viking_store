@@ -5,6 +5,7 @@ class CreateProducts < ActiveRecord::Migration
       t.text :description
       t.integer :units
       t.string :sku
+      t.decimal :price, :precision => 9, :scale => 2, :default => 0.00
 
       t.index :sku, :unique => true
 
