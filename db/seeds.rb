@@ -131,6 +131,8 @@ puts "Creating users"
 # email: Faker::Internet.free_email('King Arthur')
 # username: Faker::Internet.user_name('George Castanza', %w(_ -))
 NUM_USERS.times do |i|
+  print "#{i + 1} of #{NUM_USERS}\r"
+
   name = [Faker::Name.first_name, Faker::Name.last_name]
   full_user_names << name
   str = name.join(' ')
@@ -147,7 +149,9 @@ puts "Creating credit card companies"
 # CreditCardCompanies
 # --------------------------------
 # name: Faker::Business.credit_card_type
-CREDIT_CARD_COMPANIES.each do |company|
+CREDIT_CARD_COMPANIES.each_with_index do |company, i|
+  print "#{i + 1} of #{CREDIT_CARD_COMPANIES.length}\r"
+
   CreditCardCompany.create(
     :name => company,
     :created_at => 1.year.ago,
@@ -176,7 +180,11 @@ puts "Creating states"
 # name: states value
 # abbreviation: states key
 # country_id
+i = 0
 STATES.each do |key, value|
+  print "#{i + 1} of #{STATES.length}\r"
+  i += 1
+
   name = value
   abbreviation = key.to_s
   State.create(
@@ -201,6 +209,8 @@ puts "Creating cities and zip codes"
 # code: Faker::Address.zip_code
 # state_id: random id from states
 NUM_CITIES.times do |i|
+  print "#{i + 1} of #{NUM_CITIES}\r"
+
   state_id = i % STATES.length
   state_id = STATES.length if state_id == 0
   City.create(
@@ -225,6 +235,8 @@ puts "Creating product categories"
 # name: Faker::Commerce.department(1, true)
 # description: Faker::Lorem.sentence(10)
 NUM_PRODUCT_CATEGORIES.times do |i|
+  print "#{i + 1} of #{NUM_PRODUCT_CATEGORIES}\r"
+
   ProductCategory.create(
     :name => Faker::Commerce.department(3, true),
     :description => Faker::Lorem.sentence(10),
@@ -244,6 +256,8 @@ puts "Creating products"
 # price: Faker::Commerce.price
 # product_category_id
 NUM_PRODUCTS.times do |i|
+  print "#{i + 1} of #{NUM_PRODUCTS}\r"
+
   name = Faker::Commerce.product_name
   product_category_id = i % NUM_PRODUCT_CATEGORIES
   product_category_id = NUM_PRODUCT_CATEGORIES if product_category_id == 0
@@ -267,6 +281,8 @@ puts "Creating shipments"
 # arrival_time: random datetime between departure_time and 2 weeks later
 # destination_id
 NUM_SHIPMENTS.times do |i|
+  print "#{i + 1} of #{NUM_SHIPMENTS}\r"
+
   departure_time = date_from(i, NUM_SHIPMENTS)
   arrival_time = departure_time + 14.days if i < NUM_SHIPMENTS_DELIVERED
   timestamp = departure_time - 1.days
@@ -313,6 +329,8 @@ puts "Creating profiles, user addresses, and credit cards"
 # company_id: Faker::Business.credit_card_type
 users = User.all
 users.each_with_index do |user, i|
+  print "#{i + 1} of #{users.length}\r"
+
   if i < NUM_USERS_WITH_ADDRESSES
     city = City.find(rand(1..City.count))
     zip_code_id = ZipCode.where("state_id = #{city.state_id}").shuffle.first.id
@@ -387,6 +405,8 @@ puts "Creating orders"
 delivered_shipments = Shipment.where('arrival_time IS NOT NULL')
 undelivered_shipments = Shipment.where('arrival_time IS NULL')
 NUM_ORDERS.times do |i|
+  print "#{i + 1} of #{NUM_ORDERS}\r"
+
   if i < NUM_HISTORICAL_ORDERS
     is_paid = true
     if i < NUM_DELIVERED_ORDERS
@@ -419,6 +439,8 @@ puts "Creating order items"
 orders = Order.all
 products = Product.all
 orders.each_with_index do |order, i|
+  print "#{i + 1} of #{orders.length}\r"
+
   rand(1..MAX_ITEMS_PER_ORDER).times do |j|
     OrderItem.create(
       :order_id => order.id,
@@ -439,7 +461,11 @@ puts "Creating addresses and residences"
 # state_id
 # zip_code_id
 # country_id
+i = 0
 addresses.each do |address|
+  print "#{i + 1} of #{addresses.length}\r"
+  i += 1
+
   a = Address.create(
     :street => address[:street],
     :post_office_box => address[:post_office_box],
@@ -454,7 +480,7 @@ addresses.each do |address|
   )
 end
 
-puts "Done!"
+puts "\nDone!"
 
 
 
