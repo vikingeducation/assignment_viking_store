@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: 
+  tracking_number: MyString
+  shipping_date: 2015-09-28 12:30:00
+  shipping_address_id: 1
+  order_id: 1
+
+two: 
+  tracking_number: MyString
+  shipping_date: 2015-09-28 12:30:00
+  shipping_address_id: 1
+  order_id: 1
