@@ -72,11 +72,11 @@ join_days = weighted_growth(user_count)
     email = Faker::Internet.email(first_name)
     phone = Faker::PhoneNumber.phone_number
     join_date = Faker::Time.backward(join_days.pop, :all)
-    user = User.new( first_name: first_name,
-                     last_name:  last_name,
-                     email:      email,
-                     phone:      phone,
-                     join_date:  join_date )
+    user = User.create( first_name: first_name,
+                        last_name:  last_name,
+                        email:      email,
+                        phone:      phone,
+                        join_date:  join_date )
 
     # Create user's address(es)
     addr_ids = []
@@ -97,25 +97,27 @@ join_days = weighted_growth(user_count)
         zip = rand(10000..90000)
       end
 
-      addr = Address.create( street:   street,
-                             city_id:  city,
-                             state_id: state,
-                             zip:      zip,
-                             user_id:  user.id)
+      addr = user.addresses.create( street:   street,
+                                    city_id:  city,
+                                    state_id: state,
+                                    zip:      zip )
       addr_ids << addr.id
     end
 
     if addr_ids.length >= 2
       user.default_ship_address_id = addr_ids.sample
       user.default_bill_address_id = addr_ids.sample
+      user.save!
     end
 
-    user.save!
+    
 
   rescue ActiveRecord::RecordNotUnique
     retry
   end
 end
+
+ALL_USERS = Category.all.ids
 
 
 # Create categories
@@ -138,3 +140,14 @@ ALL_CATEGORIES = Category.all.ids
     retry
   end
 end
+
+# # Create shopping carts (orders that haven't been purchased/completed)
+# (25*SEED_MULTIPLIER).times do
+#   user = ALL_USERS.sample
+#   order = user.orders.create(bill_address_id: user.addresses.sample.id,
+#                              ship_address_id: user.addresses.sample.id)
+
+# end
+
+# Remember, base purchase date off rand between user join_date and now
+# will naturally grow orders alongside user growth

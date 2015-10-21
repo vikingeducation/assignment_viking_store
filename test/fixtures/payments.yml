@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  card_number: MyString
+  exp_date: 2015-10-21 07:14:07
+
+two:
+  card_number: MyString
+  exp_date: 2015-10-21 07:14:07
