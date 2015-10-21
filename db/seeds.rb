@@ -110,14 +110,12 @@ join_days = weighted_growth(user_count)
       user.save!
     end
 
-    
-
   rescue ActiveRecord::RecordNotUnique
     retry
   end
 end
 
-ALL_USERS = Category.all.ids
+ALL_USERS = User.all.ids
 
 
 # Create categories
@@ -141,13 +139,30 @@ ALL_CATEGORIES = Category.all.ids
   end
 end
 
-# # Create shopping carts (orders that haven't been purchased/completed)
-# (25*SEED_MULTIPLIER).times do
-#   user = ALL_USERS.sample
-#   order = user.orders.create(bill_address_id: user.addresses.sample.id,
-#                              ship_address_id: user.addresses.sample.id)
+ALL_PRODUCTS = Product.all.ids
 
-# end
+# Create shopping carts (orders that haven't been purchased/completed)
+(25*SEED_MULTIPLIER).times do
+  user = User.find(ALL_USERS.sample)
+  order = user.orders.create
+  rand(5).times do
+    order.order_contents.create( product: Product.find(ALL_PRODUCTS.sample), 
+                                 product_amt: rand(1..5) )
+  end
 
-# Remember, base purchase date off rand between user join_date and now
-# will naturally grow orders alongside user growth
+end
+
+# Complete 3/4s of orders, leaving some active shopping carts
+Order.all.each do |order|
+  case rand(100)
+  when 0..75
+    unless order.user.addresses.empty?
+      order.bill_address_id = order.user.addresses.sample.id
+      order.ship_address_id = order.user.addresses.sample.id
+      order.purchase_date = Faker::Time.between(order.user.join_date, Time.now, :all)
+      order.create_payment( card_number: Faker::Business.credit_card_number,
+                            exp_date: Faker::Business.credit_card_expiry_date )
+      order.save!
+    end
+  end
+end
