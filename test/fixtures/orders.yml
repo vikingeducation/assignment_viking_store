@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  billing_address_id: 1
+  shipping_address_id: 1
+  purchase_date: 2015-10-21 07:07:44
+  payment_id: 1
+
+two:
+  user_id: 1
+  billing_address_id: 1
+  shipping_address_id: 1
+  purchase_date: 2015-10-21 07:07:44
+  payment_id: 1
