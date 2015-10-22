@@ -1,8 +1,14 @@
 State.destroy_all
 City.destroy_all
 User.destroy_all
+Address.destroy_all
+Order.destroy_all
+OrderContent.destroy_all
+Product.destroy_all
+Payment.destroy_all
 
 SEED_MULTIPLIER = 5
+
 
 # Use weighted random numbers from pickup gem to increase growth of users
 # over the last year, more joining each quarter.  Same method for order growth.  
@@ -25,8 +31,9 @@ def weighted_growth(amount_needed)
   random_numbers
 end
 
-# Popular cities, decided to keep cities and states together here
-# So seed data would look better
+
+# Popular cities, decided to keep cities, states, and zips together here
+# so seed data would look better.
 def popular_cities
   popular_cities = []
   random_cities = City.limit(2*SEED_MULTIPLIER).order("RANDOM()").ids
@@ -141,6 +148,7 @@ end
 
 ALL_PRODUCTS = Product.all.ids
 
+
 # Create shopping carts (orders that haven't been purchased/completed)
 (25*SEED_MULTIPLIER).times do
   user = User.find(ALL_USERS.sample)
@@ -149,8 +157,8 @@ ALL_PRODUCTS = Product.all.ids
     order.order_contents.create( product: Product.find(ALL_PRODUCTS.sample), 
                                  product_amt: rand(1..5) )
   end
-
 end
+
 
 # Complete 3/4s of orders, leaving some active shopping carts
 Order.all.each do |order|
