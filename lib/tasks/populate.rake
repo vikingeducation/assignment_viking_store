@@ -6,25 +6,30 @@ namespace :db do
 
     puts "Starting populator...\n\n"
     start_time = Time.now
+    MULTIPLIER = 5
 
-    puts "Removing old data..."
+
+
+
     # Blow away the existing data
-    tables = [Address, Cart, Category, City, CreditCard, LineItem, Order, Product, User]
+    puts "Removing old data..."
+    tables = [Address, Cart, City, CreditCard, LineItem, Order, Product, User, Category]
 
     tables.each do |table|
       table.destroy_all
       ActiveRecord::Base.connection.reset_pk_sequence!(table.table_name)
     end
-    puts "Old data removed.\n"
+    puts "Old data removed.\n\n"
 
-    MULTIPLIER = 5
+
+
 
     # Cities
     puts "Creating Cities..."
     City.populate(MULTIPLIER * 50) do |city|
       city.name = Faker::Address.city
     end
-    puts "Cities created.\n"
+    puts "Cities created.\n\n"
 
     # Building range for future reference
     city_arr = (City.first.id..City.last.id).to_a
@@ -35,6 +40,9 @@ namespace :db do
       3.times{city_arr << city_arr[i]}
       3.times{state_arr << state_arr[i]}
     end
+
+
+
 
     # Users, Credit Cards, Addresses
     puts "Creating users, credit cards, and addresses..."
@@ -64,7 +72,6 @@ namespace :db do
         address.state_id = state_arr.sample
         address.zip = Faker::Address.zip_code
       end # Address
-
     end # User
 
     # Make first Billing and Shipping addresses the default ones
@@ -76,8 +83,10 @@ namespace :db do
         a.save
       end
     end
+    puts "Users, credit cards, and addresses created.\n\n"
 
-    puts "Users, credit cards, and addresses created."
+
+
 
     # Categories and Products
     puts "Creating categories and products..."
@@ -92,6 +101,28 @@ namespace :db do
         product.SKU_number = Faker::Code.ean
       end # Product
     end # Category
-    puts "Categories and products created."
+    puts "Categories and products created.\n\n"
+
+
+
+
+    # Carts
+    user_range = (User.first.id..User.last.id)
+    product_range = (Product.first.id..Product.last.id)
+
+    puts "Creating carts and associated line items..."
+    Cart.populate(MULTIPLIER * 5) do |cart|
+      cart.user_id = rand(user_range)
+
+      LineItem.populate(1..3) do |item|
+        product = Product.find(rand(product_range))
+        item.product_id = product.id
+        item.quantity = rand(1..3)
+        item.price = product.price
+        item.cart_id = cart.id
+      end # Line Item
+    end # Cart
+    puts "Carts with line items created.\n\n"
+
   end
 end
