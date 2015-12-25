@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225182750) do
+ActiveRecord::Schema.define(version: 20151225183536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20151225182750) do
   add_index "billing_addresses", ["city_id"], name: "index_billing_addresses_on_city_id", using: :btree
   add_index "billing_addresses", ["state_id"], name: "index_billing_addresses_on_state_id", using: :btree
   add_index "billing_addresses", ["user_id"], name: "index_billing_addresses_on_user_id", using: :btree
+
+  create_table "carts", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "description", null: false
@@ -55,6 +63,20 @@ ActiveRecord::Schema.define(version: 20151225182750) do
   end
 
   add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id",             null: false
+    t.integer  "shipping_address_id", null: false
+    t.integer  "billing_address_id",  null: false
+    t.integer  "credit_card_id",      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "orders", ["billing_address_id"], name: "index_orders_on_billing_address_id", using: :btree
+  add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
+  add_index "orders", ["shipping_address_id"], name: "index_orders_on_shipping_address_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "title",       null: false
@@ -103,7 +125,12 @@ ActiveRecord::Schema.define(version: 20151225182750) do
   add_foreign_key "billing_addresses", "cities"
   add_foreign_key "billing_addresses", "states"
   add_foreign_key "billing_addresses", "users"
+  add_foreign_key "carts", "users"
   add_foreign_key "credit_cards", "users"
+  add_foreign_key "orders", "billing_addresses"
+  add_foreign_key "orders", "credit_cards"
+  add_foreign_key "orders", "shipping_addresses"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "shipping_addresses", "cities"
   add_foreign_key "shipping_addresses", "states"
