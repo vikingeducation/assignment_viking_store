@@ -9,7 +9,7 @@ namespace :db do
 
     puts "Removing old data..."
     # Blow away the existing data
-    tables = [BillingAddress, Cart, Category, City, CreditCard, LineItem, Order, Product, ShippingAddress, User]
+    tables = [BillingAddress, ShippingAddress, Cart, Category, City, CreditCard, LineItem, Order, Product, User]
 
     tables.each do |table|
       table.destroy_all
@@ -26,6 +26,9 @@ namespace :db do
     end
     puts "Cities created.\n"
 
+    city_range = (City.first.id..City.last.id)
+    state_range = (State.first.id..State.last.id)
+
     # Users, Credit Cards, Addresses
     puts "Creating users, credit cards, and addresses..."
     User.populate(MULTIPLIER * 20) do |user|
@@ -41,7 +44,45 @@ namespace :db do
         card.expiration = Faker::Business.credit_card_expiry_date
       end # Credit Card
 
+      ShippingAddress.populate(1..2) do |address|
+        address.user_id = user.id
+        address.default_shipping = false
+        address.line_1 = Faker::Address.street_address
+        random_number = rand(1..3)
+        if random_number == 3
+          address.line_2 = Faker::Address.secondary_address
+        end
+        address.city_id = rand(city_range)
+        address.state_id = rand(state_range)
+        address.zip = Faker::Address.zip_code
+      end # Shipping Address
+
+      BillingAddress.populate(1..2) do |address|
+        address.user_id = user.id
+        address.default_billing = false
+        address.line_1 = Faker::Address.street_address
+        random_number = rand(1..3)
+        if random_number == 3
+          address.line_2 = Faker::Address.secondary_address
+        end
+        address.city_id = rand(city_range)
+        address.state_id = rand(state_range)
+        address.zip = Faker::Address.zip_code
+      end # Billing Address
+
     end # User
+
+    # Make first Billing and Shipping addresses the default ones
+    User.all.each do |user|
+      s = ShippingAddress.find_by_user_id(user.id)
+      s.default_shipping = true
+      s.save
+
+      b = BillingAddress.find_by_user_id(user.id)
+      b.default_billing = true
+      b.save
+    end
+
     puts "Users, credit cards, and addresses created."
 
   end
