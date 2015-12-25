@@ -140,10 +140,12 @@ namespace :db do
     puts "Creating orders and associated line items..."
     Order.populate(MULTIPLIER * 20) do |order|
       address = Address.all.sample
-      order.user_id = address.user_id
+      user = User.find(address.user_id)
+      order.user_id = user.id
       order.shipping_address_id = address.id
       order.billing_address_id = address.id
-      order.credit_card_id = CreditCard.find_by_user_id(address.user_id)
+      order.credit_card_id = CreditCard.find_by_user_id(user.id)
+      order.created_at = Faker::Time.between(user.created_at, DateTime.now)
 
       LineItem.populate(1..3) do |item|
         product = Product.find(rand(product_range))
