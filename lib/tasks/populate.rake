@@ -46,11 +46,20 @@ namespace :db do
 
     # Users, Credit Cards, Addresses
     puts "Creating users, credit cards, and addresses..."
+
+    # Weighted array of days ago for user join date
+    days_ago_arr = []
+    365.times do |i|
+      (364-i).times{days_ago_arr << i+1}
+    end
+    days_ago_arr.shuffle!
+
     User.populate(MULTIPLIER * 20) do |user|
       user.email = Faker::Internet.email
       user.first_name = Faker::Name.first_name
       user.last_name = Faker::Name.last_name
       user.phone_number = Faker::PhoneNumber.phone_number
+      user.created_at = Faker::Time.between(DateTime.now - days_ago_arr.pop, DateTime.now)
 
       CreditCard.populate(1..3) do |card|
         card.user_id = user.id
