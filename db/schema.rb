@@ -16,21 +16,22 @@ ActiveRecord::Schema.define(version: 20151225184039) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "billing_addresses", force: :cascade do |t|
-    t.integer  "user_id",                         null: false
-    t.boolean  "default_billing", default: false, null: false
-    t.string   "line_1",                          null: false
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "user_id",                          null: false
+    t.boolean  "default_billing",  default: false, null: false
+    t.boolean  "default_shipping", default: false, null: false
+    t.string   "line_1",                           null: false
     t.string   "line_2"
-    t.integer  "city_id",                         null: false
-    t.integer  "state_id",                        null: false
-    t.string   "zip",                             null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "city_id",                          null: false
+    t.integer  "state_id",                         null: false
+    t.string   "zip",                              null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
-  add_index "billing_addresses", ["city_id"], name: "index_billing_addresses_on_city_id", using: :btree
-  add_index "billing_addresses", ["state_id"], name: "index_billing_addresses_on_state_id", using: :btree
-  add_index "billing_addresses", ["user_id"], name: "index_billing_addresses_on_user_id", using: :btree
+  add_index "addresses", ["city_id"], name: "index_addresses_on_city_id", using: :btree
+  add_index "addresses", ["state_id"], name: "index_addresses_on_state_id", using: :btree
+  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
 
   create_table "carts", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -103,22 +104,6 @@ ActiveRecord::Schema.define(version: 20151225184039) do
 
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
 
-  create_table "shipping_addresses", force: :cascade do |t|
-    t.integer  "user_id",                          null: false
-    t.boolean  "default_shipping", default: false, null: false
-    t.string   "line_1",                           null: false
-    t.string   "line_2"
-    t.integer  "city_id",                          null: false
-    t.integer  "state_id",                         null: false
-    t.string   "zip",                              null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-  end
-
-  add_index "shipping_addresses", ["city_id"], name: "index_shipping_addresses_on_city_id", using: :btree
-  add_index "shipping_addresses", ["state_id"], name: "index_shipping_addresses_on_state_id", using: :btree
-  add_index "shipping_addresses", ["user_id"], name: "index_shipping_addresses_on_user_id", using: :btree
-
   create_table "states", force: :cascade do |t|
     t.string   "name",         null: false
     t.string   "abbreviation", null: false
@@ -135,20 +120,17 @@ ActiveRecord::Schema.define(version: 20151225184039) do
     t.datetime "updated_at",   null: false
   end
 
-  add_foreign_key "billing_addresses", "cities"
-  add_foreign_key "billing_addresses", "states"
-  add_foreign_key "billing_addresses", "users"
+  add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses", "states"
+  add_foreign_key "addresses", "users"
   add_foreign_key "carts", "users"
   add_foreign_key "credit_cards", "users"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
-  add_foreign_key "orders", "billing_addresses"
+  add_foreign_key "orders", "addresses", column: "billing_address_id"
+  add_foreign_key "orders", "addresses", column: "shipping_address_id"
   add_foreign_key "orders", "credit_cards"
-  add_foreign_key "orders", "shipping_addresses"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
-  add_foreign_key "shipping_addresses", "cities"
-  add_foreign_key "shipping_addresses", "states"
-  add_foreign_key "shipping_addresses", "users"
 end

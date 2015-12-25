@@ -1,7 +1,8 @@
-class CreateShippingAddresses < ActiveRecord::Migration
+class CreateAddresses < ActiveRecord::Migration
   def change
-    create_table :shipping_addresses do |t|
+    create_table :addresses do |t|
       t.references :user, index: true, foreign_key: true, null: false
+      t.boolean :default_billing, default: false, null: false
       t.boolean :default_shipping, default: false, null: false
       t.string :line_1, null: false
       t.string :line_2
