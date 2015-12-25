@@ -11,7 +11,6 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'faker'
 gem 'thin'
 
 group :development, :test do
@@ -20,6 +19,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'faker'
+  gem 'populator'
   gem "better_errors"
   gem "binding_of_caller"
   gem 'quiet_assets'
