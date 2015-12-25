@@ -53,13 +53,12 @@ ActiveRecord::Schema.define(version: 20151225184039) do
   end
 
   create_table "credit_cards", force: :cascade do |t|
-    t.integer  "user_id",          null: false
-    t.string   "name_on_card",     null: false
-    t.string   "card_number",      null: false
-    t.integer  "expiration_month", null: false
-    t.integer  "expiration_year",  null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "user_id",      null: false
+    t.string   "name_on_card", null: false
+    t.string   "card_number",  null: false
+    t.date     "expiration",   null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id", using: :btree

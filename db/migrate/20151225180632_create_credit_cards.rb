@@ -4,8 +4,7 @@ class CreateCreditCards < ActiveRecord::Migration
       t.references :user, index: true, foreign_key: true, null: false
       t.string :name_on_card, null: false
       t.string :card_number, null: false
-      t.integer :expiration_month, null: false
-      t.integer :expiration_year, null: false
+      t.date :expiration, null: false
 
       t.timestamps null: false
     end
