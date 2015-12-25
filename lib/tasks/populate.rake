@@ -79,5 +79,19 @@ namespace :db do
 
     puts "Users, credit cards, and addresses created."
 
+    # Categories and Products
+    puts "Creating categories and products..."
+    Category.populate(MULTIPLIER * 3) do |category|
+      category.description = Faker::Commerce.department
+
+      Product.populate(10..30) do |product|
+        product.title = Faker::Commerce.product_name
+        product.description = Faker::Company.bs
+        product.category_id = category.id
+        product.price = Faker::Commerce.price
+        product.SKU_number = Faker::Code.ean
+      end # Product
+    end # Category
+    puts "Categories and products created."
   end
 end
