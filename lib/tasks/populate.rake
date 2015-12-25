@@ -13,7 +13,7 @@ namespace :db do
 
     # Blow away the existing data
     puts "Removing old data..."
-    tables = [Address, Cart, City, CreditCard, LineItem, Order, Product, User, Category]
+    tables = [LineItem, Cart, Order, CreditCard, Address, Product, User, Category, City]
 
     tables.each do |table|
       table.destroy_all
@@ -124,5 +124,29 @@ namespace :db do
     end # Cart
     puts "Carts with line items created.\n\n"
 
+
+
+
+    # Orders
+    puts "Creating orders and associated line items..."
+    Order.populate(MULTIPLIER * 20) do |order|
+      address = Address.all.sample
+      order.user_id = address.user_id
+      order.shipping_address_id = address.id
+      order.billing_address_id = address.id
+      order.credit_card_id = CreditCard.find_by_user_id(address.user_id)
+
+      LineItem.populate(1..3) do |item|
+        product = Product.find(rand(product_range))
+        item.product_id = product.id
+        item.quantity = rand(1..3)
+        item.price = product.price
+        item.order_id = order.id
+      end # Line Item
+
+    end # Order
+    puts "Orders with line items created.\n\n"
+
+    puts "ALL DONE! ...in #{Time.now - start_time} seconds."
   end
 end
