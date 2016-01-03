@@ -12,6 +12,6 @@
     <dd><%= card.expiration %></dd>
 
     <%# link_to 'Remove Card', admin_credit_card_path(card), method: :delete, data: { confirm: 'Are you sure?' } %>
-    <dd><%= link_to 'Remove Card', "#", method: :delete, data: { confirm: 'Are you sure?' } %></dd>
+    <dd><%= link_to 'Remove Card', admin_user_credit_card_path(@user, card), method: :delete, data: { confirm: 'Are you sure?' } %></dd>
   </dl>
 <% end %>
