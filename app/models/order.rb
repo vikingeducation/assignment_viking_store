@@ -17,25 +17,19 @@ class Order < ActiveRecord::Base
   def self.get_orders_by_time(time_frame)
     if time_frame == 'day'
       date_field = "o.checkout_date"
-      begin_day = 0
       days_ago = 7
-      increment = 1
     elsif time_frame == 'week'
       date_field = "date_trunc('week', o.checkout_date)"
-      begin_day = 7
-      days_ago = 56
-      increment = 7
+      days_ago = 49
     end
 
     date_series = "
-      SELECT current_date - s.a as date
-      FROM generate_series(#{begin_day},#{days_ago},#{increment}) as s(a)"
+      SELECT DISTINCT date(date_trunc('#{time_frame}', current_date - s.a)) as date FROM generate_series(0,#{days_ago},1) as s(a) ORDER BY date DESC"
 
     actual_data_series = "
-      SELECT date(#{date_field}) as date, COUNT(DISTINCT o.id) as quantity, SUM(oc.quantity * p.price) as value
+      SELECT date(#{date_field}) as date, COUNT(DISTINCT o.id) as quantity, SUM(oc.quantity * oc.price) as value
       FROM orders o
         JOIN order_contents oc ON oc.order_id = o.id
-        JOIN products p ON p.id = oc.product_id
       WHERE date(o.checkout_date) >= date(?)
       GROUP BY date
       ORDER BY date DESC
@@ -70,13 +64,15 @@ class Order < ActiveRecord::Base
   private
 
   def self.get_revenue(days_ago = nil)
-    select_revenue = "SUM(p.price * oc.quantity) as revenue"
+    select_revenue = "SUM(oc.price * oc.quantity) as revenue"
+    join = "JOIN order_contents oc ON oc.order_id = orders.id"
     if days_ago
-      relation = Order.select(select_revenue).joins(order_product_join).days_ago(days_ago).completed
+      relation = Order.select(select_revenue).joins(join).days_ago(days_ago).completed
     else
-      relation = Order.select(select_revenue).joins(order_product_join).completed
+      relation = Order.select(select_revenue).joins(join).completed
     end
-    relation[0].revenue
+    revenue = relation[0].revenue
+    revenue ? revenue : 0
   end
 
   def self.get_aggregation_order(aggregator, days_ago = nil)
@@ -97,19 +93,11 @@ class Order < ActiveRecord::Base
       where_clause = "IS NOT NULL"
     end
 
-    "SELECT o.id, o.user_id, SUM(p.price * oc.quantity) as revenue
+    "SELECT o.id, o.user_id, SUM(oc.price * oc.quantity) as revenue
       FROM orders o
         JOIN order_contents oc ON oc.order_id = o.id
-        JOIN products p ON p.id = oc.product_id
       WHERE o.checkout_date #{where_clause}
       GROUP BY o.id"
-
-      # Better formatted to copy into psql
-      # "SELECT o.id, o.user_id, SUM(p.price * oc.quantity) as revenue FROM orders o JOIN order_contents oc ON oc.order_id = o.id JOIN products p ON p.id = oc.product_id WHERE o.checkout_date IS NOT NULL GROUP BY o.id;"
-  end
-
-  def self.order_product_join
-    "JOIN order_contents oc ON oc.order_id = orders.id JOIN products p ON p.id = oc.product_id"
   end
 
 end
