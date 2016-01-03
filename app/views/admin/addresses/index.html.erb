@@ -1,0 +1,15 @@
+<h2>Addresses for <%= @user.name %></h2>
+
+<% @addresses.each do |address| %>
+  <%= address.street_address %><br>
+  <% if address.secondary_address %>
+    <%= address.secondary_address %><br>
+  <% end %>
+  <%= address.city_state_zip %><br>
+
+  <br>
+<% end %>
+
+<p>
+  <%= link_to 'Back to User Profile', admin_user_path(@user) %>
+</p>

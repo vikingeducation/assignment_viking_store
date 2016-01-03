@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :categories
     resources :products
-    resources :users
+    resources :users do
+      resources :addresses, only: [:index]
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
