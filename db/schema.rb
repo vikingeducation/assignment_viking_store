@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20160103171809) do
   add_index "order_contents", ["product_id"], name: "index_order_contents_on_product_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",        null: false
+    t.integer  "user_id"
     t.datetime "checkout_date"
     t.integer  "shipping_id"
     t.integer  "billing_id"

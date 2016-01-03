@@ -37,6 +37,14 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    if @user.destroy
+      redirect_to admin_users_url, notice: "User successfully deleted."
+    else
+      redirect_to admin_users_url, alert: "User could not be deleted."
+    end
+  end
+
   private
 
   def set_user

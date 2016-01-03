@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  before_destroy :delete_carts
+
   has_many :addresses, dependent: :destroy
   has_many :credit_cards, dependent: :destroy
   has_many :orders, dependent: :nullify
@@ -35,5 +37,11 @@ class User < ActiveRecord::Base
 
   def self.get_highest_aggregation_user(aggregator)
     User.select("users.first_name, users.last_name, #{aggregator}(ot.revenue) as amount").joins(user_order_totals_join).group("users.id").order("amount DESC").limit(1)[0]
+  end
+
+  private
+
+  def delete_carts
+    self.orders.carts.destroy_all
   end
 end
