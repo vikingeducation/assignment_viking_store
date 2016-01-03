@@ -14,6 +14,10 @@ class Order < ActiveRecord::Base
   scope :completed, -> { where("checkout_date IS NOT NULL")}
   scope :carts, -> { where("checkout_date IS NULL") }
 
+  def value
+    self.order_contents.select("SUM(quantity * price)")[0].sum
+  end
+
   def self.get_orders_by_time(time_frame)
     if time_frame == 'day'
       date_field = "o.checkout_date"
@@ -60,8 +64,6 @@ class Order < ActiveRecord::Base
       }
     end
   end
-
-  private
 
   def self.get_revenue(days_ago = nil)
     select_revenue = "SUM(oc.price * oc.quantity) as revenue"

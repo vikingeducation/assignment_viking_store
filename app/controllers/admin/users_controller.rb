@@ -7,6 +7,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @orders = @user.orders
   end
 
   def edit
