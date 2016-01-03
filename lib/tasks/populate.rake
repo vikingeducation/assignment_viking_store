@@ -13,7 +13,7 @@ namespace :db do
 
     # Blow away the existing data
     puts "Removing old data..."
-    tables = [LineItem, Cart, Order, CreditCard, Address, Product, User, Category, City]
+    tables = [OrderContent, Order, CreditCard, Address, Product, User, Category, City]
 
     tables.each do |table|
       table.destroy_all
@@ -65,33 +65,26 @@ namespace :db do
         card.user_id = user.id
         card.name_on_card = "#{user.first_name} #{user.last_name}"
         card.card_number = Faker::Business.credit_card_number
-        card.expiration = Faker::Business.credit_card_expiry_date
+        card.exp_month = rand(1..12)
+        card.exp_year = rand(2016..2020)
+        card.brand = Faker::Business.credit_card_type
+        card.nickname = "My #{card.brand} card"
+        card.ccv = rand(111..999).to_s
       end # Credit Card
 
       Address.populate(0..5) do |address|
+        user.billing_id = address.id
+        user.shipping_id = address.id
         address.user_id = user.id
-        address.default_shipping = false
-        address.default_billing = false
-        address.line_1 = Faker::Address.street_address
-        random_number = rand(1..3)
-        if random_number == 3
-          address.line_2 = Faker::Address.secondary_address
+        address.street_address = Faker::Address.street_address
+        if rand(1..3) == 3
+          address.secondary_address = Faker::Address.secondary_address
         end
         address.city_id = city_arr.sample
         address.state_id = state_arr.sample
-        address.zip = Faker::Address.zip_code
+        address.zip_code = Faker::Address.zip_code
       end # Address
     end # User
-
-    # Make first Billing and Shipping addresses the default ones
-    User.all.each do |user|
-      a = Address.find_by_user_id(user.id)
-      if a
-        a.default_shipping = true
-        a.default_billing = true
-        a.save
-      end
-    end
     puts "Users, credit cards, and addresses created.\n\n"
 
 
@@ -100,14 +93,15 @@ namespace :db do
     # Categories and Products
     puts "Creating categories and products..."
     Category.populate(MULTIPLIER * 3) do |category|
-      category.description = Faker::Commerce.department
+      category.name = Faker::Commerce.department
+      category.description = Faker::Lorem.sentence
 
       Product.populate(10..30) do |product|
-        product.title = Faker::Commerce.product_name
+        product.name = Faker::Commerce.product_name
         product.description = Faker::Company.bs
         product.category_id = category.id
         product.price = Faker::Commerce.price
-        product.SKU_number = Faker::Code.ean
+        product.sku = Faker::Code.ean
       end # Product
     end # Category
     puts "Categories and products created.\n\n"
@@ -115,39 +109,22 @@ namespace :db do
 
 
 
-    # Carts
-    user_range = (User.first.id..User.last.id)
+    # Orders and carts
+    puts "Creating orders and associated contents..."
     product_range = (Product.first.id..Product.last.id)
-
-    puts "Creating carts and associated line items..."
-    Cart.populate(MULTIPLIER * 5) do |cart|
-      cart.user_id = rand(user_range)
-
-      LineItem.populate(1..3) do |item|
-        product = Product.find(rand(product_range))
-        item.product_id = product.id
-        item.quantity = rand(1..3)
-        item.price = product.price
-        item.cart_id = cart.id
-      end # Line Item
-    end # Cart
-    puts "Carts with line items created.\n\n"
-
-
-
-
-    # Orders
-    puts "Creating orders and associated line items..."
     Order.populate(MULTIPLIER * 20) do |order|
+      # Set 2/3 as completed orders
+      if rand(1..3) != 3
+        order.checkout_date = Faker::Time.between(DateTime.now - 1500, DateTime.now)
+      end
       address = Address.all.sample
       user = User.find(address.user_id)
       order.user_id = user.id
-      order.shipping_address_id = address.id
-      order.billing_address_id = address.id
+      order.shipping_id = address.id
+      order.billing_id = address.id
       order.credit_card_id = CreditCard.find_by_user_id(user.id)
-      order.created_at = Faker::Time.between(user.created_at, DateTime.now)
 
-      LineItem.populate(1..3) do |item|
+      OrderContent.populate(1..5) do |item|
         product = Product.find(rand(product_range))
         item.product_id = product.id
         item.quantity = rand(1..3)
@@ -156,7 +133,7 @@ namespace :db do
       end # Line Item
 
     end # Order
-    puts "Orders with line items created.\n\n"
+    puts "Orders with contents created.\n\n"
 
     puts "ALL DONE! ...in #{Time.now - start_time} seconds."
   end
