@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
   scope :completed, -> { where("checkout_date IS NOT NULL")}
   scope :carts, -> { where("checkout_date IS NULL") }
 
-  def value
+  def order_value
     self.order_contents.select("SUM(quantity * price)")[0].sum
   end
 
