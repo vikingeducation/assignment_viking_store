@@ -1,14 +1,14 @@
-<h2>Addresses for <%= @user.name %></h2>
+<h2 class="text-center">Addresses for <%= @user.name %></h2>
 
-<% @addresses.each do |address| %>
-  <%= address.street_address %><br>
-  <% if address.secondary_address %>
-    <%= address.secondary_address %><br>
-  <% end %>
-  <%= address.city_state_zip %><br>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <p>
+      <%= link_to "Create a New Address for #{@user.name}", new_admin_user_address_path(@user), class: 'btn btn-primary btn-block' %>
+    </p>
+  </div>
+</div>
 
-  <br>
-<% end %>
+<%= render 'address_table' %>
 
 <p>
   <%= link_to 'Back to User Profile', admin_user_path(@user) %>
