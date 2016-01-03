@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     resources :categories
     resources :products
     resources :users do
-      resources :addresses, only: [:index]
+      resources :addresses, only: [:index, :new]
+      resources :orders, only: [:new]
     end
   end
 

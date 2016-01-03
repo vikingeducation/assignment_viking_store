@@ -5,4 +5,8 @@ class CreditCard < ActiveRecord::Base
   def expiration
     "#{exp_month}/#{exp_year}"
   end
+
+  def last_4_digits
+    card_number[-4..-1]
+  end
 end

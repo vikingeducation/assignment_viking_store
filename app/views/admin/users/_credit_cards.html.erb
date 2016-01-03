@@ -6,13 +6,10 @@
     <dd><%= card.nickname %></dd>
 
     <dt>Number:</dt>
-    <dd><%= card.card_number %></dd>
+    <dd>***<%= card.last_4_digits %></dd>
 
     <dt>Expiration:</dt>
     <dd><%= card.expiration %></dd>
-
-    <dt>CCV:</dt>
-    <dd><%= card.ccv %></dd>
 
     <%# link_to 'Remove Card', admin_credit_card_path(card), method: :delete, data: { confirm: 'Are you sure?' } %>
     <dd><%= link_to 'Remove Card', "#", method: :delete, data: { confirm: 'Are you sure?' } %></dd>
