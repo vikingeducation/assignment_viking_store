@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   belongs_to :default_shipping_address, foreign_key: :shipping_id, class_name: 'Address'
   belongs_to :default_billing_address, foreign_key: :billing_id, class_name: 'Address'
 
+  validates :first_name, :last_name, :email, presence: true, length: {in: 1..64}
+
   scope :day_range, -> (start_day, end_day) {where("created_at >= ? AND created_at <= ?", start_day.days.ago, end_day.days.ago)}
 
   def name

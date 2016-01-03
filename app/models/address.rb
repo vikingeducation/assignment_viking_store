@@ -10,6 +10,14 @@ class Address < ActiveRecord::Base
   has_many :bill_to_orders, foreign_key: :billing_id, class_name: 'Order', dependent: :nullify
 
   def city_state_zip
-    "#{city.name}, #{state.name}  #{zip_code}"
+    "#{city.name}, #{state.abbreviation}  #{zip_code}"
+  end
+
+  def one_line
+    if secondary_address
+      "#{street_address}, #{secondary_address}, #{city.name}, #{state.abbreviation}"
+    else
+      "#{street_address}, #{city.name}, #{state.abbreviation}"
+    end
   end
 end
