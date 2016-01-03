@@ -10,10 +10,11 @@ Rails.application.routes.draw do
     resources :products
     resources :orders
     resources :users do
-      resources :addresses, only: [:index, :new]
+      resources :addresses
       resources :orders, only: [:new]
       resources :credit_cards, only: [:destroy]
     end
+    get 'addresses' => 'addresses#all_addresses'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
