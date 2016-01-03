@@ -115,7 +115,7 @@ namespace :db do
     Order.populate(MULTIPLIER * 20) do |order|
       # Set 2/3 as completed orders
       if rand(1..3) != 3
-        order.checkout_date = Faker::Time.between(DateTime.now - 1500, DateTime.now)
+        order.checkout_date = Faker::Time.between(DateTime.now - days_ago_arr.pop, DateTime.now)
       end
       address = Address.all.sample
       user = User.find(address.user_id)
