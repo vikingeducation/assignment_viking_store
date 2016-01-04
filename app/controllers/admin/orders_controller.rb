@@ -20,6 +20,17 @@ class Admin::OrdersController < ApplicationController
   end
 
   def new
+    @order = @user.orders.new
+  end
+
+  def create
+    @order = @user.orders.new(order_params)
+
+    if @order.save
+      redirect_to admin_user_orders_url(@user), notice: 'Order successfully created.'
+    else
+      render :new
+    end
   end
 
   def edit
@@ -37,5 +48,9 @@ class Admin::OrdersController < ApplicationController
 
   def invalid_params
     redirect_to admin_orders_path, alert: 'The page you attempted to view could not be found.'
+  end
+
+  def order_params
+    params.require(:order).permit(:shipping_id, :billing_id, :credit_card_id)
   end
 end

@@ -1,2 +1,11 @@
-<h1>Admin::Orders#new</h1>
-<p>Find me in app/views/admin/orders/new.html.erb</p>
+<h2 class="text-center">New Order for <%= @user.name %></h2>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= render 'form' %>
+
+    <p class="text-center text-muted">
+      <em>You can add products on the next screen, once the order has been created.</em>
+    </p>
+  </div>
+</div>

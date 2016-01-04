@@ -9,4 +9,8 @@ class CreditCard < ActiveRecord::Base
   def last_4_digits
     card_number[-4..-1]
   end
+
+  def short_description
+    "#{nickname}: #{brand.upcase} ****#{last_4_digits}"
+  end
 end

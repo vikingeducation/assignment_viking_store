@@ -1,0 +1,50 @@
+<h3 class="text-center">Logistics</h3>
+
+<h4>Basic Information</h4>
+<dl class="dl-horizontal">
+  <dt>Customer ID:</dt>
+  <dd><%= @user.id %></dd>
+
+  <dt>Customer:</dt>
+  <dd><%= link_to "#{@user.name} (click to view user)", admin_user_path(@user) %></dd>
+
+  <dt>Date Placed:</dt>
+  <dd>N/A</dd>
+</dl>
+
+<%= link_to 'Edit Customer Profile', edit_admin_user_path(@user) %>
+<br>
+<br>
+
+<%= form_for [:admin, @user, @order] do |f| %>
+
+  <div class="form-group">
+    <h4>Shipping Address</h4>
+    <%= field_with_errors(@order, :shipping_id) %>
+    <%= f.collection_select :shipping_id, @user.addresses, :id, :one_line, {selected: @user.shipping_id, prompt: "Select a shipping address"}, {class: "form-control"} %>
+  </div>
+
+  <div class="form-group">
+    <h4>Billing Address</h4>
+    <%= field_with_errors(@order, :billing_id) %>
+    <%= f.collection_select :billing_id, @user.addresses, :id, :one_line, {selected: @user.billing_id, prompt: "Select a billing address"}, {class: "form-control"} %>
+  </div>
+
+  <div class="form-group">
+    <h4>Payment Credit Card</h4>
+    <%= field_with_errors(@order, :credit_card_id) %>
+    <%= f.collection_select :credit_card_id, @user.credit_cards, :id, :short_description, {prompt: "Select a saved credit card"}, {class: "form-control"} %>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <% if @order.persisted? %>
+        <%= f.submit 'Update Order Information', class: "btn btn-primary btn-lg btn-block" %>
+      <% else %>
+        <%= f.submit 'Create Order in Shopping Cart', class: "btn btn-primary btn-lg btn-block" %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+<% end %>
