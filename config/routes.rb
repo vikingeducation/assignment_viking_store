@@ -8,13 +8,14 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :categories
     resources :products
-    resources :orders
+    # resources :orders
     resources :users do
       resources :addresses
-      resources :orders, only: [:new]
+      resources :orders
       resources :credit_cards, only: [:destroy]
     end
     get 'addresses' => 'addresses#all_addresses'
+    get 'orders' => 'orders#all_orders'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
