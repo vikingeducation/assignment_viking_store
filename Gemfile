@@ -14,6 +14,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'thin'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'stamp'
+gem 'faker'
+gem 'populator'
 
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
@@ -21,8 +23,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'faker'
-  gem 'populator'
   gem "better_errors"
   gem "binding_of_caller"
   gem 'quiet_assets'
