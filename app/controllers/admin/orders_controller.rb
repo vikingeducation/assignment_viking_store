@@ -2,12 +2,15 @@ class Admin::OrdersController < ApplicationController
   layout 'admin'
   before_action :set_user, except: [:all_orders]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_params
 
   def all_orders
-    @orders = Order.all
+    # TODO: add pagination
+    @orders = Order.all.limit(100)
   end
 
   def index
+    @orders = @user.orders
   end
 
   def show
@@ -27,5 +30,9 @@ class Admin::OrdersController < ApplicationController
 
   def set_order
     @order = Order.find(params[:id])
+  end
+
+  def invalid_params
+    redirect_to admin_orders_path, alert: 'The page you attempted to view could not be found.'
   end
 end

@@ -3,6 +3,7 @@ class Admin::AddressesController < ApplicationController
   before_action :set_user, except: [:all_addresses]
   before_action :set_address, only: [:show, :edit, :update, :destroy]
   before_action :set_states, only: [:new, :create, :edit, :update]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_params
 
   def all_addresses
     @addresses = Address.all
@@ -66,6 +67,10 @@ class Admin::AddressesController < ApplicationController
 
   def set_states
     @states = State.order(:abbreviation)
+  end
+
+  def invalid_params
+    redirect_to admin_addresses_path, alert: 'The page you attempted to view could not be found.'
   end
 
   def address_params
