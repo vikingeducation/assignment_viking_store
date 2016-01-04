@@ -1,0 +1,32 @@
+<h3 class="text-center"><%= @title %> Contents</h3>
+<br>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>ProductID</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contents.each do |item| %>
+      <tr>
+        <td><%= item.product_id %></td>
+        <td><%= link_to item.product.name, admin_product_path(item.product) %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency item.price %></td>
+        <td><%= number_to_currency (item.quantity * item.price) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h4 class="text-success"><%= @title %> Subtotal: <%= number_to_currency @order.order_value %></h4>
+
+<p>
+  <%= link_to 'Edit Order', edit_admin_user_order_path(@user, @order) %><br>
+  <%= link_to 'Delete Order', admin_user_order_path(@user, @order), method: :delete, data: { confirm: 'Are you sure?' } %>
+</p>

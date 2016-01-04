@@ -1,0 +1,79 @@
+<h3 class="text-center">Logistics</h3>
+
+<h4>Basic Information</h4>
+<dl class="dl-horizontal">
+  <dt>Customer ID:</dt>
+  <dd><%= @user.id %></dd>
+
+  <dt>Customer Name:</dt>
+  <dd><%= link_to "#{@user.name} (click to view user)", admin_user_path(@user) %></dd>
+  <br>
+
+  <dt>Date Placed:</dt>
+  <dd><%= @order.checkout_date.try(:stamp, '12/31/2015') %></dd>
+
+  <dt># Products:</dt>
+  <dd><%= @order.order_quantity %></dd>
+
+  <dt>Total Value:</dt>
+  <dd><%= number_to_currency @order.order_value %></dd>
+</dl>
+
+<p>
+  <%= link_to 'Edit Customer Profile', edit_admin_user_path(@user) %>
+</p>
+<br>
+
+<h4>Order Status</h4>
+<p>
+  <strong class="order-status">
+    <% if @order.checkout_date %>
+      <span class="text-success">PLACED</span>
+    <% else %>
+      <span class="text-danger">UNPLACED</span>
+    <% end %>
+  </strong>
+</p>
+<br>
+
+<h4>Shipping Address</h4>
+<dl class="dl-horizontal">
+  <dt>Street</dt>
+  <dd><%= @order.shipping_address.try(:street_address) %></dd>
+
+  <% if @order.shipping_address.secondary_address %>
+    <dt>Line 2</dt>
+    <dd><%= @order.shipping_address.secondary_address %></dd>
+  <% end %>
+
+  <dt>City, State Zip</dt>
+  <dd><%= @order.shipping_address.try(:city_state_zip) %></dd>
+</dl>
+<br>
+
+<h4>Billing Address</h4>
+<dl class="dl-horizontal">
+  <dt>Street</dt>
+  <dd><%= @order.billing_address.try(:street_address) %></dd>
+
+  <% if @order.billing_address.secondary_address %>
+    <dt>Line 2</dt>
+    <dd><%= @order.billing_address.secondary_address %></dd>
+  <% end %>
+
+  <dt>City, State Zip</dt>
+  <dd><%= @order.billing_address.try(:city_state_zip) %></dd>
+</dl>
+<br>
+
+<h4>Payment</h4>
+<dl class="dl-horizontal">
+  <dt>Credit Card</dt>
+  <dd><%= @card.try(:brand) + ' ***' + @card.try(:last_4_digits) %></dd>
+</dl>
+<br>
+
+<p>
+  <%= link_to 'Edit Order', edit_admin_user_order_path(@user, @order) %><br>
+  <%= link_to 'Delete Order', admin_user_order_path(@user, @order), method: :delete, data: { confirm: 'Are you sure?' } %>
+</p>

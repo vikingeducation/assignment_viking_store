@@ -14,6 +14,9 @@ class Admin::OrdersController < ApplicationController
   end
 
   def show
+    @card = @order.credit_card
+    @contents = @order.order_contents
+    @order.checkout_date ? @title = "Order" : @title = "Shopping Cart"
   end
 
   def new
