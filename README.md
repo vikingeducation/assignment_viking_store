@@ -4,3 +4,4 @@ The Viking Store e-commerce application for Viking Commerce Inc, a project in th
 
 by [Sia Karamalegos](https://github.com/siakaramalegos)
 
+See the deployed version [here](https://sleepy-scrubland-9257.herokuapp.com/).
