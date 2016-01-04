@@ -1,0 +1,13 @@
+<h2 class="text-center">Edit Address for <%= @user.name %></h2>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= render 'form' %>
+
+    <p class="text-center">
+      <%= link_to 'Delete Address', admin_user_address_path(@user, @address), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </p>
+  </div>
+</div>
+
+

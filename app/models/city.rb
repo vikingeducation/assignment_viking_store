@@ -1,6 +1,8 @@
 class City < ActiveRecord::Base
   has_many :addresses, dependent: :nullify
 
+  validates :name, length: {in: 1..64}
+
   def self.top_3_summary
     user_name_query = "SELECT user_name FROM (#{top_user}) uc WHERE uc.id = top.id"
 

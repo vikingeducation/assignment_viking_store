@@ -1,0 +1,64 @@
+<%= form_for [:admin, @user, @address], html: {class: "form-horizontal"} do |f| %>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Owner ID</label>
+    <div class="col-sm-8 set-field">
+      <%= @user.id %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Owner Name</label>
+    <div class="col-sm-8 set-field">
+      <%= link_to "#{@user.name} (click to view)", admin_user_path(@user) %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :street_address, class: "col-sm-2 control-label" %>
+    <%= field_with_errors(@address, :street_address) %>
+    <div class="col-sm-8">
+      <%= f.text_field :street_address, class: "form-control", placeholder: "1000 St. Charles Ave" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :secondary_address, 'Line 2 (optional)', class: "col-sm-2 control-label" %>
+    <%= field_with_errors(@address, :secondary_address) %>
+    <div class="col-sm-8">
+      <%= f.text_field :secondary_address, class: "form-control", placeholder: "Apt 201" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :city_name, class: "col-sm-2 control-label" %>
+    <%# field_with_errors(@address, :city_name) %>
+    <div class="col-sm-8">
+      <%= f.text_field :city_name, class: "form-control", placeholder: "New Orleans" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :state_id, class: "col-sm-2 control-label" %>
+    <%= field_with_errors(@address, :state_id) %>
+    <div class="col-sm-8">
+      <%= f.collection_select :state_id, @states, :id, :abbreviation, {prompt: "Select a state"}, {class: "form-control"} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :zip_code, class: "col-sm-2 control-label" %>
+    <%= field_with_errors(@address, :zip_code) %>
+    <div class="col-sm-8">
+      <%= f.text_field :zip_code, class: "form-control", placeholder: "70115" %>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <%= f.submit class: "btn btn-primary btn-lg btn-block" %>
+    </div>
+  </div>
+  <br>
+<% end %>
