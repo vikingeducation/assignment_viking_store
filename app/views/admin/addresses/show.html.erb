@@ -1,0 +1,36 @@
+<h2 class="text-center"><%= @user.name %>'s Address</h2>
+<br>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <dl class="dl-horizontal">
+      <dt>Owner ID:</dt>
+      <dd><%= @user.id %></dd>
+
+      <dt>Owner Name:</dt>
+      <dd><%= link_to "#{@user.name} (click to view user)", admin_user_path(@user) %></dd>
+      <br>
+
+      <dt>Street:</dt>
+      <dd><%= @address.street_address %></dd>
+
+      <% if @address.secondary_address %>
+        <dt>Line 2:</dt>
+        <dd><%= @address.secondary_address %></dd>
+      <% end %>
+
+      <dt>City:</dt>
+      <dd><%= @address.city.name %></dd>
+
+      <dt>State:</dt>
+      <dd><%= @address.state.name %></dd>
+
+      <dt>Zip:</dt>
+      <dd><%= @address.zip_code %></dd>
+    </dl>
+
+    <%= link_to 'Edit Address', edit_admin_user_address_path(@user, @address) %><br>
+    <%= link_to 'Delete Address', admin_user_address_path(@user, @address), method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+</div>
