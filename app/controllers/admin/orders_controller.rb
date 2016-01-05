@@ -51,6 +51,15 @@ class Admin::OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    if @user.orders.find(params[:id]).destroy
+      redirect_to admin_user_url(@user), notice: "Order successfully destroyed."
+    else
+      flash.now[:alert] = "Could not destroy order."
+      render :back
+    end
+  end
+
   private
 
   def set_user
