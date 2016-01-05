@@ -2,6 +2,8 @@ class CreditCard < ActiveRecord::Base
   belongs_to :user
   has_many :orders, dependent: :nullify
 
+  validates :card_number, length: {is: 16}
+
   def expiration
     "#{exp_month}/#{exp_year}"
   end

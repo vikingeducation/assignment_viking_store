@@ -10,8 +10,11 @@ Rails.application.routes.draw do
     resources :products
     resources :users do
       resources :addresses
-      resources :orders
       resources :credit_cards, only: [:destroy]
+      resources :orders do
+        resources :order_contents, only: [:destroy]
+        post 'contents' => 'order_contents#update'
+      end
     end
     get 'addresses' => 'addresses#all_addresses'
     get 'orders' => 'orders#all_orders'

@@ -20,6 +20,7 @@ class Admin::OrdersController < ApplicationController
   end
 
   def new
+
     @order = @user.orders.new
   end
 
@@ -27,13 +28,27 @@ class Admin::OrdersController < ApplicationController
     @order = @user.orders.new(order_params)
 
     if @order.save
-      redirect_to admin_user_orders_url(@user), notice: 'Order successfully created.'
+      redirect_to edit_admin_user_order_url(@user, @order), notice: 'Order successfully created.'
     else
       render :new
     end
   end
 
   def edit
+  end
+
+  def update
+    if @order.checkout_date.nil? && params[:order][:status] == 'PLACED'
+      @order.checkout_date = Time.now
+    elsif @order.checkout_date && params[:order][:status] == 'UNPLACED'
+      @order.checkout_date = nil
+    end
+
+    if @order.update(order_params)
+      redirect_to admin_user_order_url(@user, @order), notice: 'Order successfully saved.'
+    else
+      render :edit
+    end
   end
 
   private

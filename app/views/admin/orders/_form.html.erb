@@ -9,7 +9,13 @@
   <dd><%= link_to "#{@user.name} (click to view user)", admin_user_path(@user) %></dd>
 
   <dt>Date Placed:</dt>
-  <dd>N/A</dd>
+  <dd>
+    <% if @order.checkout_date %>
+      <%= @order.checkout_date.stamp('12/31/2015') %>
+    <% else %>
+      N/A
+    <% end %>
+  </dd>
 </dl>
 
 <%= link_to 'Edit Customer Profile', edit_admin_user_path(@user) %>
@@ -17,6 +23,25 @@
 <br>
 
 <%= form_for [:admin, @user, @order] do |f| %>
+
+  <% if @order.persisted? %>
+    <h4>Order Status</h4>
+    <div class="form-group">
+      <div class="radio">
+        <%= f.label :status_placed do %>
+          <%= f.radio_button(:status, "PLACED") %>
+          <span class="text-success">PLACED</span>
+        <% end %>
+      </div>
+
+      <div class="radio">
+        <%= f.label :status_unplaced do %>
+          <%= f.radio_button(:status, "UNPLACED") %>
+          <span class="text-danger">UNPLACED</span><span class="text-muted"> - only one unplaced order allowed</span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <h4>Shipping Address</h4>

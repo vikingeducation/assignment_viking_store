@@ -26,6 +26,10 @@ class Order < ActiveRecord::Base
     self.order_contents.select("SUM(quantity)")[0].sum
   end
 
+  def status
+    checkout_date ? 'PLACED' : 'UNPLACED'
+  end
+
   def self.get_orders_by_time(time_frame)
     if time_frame == 'day'
       date_field = "o.checkout_date"
