@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :orders do
         resources :order_contents, only: [:destroy]
         post 'contents' => 'order_contents#update'
+        post 'contents/add' => 'order_contents#create'
       end
     end
     get 'addresses' => 'addresses#all_addresses'

@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+  # TODO: Only allows one unplaced order per user
   belongs_to :user
   belongs_to :credit_card
   belongs_to :shipping_address, foreign_key: :shipping_id, class_name: 'Address'
@@ -9,8 +10,8 @@ class Order < ActiveRecord::Base
   has_many :categories, through: :products
 
   validates :billing_id, :shipping_id, :credit_card_id, presence: true
-  # validates :billing_id, :shipping_id, inclusion: {in: self.user.address_ids}
-  # validates :credit_card_id, inclusion: {in: self.user.credit_card_ids}
+  validates :billing_id, :shipping_id, inclusion: {in: self.user.address_ids}
+  validates :credit_card_id, inclusion: {in: self.user.credit_card_ids}
 
   scope :days_ago, -> (days_past = 7) { where("checkout_date >= ?", days_past.days.ago) }
   scope :day_range, -> (start_day, end_day) {where("checkout_date >= ? AND checkout_date <= ?", start_day.days.ago, end_day.days.ago)}
