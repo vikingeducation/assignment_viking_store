@@ -1,4 +1,4 @@
-class Admin::OrderContentsController < ApplicationController
+class Admin::OrderContentsController < AdminController
   before_action :set_user_and_order
 
   def create

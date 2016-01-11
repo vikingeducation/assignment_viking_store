@@ -1,4 +1,4 @@
-class Admin::AddressesController < ApplicationController
+class Admin::AddressesController < AdminController
   layout 'admin'
   before_action :set_user, except: [:all_addresses]
   before_action :set_address, only: [:show, :edit, :update, :destroy]

@@ -1,4 +1,4 @@
-class Admin::CreditCardsController < ApplicationController
+class Admin::CreditCardsController < AdminController
 
   def destroy
     @user = User.find(params[:user_id])

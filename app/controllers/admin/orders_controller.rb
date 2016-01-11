@@ -1,4 +1,4 @@
-class Admin::OrdersController < ApplicationController
+class Admin::OrdersController < AdminController
   layout 'admin'
   before_action :set_user, except: [:all_orders]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
