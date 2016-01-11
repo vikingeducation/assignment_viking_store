@@ -1,7 +1,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 
-body { padding-top: 70px; }
+body {
+  padding-top: 70px;
+}
+
 
 
 
@@ -47,6 +51,18 @@ body { padding-top: 70px; }
 .panel-body table.borderless td, th {
   border: none;
   padding-left: 0;
+}
+
+
+
+
+// *******************************
+//   Footer
+// *******************************
+footer {
+  background-color: #ccc;
+  min-height: 160px;
+  padding-top: 20px;
 }
 
 
