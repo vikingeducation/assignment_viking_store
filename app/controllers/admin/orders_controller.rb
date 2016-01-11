@@ -6,11 +6,11 @@ class Admin::OrdersController < ApplicationController
 
   def all_orders
     # TODO: add pagination
-    @orders = Order.all.limit(100)
+    @orders = Order.includes(:user, :shipping_address => [:city, :state]).limit(100)
   end
 
   def index
-    @orders = @user.orders
+    @orders = @user.orders.includes(:shipping_address => [:city, :state])
   end
 
   def show
@@ -20,7 +20,6 @@ class Admin::OrdersController < ApplicationController
   end
 
   def new
-
     @order = @user.orders.new
   end
 

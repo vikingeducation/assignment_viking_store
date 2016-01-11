@@ -6,11 +6,11 @@ class Admin::AddressesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_params
 
   def all_addresses
-    @addresses = Address.all
+    @addresses = Address.includes(:city, :state, :user)
   end
 
   def index
-    @addresses = @user.addresses
+    @addresses = @user.addresses.includes(:city, :state)
   end
 
   def show

@@ -4,7 +4,7 @@ class Admin::ProductsController < ApplicationController
   before_action :set_categories, only: [:new, :edit, :create, :update]
 
   def index
-    @products = Product.all
+    @products = Product.includes(:category)
   end
 
   def show
