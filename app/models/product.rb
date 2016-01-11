@@ -16,4 +16,9 @@ class Product < ActiveRecord::Base
   def carts_in
     self.orders.where("orders.checkout_date IS NULL").count
   end
+
+  def self.filter_category(filter_category)
+    return where("") unless filter_category
+    joins(:category).where("category_id = ?", filter_category)
+  end
 end
