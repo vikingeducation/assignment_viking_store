@@ -1,4 +1,4 @@
-class DashboardController < ApplicationController
+class Admin::DashboardController < AdminController
   def index
     # Panel 1: Overall Platform
     @overall_7_days = get_overall_stats(7)

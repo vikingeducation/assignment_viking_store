@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
   get 'admin' => 'admin#index'
-  get 'dashboard' => 'dashboard#index'
-
   root 'admin#index'
 
   namespace :admin do
@@ -19,6 +17,7 @@ Rails.application.routes.draw do
     end
     get 'addresses' => 'addresses#all_addresses'
     get 'orders' => 'orders#all_orders'
+    get 'dashboard' => 'dashboard#index'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
