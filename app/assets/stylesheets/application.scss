@@ -1,6 +1,39 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body { padding-top: 70px; }
+
+
+
+// *******************************
+//   Navbar
+// *******************************
+.logo-container {
+  img {
+    width: 40px;
+    height: 40px;
+    margin-top: 4px;
+    vertical-align: middle;
+  }
+}
+
+.nav-links-right {
+  margin-top: 4px;
+  padding-left: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo-container {
+    display: none;
+  }
+}
+
+
+
+
+// *******************************
+//   Panels
+// *******************************
 .panel-heading h2 {
   margin-top: 10px;
   font-size: 2em;
@@ -16,6 +49,12 @@
   padding-left: 0;
 }
 
+
+
+
+// *******************************
+//   Misc
+// *******************************
 form .set-field {
   padding-top: 7px;
 }

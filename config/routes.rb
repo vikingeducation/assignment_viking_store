@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'products/index'
   get 'admin' => 'admin#index'
-  root 'admin#index'
+  root 'products#index'
 
   namespace :admin do
     resources :categories
