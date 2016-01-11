@@ -6,11 +6,15 @@ class Admin::AddressesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_params
 
   def all_addresses
+    # TODO: fix last checkout_date N+1 query
     @addresses = Address.includes(:city, :state, :user)
+    @counts = Order.completed.group(:shipping_id).count
   end
 
   def index
+    # TODO: fix last checkout_date N+1 query
     @addresses = @user.addresses.includes(:city, :state)
+    @counts = @user.orders.completed.group(:shipping_id).count
   end
 
   def show

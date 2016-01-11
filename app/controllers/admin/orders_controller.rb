@@ -6,10 +6,12 @@ class Admin::OrdersController < ApplicationController
 
   def all_orders
     # TODO: add pagination
+    # TODO: fix sum N+1 query
     @orders = Order.includes(:user, :shipping_address => [:city, :state]).limit(100)
   end
 
   def index
+    # TODO: fix sum N+1 query
     @orders = @user.orders.includes(:shipping_address => [:city, :state])
   end
 
