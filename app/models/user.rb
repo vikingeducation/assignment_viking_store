@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   has_many :addresses, dependent: :destroy
   has_many :credit_cards, dependent: :destroy
   has_many :orders, dependent: :nullify
+
+  # TODO:
+  # has_one :last_order, class_name: 'Order', order: 'checkout_date DESC', limit: 1
+
   has_many :products, through: :orders
 
   belongs_to :default_shipping_address, foreign_key: :shipping_id, class_name: 'Address'

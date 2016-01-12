@@ -5,6 +5,5 @@ class ProductsController < ApplicationController
     @filter_category = filter_category ? "Filtered by #{filter_category.name.titleize}" : nil
 
     @products = Product.filter_category(filter_category)
-
   end
 end

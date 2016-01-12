@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'admin' => 'admin#index'
   root 'products#index'
 
+  resources :order_contents, only: [:create]
+
   namespace :admin do
     resources :categories
     resources :products

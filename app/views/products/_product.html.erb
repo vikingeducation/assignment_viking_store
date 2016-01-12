@@ -5,14 +5,14 @@
       <h4><%= product.name %></h4>
     </div>
 
-    <div class="panel-body" style="background-image: url('http://placehold.it/250x200')">
+    <div class="panel-body" style="background-image: url('http://placehold.it/250x200');">
       <span class="price-tag pull-right text-muted">
         <%= number_to_currency product.price %>
       </span>
     </div>
 
     <div class="panel-footer">
-      <%= link_to 'Add to Cart', '#', class: 'btn btn-primary' %>
+      <%= link_to 'Add to Cart', order_contents_path(product_id: product.id), method: :post, class: 'btn btn-primary' %>
     </div>
 
   </div>

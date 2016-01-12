@@ -9,7 +9,10 @@ class Order < ActiveRecord::Base
   has_many :products, through: :order_contents
   has_many :categories, through: :products
 
-  validates :billing_id, :shipping_id, :credit_card_id, presence: true
+  validates :billing_id, :shipping_id, :credit_card_id,
+    :presence => true,
+    :unless => Proc.new{ checkout_date.nil? }
+
   # TODO: validates addresses and credit cards are in order.user's list
   # validates_associated :billing_id, :shipping_id, inclusion: {in: user.address_ids}
   # validates_associated :credit_card_id, inclusion: {in: user.credit_card_ids}
@@ -30,6 +33,17 @@ class Order < ActiveRecord::Base
 
   def status
     checkout_date ? 'PLACED' : 'UNPLACED'
+  end
+
+  def add_product(product_id)
+    product = Product.find(product_id)
+    current_item = order_contents.find_by(product_id: product.id)
+    if current_item
+      current_item.quantity += 1
+    else
+      current_item = order_contents.build(product: product, price: product.price)
+    end
+    current_item
   end
 
   def self.get_orders_by_time(time_frame)
