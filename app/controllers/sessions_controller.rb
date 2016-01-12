@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  include CurrentCart
 
   def new
   end
@@ -8,6 +9,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user
       sign_in(user)
+      combine_carts(user)
       redirect_to root_url, notice: "Thanks for signing in!"
     else
       flash.now[:alert] = "We could not sign you in due to an error."
@@ -23,4 +25,5 @@ class SessionsController < ApplicationController
       redirect_to root_url, alert: "Angry robots have prevented you from signing out.  You're stuck here forever."
     end
   end
+
 end
