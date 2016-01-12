@@ -20,7 +20,13 @@
 
       <div class="nav-links-right col-xs-2">
         <%= link_to 'Your cart', '#', class: "navbar-link" %><br>
-        <%= link_to 'Sign in', '#', class: "navbar-link" %>
+
+        <!-- Login in/out links -->
+        <% if signed_in_user? %>
+          <%= link_to "Sign Out", session_path, :method => "DELETE", class: "navbar-link" %>
+        <% else %>
+          <%= link_to 'Sign in', sign_in_path, class: "navbar-link" %>
+        <% end %>
       </div>
 
     </div><!-- /.navbar-collapse -->

@@ -1,0 +1,20 @@
+<br>
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <div class="well">
+    <h2>Sign In</h2>
+
+    <%= form_tag('/session', method: 'post') do %>
+
+      <div class="form-group">
+        <%= label_tag :email %>
+        <%= text_field_tag :email, nil, class: 'form-control' %>
+      </div>
+
+      <p>
+        <%= submit_tag 'Sign In', class: 'btn btn-primary' %>
+      </p>
+    <% end %>
+    </div>
+  </div>
+</div>
