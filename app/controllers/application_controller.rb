@@ -31,4 +31,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :signed_in_user?
 
+  def authenticate_user!
+    raise SecurityError unless current_user
+  end
+
+  rescue_from SecurityError do
+    redirect_to root_url, alert: "You do not have access to that feature."
+  end
 end
