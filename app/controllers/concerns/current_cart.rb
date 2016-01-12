@@ -13,9 +13,9 @@ module CurrentCart
   def combine_carts(user)
     user = current_user
     user_carts = user.orders.where(checkout_date: nil)
+    session_cart = Order.where(id: session[:cart_id]).first
 
-    if Order.find(session[:cart_id]) && user_carts.present?
-      session_cart = Order.find(session[:cart_id])
+    if session_cart && session_cart.user_id.nil? && user_carts.present?
       session_cart.user_id = current_user.id
       session_cart.save
 

@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   def sign_out
     session.delete(:current_user_id)
+    session.delete(:cart_id)
     current_user = nil
     session[:current_user_id].nil? && current_user.nil?
   end
