@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   root 'products#index'
 
   resources :order_contents, only: [:create]
-  resource :session, :only => [:new, :create, :destroy]
+  resources :users, except: [:index, :show]
 
+  resource :session, :only => [:new, :create, :destroy]
   get 'sign_in' => 'sessions#new'
 
   namespace :admin do
