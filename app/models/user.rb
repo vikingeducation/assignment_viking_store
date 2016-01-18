@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   before_destroy :delete_carts
 
   has_many :addresses, dependent: :destroy
+  accepts_nested_attributes_for :addresses
+
   has_many :credit_cards, dependent: :destroy
   has_many :orders, dependent: :nullify
 
