@@ -9,7 +9,19 @@ class UsersController < ApplicationController
   end
 
   def create
+    @user = User.new(user_params)
 
+    @user.addresses.each_with_index do |address, index|
+      city = City.find_or_create_by(name: params[:user][:addresses_attributes][index.to_s][:city_name])
+      address.city_id = city.id
+    end
+
+    if @user.save
+      redirect_to products_index_url, notice: "You successfully registered!"
+    else
+      flash.now[:alert] = "There was a problem submitting your form.  See below for errors."
+      render :new
+    end
   end
 
   def edit
@@ -30,6 +42,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :phone_number, {:addresses_attributes => [:street_address, :secondary_address, :city_name, :state_id, :zip_code]})
+    params.require(:user).permit(:email, :first_name, :last_name, :phone_number, :billing_id, :shipping_id, { :addresses_attributes => [:id, :street_address, :secondary_address, :state_id, :zip_code, :_destroy] })
   end
 end

@@ -2,12 +2,12 @@ class User < ActiveRecord::Base
   before_destroy :delete_carts
 
   has_many :addresses, dependent: :destroy
-  accepts_nested_attributes_for :addresses
+  accepts_nested_attributes_for :addresses, reject_if: :all_blank, allow_destroy: true
 
   has_many :credit_cards, dependent: :destroy
   has_many :orders, dependent: :nullify
 
-  # TODO:
+  # TODO: create last_order association to reduce N+1?
   # has_one :last_order, class_name: 'Order', order: 'checkout_date DESC', limit: 1
 
   has_many :products, through: :orders
