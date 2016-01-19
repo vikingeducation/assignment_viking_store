@@ -1,0 +1,6 @@
+<div class="pull-right">
+  <form action="<%= products_index_path %>" method="GET" class="form-inline filter-form">
+    <%= select_tag(:filter_category_id, options_for_select(@category_options), {include_blank: true, prompt: @filter_category, class: 'form-control'}) %>
+    <%= submit_tag 'Apply Filter', class: 'btn btn-default' %>
+  </form>
+</div>

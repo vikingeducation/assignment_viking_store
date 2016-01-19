@@ -1,0 +1,11 @@
+<h2 class="text-center">Orders for <%= @user.name %></h2>
+
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <p>
+      <%= link_to "Create a New Order for #{@user.name}", new_admin_user_order_path(@user), class: 'btn btn-primary btn-block' %>
+    </p>
+  </div>
+</div>
+
+<%= render 'order_table' %>

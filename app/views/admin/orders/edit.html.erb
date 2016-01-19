@@ -1,0 +1,29 @@
+<h2 class="text-center">Edit Order #<%= @order.id %> for <%= @user.name %></h2>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= render 'form' %>
+
+    <p class="text-center">
+      <%= link_to 'Delete Order', admin_user_order_path(@user, @order), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </p>
+  </div>
+</div>
+
+<% unless @order.order_contents.empty? %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= render 'edit_contents' %>
+
+      <p class="text-center">
+        <%= link_to 'Delete Order', admin_user_order_path(@user, @order), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= render 'add_contents' %>
+  </div>
+</div>

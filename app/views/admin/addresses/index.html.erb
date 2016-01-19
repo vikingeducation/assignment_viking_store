@@ -1,0 +1,15 @@
+<h2 class="text-center">Addresses for <%= @user.name %></h2>
+
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <p>
+      <%= link_to "Create a New Address for #{@user.name}", new_admin_user_address_path(@user), class: 'btn btn-primary btn-block' %>
+    </p>
+  </div>
+</div>
+
+<%= render 'address_table' %>
+
+<p>
+  <%= link_to 'Back to User Profile', admin_user_path(@user) %>
+</p>

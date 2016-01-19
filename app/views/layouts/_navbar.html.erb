@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to 'Viking Store', root_path, class: 'navbar-brand' %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><%= link_to 'About', about_path %></li>
+      </ul>
+      <div class="logo-container col-xs-1 col-xs-offset-7 text-right">
+        <img src="http://placehold.it/70x70" alt="Viking Store logo">
+      </div>
+
+      <div class="nav-links-right col-xs-2">
+        <%= link_to 'Your cart', '#', class: "navbar-link" %><br>
+
+        <!-- Login in/out links -->
+        <% if signed_in_user? %>
+          <%= link_to "Sign Out", session_path, :method => "DELETE", class: "navbar-link" %>
+        <% else %>
+          <%= link_to 'Sign in', sign_in_path, class: "navbar-link" %>
+        <% end %>
+      </div>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
