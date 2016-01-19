@@ -24,21 +24,34 @@ class UsersController < ApplicationController
     end
   end
 
+  # TODO: change edit, show, delete path to not have user_id param
   def edit
+    @user.addresses.build
   end
 
   def update
+    @user.update(user_params)
 
+    @user.addresses.each_with_index do |address, index|
+      city = City.find_or_create_by(name: params[:user][:addresses_attributes][index.to_s][:city_name])
+      address.city_id = city.id
+    end
+
+    if @user.save
+      redirect_to products_index_url, notice: "Your user information was successfully updated!"
+    else
+      flash.now[:alert] = "There was a problem submitting your form.  See below for errors."
+      render :edit
+    end
   end
 
   def destroy
-
   end
 
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def user_params

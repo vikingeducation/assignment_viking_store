@@ -5,7 +5,7 @@
       <%# TODO: add validation errors to address fields  %>
         <div class="panel panel-default">
           <div class="panel-body">
-            <h4 class="text-center text-muted">Saved Address <%= address_fields.index + 1 %> (optional)</h4>
+            <h4 class="text-center text-muted">Saved Address <%= address_fields.index + 1 %><%= ' (optional)' if address_fields.object.id.nil? %></h4>
 
             <div class="form-group">
               <%= address_fields.label :street_address, 'Street Address' %>
@@ -119,6 +119,11 @@
           <br>
           <p>
             <%= user_fields.submit class: 'btn btn-primary btn-block btn-lg' %>
+          </p>
+          <p>
+            <% if @user.persisted? %>
+              <%= link_to 'Delete my account', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
           </p>
         </div>
       </div>
