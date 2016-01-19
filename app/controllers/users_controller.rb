@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     end
 
     if @user.save
+      sign_in(@user)
       redirect_to products_index_url, notice: "You successfully registered!"
     else
       flash.now[:alert] = "There was a problem submitting your form.  See below for errors."
@@ -46,6 +47,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if @user.destroy
+      sign_out
+      redirect_to products_index_url, notice: "Account successfully deleted."
+    else
+      redirect_to products_index_url, alert: "Account could not be deleted."
+    end
   end
 
   private

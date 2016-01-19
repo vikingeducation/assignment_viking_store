@@ -120,11 +120,11 @@
           <p>
             <%= user_fields.submit class: 'btn btn-primary btn-block btn-lg' %>
           </p>
-          <p>
-            <% if @user.persisted? %>
+          <% if @user.persisted? %>
+            <p class="text-center">
               <%= link_to 'Delete my account', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %>
-          </p>
+            </p>
+          <% end %>
         </div>
       </div>
     </div>
