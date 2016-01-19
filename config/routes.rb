@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'about' => 'pages#about'
   get 'products/index'
   get 'admin' => 'admin#index'
   root 'products#index'
