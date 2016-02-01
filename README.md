@@ -34,11 +34,17 @@ Shopping cart(many)-products (many)
 Shopping cart(one) -> order (one)
 
 Tables-Columns
-User-email, name, phonenum, billing address, cc info
-Address-userid, addresstype, street, city, stateid, zipid
+User-email, name, phone_num, billing address
+Address-userid, addresstype, street, city, state_id, zip_code
 State-states
-Zip Code-zipcode
 Product-description, price
 Category-description
-OrderProduct-productid, quantity, price
-Order-id, userid, orderdate
+OrderProduct-product_id, quantity, price
+Order-id, userid, order_date, status
+
+### removed
+Shipment - user_id
+#####
+
+CreditCard - user_id
+
