@@ -1,7 +1,7 @@
 MODELS:
-  User
+x  User
+x  Category
   Product
-  Category
   Cart
   Order
   CreditCard
@@ -11,7 +11,7 @@ MODELS:
   State
   City
 
-* everything is required unless marked with :required => false
+* everything is required unless marked with :null => true
 
 User: (One to One with Cart) (One to Many with Order) (One to Many with Address)
   Email [string, :unique => true]
@@ -26,7 +26,7 @@ Product: (Many to One with Categories)
   Category ID (Foreign Key)
 
 Category: (One to Many with Products)
-  Name [string]
+  Name [string, unique: true]
 
 Cart: (Many to Many with Products) (One to One with User)
   User ID (Foreign Key)
