@@ -10,6 +10,11 @@
 # delete all existing data
 User.delete_all
 Category.delete_all
+City.delete_all
+State.delete_all
+Country.delete_all
+
+MULTIPLIER = 4
 
 twelve_months = Faker::Time.between(11.months.ago, 12.months.ago)
 eleven_months = Faker::Time.between(10.months.ago, 11.months.ago)
@@ -88,7 +93,30 @@ end
   User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, created_at: one_month)
 end
 
+# Countries
+Country.create(name: 'United States')
+5.times do
+  Country.create(name: Faker::Address.country)
+end
 
+# States
+10.times do
+  State.create(name: Faker::Address.state, country_id: Country.all.sample.id)
+end
+
+# Cities
+20.times do
+  City.create(name: Faker::Address.city, state_id: State.all.sample.id)
+end
 
 # Categories
 
+5.times do
+  Category.create(name: Faker::Commerce.department)
+end
+
+# Products
+
+15.times do
+  Product.create(title: Faker::Commerce.product_name, description: Faker::Company.catch_phrase, price: Faker::Commerce.price, sku: Faker::Company.duns_number, category_id: Category.all.sample.id)
+end
