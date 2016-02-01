@@ -1,17 +1,32 @@
+MODELS:
+  User
+  Product
+  Category
+  Cart
+  Order
+  CreditCard
+  Shipment
+  Address
+  Country
+  State
+  City
+
+* everything is required unless marked with :required => false
+
 User: (One to One with Cart) (One to Many with Order) (One to Many with Address)
-  Email
-  First Name
-  Last Name
+  Email [string, :unique => true]
+  First Name [string]
+  Last Name [string]
 
 Product: (Many to One with Categories)
-  Title
-  Description
-  Price
-  SKU Number
+  Title [string]
+  Description [text]
+  Price [float]
+  SKU Number [string, :unique => true]
   Category ID (Foreign Key)
 
 Category: (One to Many with Products)
-  Name
+  Name [string]
 
 Cart: (Many to Many with Products) (One to One with User)
   User ID (Foreign Key)
@@ -19,21 +34,21 @@ Cart: (Many to Many with Products) (One to One with User)
 JoinCartWithProduct: (Cart Contents)
   Cart ID
   Product ID
-  Product Quantity
+  Product Quantity [integer]
 
 Order: (Many to One with User)
   User ID (Foreign Key)
   Cart ID (Foreign Key)
-  Phone Number
+  Phone Number [string]
   Credit Card ID (Foreign Key)
 
 Credit Cards:
   User ID (Foreign Key)
-  Number
-  Type
-  Expiration
-  Security Code
-  Default (true/false)
+  Number [string, :unique => true]
+  Type [string]
+  Expiration [string]
+  Security Code [integer]
+  Default (true/false) [boolean]
 
 Shipment:
   Order ID (Foreign Key)
@@ -42,21 +57,21 @@ Shipment:
 
 Address: (Many to One with User) (Default billing, default shipping, multiple of each)
   User ID (Foreign Key)
-  Street Address:
+  Street Address [string]
   City ID (Foreign Key)
   State ID (Foreign Key)
   Country ID (Foreign Key)
-  Address Type (billing/shipping)
-  Zip Code
-  Default (true/false)
+  Address Type (billing/shipping) [string]
+  Zip Code [integer]
+  Default (true/false) [boolean]
 
 Country:
-  Name
+  Name [string, :unique => true]
 
 State:
-  Name
+  Name [string]
   Country ID (Foreign Key)
 
 City:
-  Name
+  Name [string]
   State ID (Foreign Key)
