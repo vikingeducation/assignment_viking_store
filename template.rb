@@ -1,15 +1,15 @@
 MODELS:
 x  User
 x  Category
-  Product
-  Cart
-  Order
-  CreditCard
-  Shipment
-  Address
-  Country
-  State
-  City
+x  Product
+x  Cart
+x  Order
+x  CreditCard
+x  Shipment
+x  Address
+x  Country
+x  State
+x  City
 
 * everything is required unless marked with :null => true
 
@@ -75,3 +75,6 @@ State:
 City:
   Name [string]
   State ID (Foreign Key)
+
+  validates :type, inclusion: { in: ['billing', 'shipping'],
+        message: "#{value} is not a valid address type." }
