@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20160201185926) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "line_1",     null: false
+    t.string   "line_2"
     t.string   "city",       null: false
     t.string   "region",     null: false
     t.string   "country",    null: false
@@ -49,25 +50,25 @@ ActiveRecord::Schema.define(version: 20160201185926) do
   add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id"
 
   create_table "order_items", force: :cascade do |t|
-    t.integer  "order_id",            null: false
-    t.integer  "product_id",          null: false
-    t.integer  "quantity",            null: false
+    t.integer  "order_id",   null: false
+    t.integer  "product_id", null: false
+    t.integer  "quantity",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id",             null: false
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
 
-  add_index "order_items", ["billing_address_id"], name: "index_order_items_on_billing_address_id"
-  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
-  add_index "order_items", ["shipping_address_id"], name: "index_order_items_on_shipping_address_id"
-
-  create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+  add_index "orders", ["billing_address_id"], name: "index_orders_on_billing_address_id"
+  add_index "orders", ["shipping_address_id"], name: "index_orders_on_shipping_address_id"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "products", force: :cascade do |t|
