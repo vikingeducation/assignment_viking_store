@@ -7,6 +7,7 @@
 ActiveSupport	/Users/kitlangton/Viking/Unit9/assignment_viking_store/test/test_helper.rb	/^class ActiveSupport::TestCase$/;"	c
 Address	/Users/kitlangton/Viking/Unit9/assignment_viking_store/app/models/address.rb	/^class Address < ActiveRecord::Base$/;"	c
 AddressTest	/Users/kitlangton/Viking/Unit9/assignment_viking_store/test/models/address_test.rb	/^class AddressTest < ActiveSupport::TestCase$/;"	c
+AddressesUser	/Users/kitlangton/Viking/Unit9/assignment_viking_store/app/models/addresses_user.rb	/^class AddressesUser < ActiveRecord::Base$/;"	c
 Application	/Users/kitlangton/Viking/Unit9/assignment_viking_store/config/application.rb	/^  class Application < Rails::Application$/;"	c	class:AssignmentVikingStore
 ApplicationController	/Users/kitlangton/Viking/Unit9/assignment_viking_store/app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
 ApplicationHelper	/Users/kitlangton/Viking/Unit9/assignment_viking_store/app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
@@ -47,3 +48,4 @@ change	/Users/kitlangton/Viking/Unit9/assignment_viking_store/db/migrate/2016020
 change	/Users/kitlangton/Viking/Unit9/assignment_viking_store/db/migrate/20160201185741_create_categories.rb	/^  def change$/;"	f	class:CreateCategories
 change	/Users/kitlangton/Viking/Unit9/assignment_viking_store/db/migrate/20160201185813_create_orders.rb	/^  def change$/;"	f	class:CreateOrders
 change	/Users/kitlangton/Viking/Unit9/assignment_viking_store/db/migrate/20160201185926_create_order_items.rb	/^  def change$/;"	f	class:CreateOrderItems
+create_addresses_for_user	/Users/kitlangton/Viking/Unit9/assignment_viking_store/db/seeds.rb	/^def create_addresses_for_user(user, locations)$/;"	f
