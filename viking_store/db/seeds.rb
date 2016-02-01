@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'faker'
+
 
 Country.create([
   {
@@ -220,6 +222,7 @@ State.create([
                   description: Faker::Hipster.sentence(1) )
 end
 
+
 100.times do
   user = User.create(   first_name: Faker::Name.first_name,
                         last_name: Faker::Name.last_name,
@@ -232,17 +235,29 @@ end
                             country_id: Country.first.id,
                             zip: Faker::Address.zip )
 
-  profile = Profile.create( user_id: user.id,
+  Profile.create( user_id: user.id,
                             phone_number: Faker::PhoneNumber.cell_phone,
                             billing_address_id: address.id,
                             shipping_address_id: address.id )
 
-  user_address = UserAddress.create( user_id: user.id,
+  UserAddress.create( user_id: user.id,
                                       address_id: address.id )
 
   product = Product.create( title: Faker::Commerce.product_name,
                             description: Faker::Hipster.paragraph,
                             price: Faker::Commerce.price,
-                            sku: Faker::Code.isbn
+                            sku: Faker::Code.isbn,
                             category_id: Category.all.sample.id )
+
+  order = Order.create(user_id: user.id)
+
+  OrderProduct.create(order_id: order.id, product_id: product.id)
+
+  shipment = Shipment.create(shipping_address_id: address.id)
+
+  ShipmentOrder.create(shipment_id: shipment.id, order_id: order.id)
+
+  shopping_cart = ShoppingCart.create(user_id: user.id)
+
+  ShoppingProduct.create(shopping_cart_id: shopping_cart.id, product_id: product.id)
 end
