@@ -4,8 +4,7 @@
 # Examples:
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-require 'faker'
+
 
 
 Country.create([
@@ -233,7 +232,7 @@ end
                             city: Faker::Address.city,
                             state_id: State.all.sample.id,
                             country_id: Country.first.id,
-                            zip: Faker::Address.zip )
+                            zip_code: Faker::Address.zip )
 
   Profile.create( user_id: user.id,
                             phone_number: Faker::PhoneNumber.cell_phone,
