@@ -8,11 +8,17 @@
 
 
 # delete all existing data
+
+puts "Wiping out data..."
+Cart.delete_all
+Product.delete_all
 User.delete_all
 Category.delete_all
 City.delete_all
 State.delete_all
 Country.delete_all
+
+puts "Finished wiping out data."
 
 MULTIPLIER = 4
 
@@ -33,6 +39,9 @@ one_month = Faker::Time.between(1.months.ago, DateTime.now)
 
 
 # Users
+puts "Creating users..."
+
+
 # feb 1
 User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, created_at: twelve_months)
 
@@ -93,6 +102,12 @@ end
   User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, created_at: one_month)
 end
 
+puts "Done creating users."
+
+
+puts "Creating countries, states, and cities..."
+
+
 # Countries
 Country.create(name: 'United States')
 5.times do
@@ -109,6 +124,9 @@ end
   City.create(name: Faker::Address.city, state_id: State.all.sample.id)
 end
 
+
+puts "Creating categories and products..."
+
 # Categories
 
 5.times do
@@ -120,3 +138,18 @@ end
 15.times do
   Product.create(title: Faker::Commerce.product_name, description: Faker::Company.catch_phrase, price: Faker::Commerce.price, sku: Faker::Company.duns_number, category_id: Category.all.sample.id)
 end
+
+
+# Carts
+
+(6* MULTIPLIER).times do
+  Cart.create(user_id: User.all.sample.id)
+end
+
+
+# Add products to Cart
+
+(5* MULTIPLIER).times do
+  CartsProduct.create(cart_id: Cart.all.sample.id, product_id: Product.all.sample.id, quantity: rand(1..10))
+end
+
