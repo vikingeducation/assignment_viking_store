@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160202003005) do
   create_table "credit_cards", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "card_number"
-    t.string   "type"
+    t.string   "card_type"
     t.string   "expiration"
     t.integer  "security"
     t.boolean  "default"

@@ -3,7 +3,7 @@ class CreateCreditCards < ActiveRecord::Migration
     create_table :credit_cards do |t|
       t.integer :user_id
       t.string :card_number, unique: true, null: false
-      t.string :type, null: false
+      t.string :card_type, null: false
       t.string :expiration, null: false
       t.integer :security, null: false
       t.boolean :default, null: false

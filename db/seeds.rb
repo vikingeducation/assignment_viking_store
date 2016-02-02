@@ -153,3 +153,19 @@ end
   CartsProduct.create(cart_id: Cart.all.sample.id, product_id: Product.all.sample.id, quantity: rand(1..10))
 end
 
+puts "Creating credit cards"
+
+# Credit Cards
+User.all.each do |user|
+  CreditCard.create(user_id: user.id, card_number: Faker::Business.credit_card_number, card_type: Faker::Business.credit_card_type, expiration: Faker::Business.credit_card_expiry_date, security: Faker::PhoneNumber.area_code, default: true)
+
+  CreditCard.create(user_id: user.id, card_number: Faker::Business.credit_card_number, card_type: Faker::Business.credit_card_type, expiration: Faker::Business.credit_card_expiry_date, security: Faker::PhoneNumber.area_code, default: false)
+end
+
+# Orders
+
+puts "Creating orders"
+
+(10*MULTIPLIER).times do
+  Order.create(cart_id: Cart.all.sample.id, phone_number: Faker::PhoneNumber.phone_number, credit_card_id: CreditCard.all.sample.id)
+end
