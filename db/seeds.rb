@@ -56,8 +56,8 @@ include Faker
                  :description => Lorem.paragraph,
                  :price => Commerce.price,
                  :sku => Code.isbn,
-                 :group_id => (n+1)
-                )
+                 :group_id => n/4 % 6 + 1
+                  ) if (n + 1) % 5 == 0
 
   Group.create(:name => Commerce.department(1)
               )
