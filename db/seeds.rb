@@ -17,6 +17,9 @@ include Faker
                   :created_at => Time.at(Time.now - (60*60*24*365)/(n+1))
                  )
 
+  City.create(:name => Address.city
+             )
+
   Order.create(:customer_id => (n+1),
                :s_a_first_line => Address.street_address,
                :s_a_city => Address.city,
