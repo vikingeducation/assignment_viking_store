@@ -20,6 +20,9 @@ include Faker
   City.create(:name => Address.city
              )
 
+  State.create(:name => Address.state
+              ) if n < 10
+
   Order.create(:customer_id => (n+1),
                :s_a_first_line => Address.street_address,
                :s_a_city => Address.city,
