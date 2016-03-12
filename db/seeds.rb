@@ -33,23 +33,24 @@ include Faker
                :b_a_state => Address.state,
                :b_a_zip => Address.zip,
                :phone => PhoneNumber.cell_phone,
-               :credit_card => Business.credit_card_number
+               :credit_card => Business.credit_card_number,
+               :created_at => Time.at(Time.now - (60*60*24*365)/(n*1.01+1))
               )
 
   ShippingAddress.create(:customer_id => (n+1),
                          :first_line => Address.street_address,
-                         :city_id => rand(1..80),
+                         :city_id => rand(1..100),
                          :state_id => rand(1..10),
                          :zip => Address.zip,
-                         :default => false
+                         :default => true
                         )
 
   BillingAddress.create(:customer_id => (n+1),
                          :first_line => Address.street_address,
-                         :city_id => rand(1..80),
-                         :state_id => rand(1..100),
+                         :city_id => rand(1..100),
+                         :state_id => rand(1..10),
                          :zip => Address.zip,
-                         :default => false
+                         :default => true
                         )
 
   Product.create(:title => Commerce.product_name,
