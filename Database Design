@@ -58,8 +58,8 @@ shipping addresses can have many customers
 shipping_addresses
 id - user_id - first_line - city_id - state_id - zip - default
 
-customers can have many shipping addresses
-shipping addresses can have many billing addresses
+customers can have many billing addresses
+billing addresses can have many customers
 (however considering the complexities of addresses, I'll keep the address just a first_line)
 
 billing_addresses
@@ -77,10 +77,6 @@ states can have many shipping addresses/billing addresses
 states
 id - name
 
-customers can have many orders
-an order can only belong to one customer
-(one to many)
-
 shipping addresses can have many orders
 orders can only have one shipping address
 (one to many)
@@ -89,7 +85,7 @@ billing addresses can have many orders
 orders can only have one billing address
 
 orders
-id - users.id - shipping_addresses.id - billing_addresses.id - phone - credit_card
+id - shipping_addresses.id - billing_addresses.id - phone - credit_card
 
 orders can have many products
 products can have many orders
@@ -126,24 +122,33 @@ last_name - varchar(746) - required
 
 Could you have the shipping address and billing address in the same table.
 
-addresses
+shipping_addresses
 id - integer
 user_id - integer - required
 first_line - varchar(100) - required
 city_id - integer - required
 state_id - integer - required
 zip - integer - rquired
-s_or_b - character(1) - required
+default - boolean - required
+
+billing_addresses
+id - integer
+user_id - integer - required
+first_line - varchar(100) - required
+city_id - integer - required
+state_id - integer - required
+zip - integer - rquired
 default - boolean - required
 
 orders
 id - integer
 users.id - integer
 shipping_addresses.id - integer
-billing_addresses.id - integer
 phone - varchar(100)
 credit_card - varchar(50)
 
+
+# HAVEN'T FIGURED OUT YET
 orders_products(join table)
 id - integer
 orders.id - integer
@@ -167,3 +172,13 @@ id - integer
 customers.id - integer
 products.id - integer
 quantity - integer
+
+
+
+
+I just feel like, what if a customer deletes a billing address
+or deletes a shipping address. Then the order has nothing to relate to.
+
+A customer should be connected to an order
+
+but that order should have its own field for address(For that order) and a billing address(for that order) otherwise you just lose things to quick. 

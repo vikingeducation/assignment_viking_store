@@ -11,17 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312042456) do
+ActiveRecord::Schema.define(version: 20160312092443) do
 
   create_table "billing_addresses", force: :cascade do |t|
     t.integer  "customer_id", null: false
     t.string   "first_line",  null: false
     t.integer  "city_id",     null: false
     t.integer  "state_id",    null: false
-    t.integer  "zip",         null: false
+    t.string   "zip",         null: false
     t.boolean  "default",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -48,13 +54,19 @@ ActiveRecord::Schema.define(version: 20160312042456) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "customer_id",         null: false
-    t.integer  "shipping_address_id", null: false
-    t.integer  "billing_address_id",  null: false
-    t.string   "phone",               null: false
-    t.string   "credit_card",         null: false
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.integer  "customer_id",    null: false
+    t.string   "phone",          null: false
+    t.string   "credit_card",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "s_a_first_line"
+    t.string   "s_a_city"
+    t.string   "s_a_state"
+    t.string   "s_a_zip"
+    t.string   "b_a_first_line"
+    t.string   "b_a_city"
+    t.string   "b_a_state"
+    t.string   "b_a_zip"
   end
 
   create_table "orders_products", id: false, force: :cascade do |t|
@@ -81,10 +93,16 @@ ActiveRecord::Schema.define(version: 20160312042456) do
     t.string   "first_line",  null: false
     t.integer  "city_id",     null: false
     t.integer  "state_id",    null: false
-    t.integer  "zip",         null: false
+    t.string   "zip",         null: false
     t.boolean  "default",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
