@@ -13,7 +13,8 @@ include Faker
 
   Customer.create(:email => Internet.email,
                   :first_name => Name.first_name,
-                  :last_name => Name.last_name
+                  :last_name => Name.last_name,
+                  :created_at => Time.at(Time.now - (60*60*24*365)/(n+1))
                  )
 
   Order.create(:customer_id => (n+1),
@@ -31,15 +32,15 @@ include Faker
 
   ShippingAddress.create(:customer_id => (n+1),
                          :first_line => Address.street_address,
-                         :city_id => rand(1..100),
-                         :state_id => rand(1..100),
+                         :city_id => rand(1..80),
+                         :state_id => rand(1..10),
                          :zip => Address.zip,
                          :default => false
                         )
 
   BillingAddress.create(:customer_id => (n+1),
                          :first_line => Address.street_address,
-                         :city_id => rand(1..100),
+                         :city_id => rand(1..80),
                          :state_id => rand(1..100),
                          :zip => Address.zip,
                          :default => false
@@ -54,5 +55,6 @@ include Faker
 
   Group.create(:name => Commerce.department(1)
               )
+
 
 end
