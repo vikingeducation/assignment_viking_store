@@ -1,0 +1,169 @@
+Database Design
+
+1. Understanding Our Needs - What do we want from our database? 
+
+a. Be as specific as possible about your needs -- not "To show all the blog posts" but "To show an ordered list of blog posts created by a single author and listed with their associated comments and comment authors so a visitor can easily see a user's writing and the conversations it sparked". That level of specificity will help you tease out the necessary relationships in your data.
+
+Page 1 - Overall Platform
+- We'll be building a dash board that shows stats on viking store.
+- We'll be showing the number of new users, orders, new products and revenue for the last 7 days. 
+- We'll be doing the same for the last 30 days.
+- We'll be showing the total number of users, orders, products and revenue.
+
+Page 2 - User Demographics and Behavior
+- Top 3 states Users Live In (Billing)
+- Top 3 cities users live in (billing)
+- Top user with
+    - Highest Single Order Value
+    - Highest Lifetime Value
+    - Highest Average Order Value
+    - Most Orders Placed
+
+Page 3 - Order Statistics
+- Number of Orders
+- Total Revenue
+- Average Order Value
+- Largest Order Value
+
+-> These are done for the last 7 days, last 30 days and the total.
+
+Page 4 - Time Series Data
+Orders by day
+Date      -   Quantity  -   Value
+Today     -   2         -   $500
+Yesterday -   5         -   $500
+8/22      -   3         -   $500
+
+Orders by Week
+Date      -   Quantity  -   Value
+8/22      -   3         -   $500
+8/15      -   5         -   $500
+etc
+
+b. You'll also want to think about what data you might already be storing (are you keeping it in a spreadsheet? On paper? How is it organized?) to help inform some of the natural relationships within it. The more you can relate your data to real-world relationships, the easier it'll be to figure out their table relationships.
+
+I guess just in invoices and spreadsheets for now?
+
+Step 2: Determine Your Entities
+&
+Step 3: Determine Each Entity's Attributes
+
+customers
+id - email - first_name - last_name
+
+customers can have many shipping addresses
+shipping addresses can have many customers
+(however considering the complexities of addresses, I'll keep the address just a first_line)
+
+shipping_addresses
+id - user_id - first_line - city_id - state_id - zip - default
+
+customers can have many shipping addresses
+shipping addresses can have many billing addresses
+(however considering the complexities of addresses, I'll keep the address just a first_line)
+
+billing_addresses
+id - user_id - first_line - city_id - state_id - zip - default
+
+shipping addresses/billing addresses can only have one city
+cities can have many shipping addresses/billing addresses
+
+cities
+id - name
+
+shipping addresses/billing addresses can only have one state
+states can have many shipping addresses/billing addresses
+
+states
+id - name
+
+customers can have many orders
+an order can only belong to one customer
+(one to many)
+
+shipping addresses can have many orders
+orders can only have one shipping address
+(one to many)
+
+billing addresses can have many orders
+orders can only have one billing address
+
+orders
+id - users.id - shipping_addresses.id - billing_addresses.id - phone - credit_card
+
+orders can have many products
+products can have many orders
+(many to many - join table)
+
+orders_products
+id - orders.id - products.id - quantity
+
+products
+id - title - description - price - SKU - groups.id
+
+products can belong to one group
+groups can have many products
+(one to many)
+
+groups
+id - name
+
+user can have only one shopping_cart
+(just not sure if I should have the shopping_cart set into the customers table, like when they create an account should they just get a set shopping cart or when they start shopping should it build one) it makes sense that a shopping cart should just add items by that user and then delete them all when it's made into an order - it's deceptive because each id doesn't represent a different shopping_cart, it represents a product for a customer
+shopping cart can have many products
+products can belong to many shopping carts
+
+shopping_carts_join_table
+id - customers.id - products.id - quantity
+
+Step 4: Determine Attribute Types
+
+customers
+id - integer
+email - varchar(411) - required
+first_name - varchar(746) - required
+last_name - varchar(746) - required
+
+Could you have the shipping address and billing address in the same table.
+
+addresses
+id - integer
+user_id - integer - required
+first_line - varchar(100) - required
+city_id - integer - required
+state_id - integer - required
+zip - integer - rquired
+s_or_b - character(1) - required
+default - boolean - required
+
+orders
+id - integer
+users.id - integer
+shipping_addresses.id - integer
+billing_addresses.id - integer
+phone - varchar(100)
+credit_card - varchar(50)
+
+orders_products(join table)
+id - integer
+orders.id - integer
+products.id - integer
+quantity - integer
+
+products
+id - integer
+title - varchar(200)
+description - text
+price - float
+SKU - string
+groups.id - string
+
+groups
+id - integer
+name - varchar(100)
+
+shopping_carts (join_table)
+id - integer
+customers.id - integer
+products.id - integer
+quantity - integer
