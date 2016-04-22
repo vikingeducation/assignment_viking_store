@@ -236,3 +236,9 @@ puts "Created orders"
 generate_credit_cards_for_checked_out_orders
 puts "Created credit card orders"
 puts "DONE!"
+
+
+
+
+
+
