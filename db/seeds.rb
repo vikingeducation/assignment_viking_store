@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-MULTIPLIER = 4
+MULTIPLIER = 5
 
 puts "Deleting the Data..."
 
@@ -109,7 +109,7 @@ puts "Adding Users"
   create_user(Time.now, 12.months.ago)
 end
 
-(1..5).each do |i|
+(1..MULTIPLIER).each do |i|
   i*1.times { create_user(8.months.ago, 12.months.ago) }
   i*2.times { create_user(4.months.ago, 8.months.ago) }  
   i*3.times { create_user(Time.now, 4.months.ago) }
