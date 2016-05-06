@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  type: 
+  exp: MyString
+  security: 1
+  default: false
+
+two:
+  number: MyString
+  type: 
+  exp: MyString
+  security: 1
+  default: false
