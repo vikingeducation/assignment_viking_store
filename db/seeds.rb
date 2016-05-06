@@ -125,15 +125,30 @@ end
 # Create Orders And Shopping Cart
 puts "Adding some orders And shopping Cart Items"
 
-(MULTIPLIER * 10).times do
+
+(MULTIPLIER * 10).downto(1) do |i|
+
+  # Simulate the growth of orders over time
+  time_range = MULTIPLIER * 10
+  start_time = Time.now
+
+  if i > time_range - time_range/4
+     end_time = 12.months.ago
+  elsif i > time_range/2
+    end_time = 8.months.ago
+  else
+    end_time = 4.months.ago
+  end
+
+
   user = User.all.sample
   order = create_order(user)
   rand(1..3).times do
     create_shopping_cart(order)
   end
 
-  unless rand(0..3) == 0
-    order.update(check_out: Faker::Date.between(8.months.ago, 1.month.ago))
+  unless rand(0..1) == 0
+    order.update(check_out: Faker::Date.between(end_time, start_time))
     rand(1..3).times do
       create_address(user)
     end
