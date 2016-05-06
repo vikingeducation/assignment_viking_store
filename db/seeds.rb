@@ -25,25 +25,13 @@ Order.delete_all
 
 puts "Data Deleted"
 
-one_month = Faker::Time.between(Time.now, 1.months.ago)
-two_months = Faker::Time.between(1.months.ago, 2.months.ago)
-three_months = Faker::Time.between(2.months.ago, 3.months.ago)
-four_months = Faker::Time.between(3.months.ago, 4.months.ago)
-five_months = Faker::Time.between(4.months.ago, 5.months.ago)
-six_months = Faker::Time.between(5.months.ago, 6.months.ago)
-seven_months = Faker::Time.between(6.months.ago, 7.months.ago)
-eight_months = Faker::Time.between(7.months.ago, 8.months.ago)
-nine_months = Faker::Time.between(8.months.ago, 9.months.ago)
-ten_months = Faker::Time.between(9.months.ago, 10.months.ago)
-eleven_months = Faker::Time.between(10.months.ago, 11.months.ago)
-twelve_months = Faker::Time.between(11.months.ago, 12.months.ago)
 
 puts "Creating the Data..."
 
-def create_user
+def create_user(start_date, end_date)
   User.create(email: Faker::Internet.email, 
                         first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
-                        created_at: Faker::Time.between(Time.now, 12.months.ago) )
+                        created_at: Faker::Time.between(start_date, end_date) )
 end
 
 def create_address(user)
@@ -95,55 +83,68 @@ def create_billing(user, order)
 end
 
 # Cities
+puts "Creating cities"
 
 30.times {City.create(name: Faker::Address.city)}
 
 # States
+puts "Creating states"
 
 10.times {State.create(name: Faker::Address.state)}
 
 # Countries
+puts "Creating countries"
 
 5.times {Country.create(name: Faker::Address.country)}
 
 # Categories
+puts "Creating categories"
 
 5.times {Category.create(description: Faker::Commerce.department)}
 
 # Create Users
+puts "Adding Users"
 
-100.times do
-  create_user
+10.times do
+  create_user(Time.now, 12.months.ago)
+end
+
+(1..5).each do |i|
+  i*1.times { create_user(8.months.ago, 12.months.ago) }
+  i*2.times { create_user(4.months.ago, 8.months.ago) }  
+  i*3.times { create_user(Time.now, 4.months.ago) }
 end
 
 # Create Products
+puts "Adding Products"
 
 20.times do
   create_product
 end
 
 # Create Orders And Shopping Cart
+puts "Adding some orders And shopping Cart Items"
 
 (MULTIPLIER * 10).times do
   user = User.all.sample
-  o = create_order(user)
+  order = create_order(user)
   rand(1..3).times do
-    create_shopping_cart(o)
+    create_shopping_cart(order)
   end
 
-  if rand(0..10) < 4
-    o.update(check_out: Faker::Date.between(8.months.ago, 1.month.ago))
+  unless rand(0..3) == 0
+    order.update(check_out: Faker::Date.between(8.months.ago, 1.month.ago))
     rand(1..3).times do
       create_address(user)
     end
 
-    b = create_billing(user, o)
-    o.update(billing_id: b.id)
+    billing = create_billing(user, order)
+    order.update(billing_id: billing.id)
   end
 
 end
 
-
+puts "And we're all set!"
 
 
 
