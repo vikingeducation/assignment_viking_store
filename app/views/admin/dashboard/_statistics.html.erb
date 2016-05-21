@@ -21,7 +21,7 @@
     <tr>
       <td>Average Order Value</td>
       <td>
-        <%= number_to_currency( revenue / new_orders) %>
+        <%= new_orders > 0 ? number_to_currency( revenue / new_orders) : 0 %>
       </td>
     </tr>
     <tr>

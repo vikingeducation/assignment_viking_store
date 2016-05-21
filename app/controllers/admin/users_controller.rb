@@ -40,7 +40,7 @@ class Admin::UsersController < AdminController
   def destroy
     @user = User.find(params[:id])
     session[:return_to] ||= request.referer
-    if @user.destroy
+    if @user.destroy && sign_out
       flash[:success] = "User deleted successfully."
       redirect_to admin_users_path
     else

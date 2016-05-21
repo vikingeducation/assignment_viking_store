@@ -99,23 +99,23 @@ class Order < ActiveRecord::Base
 
   # JOIN creates a table of Orders, OrderContents and Products. WHERE eliminates rows before our cutoff date. GROUP combines the Orders into one row so we can see the value. Then the rows are sorted with the ORDER keyword (which is, confusingly, the same as the name of our Order model.) They are sorted by descending value, so the FIRST record is the largest, and by adding the VALUE command, we return just the integer and not the whole table row.
   def self.largest_value_since(date)
-    select("orders.id, SUM(order_contents.quantity * products.price) AS value").
+    result = select("orders.id, SUM(order_contents.quantity * products.price) AS value").
       joins("JOIN order_contents ON orders.id = order_contents.order_id JOIN products ON products.id = order_contents.product_id").
       where("checkout_date > ?", date.days.ago).
       order("value DESC").
       group("orders.id").
-      first.
-      value
+      first
+      first ? first.value : 0
   end
 
   # This query is substantially the same as the one above, except WHERE screens for any checkout_date (which excludes "cart" orders that aren't checked out yet)."
   def self.all_time_largest_value
-    select("orders.id, SUM(order_contents.quantity * products.price) AS value").
+    result = select("orders.id, SUM(order_contents.quantity * products.price) AS value").
       joins("JOIN order_contents ON orders.id = order_contents.order_id JOIN products ON products.id = order_contents.product_id").
       where("checkout_date IS NOT NULL").
       order("value DESC").
       group("orders.id").
-      first.
-      value
+      first
+      first ? first.value : 0
   end
 end

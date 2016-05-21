@@ -14,12 +14,17 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_out
-    session.delete(:current_user_id) && !(current_user = nil)
+    @current_user = nil
+    session.delete(:current_user_id)
+    session[:current_user_id].nil? && @current_user.nil?
   end
 
   def current_user
-    return nil unless session[:current_user_id]
-    @current_user ||= User.find(session[:current_user_id])
+    if @current_user && session[:current_user_id] == @current_user.id
+      @current_user
+    elsif session[:current_user_id]
+      @current_user = User.find_by_id(session[:current_user_id])
+    end
   end
 
   def current_user=(user)

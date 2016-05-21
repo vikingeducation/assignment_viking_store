@@ -153,7 +153,7 @@ To see the relevant parts of the solution for this assignment go to the followin
 
 ## Good Student Solutions
 
-
+See this section in the main [README](README.md)
 
 ** NOTE:** *This solution repo is copyrighted material for your private use only and not to be shared outside of Viking Code School.*
 
