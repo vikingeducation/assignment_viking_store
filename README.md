@@ -1,3 +1,5 @@
+[Phil Johnson](github.com/philipcolejohnson) and [Johnny Steenbergen](github.com/jsteenb2)
+
 viking_store
 ============
 
