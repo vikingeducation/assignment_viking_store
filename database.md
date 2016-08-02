@@ -1,0 +1,33 @@
+Tables
+- User
+  - email
+  - name
+  - phone_num
+  - default_shipping
+  - default_billing
+- Card
+  - number
+  - company
+  - exp_date
+  - security_code
+  - user_id
+- Address
+  - user_id
+  - city
+  - state
+  - zip
+  - address_line_1
+  - address_line_2
+- Product
+  - title
+  - description
+  - price
+  - SKU
+- Category
+  - category
+- Orders
+  - multiple products
+  - shipping_address
+  - billing_address
+  - quantity of products
+  - created_date
