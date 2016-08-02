@@ -1,6 +1,6 @@
 class Customer < ApplicationRecord
   validates :credit_card, :phone_number, { presence: true }
-  validates :user_id, 
+  belongs_to :user_id 
 end
 
 # if User is logged_in || User inputs address
