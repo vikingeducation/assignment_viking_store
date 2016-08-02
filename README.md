@@ -43,3 +43,43 @@ Order -> Cart
 Cart -> CustomerInfo
 
 Cart => checkout:true
+
+
+
+SELECT 
+FROM orders JOIN carts ON order.user_id = product.user_id
+
+
+
+
+Order -> User
+- get_user_products(user_id)
+- This is User's products and their respective quantities:
+(a) Product a => 123 (Cart),
+(b) Product b => 5 (Cart),
+(c) Product c => 20 (Cart)
+
+Cart
+- user_id
+- Each cart has an order. These are its orders!
+- checked_out:true then is_order
+- order_num column; use this to distinguish between 
+  checked_out carts('orders')
+- look for the user_id in the cart
+- cart is a container for all user's products and their respective
+  quantities
+(a) Product => Quantity
+(b) Product => Quantity
+(c) Product => Quantity
+
+Order
+- stated_delivery_date
+- actual_delivery_date
+- contains many carts
+- will live in the Cart
+
+            Order
+          /       \
+        Cart A    Cart B
+      /     \         \
+Product    Product      Product
