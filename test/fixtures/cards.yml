@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  company: MyString
+  exp_date: 2016-08-02
+  security_code: MyString
+  user: one
+
+two:
+  number: MyString
+  company: MyString
+  exp_date: 2016-08-02
+  security_code: MyString
+  user: two
