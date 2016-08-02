@@ -6,10 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
+SEED_MULTIPLIER = 2
 
 # Category
-6.times do |i|
+(SEED_MULTIPLIER*6).times do |i|
   c = Category.new
   c.title = Faker::Commerce.department(1)
   c.description = Faker::Lorem.paragraph
@@ -29,7 +29,7 @@ def create_product
 
   p.save
 end
-20.times do |i|
+(SEED_MULTIPLIER*20).times do |i|
   create_product
 end
 
@@ -72,11 +72,11 @@ def create_credit_card
   c
 end
 
-20.times do
+(SEED_MULTIPLIER*20).times do
   create_user
 end
 
-50.times do
+(SEED_MULTIPLIER*50).times do
   create_address_with_id
 end
 
@@ -126,27 +126,35 @@ def create_order
   end
 
   o.save
-
-  # at this point in time, some users have credit cards, some do not
-
-  # orders.user_id must equal the credit_cards.user_id for the user pointed to by the credit card at orders.credit_card_id
-
-# order.credit_card_id JOIN credit_cards ON credit_cards.user_id = orders.user_id
-
 end
 
-30.times do
+(SEED_MULTIPLIER*30).times do
   create_address_with_id
 end
 
-30.times do
+(SEED_MULTIPLIER*30).times do
   create_credit_card
 end
 
-20.times do
+(SEED_MULTIPLIER*20).times do
   create_order
 end
 
+def associate_products_with_orders
+  Order.all.each do |order|
+    (rand(4)+1).times do
+      p = ProductOrderJoin.new
+      p.order_id = order.id
+      p.product_id = Product.all.sample.id
+      p.product_amount = 1 + rand(5)
+      p.save
+    end
+  end
+end
+
+SEED_MULTIPLIER.times do
+  associate_products_with_orders
+end
 
 
 
