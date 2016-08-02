@@ -6,6 +6,21 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# "Blow away" models
+# ONLY IF DEVELOPMENT ENV
+# Rails.env == 'development'
+# Rake::Task['db:migrate:reset'].invoke
+# OR system('rake db:reset')
+
+BUSINESS_START_DATE = 2.years.ago
+MULTIPLIER = 1
+
+User.destroy_all
+Address.destroy_all
+CreditCard.destroy_all
+Product.destroy_all
+Category.destroy_all
+Order.destroy_all
 
 f_address  = Faker::Address
 f_internet = Faker::Internet
@@ -16,7 +31,7 @@ f_commerce = Faker::Commerce
 
 ## Create some users
 
-100.times do
+(100 * MULTIPLIER).times do
   User.create({
                 email: f_internet.email,
                 first_name: f_name.first_name,
@@ -27,8 +42,8 @@ end
 
 ## Create some creditcards
 
-75.times do
-  users = User.order("RANDOM()").to_a
+(75 * MULTIPLIER).times do
+  users = User.order(RANDOM()).to_a
   rand_user_id = users.pop.id
   CreditCard.create({
                       user_id: rand_user_id,
@@ -46,7 +61,7 @@ def get_rand_user_for_addr
   rand_user
 end
 
-75.times do
+(75 * MULTIPLIER).times do
   random_user = get_rand_user_for_addr
   address = Address.create({
     user_id: random_user.id,
@@ -66,7 +81,7 @@ end
 end
 
 ## Create some products
-100.times do
+(100 * MULTIPLIER).times do
   Product.create({
     title: f_commerce.product_name,
     description: f_commerce.product_name,
@@ -78,12 +93,10 @@ end
 categories = []
 categories << f_commerce.department(1) until categories.uniq.length == 10
 
-10.times do
+(10 * MULTIPLIER).times do
   Category.create({
     name: categories.pop
   })
 end
 
 ## Create some orders
-
-
