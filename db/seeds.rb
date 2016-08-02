@@ -56,9 +56,7 @@ def create_user
   u.first_name = Faker::Name.first_name
   u.last_name = Faker::Name.last_name 
   u.email = Faker::Internet.email
-  u.phone_number = Faker::PhoneNumber.phone_number
-  a = create_address
-  u.default_shipping_address_id = u.default_billing_address_id = a.id
+
   u.created_at = Faker::Time.between(365.days.ago, Date.today, :all)
   u.save
   a.user_id = u.id
@@ -81,5 +79,54 @@ end
 50.times do
   create_address_with_id
 end
+
+
+
+def create_order
+  o = Order.new
+  u = User.all.sample
+  o.user_id = u.id
+
+  if u.phone_number
+    o.phone_number = u.phone_number
+  else 
+    u.phone_number = o.phone_number = Faker::PhoneNumber.phone_number
+    u.save
+  end
+
+  if u.default_shipping_address_id 
+    o.shipping_address_id = u.default_shipping_address_id
+  else
+    new_address = create_address
+    u.default_shipping_address_id = o.shipping_address_id = new_address.id
+    new_address.user_id = u.id
+    new_address.save
+    u.save
+  end
+
+  if u.default_billing_address_id 
+    o.billing_address_id = u.default_billing_address_id
+  else
+    new_address = create_address
+    u.default_billing_address_id = o.billing_address_id = new_address.id
+    new_address.user_id = u.id
+    new_address.save
+    u.save
+  end
+
+  # at this point in time, some users have credit cards, some do not
+
+  # orders.user_id must equal the credit_cards.user_id for the user pointed to by the credit card at orders.credit_card_id
+
+# order.credit_card_id JOIN credit_cards ON credit_cards.user_id = orders.user_id
+
+end
+
+
+
+
+
+
+
 
 
