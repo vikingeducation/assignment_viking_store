@@ -1,24 +1,4 @@
-
-viking_store
-============
-
-The Viking Store e-commerce application for Viking Commerce Inc
-ChrisG AdrianM
-
-https://github.com/chrisgoodson/assignment_viking_store
-https://github.com/adrianmui/assignment_viking_store
-
-https://www.vikingcodeschool.com/
-
-
-<!-- # README
-
-
-
-
-
-
-
+# README
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
@@ -42,4 +22,3 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
- -->
