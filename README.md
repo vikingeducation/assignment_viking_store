@@ -1,21 +1,27 @@
 User
 - credentials(email, pw)
+- name
 
 CustomerInfo
 - user_id
-- address, billing, credit card
+- shipping address, billing address, credit card, phone number
 
 Order
 - customerinfo_id
 - cart_id
+- delivered_at
 
 Address
-- custominfo_id
+- user_id
 - is_primary:bool
 - is_billing:bool
 - is_shipping:bool
 
 Product
+- product title
+- description
+- price
+- SKU number
 
 Cart
 - user_id
