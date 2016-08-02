@@ -33,5 +33,29 @@ file as well (though it defaults to their default billing address).
 
 ### Entities
 
-User
-email | first_name | last_name
+users-addresses | M:n
+
+
+users
+id | email | first_name | last_name | phone | def_ship_addr_id | def_bill_addr_id
+
+creditcards
+id | info | userid
+
+users|addresses
+userid | addressid 
+
+addresses
+id | street| city | state  | zip 
+
+products
+id | title | description | price | SKUnum | categoryid
+
+categories
+id | name | description
+
+orders
+id | userid | cart:boolean
+
+orders|products
+orderid | productid | quantity
