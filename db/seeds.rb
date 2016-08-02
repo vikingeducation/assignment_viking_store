@@ -96,8 +96,48 @@ puts "Creating products.."
 
 (MULTIPLIER * 30).times do
   Product.create(title:Faker::Commerce.product_name,
+                  description: Faker::Lorem.sentence,
+                  price: Faker::Commerce.price,
+                  sku: Faker::Number.number(15),
+                  category_id: Category.select("id").sample.id,
+                  amt_in_stock: Faker::Number.between(20,100)
+
     )
 end
+puts "Products created.\n\n"
+
+puts "Creating orders.."
+
+(MULTIPLIER * 100).times do 
+  Order.create(user_id: 0,
+              shipping_address_id: 0,
+              credit_card_id: 0,
+              phone_num_id: 0,
+              confirmed: [true, true, false].sample
+                )
+end
+
+Order.all.each_with_index do |order, index|
+  if order.confirmed
+    if index.between?(0, Order.count/2)
+      order.update(order_date: Faker::Date.between(1.month.ago,Date.today))
+    elsif index.between?(Order.count/2,(3*Order.count)/4)
+      order.update(order_date: Faker::Date.between(6.months.ago,1.month.ago))
+    else
+      order.update(order_date: Faker::Date.between(1.year.ago, 6.months.ago))
+    end
+  end
+end
+
+
+
+
+
+
+
+
+
+
 
 
 
