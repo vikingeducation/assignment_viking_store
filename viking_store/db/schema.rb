@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160802215210) do
     t.string   "name"
     t.string   "phone"
     t.string   "email"
-    t.integer  "credit_card"
+    t.bigint   "credit_card"
     t.integer  "address_id"
     t.integer  "billing_id"
     t.datetime "created_at",  null: false
