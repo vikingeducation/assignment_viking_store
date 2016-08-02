@@ -7,50 +7,51 @@ User
 * Default billing: LocationID
 * Default Shipping: LocationID
 
-Locations
+Location
 
-* User ID
-* State
-* ZIP
-* Street Address
-* City
+* User ID:int
+* State: (own table?)
+* ZIP:string
+* Street Address:string
+* City:string
 
 Payments
 
-* User ID
-* Name
-* Credit Card number
-* Expiration date
-* Location ID
+* users_ID:int
+* Name:string
+* Credit Card number:string
+* Expiration date:date
+* Location ID:int
 
 Products
 
-* Title
-* Description
-* Price
-* SKU
-* Categories
+* Title:string
+* Description:text
+* Price:int
+* SKU:string
+* Category_id:int
 
 Category
 
-* name
+* name:string
+* description:text
 
 Orders
 
-* User ID
-* Payment ID
-* Billing Location ID
-* Open boolean default:true
+* users_id:int
+* payment_id:int
+* billing_location_id:int
+* Open_order:boolean default:true
 
 Item
 
-* OrderID
-* ProductID
-* Quantity
-* Unit Price
+* OrderID:int
+* ProductID:int
+* Quantity:int
+* Unit Price:int
 
 Shipments
 
-* To: Location ID
-* From: Location ID
-* Order ID
+* To_location ID: int
+* From_Location ID:int
+* Order ID:int
