@@ -49,6 +49,7 @@ end
 def create_address_with_id
   a = create_address
   a.user_id = User.all.sample.id
+  a.save
 end
 
 def create_user
@@ -56,11 +57,8 @@ def create_user
   u.first_name = Faker::Name.first_name
   u.last_name = Faker::Name.last_name 
   u.email = Faker::Internet.email
-
   u.created_at = Faker::Time.between(365.days.ago, Date.today, :all)
   u.save
-  a.user_id = u.id
-  a.save
 end
 
 def create_credit_card
@@ -70,6 +68,8 @@ def create_credit_card
   c.csc = Faker::Number.number(3)
   c.expiration = Faker::Business.credit_card_expiry_date
   c.user_id = User.all.sample.id
+  c.save
+  c
 end
 
 20.times do
@@ -114,12 +114,37 @@ def create_order
     u.save
   end
 
+  cc_id = User.select("credit_cards.id").joins("JOIN credit_cards ON users.id = credit_cards.user_id").where("users.id = #{u.id}")
+  
+  if cc_id.empty?
+    new_cc = create_credit_card
+    o.credit_card_id = new_cc.id
+    new_cc.user_id = u.id
+    new_cc.save
+  else
+    o.credit_card_id = cc_id[0].id
+  end
+
+  o.save
+
   # at this point in time, some users have credit cards, some do not
 
   # orders.user_id must equal the credit_cards.user_id for the user pointed to by the credit card at orders.credit_card_id
 
 # order.credit_card_id JOIN credit_cards ON credit_cards.user_id = orders.user_id
 
+end
+
+30.times do
+  create_address_with_id
+end
+
+30.times do
+  create_credit_card
+end
+
+20.times do
+  create_order
 end
 
 
