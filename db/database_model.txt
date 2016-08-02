@@ -25,6 +25,7 @@ Credit Cards
 - exp_date (date)
 - sec_code (string)
 - address_id (FK)
+- type (string)
 
 Phone Numbers
 - id
@@ -53,9 +54,10 @@ Order/Product join table
 
 Orders
 - user_id (FK)
-- address_id (FK)
+- address_id (FK) (not required)
 - credit_card_id (FK)
 - phone_number_id (FK)
+- confirmed (boolean)
 
 Relationships
 A user has many addresses, credit cards, phone numbers, orders
