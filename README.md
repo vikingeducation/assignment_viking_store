@@ -25,7 +25,7 @@ Product
 
 Cart
 - user_id
-- customerinfo_id
+- products:references
 - cart will have products; upon checkout, make new order based on
   these products and the user, and new order will point to cart
 - checked_out:bool

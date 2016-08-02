@@ -1,9 +1,9 @@
 class CreateCustomers < ActiveRecord::Migration[5.0]
   def change
     create_table :customers do |t|
-      t.references :user
-      t.credit_card :string
-      t.phone_number :string
+      t.references :user, foreign_key: true
+      t.string :credit_card
+      t.string :phone_number 
       t.timestamps
     end
   end
