@@ -30,12 +30,14 @@ end
   product.save
 end
 
-10.times do |i|
+100.times do |i|
   u = User.new
   u.first_name = Faker::Name.first_name
   u.last_name = Faker::Name.last_name
   u.phone = Faker::PhoneNumber.phone_number
   u.email = Faker::Internet.email
+  time_for_save = Faker::Time.backward(365, :all)
+  u.created_at = time_for_save
   u.save
 end
 
@@ -87,7 +89,7 @@ end
 
 order = Order.first
 order.open_order = false
-order.save 
+order.save
 
 order2 = Order.last
 order2.open_order = false
