@@ -153,16 +153,27 @@ User.all.each_with_index do |user, index|
   end
 end
 
+PRODUCT_IDS = Product.pluck(:id)
+#Add products to orders
+Order.all.each do |order|
+  (1..5).to_a.sample.times do 
+    used_products = OrderProduct.where("order_id = ?",order.id).pluck(:product_id)
+    OrderProduct.create(:order_id => order.id,
+                        :product_id => (PRODUCT_IDS-used_products).sample,
+                        :quantity => (1..3).to_a.sample
+                        )
+  end
+end
+
 # Add user_id to addresses
 USER_IDS = User.pluck(:id)
-USERS_WITH_BILLING = User.where("default_bill_address_id IS NOT NULL").pluck(:id)
 
 Address.all.each do |address|
-  user_id = USERS_WITH_BILLING.sample
+  user_id = USER_IDS.sample
 
-  address.update(user_id: user_id)
+  address.update(user_id: user_id.to_i)
 
-  next unless address.shipping && address.billing
+  #next unless address.shipping && address.billing
 
   if address.shipping
     User.find(user_id).update(:default_ship_address_id => address.id)
@@ -172,7 +183,7 @@ Address.all.each do |address|
   end
 end
 
-
+USERS_WITH_BILLING = User.where("default_bill_address_id IS NOT NULL").pluck(:id)
 # Add user_id to creditcards
 CreditCard.all.each_with_index do |card, index|
   user_id = USERS_WITH_BILLING[index % USERS_WITH_BILLING.length]
@@ -186,9 +197,15 @@ PhoneNum.all.each_with_index do |num, index|
 end
 
 # add user_id to orders
+USERS_WITH_BILLING_AND_SHIPPING = User.where("default_bill_address_id IS NOT NULL AND default_ship_address_id IS NOT NULL").pluck(:id)
 Order.all.each_with_index do |order, index|
-  user_id = USERS_WITH_BILLING[index % USERS_WITH_BILLING.length]
-  order.update(:user_id => user_id, :shipping_address_id => User.find(user_id).default_ship_address_id)
+  if order.confirmed
+    user_id = USERS_WITH_BILLING_AND_SHIPPING[index % USERS_WITH_BILLING_AND_SHIPPING.length]
+    order.update(:user_id => user_id, 
+          :shipping_address_id => User.find(user_id).default_ship_address_id, 
+          :credit_card_id => CreditCard.find_by(user_id: user_id).id, 
+          :phone_num_id => PhoneNum.find_by(user_id: user_id).id)
+  end
 end
 
 
