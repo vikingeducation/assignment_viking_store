@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802212245) do
+ActiveRecord::Schema.define(version: 20160802214029) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20160802212245) do
     t.integer  "default_bill_address_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.date     "join_date"
   end
 
 end

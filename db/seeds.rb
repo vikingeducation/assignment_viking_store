@@ -39,6 +39,7 @@ end
 
 puts "Creating addresses..."
 MULTIPLIER*300.times do
+  print "\r" + '.'
   Address.create(user_id: 0, num_street: Faker::Address.street_address, city: CITIES.sample, state: STATES.sample, country: "USA", zip: Faker::Address.zip, shipping: false, billing: false)
 end
 
@@ -56,6 +57,7 @@ puts "Addresses created.\n\n"
 puts "Creating credit cards..."
 
 (MULTIPLIER * 200).times do
+  print "\r" + '.'
   CreditCard.create(user_id: 0,
                     number: Faker::Business.credit_card_number,
                     exp_date: Faker::Business.credit_card_expiry_date,
@@ -95,6 +97,7 @@ puts "Categories created.\n\n"
 puts "Creating products.."
 
 (MULTIPLIER * 30).times do
+  print "\r" + '.'
   Product.create(title:Faker::Commerce.product_name,
                   description: Faker::Lorem.sentence,
                   price: Faker::Commerce.price,
@@ -108,7 +111,8 @@ puts "Products created.\n\n"
 
 puts "Creating orders.."
 
-(MULTIPLIER * 100).times do 
+(MULTIPLIER * 100).times do |time|
+  print "\r" + '.' * time
   Order.create(user_id: 0,
               shipping_address_id: 0,
               credit_card_id: 0,
@@ -128,13 +132,36 @@ Order.all.each_with_index do |order, index|
     end
   end
 end
+puts "Orders created.\n\n"
 
+# Users
 
+puts "Creating users.."
 
+(MULTIPLIER * 100).times do
+  User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
+              email: Faker::Internet.email)
+end
 
+User.all.each_with_index do |user, index|
+  if index.between?(0, User.count/2)
+    user.update(join_date: Faker::Date.between(1.month.ago, Date.today))
+  elsif index.between?(User.count/2,(3 * User.count)/4)
+    user.update(join_date: Faker::Date.between(6.months.ago,1.month.ago))
+  else
+    user.update(join_date: Faker::Date.between(1.year.ago, 6.months.ago))
+  end
+end
 
+# Add user_id to addresses
+USER_IDS = User.select(:id).to_a
+Address.all.each do |address|
+  user_id = USER_IDS.sample
+  address.update(user_id: user_id)
 
-
+  if address.shipping
+    User.find(user_id).update(:default_ship_address_id, address.id)
+end
 
 
 
