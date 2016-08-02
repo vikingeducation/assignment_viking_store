@@ -35,7 +35,23 @@ end
 
 # Orders
 
-def create_users
+def create_address
+  a = Address.new
+  a.street_address = Faker::Address.street_address
+  a.city = Faker::Address.city
+  a.state = Faker::Address.state
+  a.zip = Faker::Address.zip_code
+  a.country = Faker::Address.country
+  a.save
+  a
+end
+
+def create_address_with_id
+  a = create_address
+  a.user_id = User.all.sample.id
+end
+
+def create_user
   u = User.new
   u.first_name = Faker::Name.first_name
   u.last_name = Faker::Name.last_name 
@@ -43,5 +59,27 @@ def create_users
   u.phone_number = Faker::PhoneNumber.phone_number
   a = create_address
   u.default_shipping_address_id = u.default_billing_address_id = a.id
-  p.save
+  u.created_at = Faker::Time.between(365.days.ago, Date.today, :all)
+  u.save
+  a.user_id = u.id
+  a.save
 end
+
+def create_credit_card
+  c = CreditCard.new
+  c.vender = Faker::Business.credit_card_type
+  c.number = Faker::Business.credit_card_number
+  c.csc = Faker::Number.number(3)
+  c.expiration = Faker::Business.credit_card_expiry_date
+  c.user_id = User.all.sample.id
+end
+
+20.times do
+  create_user
+end
+
+50.times do
+  create_address_with_id
+end
+
+
