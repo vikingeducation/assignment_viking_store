@@ -1,4 +1,5 @@
 class User < ApplicationRecord
-  belongs_to :default_shipping
-  belongs_to :default_billing
+  has_many :addresses
+  has_one :cards
+  has_many :orders
 end

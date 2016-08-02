@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  processed_date: 2016-08-02
+  shipping_address: MyString
+  billing_address: MyString
+
+two:
+  user: two
+  processed_date: 2016-08-02
+  shipping_address: MyString
+  billing_address: MyString
