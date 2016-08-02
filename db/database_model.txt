@@ -1,0 +1,55 @@
+Users
+- id
+- first_name (required)
+- last_name (required)
+- email (required)
+- phone_num
+- default_shipping_address_id
+- default_billing_address_id
+
+Address
+- id
+- user_id
+- number_street
+- city
+- state
+- country
+- zip
+- shipping (boolean)
+- billing (boolean)
+
+
+Credit Cards
+- id
+- user_id
+- number
+- exp_date
+- sec_code
+- address_id
+
+Phone Numbers
+- id
+- user_id
+- number
+- type
+
+Products
+- id
+- title
+- description
+- price
+- SKU
+- category_id
+- amt_in_stock
+
+Categories
+- id
+- name
+- description
+
+
+Orders
+- user_id
+- address_id
+
+
