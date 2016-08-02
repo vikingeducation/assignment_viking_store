@@ -15,6 +15,7 @@ Order
   user\_foreign\_key - integer - required
   shipping\_address\_foreign_key - integer - required 
   billing\_address\_foreign_key - integer - required
+  credit\_card\_foreign_key
 
 Product/Order 
   product_id - integer
@@ -38,8 +39,6 @@ Address
   state - string
   zip - string
   country - string 
-  default - boolean default:false
-  billing\_or\_shipping - binary - default:shipping
   user\_foreign\_key - integer
 
 Credit Card
@@ -48,4 +47,5 @@ Credit Card
   csc - integer - required
   expiration - date - required
   user\_foreign\_key - integer
+  on_file - boolean - default:true
 
