@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  name: MyString
+  cc_number: MyString
+  expiration: 2016-08-02
+  location_id: 1
+
+two:
+  user_id: 1
+  name: MyString
+  cc_number: MyString
+  expiration: 2016-08-02
+  location_id: 1
