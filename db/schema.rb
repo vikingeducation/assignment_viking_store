@@ -103,11 +103,4 @@ ActiveRecord::Schema.define(version: 20160802214453) do
     t.index ["default_shipping_id"], name: "index_users_on_default_shipping_id", using: :btree
   end
 
-  add_foreign_key "addresses", "users"
-  add_foreign_key "cards", "users"
-  add_foreign_key "cities", "states"
-  add_foreign_key "order_products", "orders"
-  add_foreign_key "order_products", "products"
-  add_foreign_key "orders", "users"
-  add_foreign_key "products", "categories"
 end

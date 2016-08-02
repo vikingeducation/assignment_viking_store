@@ -5,7 +5,7 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       t.text :description, null: false
       t.float :price, null: false
       t.string :sku, null: false, unique: true
-      t.references :category, foreign_key: true, null: false
+      t.references :category, null: false
 
       t.timestamps
     end

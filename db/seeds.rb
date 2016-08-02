@@ -5,16 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+seed_multiplier = 1
+
 def destroy_all
   City.destroy_all
   State.destroy_all
   Address.destroy_all
   Card.destroy_all
-  User.destroy_all
-  Product.destroy_all
   Category.destroy_all
-  Order.destroy_all
+  Product.destroy_all
   OrderProduct.destroy_all
+  Order.destroy_all
+  User.destroy_all
 end
 
 
@@ -29,7 +32,6 @@ def numbers
 end
 
 destroy_all
-seed_multiplier = 1
 
 (100*seed_multiplier).times do |n|
   u = User.new
@@ -66,9 +68,9 @@ users.each do |user|
     add.save
   end
   default = Address.where(user_id: user.id)
-  to_update = { :default_billing_id => default,
-                :default_shipping_id => default }
-  user.update(to_update) if default
+  to_update = { :default_billing_id => default.sample.id,
+                :default_shipping_id => default.sample.id } if default.sample
+  user.update(to_update) if default.sample
 
   card = Card.new
   card.number = Faker::Business.credit_card_number
@@ -100,8 +102,9 @@ end
   ord = Order.new
   ord.processed_date = Faker::Date.backward(numbers.sample)
   ord.user_id = User.all.sample.id
-  ord.shipping_address = Address.where(user_id: ord.user_id).sample.address_line_1
-  ord.billing_address = Address.where(user_id: ord.user_id).sample.address_line_1
+  add = Address.where(user_id: ord.user_id)
+  ord.shipping_address = add.sample.address_line_1 if add.sample
+  ord.billing_address = add.sample.address_line_1 if add.sample
   ord.save
 end
 
@@ -114,8 +117,8 @@ end
 
 orders = Order.all
 orders.each do |order|
-  op = OrderProduct
-  op.quantity = Faker.Number(1)
+  op = OrderProduct.new
+  op.quantity = Faker::Number.number(1)
   op.product_id = Product.all.sample.id
   op.order_id = order.id
   op.save
