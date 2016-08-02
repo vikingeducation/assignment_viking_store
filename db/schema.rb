@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802211049) do
+ActiveRecord::Schema.define(version: 20160802221626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20160802211049) do
     t.string   "country"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id", using: :btree
   end
 
   create_table "carts", force: :cascade do |t|
@@ -32,6 +34,8 @@ ActiveRecord::Schema.define(version: 20160802211049) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "quantity"
+    t.integer  "order_id"
+    t.index ["order_id"], name: "index_carts_on_order_id", using: :btree
     t.index ["product_id"], name: "index_carts_on_product_id", using: :btree
     t.index ["user_id"], name: "index_carts_on_user_id", using: :btree
   end
@@ -55,13 +59,10 @@ ActiveRecord::Schema.define(version: 20160802211049) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "customer_id"
-    t.integer  "cart_id"
     t.datetime "delivered_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["cart_id"], name: "index_orders_on_cart_id", using: :btree
-    t.index ["customer_id"], name: "index_orders_on_customer_id", using: :btree
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "scheduled_delivery"
   end
 
   create_table "products", force: :cascade do |t|
@@ -82,10 +83,10 @@ ActiveRecord::Schema.define(version: 20160802211049) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "addresses", "users"
+  add_foreign_key "carts", "orders"
   add_foreign_key "carts", "products"
   add_foreign_key "carts", "users"
   add_foreign_key "customers", "users"
-  add_foreign_key "orders", "carts"
-  add_foreign_key "orders", "customers"
   add_foreign_key "products", "categories"
 end
