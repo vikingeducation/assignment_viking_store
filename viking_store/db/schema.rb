@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20160802215210) do
     t.string   "title"
     t.text     "description"
     t.float    "price"
-    t.integer  "sku"
+    t.bigint   "sku"
     t.integer  "category_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

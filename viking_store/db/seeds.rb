@@ -29,3 +29,24 @@ end
   a.save
 end
 
+category_arr = []
+5.times do
+  d = Category.new
+  d.name = Faker::Company.profession
+  d.description = Faker::Lorem.sentence
+  category_arr << d
+  d.save
+end
+
+product_arr = []
+10.times do
+  c = Product.new
+  c.title = Faker::Commerce.product_name
+  c.description = Faker::Lorem.sentence
+  c.price = Faker::Commerce.price
+  c.sku = Faker::Number.number(10)
+  c.category_id = category_arr.sample.id
+  product_arr << c
+  c.save
+end
+
