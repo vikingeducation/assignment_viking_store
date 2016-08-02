@@ -154,14 +154,25 @@ User.all.each_with_index do |user, index|
 end
 
 # Add user_id to addresses
-USER_IDS = User.select(:id).to_a
+USER_IDS = User.select(:id).map{|u| u.id}
 Address.all.each do |address|
   user_id = USER_IDS.sample
-  address.update(user_id: user_id)
+  address.update(user_id: user_id.to_i)
 
   if address.shipping
-    User.find(user_id).update(:default_ship_address_id, address.id)
+    User.find(user_id).update(:default_ship_address_id => address.id)
+  end
+  if address.billing
+     User.find(user_id).update(:default_bill_address_id => address.id)
+  end
 end
+
+USERS_WITH_BILLING = User.select(:id).where("default_bill_address_id IS NOT NULL").map{|u| u.id}
+# Add user_id to creditcards
+CreditCard.all.each_with_index do |card, index|
+    user_id = USERS_WITH_BILLING[index%USERS_WITH_BILLING.length]
+    card.update(:user_id => user_id.to_i, :billing_address_id => User.find(user_id).default_bill_address_id)
+  end
 
 
 
