@@ -12,10 +12,9 @@ warehouse.city = Faker::Address.city
 warehouse.zip = Faker::Address.zip
 warehouse.save
 
-10.times do
-  s = State.new(abbr: Faker::Address.state_abbr)  
-  s = State.new(abbr: Faker::Address.state_abbr) until s.save
-end
+states = Array.new
+10.times { states << Faker::Address.state_abbr }
+states.uniq.each { |state| State.create(abbr: state)}
 
 3.times do |i|
   c = Category.new
