@@ -154,10 +154,15 @@ User.all.each_with_index do |user, index|
 end
 
 # Add user_id to addresses
-USER_IDS = User.select(:id).map{|u| u.id}
+USER_IDS = User.pluck(:id)
+USERS_WITH_BILLING = User.where("default_bill_address_id IS NOT NULL").pluck(:id)
+
 Address.all.each do |address|
-  user_id = USER_IDS.sample
-  address.update(user_id: user_id.to_i)
+  user_id = USERS_WITH_BILLING.sample
+
+  address.update(user_id: user_id)
+
+  next unless address.shipping && address.billing
 
   if address.shipping
     User.find(user_id).update(:default_ship_address_id => address.id)
@@ -167,12 +172,30 @@ Address.all.each do |address|
   end
 end
 
-USERS_WITH_BILLING = User.select(:id).where("default_bill_address_id IS NOT NULL").map{|u| u.id}
+
 # Add user_id to creditcards
 CreditCard.all.each_with_index do |card, index|
-    user_id = USERS_WITH_BILLING[index%USERS_WITH_BILLING.length]
-    card.update(:user_id => user_id.to_i, :billing_address_id => User.find(user_id).default_bill_address_id)
-  end
+  user_id = USERS_WITH_BILLING[index % USERS_WITH_BILLING.length]
+  card.update(:user_id => user_id, :billing_address_id => User.find(user_id).default_bill_address_id)
+end
+
+# add user_id to phonenum
+PhoneNum.all.each_with_index do |num, index|
+  user_id = USER_IDS[index]
+  num.update(user_id: user_id)
+end
+
+# add user_id to orders
+Order.all.each_with_index do |order, index|
+  user_id = USERS_WITH_BILLING[index % USERS_WITH_BILLING.length]
+  order.update(:user_id => user_id, :shipping_address_id => User.find(user_id).default_ship_address_id)
+end
+
+
+
+
+
+
 
 
 
