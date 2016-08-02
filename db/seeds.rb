@@ -16,6 +16,23 @@ states = Array.new
 10.times { states << Faker::Address.state_abbr }
 states.uniq.each { |state| State.create(abbr: state)}
 
+100.times do
+  city = City.new
+  city.name = Faker::Address.city
+  city.state_id = State.all.sample.id
+  city.save
+end
+
+(100*scale).times do
+  l = Location.new
+
+  l.street = Faker::Address.street_address
+  l.city = Faker::Address.city
+  l.zip = Faker::Address.zip
+  l.user_id = user_for_order.id
+  l.save
+end
+
 3.times do |i|
   c = Category.new
   c.name = Faker::Pokemon.name
@@ -34,53 +51,51 @@ end
 end
 
 100.times do |i|
-  u = User.new
-  u.first_name = Faker::Name.first_name
-  u.last_name = Faker::Name.last_name
-  u.phone = Faker::PhoneNumber.phone_number
-  u.email = Faker::Internet.email
+  user_for_order = User.new
+  user_for_order.first_name = Faker::Name.first_name
+  user_for_order.last_name = Faker::Name.last_name
+  user_for_order.phone = Faker::PhoneNumber.phone_number
+  user_for_order.email = Faker::Internet.email
   time_for_save = Faker::Time.backward(365, :all)
-  u.created_at = time_for_save
-  u.save
-end
+  user_for_order.created_at = time_for_save
+  user_for_order.save
 
-100.times do |i|
-  user_for_order = User.all.sample
+  rand(5).times do
+    l = Location.new
+    l.street = Faker::Address.street_address
+    l.city_id = City.all.sample.id
+    l.zip = Faker::Address.zip
+    l.user_id = user_for_order.id
+    l.save
+  end
+
   o = Order.new
   o.user_id = user_for_order.id
   o.save
-
-  l = Location.new
-  l.state = Faker::Address.state_abbr
-  l.street = Faker::Address.street_address
-  l.city = Faker::Address.city
-  l.zip = Faker::Address.zip
-  l.user_id = user_for_order.id
-  l.save
 
   user_for_order.default_shipping ||= l.id
   user_for_order.default_billing ||= l.id
   user_for_order.save
 
-    kart_item = Item.new
-    kart_item.order_id = o.id
-    kart_item.product_id = Product.all.sample.id
-    kart_item.quantity = rand(4) + 1
-    kart_item.unit_price = Product.find(kart_item.product_id).price
-    kart_item.save
+  kart_item = Item.new
+  kart_item.order_id = o.id
+  kart_item.product_id = Product.all.sample.id
+  kart_item.quantity = rand(4) + 1
+  kart_item.unit_price = Product.find(kart_item.product_id).price
+  kart_item.save
 
 
 
-    payment = Payment.new
-    payment.user_id = user_for_order.id
-    payment.name = user_for_order.first_name
-    payment.cc_number = Faker::Business.credit_card_number
-    payment.expiration = Faker::Business.credit_card_expiry_date
-    payment.location_id = user_for_order.default_billing
-    payment.save
-    o.payment_id = payment.id
-    o.billing_location_id = payment.location_id
-    o.save
+  payment = Payment.new
+  payment.user_id = user_for_order.id
+  payment.name = user_for_order.first_name
+  payment.cc_number = Faker::Business.credit_card_number
+  payment.expiration = Faker::Business.credit_card_expiry_date
+  payment.location_id = user_for_order.default_billing
+  payment.save
+  o.payment_id = payment.id
+  o.billing_location_id = payment.location_id
+  o.save
 
   shipment = Shipment.new
   shipment.to_location = user_for_order.default_shipping
