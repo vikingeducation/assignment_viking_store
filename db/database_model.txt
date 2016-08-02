@@ -35,7 +35,7 @@ Phone Numbers
 Products
 - id
 - title (string)
-- description (string)
+- description (text)
 - price (decimal)
 - SKU (string)
 - category_id (FK)
@@ -44,7 +44,7 @@ Products
 Categories
 - id
 - name (string)
-- description (string)
+- description (text)
 
 Order/Product join table
 - order_id (FK)
