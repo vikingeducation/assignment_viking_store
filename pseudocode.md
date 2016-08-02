@@ -1,12 +1,19 @@
 
 
+rails g model User
+rails g model Order
+rails g model Product
+rails g model Category
+rails g model Address
+rails g model CreditCard
 
 User
   email - string - required
-  name - string - required
+  first_name - string - required
+  last_name - string - required
   phone number - string
-  default\_billing\_address\_foreign_key
-  default\_shipping\_address\_foreign_key
+  default\_billing\_foreign_key
+  default\_shipping\_foreign_key
 
 Order
   phone number - string - required
