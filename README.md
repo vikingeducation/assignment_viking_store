@@ -33,29 +33,69 @@ file as well (though it defaults to their default billing address).
 
 ### Entities
 
-users-addresses | M:n
-
-
 users
-id | email | first_name | last_name | phone | def_ship_addr_id | def_bill_addr_id
+id | email | first_name | last_name | phone | ship_addr_id | bill_addr_id
 
 creditcards
-id | info | userid
-
-users|addresses
-userid | addressid 
+id | userid | cc_number 
 
 addresses
-id | street| city | state  | zip 
+id | userid | street | city | state | zip
 
 products
-id | title | description | price | SKUnum | categoryid
+id | title | description | price | sku_num | categoryid
 
 categories
 id | name | description
 
 orders
-id | userid | cart:boolean
+id      | userid  | cart
+integer | integer | boolean
 
-orders|products
+orders-products
 orderid | productid | quantity
+
+
+### Entity Relationships
+users-addresses  M:N
+users-creditcards M:N
+categories-products 1:M
+order-products M:N
+
+### Constraints and Validations
+
+users
+id           : unique integer
+email        : valid email string
+first_name   : non-empty string
+last_name    : non-empty string
+phone        : x-xxx-xxx-xxxx, where x is a digit
+ship_addr_id : valid shipping address
+bill_addr_id : valid shipping address
+
+creditcards
+id        : unique integer
+userid    : integer
+cc_number : valid 16 digit credit card number
+
+addresses
+id     : unique integer
+userid : integer
+street : non-empty string
+city   : non-empty string
+state  : non-empty string
+zip    : 5 digits
+
+products
+id | title | description | price | sku_num | categoryid
+
+categories
+id | name | description
+
+orders
+id      | userid  | cart
+integer | integer | boolean
+
+orders-products
+orderid | productid | quantity
+
