@@ -38,6 +38,7 @@ end
   random_product = Product.all.sample.id
   Cart.create!(user_id: random_user,
                product_id: random_product,
+               quantity: rand(7),
                checked_out: [true,false].sample,
                )
 end
@@ -46,5 +47,34 @@ end
   random_user = User.all.sample.id
   random_ship_address = Address.all.sample.id
   random_bill_address = Address.all.sample.id
-
+  Customer.create!(user_id: random_user,
+                   shipping_address_id: random_ship_address, 
+                   billing_address_id: random_bill_address,
+                   credit_card: Faker::Business.credit_card_number,
+                   phone_number: Faker::PhoneNumber.phone_number,
+                  )
 end
+
+
+3.times do 
+  random_user = User.all.sample.id
+  items_purchased = Cart.find_by_sql(
+                    "SELECT product_id, quantity
+                    FROM carts
+                    WHERE user_id = #{random_user}
+                    ")
+  customer = Customer.find_by(:user_id => random_user)
+  Order.create!(customer_id: customer.id
+                delivered_at: Faker::Time.forward(rand(7))
+                    
+
+
+    )
+
+
+
+
+
+
+
+
