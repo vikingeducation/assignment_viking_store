@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  to_location: 1
+  from_location: 1
+  order_id: 1
+
+two:
+  to_location: 1
+  from_location: 1
+  order_id: 1
