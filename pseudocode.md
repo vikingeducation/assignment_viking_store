@@ -6,6 +6,9 @@ rails g model Product
 rails g model Category
 rails g model Address
 rails g model CreditCard
+rails g model Product
+rails g migration CreateJoinTableProductsOrders
+
 
 User
   email - string - required
