@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802181936) do
+ActiveRecord::Schema.define(version: 20160802214453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "city",           null: false
-    t.string   "state",          null: false
+    t.integer  "city_id",        null: false
     t.string   "zip",            null: false
     t.string   "address_line_1", null: false
     t.string   "address_line_2"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["city_id"], name: "index_addresses_on_city_id", using: :btree
     t.index ["user_id"], name: "index_addresses_on_user_id", using: :btree
   end
 
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20160802181936) do
     t.text     "description", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_id"], name: "index_cities_on_state_id", using: :btree
   end
 
   create_table "order_products", force: :cascade do |t|
@@ -76,6 +84,12 @@ ActiveRecord::Schema.define(version: 20160802181936) do
     t.index ["category_id"], name: "index_products_on_category_id", using: :btree
   end
 
+  create_table "states", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",               null: false
     t.string   "first_name",          null: false
@@ -91,6 +105,7 @@ ActiveRecord::Schema.define(version: 20160802181936) do
 
   add_foreign_key "addresses", "users"
   add_foreign_key "cards", "users"
+  add_foreign_key "cities", "states"
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "users"
