@@ -685,3 +685,858 @@ ORDER BY c.conname
   [1m[35mSQL (1.3ms)[0m  INSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Clefable"], ["description", "Five Island"], ["created_at", "2016-08-02 21:15:21.710944"], ["updated_at", "2016-08-02 21:15:21.710944"]]
   [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
   [1m[35mUser Load (0.9ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mUser Load (2.1ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (4.0ms)[0m  [1mINSERT INTO "orders" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2016-08-02 21:38:17.132583"], ["updated_at", "2016-08-02 21:38:17.132583"]]
+  [1m[35m (2.0ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  INSERT INTO "locations" ("state", "street", "city", "zip", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["state", "HI"], ["street", "374 Ernie Turnpike"], ["city", "Jenkinsshire"], ["zip", "62382"], ["created_at", "2016-08-02 21:38:18.353372"], ["updated_at", "2016-08-02 21:38:18.353372"]]
+  [1m[36m (1.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mProduct Load (1.3ms)[0m  SELECT "products".* FROM "products"
+  [1m[36mProduct Load (2.4ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = $1 LIMIT 1[0m  [["id", nil]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.6ms)[0m  [1mINSERT INTO "items" ("order_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["order_id", 1], ["quantity", 1], ["created_at", "2016-08-02 21:38:18.563923"], ["updated_at", "2016-08-02 21:38:18.563923"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.3ms)[0m  INSERT INTO "payments" ("cc_number", "expiration", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["cc_number", "1228-1221-1221-1431"], ["expiration", "2018-08-02"], ["created_at", "2016-08-02 21:38:18.714789"], ["updated_at", "2016-08-02 21:38:18.714789"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "shipments" ("order_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["order_id", 1], ["created_at", "2016-08-02 21:38:18.810290"], ["updated_at", "2016-08-02 21:38:18.810290"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (1.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mSQL (4.5ms)[0m  [1mINSERT INTO "orders" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2016-08-02 21:39:29.857261"], ["updated_at", "2016-08-02 21:39:29.857261"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "locations" ("state", "street", "city", "zip", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["state", "WY"], ["street", "304 Angus Street"], ["city", "East Danielaville"], ["zip", "90896"], ["created_at", "2016-08-02 21:39:37.183536"], ["updated_at", "2016-08-02 21:39:37.183536"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.5ms)[0m  INSERT INTO "locations" ("state", "street", "city", "zip", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["state", "MA"], ["street", "773 Ivory Junctions"], ["city", "New Aniyaberg"], ["zip", "55642"], ["created_at", "2016-08-02 21:40:37.299297"], ["updated_at", "2016-08-02 21:40:37.299297"]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Gengar"], ["description", "Petalburg City"], ["created_at", "2016-08-02 21:40:37.329284"], ["updated_at", "2016-08-02 21:40:37.329284"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Magmar"], ["description", "Survival Area"], ["created_at", "2016-08-02 21:40:37.334605"], ["updated_at", "2016-08-02 21:40:37.334605"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Pidgeot"], ["description", "Rustboro City"], ["created_at", "2016-08-02 21:40:37.338963"], ["updated_at", "2016-08-02 21:40:37.338963"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (1.3ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Durable Plastic Shirt"], ["description", "Chuck Norris' beard is immutable."], ["price", 9840], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.366761"], ["updated_at", "2016-08-02 21:40:37.366761"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Sleek Bronze Bag"], ["description", "Chuck Norris doesn't have performance bottlenecks. He just makes the universe wait its turn."], ["price", 2758], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.374334"], ["updated_at", "2016-08-02 21:40:37.374334"]]
+  [1m[35m (1.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Ergonomic Copper Plate"], ["description", "Chuck Norris' keyboard doesn't have a F1 key, the computer asks him for help."], ["price", 3304], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.384131"], ["updated_at", "2016-08-02 21:40:37.384131"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Aerodynamic Granite Gloves"], ["description", "There is no Esc key on Chuck Norris' keyboard, because no one escapes Chuck Norris."], ["price", 8789], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.390051"], ["updated_at", "2016-08-02 21:40:37.390051"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (2.6ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Small Marble Shoes"], ["description", "Chuck Norris doesn't delete files, he blows them away."], ["price", 7284], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.396838"], ["updated_at", "2016-08-02 21:40:37.396838"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Sleek Leather Plate"], ["description", "Chuck Norris doesn't believe in floating point numbers because they can't be typed on his binary keyboard."], ["price", 1841], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.407174"], ["updated_at", "2016-08-02 21:40:37.407174"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Gorgeous Copper Car"], ["description", "Chuck Norris is immutable. If something's going to change, it's going to have to be the rest of the universe."], ["price", 4385], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.414092"], ["updated_at", "2016-08-02 21:40:37.414092"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36mCategory Load (0.9ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Lightweight Iron Keyboard"], ["description", "Chuck Norris burst the dot com bubble."], ["price", 4309], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.421485"], ["updated_at", "2016-08-02 21:40:37.421485"]]
+  [1m[35m (1.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Small Bronze Table"], ["description", "Chuck Norris doesn't need an OS."], ["price", 778], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.428327"], ["updated_at", "2016-08-02 21:40:37.428327"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.6ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Enormous Steel Coat"], ["description", "Chuck Norris doesn't pair program."], ["price", 9568], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.435450"], ["updated_at", "2016-08-02 21:40:37.435450"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36mCategory Load (0.4ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (5.0ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Incredible Iron Shirt"], ["description", "There is no need to try catching Chuck Norris' exceptions for recovery; every single throw he does is fatal."], ["price", 7923], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.441299"], ["updated_at", "2016-08-02 21:40:37.441299"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Mediocre Paper Wallet"], ["description", "Chuck Norris's beard can type 140 wpm."], ["price", 5609], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.452301"], ["updated_at", "2016-08-02 21:40:37.452301"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (2.5ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Practical Marble Computer"], ["description", "There is nothing regular about Chuck Norris' expressions."], ["price", 4036], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.458057"], ["updated_at", "2016-08-02 21:40:37.458057"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.7ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Heavy Duty Wool Coat"], ["description", "The class object inherits from Chuck Norris."], ["price", 4692], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.473161"], ["updated_at", "2016-08-02 21:40:37.473161"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36mCategory Load (1.2ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Ergonomic Iron Wallet"], ["description", "Chuck Norris can unit test an entire application with a single assert."], ["price", 2979], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.482461"], ["updated_at", "2016-08-02 21:40:37.482461"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Intelligent Bronze Bottle"], ["description", "Chuck Norris doesn't need garbage collection because he doesn't call .Dispose(), he calls .DropKick()."], ["price", 5253], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.490060"], ["updated_at", "2016-08-02 21:40:37.490060"]]
+  [1m[35m (1.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Practical Linen Car"], ["description", "There is no need to try catching Chuck Norris' exceptions for recovery; every single throw he does is fatal."], ["price", 6679], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.497584"], ["updated_at", "2016-08-02 21:40:37.497584"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (2.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Ergonomic Leather Shoes"], ["description", "Chuck Norris can access private methods."], ["price", 9150], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.507390"], ["updated_at", "2016-08-02 21:40:37.507390"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Awesome Wooden Coat"], ["description", "Chuck Norris compresses his files by doing a flying round house kick to the hard drive."], ["price", 7228], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.516124"], ["updated_at", "2016-08-02 21:40:37.516124"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+  [1m[36mCategory Load (0.6ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.7ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Enormous Marble Hat"], ["description", "When a bug sees Chuck Norris, it flees screaming in terror, and then immediately self-destructs to avoid being roundhouse-kicked."], ["price", 3990], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.524053"], ["updated_at", "2016-08-02 21:40:37.524053"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.4ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Gorgeous Silk Bench"], ["description", "When Chuck Norris points to null, null quakes in fear."], ["price", 4840], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.530211"], ["updated_at", "2016-08-02 21:40:37.530211"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Practical Leather Coat"], ["description", "Chuck Norris can divide by zero."], ["price", 2592], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.535536"], ["updated_at", "2016-08-02 21:40:37.535536"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mSQL (2.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Durable Wooden Pants"], ["description", "Chuck Norris can access the DB from the UI."], ["price", 2933], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.540940"], ["updated_at", "2016-08-02 21:40:37.540940"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36mCategory Load (4.7ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.9ms)[0m  BEGIN
+  [1m[36mSQL (1.7ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Ergonomic Paper Clock"], ["description", "Chuck Norris doesn't bug hunt, as that signifies a probability of failure. He goes bug killing."], ["price", 1886], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.558275"], ["updated_at", "2016-08-02 21:40:37.558275"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Intelligent Bronze Wallet"], ["description", "All arrays Chuck Norris declares are of infinite size, because Chuck Norris knows no bounds."], ["price", 2609], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.566246"], ["updated_at", "2016-08-02 21:40:37.566246"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.6ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Enormous Rubber Knife"], ["description", "Chuck Norris finished World of Warcraft."], ["price", 5599], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.573689"], ["updated_at", "2016-08-02 21:40:37.573689"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.9ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Ergonomic Plastic Coat"], ["description", "Chuck Norris doesn't need a java compiler, he goes straight to .war"], ["price", 8545], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.580667"], ["updated_at", "2016-08-02 21:40:37.580667"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Rustic Concrete Plate"], ["description", "Chuck Norris doesn't need to know about class factory pattern. He can instantiate interfaces."], ["price", 5297], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.588126"], ["updated_at", "2016-08-02 21:40:37.588126"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Practical Steel Pants"], ["description", "The only pattern Chuck Norris knows is God Object."], ["price", 165], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.593615"], ["updated_at", "2016-08-02 21:40:37.593615"]]
+  [1m[35m (1.7ms)[0m  COMMIT
+  [1m[36mCategory Load (5.4ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Mediocre Wool Pants"], ["description", "Chuck Norris doesn't need a java compiler, he goes straight to .war"], ["price", 8208], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.606397"], ["updated_at", "2016-08-02 21:40:37.606397"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36mCategory Load (0.9ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Aerodynamic Steel Clock"], ["description", "Project managers never ask Chuck Norris for estimations... ever."], ["price", 364], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.613586"], ["updated_at", "2016-08-02 21:40:37.613586"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.7ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Small Copper Coat"], ["description", "Project managers never ask Chuck Norris for estimations... ever."], ["price", 1465], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.619677"], ["updated_at", "2016-08-02 21:40:37.619677"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.8ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Rustic Silk Keyboard"], ["description", "Chuck Norris can't test for equality because he has no equal."], ["price", 629], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.627034"], ["updated_at", "2016-08-02 21:40:37.627034"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.4ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Aerodynamic Aluminum Bag"], ["description", "Chuck Norris doesn't use web standards as the web will conform to him."], ["price", 4934], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.632567"], ["updated_at", "2016-08-02 21:40:37.632567"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Mediocre Wooden Keyboard"], ["description", "Chuck Norris' addition operator doesn't commute; it teleports to where he needs it to be."], ["price", 2801], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.637726"], ["updated_at", "2016-08-02 21:40:37.637726"]]
+  [1m[35m (5.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.9ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Awesome Paper Bench"], ["description", "Chuck Norris doesn't bug hunt, as that signifies a probability of failure. He goes bug killing."], ["price", 5258], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.649402"], ["updated_at", "2016-08-02 21:40:37.649402"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.6ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Practical Wool Bottle"], ["description", "Chuck Norris's first program was kill -9."], ["price", 8389], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.662553"], ["updated_at", "2016-08-02 21:40:37.662553"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.6ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Aerodynamic Granite Lamp"], ["description", "Project managers never ask Chuck Norris for estimations... ever."], ["price", 3613], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.668650"], ["updated_at", "2016-08-02 21:40:37.668650"]]
+  [1m[35m (20.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Heavy Duty Steel Computer"], ["description", "Project managers never ask Chuck Norris for estimations... ever."], ["price", 5339], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.696020"], ["updated_at", "2016-08-02 21:40:37.696020"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Durable Rubber Computer"], ["description", "Chuck Norris doesn't program with a keyboard. He stares the computer down until it does what he wants."], ["price", 3436], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.704136"], ["updated_at", "2016-08-02 21:40:37.704136"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.4ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Durable Linen Bag"], ["description", "Chuck Norris rewrote the Google search engine from scratch."], ["price", 1632], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.710279"], ["updated_at", "2016-08-02 21:40:37.710279"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Gorgeous Cotton Bench"], ["description", "Chuck Norris's beard can type 140 wpm."], ["price", 4160], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.716119"], ["updated_at", "2016-08-02 21:40:37.716119"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36mCategory Load (0.6ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Gorgeous Granite Bag"], ["description", "Chuck Norris can access the DB from the UI."], ["price", 7170], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.721717"], ["updated_at", "2016-08-02 21:40:37.721717"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Small Wooden Bench"], ["description", "Anonymous methods and anonymous types are really all called Chuck Norris. They just don't like to boast."], ["price", 8120], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.727533"], ["updated_at", "2016-08-02 21:40:37.727533"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Sleek Wooden Shirt"], ["description", "No statement can catch the ChuckNorrisException."], ["price", 8304], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.735562"], ["updated_at", "2016-08-02 21:40:37.735562"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36mCategory Load (0.8ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Incredible Iron Keyboard"], ["description", "No statement can catch the ChuckNorrisException."], ["price", 5281], ["category_id", 3], ["created_at", "2016-08-02 21:40:37.742815"], ["updated_at", "2016-08-02 21:40:37.742815"]]
+  [1m[35m (1.3ms)[0m  COMMIT
+  [1m[36mCategory Load (0.5ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Ergonomic Aluminum Bench"], ["description", "Project managers never ask Chuck Norris for estimations... ever."], ["price", 1246], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.750129"], ["updated_at", "2016-08-02 21:40:37.750129"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mCategory Load (0.4ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Ergonomic Rubber Gloves"], ["description", "Chuck Norris doesn't need to know about class factory pattern. He can instantiate interfaces."], ["price", 9812], ["category_id", 1], ["created_at", "2016-08-02 21:40:37.755056"], ["updated_at", "2016-08-02 21:40:37.755056"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36mCategory Load (0.9ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Small Rubber Coat"], ["description", "Chuck Norris doesn't have performance bottlenecks. He just makes the universe wait its turn."], ["price", 2308], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.762397"], ["updated_at", "2016-08-02 21:40:37.762397"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mCategory Load (0.6ms)[0m  [1mSELECT "categories".* FROM "categories"[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Gorgeous Linen Computer"], ["description", "Chuck Norris can instantiate an abstract class."], ["price", 1258], ["category_id", 2], ["created_at", "2016-08-02 21:40:37.769155"], ["updated_at", "2016-08-02 21:40:37.769155"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["first_name", "Odell"], ["last_name", "Pfannerstill"], ["email", "earl_ledner@gleasonherman.co"], ["created_at", "2016-08-02 21:40:37.799948"], ["updated_at", "2016-08-02 21:40:37.799948"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["first_name", "Prince"], ["last_name", "Hayes"], ["email", "margarita@hoppe.org"], ["created_at", "2016-08-02 21:40:37.805757"], ["updated_at", "2016-08-02 21:40:37.805757"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["first_name", "Andreanne"], ["last_name", "Gleason"], ["email", "baron.runolfsdottir@mayerlittle.info"], ["created_at", "2016-08-02 21:40:37.810784"], ["updated_at", "2016-08-02 21:40:37.810784"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["first_name", "Judson"], ["last_name", "Schuppe"], ["email", "brody_renner@olson.org"], ["created_at", "2016-08-02 21:40:37.819633"], ["updated_at", "2016-08-02 21:40:37.819633"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["first_name", "Carlo"], ["last_name", "Goldner"], ["email", "marisa@prohaska.name"], ["created_at", "2016-08-02 21:40:37.823852"], ["updated_at", "2016-08-02 21:40:37.823852"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "orders" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_id", 3], ["created_at", "2016-08-02 21:40:37.844309"], ["updated_at", "2016-08-02 21:40:37.844309"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "locations" ("state", "street", "city", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["state", "AK"], ["street", "22187 Christopher Mission"], ["city", "North Ludietown"], ["zip", "43889"], ["user_id", 3], ["created_at", "2016-08-02 21:40:37.849927"], ["updated_at", "2016-08-02 21:40:37.849927"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  UPDATE "users" SET "default_shipping" = $1, "default_billing" = $2, "updated_at" = $3 WHERE "users"."id" = $4  [["default_shipping", 4], ["default_billing", 4], ["updated_at", "2016-08-02 21:40:37.855330"], ["id", 3]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mProduct Load (2.6ms)[0m  SELECT "products".* FROM "products"
+  [1m[36mProduct Load (0.4ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "items" ("order_id", "product_id", "quantity", "unit_price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["order_id", 3], ["product_id", 2], ["quantity", 2], ["unit_price", 2758], ["created_at", "2016-08-02 21:40:37.921792"], ["updated_at", "2016-08-02 21:40:37.921792"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "payments" ("user_id", "name", "cc_number", "expiration", "location_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["user_id", 3], ["name", "Andreanne"], ["cc_number", "1228-1221-1221-1431"], ["expiration", "2020-08-01"], ["location_id", 4], ["created_at", "2016-08-02 21:40:37.943379"], ["updated_at", "2016-08-02 21:40:37.943379"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "shipments" ("to_location", "from_location", "order_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["to_location", 4], ["from_location", 3], ["order_id", 3], ["created_at", "2016-08-02 21:40:37.966631"], ["updated_at", "2016-08-02 21:40:37.966631"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mOrder Load (1.9ms)[0m  [1mSELECT  "orders".* FROM "orders"  ORDER BY "orders"."id" ASC LIMIT 1[0m
+  [1m[35mOrder Load (0.6ms)[0m  SELECT "orders".* FROM "orders"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "locations" ("state", "street", "city", "zip", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["state", "NC"], ["street", "118 Eichmann Canyon"], ["city", "West Burleyfurt"], ["zip", "98825-4351"], ["created_at", "2016-08-02 21:42:12.968630"], ["updated_at", "2016-08-02 21:42:12.968630"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "locations" ("state", "street", "city", "zip", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["state", "AK"], ["street", "17639 Morissette Islands"], ["city", "Schoenview"], ["zip", "90962-2487"], ["created_at", "2016-08-02 21:42:26.691222"], ["updated_at", "2016-08-02 21:42:26.691222"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Zapdos"], ["description", "Coumarine City"], ["created_at", "2016-08-02 21:42:34.424257"], ["updated_at", "2016-08-02 21:42:34.424257"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Moltres"], ["description", "Cherrygrove City"], ["created_at", "2016-08-02 21:42:34.429324"], ["updated_at", "2016-08-02 21:42:34.429324"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Chansey"], ["description", "Violet City"], ["created_at", "2016-08-02 21:42:34.433246"], ["updated_at", "2016-08-02 21:42:34.433246"]]
+  [1m[36m (2.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.7ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Heavy Duty Concrete Clock"], ["description", "Chuck Norris hosting is 101% uptime guaranteed."], ["price", 3338], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.510025"], ["updated_at", "2016-08-02 21:42:45.510025"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.7ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (1.6ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (7.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Small Copper Knife"], ["description", "\"It works on my machine\" always holds true for Chuck Norris."], ["price", 5382], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.521455"], ["updated_at", "2016-08-02 21:42:45.521455"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Durable Aluminum Bottle"], ["description", "Chuck Norris doesn't have disk latency because the hard drive knows to hurry the hell up."], ["price", 3938], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.534685"], ["updated_at", "2016-08-02 21:42:45.534685"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Ergonomic Concrete Keyboard"], ["description", "Chuck Norris has root access to your system."], ["price", 3300], ["category_id", 6], ["created_at", "2016-08-02 21:42:45.540266"], ["updated_at", "2016-08-02 21:42:45.540266"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.7ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Gorgeous Silk Chair"], ["description", "Chuck Norris can unit test an entire application with a single assert."], ["price", 8281], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.546503"], ["updated_at", "2016-08-02 21:42:45.546503"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Awesome Rubber Bag"], ["description", "Whiteboards are white because Chuck Norris scared them that way."], ["price", 6868], ["category_id", 5], ["created_at", "2016-08-02 21:42:45.554203"], ["updated_at", "2016-08-02 21:42:45.554203"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Lightweight Paper Computer"], ["description", "You don't disable the Chuck Norris plug-in, it disables you."], ["price", 2144], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.559566"], ["updated_at", "2016-08-02 21:42:45.559566"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Fantastic Wooden Shoes"], ["description", "The programs that Chuck Norris writes don't have version numbers because he only writes them once. If a user reports a bug or has a feature request they don't live to see the sun set."], ["price", 5653], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.567596"], ["updated_at", "2016-08-02 21:42:45.567596"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.7ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Enormous Aluminum Bench"], ["description", "Chuck Norris can solve the Towers of Hanoi in one move."], ["price", 1507], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.575259"], ["updated_at", "2016-08-02 21:42:45.575259"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Ergonomic Aluminum Bench"], ["description", "Chuck Norris breaks RSA 128-bit encrypted codes in milliseconds."], ["price", 2185], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.580996"], ["updated_at", "2016-08-02 21:42:45.580996"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Intelligent Iron Shirt"], ["description", "You don't disable the Chuck Norris plug-in, it disables you."], ["price", 6675], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.586806"], ["updated_at", "2016-08-02 21:42:45.586806"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.8ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Awesome Linen Pants"], ["description", "Chuck Norris' programs occupy 150% of CPU, even when they are not executing."], ["price", 6861], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.592327"], ["updated_at", "2016-08-02 21:42:45.592327"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Sleek Paper Chair"], ["description", "Chuck Norris can binary search unsorted data."], ["price", 4895], ["category_id", 5], ["created_at", "2016-08-02 21:42:45.600436"], ["updated_at", "2016-08-02 21:42:45.600436"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Fantastic Linen Computer"], ["description", "The programs that Chuck Norris writes don't have version numbers because he only writes them once. If a user reports a bug or has a feature request they don't live to see the sun set."], ["price", 6434], ["category_id", 6], ["created_at", "2016-08-02 21:42:45.606457"], ["updated_at", "2016-08-02 21:42:45.606457"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Fantastic Wooden Chair"], ["description", "There is nothing regular about Chuck Norris' expressions."], ["price", 6576], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.613988"], ["updated_at", "2016-08-02 21:42:45.613988"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Rustic Wool Bag"], ["description", "Chuck Norris doesn't bug hunt, as that signifies a probability of failure. He goes bug killing."], ["price", 3000], ["category_id", 5], ["created_at", "2016-08-02 21:42:45.620227"], ["updated_at", "2016-08-02 21:42:45.620227"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.7ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Aerodynamic Iron Table"], ["description", "Chuck Norris doesn't bug hunt, as that signifies a probability of failure. He goes bug killing."], ["price", 5841], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.625972"], ["updated_at", "2016-08-02 21:42:45.625972"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.7ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Fantastic Copper Watch"], ["description", "\"It works on my machine\" always holds true for Chuck Norris."], ["price", 3985], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.631942"], ["updated_at", "2016-08-02 21:42:45.631942"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Practical Cotton Bottle"], ["description", "Chuck Norris hosting is 101% uptime guaranteed."], ["price", 9239], ["category_id", 6], ["created_at", "2016-08-02 21:42:45.637093"], ["updated_at", "2016-08-02 21:42:45.637093"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Fantastic Wooden Gloves"], ["description", "When Chuck Norris gives a method an argument, the method loses."], ["price", 4812], ["category_id", 1], ["created_at", "2016-08-02 21:42:45.642651"], ["updated_at", "2016-08-02 21:42:45.642651"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Practical Copper Chair"], ["description", "Chuck Norris can binary search unsorted data."], ["price", 7567], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.649727"], ["updated_at", "2016-08-02 21:42:45.649727"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Mediocre Wooden Coat"], ["description", "Chuck Norris does not use exceptions when programming. He has not been able to identify any of his code that is not exceptional."], ["price", 2357], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.655467"], ["updated_at", "2016-08-02 21:42:45.655467"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Incredible Bronze Computer"], ["description", "When a bug sees Chuck Norris, it flees screaming in terror, and then immediately self-destructs to avoid being roundhouse-kicked."], ["price", 8240], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.661687"], ["updated_at", "2016-08-02 21:42:45.661687"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Sleek Steel Keyboard"], ["description", "Chuck Norris rewrote the Google search engine from scratch."], ["price", 281], ["category_id", 6], ["created_at", "2016-08-02 21:42:45.668083"], ["updated_at", "2016-08-02 21:42:45.668083"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Intelligent Marble Shirt"], ["description", "\"It works on my machine\" always holds true for Chuck Norris."], ["price", 3081], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.673322"], ["updated_at", "2016-08-02 21:42:45.673322"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Ergonomic Rubber Keyboard"], ["description", "Chuck Norris doesn't need an OS."], ["price", 7341], ["category_id", 1], ["created_at", "2016-08-02 21:42:45.679150"], ["updated_at", "2016-08-02 21:42:45.679150"]]
+  [1m[36m (1.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.7ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Mediocre Aluminum Table"], ["description", "Chuck Norris hosting is 101% uptime guaranteed."], ["price", 8508], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.688541"], ["updated_at", "2016-08-02 21:42:45.688541"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Incredible Marble Pants"], ["description", "Chuck Norris solved the Travelling Salesman problem in O(1) time."], ["price", 1393], ["category_id", 1], ["created_at", "2016-08-02 21:42:45.699251"], ["updated_at", "2016-08-02 21:42:45.699251"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Synergistic Wool Shoes"], ["description", "Chuck Norris can write infinite recursion functions... and have them return."], ["price", 8994], ["category_id", 1], ["created_at", "2016-08-02 21:42:45.705770"], ["updated_at", "2016-08-02 21:42:45.705770"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Incredible Leather Lamp"], ["description", "Chuck Norris burst the dot com bubble."], ["price", 1021], ["category_id", 6], ["created_at", "2016-08-02 21:42:45.712219"], ["updated_at", "2016-08-02 21:42:45.712219"]]
+  [1m[36m (1.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.8ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Fantastic Steel Computer"], ["description", "Project managers never ask Chuck Norris for estimations... ever."], ["price", 6147], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.723591"], ["updated_at", "2016-08-02 21:42:45.723591"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (1.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Lightweight Wool Clock"], ["description", "The programs that Chuck Norris writes don't have version numbers because he only writes them once. If a user reports a bug or has a feature request they don't live to see the sun set."], ["price", 7808], ["category_id", 5], ["created_at", "2016-08-02 21:42:45.742310"], ["updated_at", "2016-08-02 21:42:45.742310"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Ergonomic Linen Clock"], ["description", "Chuck Norris doesn't use web standards as the web will conform to him."], ["price", 5348], ["category_id", 1], ["created_at", "2016-08-02 21:42:45.749204"], ["updated_at", "2016-08-02 21:42:45.749204"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Intelligent Leather Knife"], ["description", "When Chuck Norris' code fails to compile the compiler apologises."], ["price", 7284], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.755249"], ["updated_at", "2016-08-02 21:42:45.755249"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Ergonomic Wooden Shirt"], ["description", "Chuck Norris' programs occupy 150% of CPU, even when they are not executing."], ["price", 728], ["category_id", 5], ["created_at", "2016-08-02 21:42:45.762511"], ["updated_at", "2016-08-02 21:42:45.762511"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.8ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Durable Aluminum Bench"], ["description", "Chuck Norris burst the dot com bubble."], ["price", 4151], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.771825"], ["updated_at", "2016-08-02 21:42:45.771825"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Heavy Duty Granite Car"], ["description", "Chuck Norris finished World of Warcraft."], ["price", 6127], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.778483"], ["updated_at", "2016-08-02 21:42:45.778483"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.9ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Heavy Duty Marble Wallet"], ["description", "Chuck Norris is immutable. If something's going to change, it's going to have to be the rest of the universe."], ["price", 3811], ["category_id", 5], ["created_at", "2016-08-02 21:42:45.784408"], ["updated_at", "2016-08-02 21:42:45.784408"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Ergonomic Linen Knife"], ["description", "Chuck Norris doesn't use a computer because a computer does everything slower than Chuck Norris."], ["price", 7478], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.789781"], ["updated_at", "2016-08-02 21:42:45.789781"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (1.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Small Cotton Coat"], ["description", "Chuck Norris's keyboard doesn't have a Ctrl key because nothing controls Chuck Norris."], ["price", 5010], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.797397"], ["updated_at", "2016-08-02 21:42:45.797397"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Gorgeous Aluminum Wallet"], ["description", "Chuck Norris never gets a syntax error. Instead, the language gets a DoesNotConformToChuck error."], ["price", 5753], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.802940"], ["updated_at", "2016-08-02 21:42:45.802940"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Practical Steel Chair"], ["description", "Chuck Norris knows the last digit of PI."], ["price", 126], ["category_id", 1], ["created_at", "2016-08-02 21:42:45.808303"], ["updated_at", "2016-08-02 21:42:45.808303"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Enormous Bronze Shirt"], ["description", "Chuck Norris' beard is immutable."], ["price", 9675], ["category_id", 2], ["created_at", "2016-08-02 21:42:45.813673"], ["updated_at", "2016-08-02 21:42:45.813673"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Awesome Cotton Pants"], ["description", "Chuck Norris' addition operator doesn't commute; it teleports to where he needs it to be."], ["price", 4040], ["category_id", 4], ["created_at", "2016-08-02 21:42:45.819324"], ["updated_at", "2016-08-02 21:42:45.819324"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (1.1ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Fantastic Aluminum Coat"], ["description", "Chuck Norris can solve the Towers of Hanoi in one move."], ["price", 6462], ["category_id", 1], ["created_at", "2016-08-02 21:42:45.826366"], ["updated_at", "2016-08-02 21:42:45.826366"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Durable Silk Bench"], ["description", "There is no Esc key on Chuck Norris' keyboard, because no one escapes Chuck Norris."], ["price", 1927], ["category_id", 5], ["created_at", "2016-08-02 21:42:45.833730"], ["updated_at", "2016-08-02 21:42:45.833730"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Intelligent Bronze Knife"], ["description", "Chuck Norris' programs occupy 150% of CPU, even when they are not executing."], ["price", 1583], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.839459"], ["updated_at", "2016-08-02 21:42:45.839459"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Synergistic Bronze Chair"], ["description", "Chuck Norris doesn't need a debugger, he just stares down the bug until the code confesses."], ["price", 8404], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.845822"], ["updated_at", "2016-08-02 21:42:45.845822"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Enormous Paper Watch"], ["description", "When Chuck Norris gives a method an argument, the method loses."], ["price", 2737], ["category_id", 3], ["created_at", "2016-08-02 21:42:45.856067"], ["updated_at", "2016-08-02 21:42:45.856067"]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.9ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (4.1ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["title", "Sleek Paper Knife"], ["description", "Chuck Norris can recite π. Backwards."], ["price", 6870], ["category_id", 6], ["created_at", "2016-08-02 21:42:45.865238"], ["updated_at", "2016-08-02 21:42:45.865238"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mProduct Load (1.2ms)[0m  SELECT "products".* FROM "products"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["first_name", "Isom"], ["last_name", "Harvey"], ["email", "bettye@jacobi.com"], ["created_at", "2016-08-02 21:44:28.515380"], ["updated_at", "2016-08-02 21:44:28.515380"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["first_name", "Vince"], ["last_name", "Johnson"], ["email", "mary_morar@lynch.biz"], ["created_at", "2016-08-02 21:44:28.520898"], ["updated_at", "2016-08-02 21:44:28.520898"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36m (2.6ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["first_name", "Keyon"], ["last_name", "Bergnaum"], ["email", "maida@schmidt.info"], ["created_at", "2016-08-02 21:44:28.537397"], ["updated_at", "2016-08-02 21:44:28.537397"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["first_name", "Thea"], ["last_name", "Rogahn"], ["email", "lenora@dach.net"], ["created_at", "2016-08-02 21:44:28.542694"], ["updated_at", "2016-08-02 21:44:28.542694"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["first_name", "Garnett"], ["last_name", "Stiedemann"], ["email", "maximo_mccullough@heathcote.info"], ["created_at", "2016-08-02 21:44:28.548577"], ["updated_at", "2016-08-02 21:44:28.548577"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (1.5ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "orders" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 7], ["created_at", "2016-08-02 21:45:42.203189"], ["updated_at", "2016-08-02 21:45:42.203189"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "locations" ("state", "street", "city", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["state", "PA"], ["street", "879 Viva Hill"], ["city", "Leoneport"], ["zip", "27617-9792"], ["user_id", 7], ["created_at", "2016-08-02 21:46:21.690462"], ["updated_at", "2016-08-02 21:46:21.690462"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mLocation Load (2.0ms)[0m  SELECT "locations".* FROM "locations"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "users" SET "default_shipping" = $1, "default_billing" = $2, "updated_at" = $3 WHERE "users"."id" = $4  [["default_shipping", 7], ["default_billing", 7], ["updated_at", "2016-08-02 21:47:11.236629"], ["id", 7]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mLocation Load (1.1ms)[0m  SELECT "locations".* FROM "locations"
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mProduct Load (2.6ms)[0m  SELECT "products".* FROM "products"
+  [1m[36mProduct Load (0.6ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = $1 LIMIT 1[0m  [["id", 30]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "items" ("order_id", "product_id", "quantity", "unit_price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["order_id", 4], ["product_id", 30], ["quantity", 3], ["unit_price", 8208], ["created_at", "2016-08-02 21:47:36.484093"], ["updated_at", "2016-08-02 21:47:36.484093"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mItem Load (0.8ms)[0m  [1mSELECT "items".* FROM "items"[0m
+  [1m[35mItem Load (2.8ms)[0m  SELECT  "items".* FROM "items"  ORDER BY "items"."id" ASC LIMIT 1
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  DELETE FROM "items" WHERE "items"."id" = $1  [["id", 1]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mItem Load (0.6ms)[0m  SELECT "items".* FROM "items"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.8ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "payments" ("user_id", "name", "cc_number", "expiration", "location_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["user_id", 7], ["name", "Vince"], ["cc_number", "1228-1221-1221-1431"], ["expiration", "2020-08-01"], ["location_id", 7], ["created_at", "2016-08-02 21:48:32.289118"], ["updated_at", "2016-08-02 21:48:32.289118"]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mPayment Load (1.5ms)[0m  SELECT "payments".* FROM "payments"
+  [1m[36mPayment Load (3.5ms)[0m  [1mSELECT  "payments".* FROM "payments"  ORDER BY "payments"."id" ASC LIMIT 1[0m
+  [1m[35m (3.7ms)[0m  BEGIN
+  [1m[36mSQL (1.2ms)[0m  [1mDELETE FROM "payments" WHERE "payments"."id" = $1[0m  [["id", 1]]
+  [1m[35m (2.8ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "orders" SET "payment_id" = $1, "updated_at" = $2 WHERE "orders"."id" = $3  [["payment_id", 3], ["updated_at", "2016-08-02 21:49:27.534513"], ["id", 4]]
+  [1m[36m (2.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "shipments" ("to_location", "from_location", "order_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["to_location", 7], ["from_location", 6], ["order_id", 4], ["created_at", "2016-08-02 21:49:40.446343"], ["updated_at", "2016-08-02 21:49:40.446343"]]
+  [1m[35m (2.0ms)[0m  COMMIT
+  [1m[36mShipment Load (0.8ms)[0m  [1mSELECT "shipments".* FROM "shipments"[0m
+  [1m[36m (139.8ms)[0m  [1mDROP DATABASE IF EXISTS "development"[0m
+  [1m[35m (134.2ms)[0m  DROP DATABASE IF EXISTS "test"
+  [1m[36m (452.8ms)[0m  [1mCREATE DATABASE "development" ENCODING = 'utf8'[0m
+  [1m[35m (260.2ms)[0m  CREATE DATABASE "test" ENCODING = 'utf8'
+  [1m[36mSQL (3.2ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (11.5ms)[0m  CREATE TABLE "categories" ("id" serial primary key, "name" character varying, "description" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (6.0ms)[0m  [1mCREATE TABLE "items" ("id" serial primary key, "order_id" integer, "product_id" integer, "quantity" integer DEFAULT 0, "unit_price" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (8.4ms)[0m  CREATE TABLE "locations" ("id" serial primary key, "user_id" integer, "state" character varying, "zip" character varying, "street" character varying, "city" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (6.5ms)[0m  [1mCREATE TABLE "orders" ("id" serial primary key, "user_id" integer, "payment_id" integer, "billing_location_id" integer, "open_order" boolean DEFAULT 't', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (9.0ms)[0m  CREATE TABLE "payments" ("id" serial primary key, "user_id" integer, "name" character varying, "cc_number" character varying, "expiration" date, "location_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (7.4ms)[0m  [1mCREATE TABLE "products" ("id" serial primary key, "title" character varying, "description" text, "price" integer, "sku" character varying, "category_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (6.4ms)[0m  CREATE TABLE "shipments" ("id" serial primary key, "to_location" integer, "from_location" integer, "order_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (8.7ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "first_name" character varying, "last_name" character varying, "email" character varying, "phone" character varying, "default_billing" integer, "default_shipping" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (5.9ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (2.4ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.7ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160802183324')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160802182541')
+  [1m[36m (1.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160802182744')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160802182851')
+  [1m[36m (1.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160802182933')[0m
+  [1m[35m (0.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160802183026')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160802183135')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160802183236')
+  [1m[36mSQL (0.7ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (12.9ms)[0m  CREATE TABLE "categories" ("id" serial primary key, "name" character varying, "description" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (6.8ms)[0m  [1mCREATE TABLE "items" ("id" serial primary key, "order_id" integer, "product_id" integer, "quantity" integer DEFAULT 0, "unit_price" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (10.9ms)[0m  CREATE TABLE "locations" ("id" serial primary key, "user_id" integer, "state" character varying, "zip" character varying, "street" character varying, "city" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (9.9ms)[0m  [1mCREATE TABLE "orders" ("id" serial primary key, "user_id" integer, "payment_id" integer, "billing_location_id" integer, "open_order" boolean DEFAULT 't', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (7.8ms)[0m  CREATE TABLE "payments" ("id" serial primary key, "user_id" integer, "name" character varying, "cc_number" character varying, "expiration" date, "location_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (9.1ms)[0m  [1mCREATE TABLE "products" ("id" serial primary key, "title" character varying, "description" text, "price" integer, "sku" character varying, "category_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (6.2ms)[0m  CREATE TABLE "shipments" ("id" serial primary key, "to_location" integer, "from_location" integer, "order_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (11.0ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "first_name" character varying, "last_name" character varying, "email" character varying, "phone" character varying, "default_billing" integer, "default_shipping" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (4.7ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (3.4ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (1.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160802183324')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160802182541')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160802182744')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160802182851')
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160802182933')[0m
+  [1m[35m (0.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160802183026')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160802183135')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160802183236')
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "locations" ("state", "street", "city", "zip", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["state", "ND"], ["street", "832 Charley Junction"], ["city", "Sidville"], ["zip", "31711"], ["created_at", "2016-08-02 21:51:24.155765"], ["updated_at", "2016-08-02 21:51:24.155765"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Arbok"], ["description", "Ecruteak City"], ["created_at", "2016-08-02 21:51:24.174589"], ["updated_at", "2016-08-02 21:51:24.174589"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Shellder"], ["description", "Nacrene City"], ["created_at", "2016-08-02 21:51:24.180350"], ["updated_at", "2016-08-02 21:51:24.180350"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Arcanine"], ["description", "Cerulean City"], ["created_at", "2016-08-02 21:51:24.184238"], ["updated_at", "2016-08-02 21:51:24.184238"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Sleek Steel Computer"], ["description", "Chuck Norris' preferred IDE is hexedit."], ["price", 9471], ["category_id", 2], ["sku", "636"], ["created_at", "2016-08-02 21:51:24.205118"], ["updated_at", "2016-08-02 21:51:24.205118"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.9ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Sleek Leather Gloves"], ["description", "Whiteboards are white because Chuck Norris scared them that way."], ["price", 1954], ["category_id", 2], ["sku", "235"], ["created_at", "2016-08-02 21:51:24.213226"], ["updated_at", "2016-08-02 21:51:24.213226"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Gorgeous Leather Shoes"], ["description", "Project managers never ask Chuck Norris for estimations... ever."], ["price", 6068], ["category_id", 1], ["sku", "474"], ["created_at", "2016-08-02 21:51:24.218380"], ["updated_at", "2016-08-02 21:51:24.218380"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Fantastic Paper Gloves"], ["description", "Chuck Norris doesn't bug hunt, as that signifies a probability of failure. He goes bug killing."], ["price", 5313], ["category_id", 2], ["sku", "108"], ["created_at", "2016-08-02 21:51:24.224588"], ["updated_at", "2016-08-02 21:51:24.224588"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Intelligent Copper Clock"], ["description", "Chuck Norris can binary search unsorted data."], ["price", 5269], ["category_id", 2], ["sku", "385"], ["created_at", "2016-08-02 21:51:24.230225"], ["updated_at", "2016-08-02 21:51:24.230225"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Durable Cotton Lamp"], ["description", "Chuck Norris can access private methods."], ["price", 6809], ["category_id", 2], ["sku", "428"], ["created_at", "2016-08-02 21:51:24.235389"], ["updated_at", "2016-08-02 21:51:24.235389"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Enormous Iron Shoes"], ["description", "Chuck Norris doesn't use a computer because a computer does everything slower than Chuck Norris."], ["price", 5166], ["category_id", 2], ["sku", "150"], ["created_at", "2016-08-02 21:51:24.242814"], ["updated_at", "2016-08-02 21:51:24.242814"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Aerodynamic Paper Bottle"], ["description", "Quantum cryptography does not work on Chuck Norris. When something is being observed by Chuck it stays in the same state until he's finished. "], ["price", 9182], ["category_id", 2], ["sku", "653"], ["created_at", "2016-08-02 21:51:24.249005"], ["updated_at", "2016-08-02 21:51:24.249005"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Fantastic Concrete Bag"], ["description", "Chuck Norris never gets a syntax error. Instead, the language gets a DoesNotConformToChuck error."], ["price", 3170], ["category_id", 1], ["sku", "408"], ["created_at", "2016-08-02 21:51:24.253593"], ["updated_at", "2016-08-02 21:51:24.253593"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Heavy Duty Iron Bench"], ["description", "Chuck Norris' protocol design method has no status, requests or responses, only commands."], ["price", 9489], ["category_id", 3], ["sku", "482"], ["created_at", "2016-08-02 21:51:24.259070"], ["updated_at", "2016-08-02 21:51:24.259070"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Awesome Bronze Bottle"], ["description", "Anonymous methods and anonymous types are really all called Chuck Norris. They just don't like to boast."], ["price", 1415], ["category_id", 1], ["sku", "470"], ["created_at", "2016-08-02 21:51:24.264156"], ["updated_at", "2016-08-02 21:51:24.264156"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Ergonomic Steel Watch"], ["description", "The only pattern Chuck Norris knows is God Object."], ["price", 1220], ["category_id", 2], ["sku", "216"], ["created_at", "2016-08-02 21:51:24.269571"], ["updated_at", "2016-08-02 21:51:24.269571"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Synergistic Linen Shoes"], ["description", "There is no Esc key on Chuck Norris' keyboard, because no one escapes Chuck Norris."], ["price", 238], ["category_id", 2], ["sku", "401"], ["created_at", "2016-08-02 21:51:24.275348"], ["updated_at", "2016-08-02 21:51:24.275348"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Lightweight Linen Pants"], ["description", "Chuck Norris writes code that optimizes itself."], ["price", 260], ["category_id", 1], ["sku", "759"], ["created_at", "2016-08-02 21:51:24.280800"], ["updated_at", "2016-08-02 21:51:24.280800"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Rustic Granite Wallet"], ["description", "Chuck Norris can recite π. Backwards."], ["price", 4876], ["category_id", 1], ["sku", "293"], ["created_at", "2016-08-02 21:51:24.286490"], ["updated_at", "2016-08-02 21:51:24.286490"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Intelligent Rubber Keyboard"], ["description", "Chuck Norris can solve the Towers of Hanoi in one move."], ["price", 6963], ["category_id", 3], ["sku", "718"], ["created_at", "2016-08-02 21:51:24.293799"], ["updated_at", "2016-08-02 21:51:24.293799"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.7ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Small Leather Shirt"], ["description", "Chuck Norris' programs occupy 150% of CPU, even when they are not executing."], ["price", 7923], ["category_id", 1], ["sku", "138"], ["created_at", "2016-08-02 21:51:24.300254"], ["updated_at", "2016-08-02 21:51:24.300254"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Durable Paper Keyboard"], ["description", "Chuck Norris can spawn threads that complete before they are started."], ["price", 7548], ["category_id", 1], ["sku", "673"], ["created_at", "2016-08-02 21:51:24.305752"], ["updated_at", "2016-08-02 21:51:24.305752"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.8ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Gorgeous Concrete Bottle"], ["description", "Chuck Norris can access private methods."], ["price", 4011], ["category_id", 1], ["sku", "519"], ["created_at", "2016-08-02 21:51:24.311470"], ["updated_at", "2016-08-02 21:51:24.311470"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Gorgeous Leather Bench"], ["description", "Chuck Norris writes code that optimizes itself."], ["price", 2080], ["category_id", 1], ["sku", "784"], ["created_at", "2016-08-02 21:51:24.317397"], ["updated_at", "2016-08-02 21:51:24.317397"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Fantastic Paper Plate"], ["description", "Chuck Norris doesn't use web standards as the web will conform to him."], ["price", 3769], ["category_id", 3], ["sku", "688"], ["created_at", "2016-08-02 21:51:24.322515"], ["updated_at", "2016-08-02 21:51:24.322515"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Fantastic Paper Knife"], ["description", "Chuck Norris does not use exceptions when programming. He has not been able to identify any of his code that is not exceptional."], ["price", 383], ["category_id", 1], ["sku", "166"], ["created_at", "2016-08-02 21:51:24.329163"], ["updated_at", "2016-08-02 21:51:24.329163"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Lightweight Copper Plate"], ["description", "Chuck Norris breaks RSA 128-bit encrypted codes in milliseconds."], ["price", 3014], ["category_id", 2], ["sku", "33"], ["created_at", "2016-08-02 21:51:24.334703"], ["updated_at", "2016-08-02 21:51:24.334703"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Fantastic Copper Car"], ["description", "Chuck Norris can unit test an entire application with a single assert."], ["price", 6773], ["category_id", 1], ["sku", "355"], ["created_at", "2016-08-02 21:51:24.339972"], ["updated_at", "2016-08-02 21:51:24.339972"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Heavy Duty Concrete Wallet"], ["description", "Chuck Norris can write multi-threaded applications with a single thread."], ["price", 4337], ["category_id", 3], ["sku", "664"], ["created_at", "2016-08-02 21:51:24.346198"], ["updated_at", "2016-08-02 21:51:24.346198"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (1.0ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Lightweight Leather Chair"], ["description", "Chuck Norris never gets a syntax error. Instead, the language gets a DoesNotConformToChuck error."], ["price", 8268], ["category_id", 1], ["sku", "377"], ["created_at", "2016-08-02 21:51:24.353252"], ["updated_at", "2016-08-02 21:51:24.353252"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Practical Wooden Coat"], ["description", "Chuck Norris does not use exceptions when programming. He has not been able to identify any of his code that is not exceptional."], ["price", 4285], ["category_id", 1], ["sku", "25"], ["created_at", "2016-08-02 21:51:24.358112"], ["updated_at", "2016-08-02 21:51:24.358112"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Small Granite Computer"], ["description", "Chuck Norris compresses his files by doing a flying round house kick to the hard drive."], ["price", 9578], ["category_id", 2], ["sku", "2"], ["created_at", "2016-08-02 21:51:24.363171"], ["updated_at", "2016-08-02 21:51:24.363171"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Synergistic Plastic Knife"], ["description", "Chuck Norris' beard is immutable."], ["price", 2270], ["category_id", 2], ["sku", "870"], ["created_at", "2016-08-02 21:51:24.368056"], ["updated_at", "2016-08-02 21:51:24.368056"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Enormous Wool Table"], ["description", "Chuck Norris doesn't use web standards as the web will conform to him."], ["price", 1727], ["category_id", 3], ["sku", "111"], ["created_at", "2016-08-02 21:51:24.372811"], ["updated_at", "2016-08-02 21:51:24.372811"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Small Marble Plate"], ["description", "When Chuck Norris' code fails to compile the compiler apologises."], ["price", 9935], ["category_id", 2], ["sku", "821"], ["created_at", "2016-08-02 21:51:24.380313"], ["updated_at", "2016-08-02 21:51:24.380313"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Aerodynamic Copper Bottle"], ["description", "Chuck Norris' programs occupy 150% of CPU, even when they are not executing."], ["price", 9205], ["category_id", 1], ["sku", "666"], ["created_at", "2016-08-02 21:51:24.385214"], ["updated_at", "2016-08-02 21:51:24.385214"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Rustic Concrete Bottle"], ["description", "Chuck Norris doesn't program with a keyboard. He stares the computer down until it does what he wants."], ["price", 9059], ["category_id", 1], ["sku", "133"], ["created_at", "2016-08-02 21:51:24.390006"], ["updated_at", "2016-08-02 21:51:24.390006"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Durable Wooden Chair"], ["description", "Chuck Norris doesn't have performance bottlenecks. He just makes the universe wait its turn."], ["price", 532], ["category_id", 2], ["sku", "266"], ["created_at", "2016-08-02 21:51:24.395576"], ["updated_at", "2016-08-02 21:51:24.395576"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Mediocre Silk Watch"], ["description", "No statement can catch the ChuckNorrisException."], ["price", 1151], ["category_id", 1], ["sku", "326"], ["created_at", "2016-08-02 21:51:24.399926"], ["updated_at", "2016-08-02 21:51:24.399926"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Lightweight Paper Watch"], ["description", "Chuck Norris doesn't program with a keyboard. He stares the computer down until it does what he wants."], ["price", 4285], ["category_id", 2], ["sku", "628"], ["created_at", "2016-08-02 21:51:24.404137"], ["updated_at", "2016-08-02 21:51:24.404137"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Sleek Plastic Table"], ["description", "Chuck Norris can access private methods."], ["price", 2426], ["category_id", 3], ["sku", "246"], ["created_at", "2016-08-02 21:51:24.409184"], ["updated_at", "2016-08-02 21:51:24.409184"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Synergistic Wool Bag"], ["description", "Chuck Norris doesn't need an OS."], ["price", 3526], ["category_id", 1], ["sku", "189"], ["created_at", "2016-08-02 21:51:24.414974"], ["updated_at", "2016-08-02 21:51:24.414974"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Enormous Aluminum Bottle"], ["description", "There is no Esc key on Chuck Norris' keyboard, because no one escapes Chuck Norris."], ["price", 7461], ["category_id", 2], ["sku", "596"], ["created_at", "2016-08-02 21:51:24.419445"], ["updated_at", "2016-08-02 21:51:24.419445"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.7ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Small Plastic Table"], ["description", "Chuck Norris can solve the Towers of Hanoi in one move."], ["price", 1262], ["category_id", 1], ["sku", "305"], ["created_at", "2016-08-02 21:51:24.424606"], ["updated_at", "2016-08-02 21:51:24.424606"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Sleek Marble Shoes"], ["description", "Chuck Norris doesn't get compiler errors, the language changes itself to accommodate Chuck Norris."], ["price", 9551], ["category_id", 3], ["sku", "575"], ["created_at", "2016-08-02 21:51:24.429240"], ["updated_at", "2016-08-02 21:51:24.429240"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Awesome Plastic Coat"], ["description", "Chuck Norris writes code that optimizes itself."], ["price", 1092], ["category_id", 2], ["sku", "662"], ["created_at", "2016-08-02 21:51:24.433510"], ["updated_at", "2016-08-02 21:51:24.433510"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Lightweight Granite Bench"], ["description", "Chuck Norris can solve the Towers of Hanoi in one move."], ["price", 7498], ["category_id", 3], ["sku", "586"], ["created_at", "2016-08-02 21:51:24.438141"], ["updated_at", "2016-08-02 21:51:24.438141"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Enormous Concrete Shirt"], ["description", "Chuck Norris can spawn threads that complete before they are started."], ["price", 816], ["category_id", 2], ["sku", "237"], ["created_at", "2016-08-02 21:51:24.442991"], ["updated_at", "2016-08-02 21:51:24.442991"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Fantastic Silk Chair"], ["description", "Chuck Norris compresses his files by doing a flying round house kick to the hard drive."], ["price", 9305], ["category_id", 2], ["sku", "508"], ["created_at", "2016-08-02 21:51:24.447689"], ["updated_at", "2016-08-02 21:51:24.447689"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.8ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Gorgeous Iron Gloves"], ["description", "Chuck Norris doesn't have performance bottlenecks. He just makes the universe wait its turn."], ["price", 5919], ["category_id", 3], ["sku", "485"], ["created_at", "2016-08-02 21:51:24.452456"], ["updated_at", "2016-08-02 21:51:24.452456"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.6ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Gorgeous Granite Bottle"], ["description", "Chuck Norris has root access to your system."], ["price", 4563], ["category_id", 3], ["sku", "609"], ["created_at", "2016-08-02 21:51:24.458484"], ["updated_at", "2016-08-02 21:51:24.458484"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Incredible Silk Wallet"], ["description", "Whiteboards are white because Chuck Norris scared them that way."], ["price", 4182], ["category_id", 1], ["sku", "45"], ["created_at", "2016-08-02 21:51:24.464541"], ["updated_at", "2016-08-02 21:51:24.464541"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.5ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Sleek Aluminum Car"], ["description", "Chuck Norris burst the dot com bubble."], ["price", 4105], ["category_id", 1], ["sku", "551"], ["created_at", "2016-08-02 21:51:24.469466"], ["updated_at", "2016-08-02 21:51:24.469466"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mCategory Load (0.4ms)[0m  SELECT "categories".* FROM "categories"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "products" ("title", "description", "price", "category_id", "sku", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Intelligent Rubber Hat"], ["description", "Chuck Norris does not use exceptions when programming. He has not been able to identify any of his code that is not exceptional."], ["price", 7716], ["category_id", 2], ["sku", "854"], ["created_at", "2016-08-02 21:51:24.475084"], ["updated_at", "2016-08-02 21:51:24.475084"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "phone", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Henriette"], ["last_name", "Lind"], ["phone", "1-162-298-2018 x47585"], ["email", "yvette@hanewilkinson.org"], ["created_at", "2016-08-02 21:51:24.496227"], ["updated_at", "2016-08-02 21:51:24.496227"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("first_name", "last_name", "phone", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["first_name", "Bette"], ["last_name", "Ferry"], ["phone", "1-956-068-6372 x34675"], ["email", "jedediah@emardzulauf.com"], ["created_at", "2016-08-02 21:51:24.503163"], ["updated_at", "2016-08-02 21:51:24.503163"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "phone", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Anita"], ["last_name", "Greenfelder"], ["phone", "586.772.3546 x6146"], ["email", "laverne.barton@blandafeil.biz"], ["created_at", "2016-08-02 21:51:24.508226"], ["updated_at", "2016-08-02 21:51:24.508226"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("first_name", "last_name", "phone", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["first_name", "Karolann"], ["last_name", "Hoeger"], ["phone", "799-185-5743 x845"], ["email", "marlen.johnson@renner.com"], ["created_at", "2016-08-02 21:51:24.512941"], ["updated_at", "2016-08-02 21:51:24.512941"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "phone", "email", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Avis"], ["last_name", "Prosacco"], ["phone", "1-652-844-3004 x1884"], ["email", "ernestine@grant.com"], ["created_at", "2016-08-02 21:51:24.518008"], ["updated_at", "2016-08-02 21:51:24.518008"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "orders" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 1], ["created_at", "2016-08-02 21:51:24.541677"], ["updated_at", "2016-08-02 21:51:24.541677"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "locations" ("state", "street", "city", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["state", "OR"], ["street", "6540 Cullen Mission"], ["city", "New Consuelo"], ["zip", "60959"], ["user_id", 1], ["created_at", "2016-08-02 21:51:24.546422"], ["updated_at", "2016-08-02 21:51:24.546422"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE "users" SET "default_shipping" = $1, "default_billing" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["default_shipping", 2], ["default_billing", 2], ["updated_at", "2016-08-02 21:51:24.550813"], ["id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mProduct Load (1.0ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  [1m[35mProduct Load (0.4ms)[0m  SELECT  "products".* FROM "products" WHERE "products"."id" = $1 LIMIT 1  [["id", 15]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "items" ("order_id", "product_id", "quantity", "unit_price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["order_id", 1], ["product_id", 15], ["quantity", 3], ["unit_price", 4876], ["created_at", "2016-08-02 21:51:24.583217"], ["updated_at", "2016-08-02 21:51:24.583217"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "payments" ("user_id", "name", "cc_number", "expiration", "location_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 1], ["name", "Henriette"], ["cc_number", "1228-1221-1221-1431"], ["expiration", "2018-08-02"], ["location_id", 2], ["created_at", "2016-08-02 21:51:24.600291"], ["updated_at", "2016-08-02 21:51:24.600291"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "orders" SET "payment_id" = $1, "updated_at" = $2 WHERE "orders"."id" = $3  [["payment_id", 1], ["updated_at", "2016-08-02 21:51:24.604492"], ["id", 1]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO "shipments" ("to_location", "from_location", "order_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["to_location", 2], ["from_location", 1], ["order_id", 1], ["created_at", "2016-08-02 21:51:24.619573"], ["updated_at", "2016-08-02 21:51:24.619573"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36mUser Load (1.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (8.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mPayment Load (1.1ms)[0m  [1mSELECT "payments".* FROM "payments"[0m
+  [1m[35mOrder Load (1.0ms)[0m  SELECT "orders".* FROM "orders"
+  [1m[36mShipment Load (1.1ms)[0m  [1mSELECT "shipments".* FROM "shipments"[0m
+  [1m[35mLocation Load (1.1ms)[0m  SELECT "locations".* FROM "locations"
+  [1m[36mProduct Load (1.3ms)[0m  [1mSELECT "products".* FROM "products"[0m

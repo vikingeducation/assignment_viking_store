@@ -5,6 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+warehouse = Location.new
+warehouse.state = Faker::Address.state_abbr
+warehouse.street = Faker::Address.street_address
+warehouse.city = Faker::Address.city
+warehouse.zip = Faker::Address.zip
+warehouse.save
+
 
 3.times do |i|
   c = Category.new
@@ -19,7 +26,7 @@ end
   product.description = Faker::ChuckNorris.fact
   product.price = Faker::Commerce.price * 100
   product.category_id = Category.all.sample.id
-  product.sku = product.id
+  product.sku = rand(897) + 1
   product.save
 end
 
@@ -27,6 +34,7 @@ end
   u = User.new
   u.first_name = Faker::Name.first_name
   u.last_name = Faker::Name.last_name
+  u.phone = Faker::PhoneNumber.phone_number
   u.email = Faker::Internet.email
   u.save
 end
@@ -44,17 +52,30 @@ l.zip = Faker::Address.zip
 l.user_id = user_for_order.id
 l.save
 
-user_for_order.default_shipping = l.id
-user_for_order.default_billing = l.id
+user_for_order.default_shipping ||= l.id
+user_for_order.default_billing ||= l.id
+user_for_order.save
 
 kart_item = Item.new
 kart_item.order_id = o.id
 kart_item.product_id = Product.all.sample.id
 kart_item.quantity = rand(4) + 1
 kart_item.unit_price = Product.find(kart_item.product_id).price
+kart_item.save
 
 payment = Payment.new
 payment.user_id = user_for_order.id
 payment.name = user_for_order.first_name
 payment.cc_number = Faker::Business.credit_card_number
-payment.experation = Faker::Business.credit_card_expiry_date
+payment.expiration = Faker::Business.credit_card_expiry_date
+payment.location_id = user_for_order.default_billing
+payment.save
+o.payment_id = payment.id
+o.billing_location_id = payment.location_id
+o.save
+
+shipment = Shipment.new
+shipment.to_location = user_for_order.default_shipping
+shipment.from_location = warehouse.id
+shipment.order_id = o.id
+shipment.save
