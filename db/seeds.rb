@@ -25,22 +25,22 @@ end
                   sku: Faker::Code.isbn)
 end
 
-20.times do
-  random_user = User.all.sample.id
-  Address.create!(street_number: rand(1000),
-                  street_name: Faker::Address.street_name,
-                  city: Faker::Address.city,
-                  state: Faker::Address.state,
-                  country: Faker::Address.country,
-                  user_id: random_user)
-end
+# 20.times do
+#   random_user = User.all.sample.id
+#   Address.create!(street_number: rand(1000),
+#                   street_name: Faker::Address.street_name,
+#                   city: Faker::Address.city,
+#                   state: Faker::Address.state,
+#                   country: Faker::Address.country,
+#                   user_id: random_user)
+# end
 
 20.times do
   random_user = User.all.sample.id
   random_product = Product.all.sample.id
   Cart.create!(user_id: random_user,
                product_id: random_product,
-               quantity: rand(7),
+               quantity: rand(7) + 1,
                )
 end
 
@@ -58,10 +58,16 @@ end
 # end
 
 
-4.times do 
+10.times do 
   random_user = User.all.sample.id
   # Ensure that there is a customer with a proper address.
   unless Customer.where("customers.user_id = ?", random_user).any?
+    Address.create!(street_number: rand(1000),
+                  street_name: Faker::Address.street_name,
+                  city: Faker::Address.city,
+                  state: Faker::Address.state,
+                  country: Faker::Address.country,
+                  user_id: random_user)
     random_ship_address = Address.where("user_id = ?", random_user).first.id
     random_bill_address = Address.where("user_id = ?", random_user).first.id
     Customer.create!(user_id: random_user,
