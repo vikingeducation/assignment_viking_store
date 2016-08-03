@@ -1,0 +1,72 @@
+Users
+- id
+- first_name (required) (string)
+- last_name (required) (string)
+- email (required) (string)
+- default_shipping_address_id (FK)
+- default_billing_address_id (FK)
+
+Address
+- id
+- user_id (FK)
+- number_street (string)
+- city (string)
+- state (string)
+- country (string)
+- zip (string)
+- shipping (boolean)
+- billing (boolean)
+
+
+Credit Cards
+- id
+- user_id (FK)
+- number (string)
+- exp_date (date)
+- sec_code (string)
+- address_id (FK)
+- type (string)
+
+Phone Numbers
+- id
+- user_id (FK)
+- number (string)
+- type (string)
+
+Products
+- id
+- title (string)
+- description (text)
+- price (decimal)
+- SKU (string)
+- category_id (FK)
+- amt_in_stock (integer)
+
+Categories
+- id
+- name (string)
+- description (text)
+
+Order/Product join table
+- order_id (FK)
+- product_id (FK)
+- quantity (integer)
+
+Orders
+- user_id (FK)
+- address_id (FK) (not required)
+- credit_card_id (FK)
+- phone_number_id (FK)
+- confirmed (boolean)
+
+Relationships
+A user has many addresses, credit cards, phone numbers, orders
+Addresses, credit cards, phone numbers, orders belong to a user
+A product has a category
+A category has many products
+Many product have many orders
+Many orders have many products
+An order has a user, shipping address, billing adress, credit card and phone number
+A credit card has an address
+
+
