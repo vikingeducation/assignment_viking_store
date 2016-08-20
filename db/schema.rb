@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820034239) do
+ActiveRecord::Schema.define(version: 20160820050236) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "country"
+    t.string   "province"
+    t.string   "city"
+    t.string   "postcode"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.boolean  "shipping_default"
+    t.boolean  "billing_default"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "user_detail_id"
+    t.index ["user_detail_id"], name: "index_addresses_on_user_detail_id"
+  end
 
   create_table "credit_cards", force: :cascade do |t|
     t.string   "card_number"
