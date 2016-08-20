@@ -4,6 +4,7 @@ class User < ApplicationRecord
   # As the same for the shipping address
   has_many :addresses
   has_many :credit_cards
+  has_many :orders
 
   belongs_to :billing_address,
              class_name: "Address",

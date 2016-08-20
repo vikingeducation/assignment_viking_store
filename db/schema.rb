@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820131440) do
+ActiveRecord::Schema.define(version: 20160820132355) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "state_id",          null: false
@@ -48,6 +48,11 @@ ActiveRecord::Schema.define(version: 20160820131440) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.index ["card_number"], name: "index_credit_cards_on_card_number", unique: true
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
