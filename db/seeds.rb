@@ -33,7 +33,7 @@ Address.destroy_all
   :phone_number => phone_number
   )
 
-  # add credit_cards
+  # add credit_cards, every user has 3 credit_cards
   3.times do
     credit_card_number = Faker::Business.credit_card_number
     expire_date = Faker::Business.credit_card_expiry_date
@@ -44,7 +44,7 @@ Address.destroy_all
     )
   end
 
-  # add addresses
+  # add addresses every user has 5 addresses
   5.times do
     country = Faker::Address.country
     province = Faker::Address.state
@@ -58,10 +58,38 @@ Address.destroy_all
     :city => city,
     :postcode => postcode,
     :address_1 => address_1,
-    :address_2 => address_2,
+    :address_2 => address_2
     )
-    user.user_details.first.addresses.first.billing_default = true
-    user.user_details.first.addresses.first.shipping_default = true
   end
 
+  # add default billing address and shipping address
+  user.user_details.first.addresses.first.update(
+  :billing_default => true,
+  :shipping_default => true
+  )
+
+end
+
+10.times do
+  # add cetegories
+  title = Faker::Commerce.department(1)
+  description = Faker::Lorem.sentence
+  category = Category.create(
+  :title => title,
+  :description => description
+  )
+
+  # add products
+  10.times do
+    title = Faker::Commerce.product_name
+    price = Faker::Commerce.price
+    description = Faker::Lorem.sentence
+    number = Faker::Number.number(10)
+    category.products.create(
+    :title => title,
+    :price => price,
+    :description => description,
+    :SKU_number => number
+    )
+  end
 end
