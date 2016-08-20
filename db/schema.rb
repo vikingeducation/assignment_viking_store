@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820112207) do
+ActiveRecord::Schema.define(version: 20160820130300) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "state_id",          null: false
@@ -28,6 +28,19 @@ ActiveRecord::Schema.define(version: 20160820112207) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_cities_on_name", unique: true
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "nickname",    default: "My Credit Card"
+    t.string   "type",        default: "VISA"
+    t.string   "card_number",                            null: false
+    t.integer  "exp_year",                               null: false
+    t.integer  "exp_month",                              null: false
+    t.integer  "ccv",                                    null: false
+    t.integer  "user_id",                                null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["card_number"], name: "index_credit_cards_on_card_number", unique: true
   end
 
   create_table "states", force: :cascade do |t|
