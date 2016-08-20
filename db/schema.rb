@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820025400) do
+ActiveRecord::Schema.define(version: 20160820034239) do
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "card_number"
+    t.string   "mvc_number"
+    t.datetime "expire_date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "user_detail_id"
+    t.index ["user_detail_id"], name: "index_credit_cards_on_user_detail_id"
+  end
 
   create_table "user_details", force: :cascade do |t|
     t.string   "phone_number"
