@@ -76,6 +76,14 @@ def generate_address_for_user(user)
   rand(6).times { generate_address(user) }
 end
 
+def assign_default_address(user)
+  default_address = Address.where("user_id = ?", user.id).sample
+  unless default_address.nil?
+    return default_address.id
+  end
+  nil
+end
+
 def generate_user
   u = User.new
   u[:first_name] = Faker::Name.first_name
@@ -84,8 +92,8 @@ def generate_user
   u[:email] = Faker::Internet.email
 
   generate_address_for_user(u)
-  u[:shipping_id] = Address.where("user_id = ?", u.id).sample[:id]
-  u[:billing_id] = Address.where("user_id = ?", u.id).sample[:id]
+  u[:shipping_id] = assign_default_address(u)
+  u[:billing_id] = assign_default_address(u)
   u.save
 end
 
@@ -102,7 +110,7 @@ end
 
 def generate_credit_card
   c = CreditCard.new
-  c[:type] = Faker::Business.credit_card_type
+  c[:brand] = Faker::Business.credit_card_type
   c[:card_number] = Faker::Business.credit_card_number
   c[:exp_year] = today_date.year + 1 + rand(5)
   c[:exp_month] = rand(1..12)

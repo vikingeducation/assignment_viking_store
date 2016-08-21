@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160821060925) do
+ActiveRecord::Schema.define(version: 20160821064549) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "state_id",          null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20160821060925) do
 
   create_table "credit_cards", force: :cascade do |t|
     t.string   "nickname",    default: "My Credit Card"
-    t.string   "type",        default: "VISA"
+    t.string   "brand",       default: "VISA"
     t.string   "card_number",                            null: false
     t.integer  "exp_year",                               null: false
     t.integer  "exp_month",                              null: false
