@@ -89,8 +89,12 @@ def generate_user
   u[:first_name] = Faker::Name.first_name
   u[:last_name] = Faker::Name.last_name
   u[:created_at] = rand(user_date_range)
+  # u[:updated_at] = u[:created_at]
   u[:email] = Faker::Internet.email
+  u.save
 
+  binding.pry
+  # in order to get user_id, it must be saved first
   generate_address_for_user(u)
   u[:shipping_id] = assign_default_address(u)
   u[:billing_id] = assign_default_address(u)
@@ -130,40 +134,40 @@ def generate_order(user)
   o[:shipping_id] = Address.where("user_id = ?", user.id).sample[:id]
   o[:billing_id] = Address.where("user_id = ?", user.id).sample[:id]
   o[:checkout_date] = rand(user.created_at..today_date)
+  o.save
 
   generate_order_contents(o)
-  o.save
 end
 
-puts "generating categories..."
+puts "---generating categories"
 MULTIPLIER.times { generate_category }
-puts "categories created"
+puts "+++categories created"
 
-puts "generating products..."
+puts "---generating products..."
 (MULTIPLIER * 20).times { generate_products }
-puts "products created"
+puts "+++products created"
 
-puts "generating states..."
+puts "---generating states..."
 STATES.each { |state| generate_state(state) }
-puts "states created"
+puts "+++states created"
 
-puts "generating cities..."
+puts "---generating cities..."
 100.times { generate_city }
-puts "cities created"
+puts "+++cities created"
 
-puts "generating users with addresses..."
+puts "---generating users with addresses..."
 (MULTIPLIER * 20).times { generate_user }
-puts "Users with addresses created"
+puts "+++Users with addresses created"
 
-puts "generating credit_cards info..."
+puts "---generating credit_cards info..."
 (MULTIPLIER * 20).times { generate_credit_card }
-puts "credit_cards created"
+puts "+++credit_cards created"
 
-puts "generating orders for users with credit cards..."
+puts "---generating orders for users with credit cards..."
 User.all.each do |user|
   if user.credit_cards.any?
     rand(1..10).times { generate_order(user) }
   end
 end
-puts "orders created"
-puts "Seeds done!"
+puts "+++orders created"
+puts "Seeds done! Mother fucker!"
