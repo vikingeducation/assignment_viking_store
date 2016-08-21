@@ -46,11 +46,11 @@ def generate_products
 end
 
 def generate_state(state)
-  State.create(:state => state)
+  State.create(:name => state)
 end
 
 def generate_city
-  City.create(:city => Faker::Address.city)
+  City.create(:name => Faker::Address.city)
 end
 
 def generate_address(user)
