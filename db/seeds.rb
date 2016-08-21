@@ -93,7 +93,7 @@ def generate_user
   u[:email] = Faker::Internet.email
   u.save
 
-  binding.pry
+  # binding.pry
   # in order to get user_id, it must be saved first
   generate_address_for_user(u)
   u[:shipping_id] = assign_default_address(u)
@@ -108,18 +108,18 @@ def generate_order_contents(order)
     oc[:order_id] = order.id
     oc[:product_id] = product_ids.pop
     oc[:quantity] = rand(1..10)
+    oc.save
   end
-  oc.save
 end
 
-def generate_credit_card
+def generate_credit_card(user)
   c = CreditCard.new
   c[:brand] = Faker::Business.credit_card_type
-  c[:card_number] = Faker::Business.credit_card_number
+  c[:card_number] = Faker::Number.number(12)
   c[:exp_year] = today_date.year + 1 + rand(5)
   c[:exp_month] = rand(1..12)
   c[:ccv] = Faker::Number.number(3)
-  c[:user_id] = User.pluck(:id).sample
+  c[:user_id] = user.id
   c.save
 end
 
@@ -133,7 +133,8 @@ def generate_order(user)
   o[:credit_card_id] = user.credit_cards.sample[:id]
   o[:shipping_id] = Address.where("user_id = ?", user.id).sample[:id]
   o[:billing_id] = Address.where("user_id = ?", user.id).sample[:id]
-  o[:checkout_date] = rand(user.created_at..today_date)
+  # binding.pry
+  o[:checkout_date] = rand(user.created_at.to_date..today_date)
   o.save
 
   generate_order_contents(o)
@@ -160,7 +161,11 @@ puts "---generating users with addresses..."
 puts "+++Users with addresses created"
 
 puts "---generating credit_cards info..."
-(MULTIPLIER * 20).times { generate_credit_card }
+User.all.each do |user|
+  unless user.shipping_id.nil?
+    rand(4).times { generate_credit_card(user) }
+  end
+end
 puts "+++credit_cards created"
 
 puts "---generating orders for users with credit cards..."

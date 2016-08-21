@@ -4,12 +4,15 @@ class Address < ApplicationRecord
   belongs_to :state
 
   has_many :orders_billed_here,
-           class_name: "Order",
-           foreign_key: :billing_id
+           :foreign_key => "billing_id",
+           :class_name => "Order"
 
   has_many :orders_shipped_here,
-           class_name: "Order",
-           foreign_key: :shipping_id
+           :foreign_key => "shipping_id",
+           :class_name => "Order"
+
+
+
 
   validates :street_address, presence: true
   validates :city, presence: true

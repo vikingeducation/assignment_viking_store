@@ -6,12 +6,12 @@ class Order < ApplicationRecord
   has_many :products, through: :order_contents
 
   belongs_to :shipping_address,
-             class_name: "Address",
-             :foreign_key => "shipping_id"
+             :foreign_key => "shipping_id",
+             :class_name => "Address"
 
   belongs_to :billing_address,
-             class_name: "Address",
-             :foreign_key => "billing_id"
+             :foreign_key => "billing_id",
+             :class_name => "Address"
 
   validates :user_id, presence: true
 end
