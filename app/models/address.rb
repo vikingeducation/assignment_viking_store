@@ -11,6 +11,14 @@ class Address < ApplicationRecord
            :foreign_key => "shipping_id",
            :class_name => "Order"
 
+  # has_one :default_billing_user,
+  #         :foreign_key => "billing_id",
+  #         :class_name => "User"
+  #
+  # has_one :default_shipping_user,
+  #         :foreign_key => "shipping_id",
+  #         :class_name => "User"
+
 
 
 

@@ -9,12 +9,12 @@ class User < ApplicationRecord
   has_many :products, through: :order_contents
   #
   has_one :shipping_address,
-          :foreign_key => "shipping_id",
-          :class_name => "Address"
+             :foreign_key => "shipping_id",
+             :class_name => "Address"
 
   has_one :billing_address,
-          :foreign_key => "billing_id",
-          :class_name => "Address"
+             :foreign_key => "billing_id",
+             :class_name => "Address"
   #
   validates :first_name, :last_name, length: { maximum: 250 }, presence: true
   accepts_nested_attributes_for :addresses,
