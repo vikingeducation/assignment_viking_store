@@ -1,4 +1,4 @@
-=======
+============
 viking_store
 ============
 
@@ -88,4 +88,3 @@ OrderItem
 - order_id   INTEGER FK
 - product_id INTEGER FK
 - quantity   INTEGER
-
