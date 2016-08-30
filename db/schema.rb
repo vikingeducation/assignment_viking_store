@@ -16,74 +16,74 @@ ActiveRecord::Schema.define(version: 20160830004817) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.string   "line_1"
+    t.string   "line_1",      null: false
     t.string   "line_2"
-    t.integer  "zip_code_id"
-    t.integer  "user_id"
+    t.integer  "zip_code_id", null: false
+    t.integer  "user_id",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        null: false
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   create_table "cities", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "state_id"
+    t.string   "name",       null: false
+    t.integer  "state_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "countries", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "orderitems", force: :cascade do |t|
-    t.integer  "order_id"
-    t.integer  "product_id"
-    t.integer  "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "order_id",               null: false
+    t.integer  "product_id",             null: false
+    t.integer  "quantity",   default: 1, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "order_date"
-    t.integer  "user_id"
-    t.integer  "billing_id"
-    t.integer  "shipping_id"
-    t.string   "phone"
-    t.string   "credit_card"
+    t.datetime "order_date",  null: false
+    t.integer  "user_id",     null: false
+    t.integer  "billing_id",  null: false
+    t.integer  "shipping_id", null: false
+    t.string   "phone",       null: false
+    t.string   "credit_card", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "category_id"
-    t.integer  "units"
-    t.string   "sku_number"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",                    null: false
+    t.text     "description",             null: false
+    t.integer  "category_id",             null: false
+    t.integer  "units",       default: 1, null: false
+    t.string   "sku_number",              null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "states", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "country_id"
+    t.string   "name",       null: false
+    t.integer  "country_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "firstname"
-    t.string   "lastname"
-    t.string   "email"
+    t.string   "firstname",   null: false
+    t.string   "lastname",    null: false
+    t.string   "email",       null: false
     t.integer  "billing_id"
     t.integer  "shipping_id"
     t.datetime "created_at",  null: false
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20160830004817) do
   end
 
   create_table "zipcodes", force: :cascade do |t|
-    t.integer  "code"
+    t.integer  "code",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
