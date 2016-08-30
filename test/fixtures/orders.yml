@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_date: 2016-08-29 17:45:53
+  user_id: 1
+  billing_id: 1
+  shipping_id: 1
+  phone: MyString
+  credit_card: MyString
+
+two:
+  order_date: 2016-08-29 17:45:53
+  user_id: 1
+  billing_id: 1
+  shipping_id: 1
+  phone: MyString
+  credit_card: MyString
