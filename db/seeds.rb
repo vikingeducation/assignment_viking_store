@@ -15,10 +15,7 @@ Orderitem.delete_all
 Category.delete_all
 puts "Old data removed.\n\n"
 
-# increase your seed size by changing this
-# NOTE: This can make it take MUCH longer!
-# A value of 10 can take over 3 minutes
-MULTIPLIER = 5
+MULTIPLIER = 50
 
 # CREATE STATES
 STATES =
@@ -121,7 +118,7 @@ puts "Orders created.\n\n"
 #10.
 puts "Creating Orderitem..."
 Order.all.each do |order|
-  (rand(1..3) ).times do
+  2.times do
     Orderitem.create( order_id: order.id,
                       product_id: Product.pluck(:id).sample,
                       quantity: rand(3) + 1)
