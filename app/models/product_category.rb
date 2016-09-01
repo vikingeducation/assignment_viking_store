@@ -1,3 +1,3 @@
-class ProductCategory < ActiveRecord::Base
+class ProductCategory < ApplicationRecord
   has_many :products
 end
