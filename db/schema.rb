@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -28,24 +27,22 @@ ActiveRecord::Schema.define(version: 20150925005520) do
     t.integer  "residence_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["city_id"], name: "index_addresses_on_city_id", using: :btree
+    t.index ["country_id"], name: "index_addresses_on_country_id", using: :btree
+    t.index ["profile_id"], name: "index_addresses_on_profile_id", using: :btree
+    t.index ["residence_id"], name: "index_addresses_on_residence_id", using: :btree
+    t.index ["shipment_id"], name: "index_addresses_on_shipment_id", using: :btree
+    t.index ["state_id"], name: "index_addresses_on_state_id", using: :btree
+    t.index ["zip_code_id"], name: "index_addresses_on_zip_code_id", using: :btree
   end
-
-  add_index "addresses", ["city_id"], name: "index_addresses_on_city_id", using: :btree
-  add_index "addresses", ["country_id"], name: "index_addresses_on_country_id", using: :btree
-  add_index "addresses", ["profile_id"], name: "index_addresses_on_profile_id", using: :btree
-  add_index "addresses", ["residence_id"], name: "index_addresses_on_residence_id", using: :btree
-  add_index "addresses", ["shipment_id"], name: "index_addresses_on_shipment_id", using: :btree
-  add_index "addresses", ["state_id"], name: "index_addresses_on_state_id", using: :btree
-  add_index "addresses", ["zip_code_id"], name: "index_addresses_on_zip_code_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",       limit: 32
     t.integer  "state_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.index ["state_id"], name: "index_cities_on_state_id", using: :btree
   end
-
-  add_index "cities", ["state_id"], name: "index_cities_on_state_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name",         limit: 32
@@ -67,20 +64,18 @@ ActiveRecord::Schema.define(version: 20150925005520) do
     t.integer  "company_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.index ["company_id"], name: "index_credit_cards_on_company_id", using: :btree
+    t.index ["profile_id"], name: "index_credit_cards_on_profile_id", using: :btree
   end
-
-  add_index "credit_cards", ["company_id"], name: "index_credit_cards_on_company_id", using: :btree
-  add_index "credit_cards", ["profile_id"], name: "index_credit_cards_on_profile_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id", using: :btree
+    t.index ["product_id"], name: "index_order_items_on_product_id", using: :btree
   end
-
-  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
-  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.boolean  "is_paid",     default: false
@@ -88,10 +83,9 @@ ActiveRecord::Schema.define(version: 20150925005520) do
     t.integer  "shipment_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.index ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
+    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
-
-  add_index "orders", ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
-  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "product_categories", force: :cascade do |t|
     t.string   "name"
@@ -105,14 +99,13 @@ ActiveRecord::Schema.define(version: 20150925005520) do
     t.text     "description"
     t.integer  "units"
     t.string   "sku",                 limit: 32
-    t.decimal  "price",                          precision: 9, scale: 2, default: 0.0
+    t.decimal  "price",                          precision: 9, scale: 2, default: "0.0"
     t.integer  "product_category_id"
-    t.datetime "created_at",                                                           null: false
-    t.datetime "updated_at",                                                           null: false
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
+    t.index ["product_category_id"], name: "index_products_on_product_category_id", using: :btree
+    t.index ["sku"], name: "index_products_on_sku", unique: true, using: :btree
   end
-
-  add_index "products", ["product_category_id"], name: "index_products_on_product_category_id", using: :btree
-  add_index "products", ["sku"], name: "index_products_on_sku", unique: true, using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "first_name",          limit: 32
@@ -124,12 +117,11 @@ ActiveRecord::Schema.define(version: 20150925005520) do
     t.integer  "user_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.index ["billing_address_id"], name: "index_profiles_on_billing_address_id", using: :btree
+    t.index ["credit_card_id"], name: "index_profiles_on_credit_card_id", using: :btree
+    t.index ["shipping_address_id"], name: "index_profiles_on_shipping_address_id", using: :btree
+    t.index ["user_id"], name: "index_profiles_on_user_id", using: :btree
   end
-
-  add_index "profiles", ["billing_address_id"], name: "index_profiles_on_billing_address_id", using: :btree
-  add_index "profiles", ["credit_card_id"], name: "index_profiles_on_credit_card_id", using: :btree
-  add_index "profiles", ["shipping_address_id"], name: "index_profiles_on_shipping_address_id", using: :btree
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "shipments", force: :cascade do |t|
     t.datetime "departure_time"
@@ -137,9 +129,8 @@ ActiveRecord::Schema.define(version: 20150925005520) do
     t.integer  "destination_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["destination_id"], name: "index_shipments_on_destination_id", using: :btree
   end
-
-  add_index "shipments", ["destination_id"], name: "index_shipments_on_destination_id", using: :btree
 
   create_table "states", force: :cascade do |t|
     t.string   "name",         limit: 32
@@ -147,9 +138,8 @@ ActiveRecord::Schema.define(version: 20150925005520) do
     t.integer  "country_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["country_id"], name: "index_states_on_country_id", using: :btree
   end
-
-  add_index "states", ["country_id"], name: "index_states_on_country_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -163,8 +153,7 @@ ActiveRecord::Schema.define(version: 20150925005520) do
     t.integer  "state_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.index ["state_id"], name: "index_zip_codes_on_state_id", using: :btree
   end
-
-  add_index "zip_codes", ["state_id"], name: "index_zip_codes_on_state_id", using: :btree
 
 end
