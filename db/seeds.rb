@@ -5,3 +5,33 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.destroy_all
+Profile.destroy_all
+
+5.times do
+
+	first = Faker::Name.first_name
+	last = Faker::Name.last_name
+puts "Creating user #{first} #{last}"
+	Profile.create(
+
+			:first_name => first,
+			:last_name => last,
+			:phone_number => Faker::PhoneNumber.phone_number
+
+		)
+
+	User.create(
+
+			:email => Faker::Internet.free_email(first),
+			:username => Faker::Internet.user_name(last)
+
+		)
+
+puts "Created email and username for #{first} #{last}"
+
+
+
+
+
+end
