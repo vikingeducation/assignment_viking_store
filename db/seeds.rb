@@ -42,12 +42,12 @@ puts "Created email and username for #{first} #{last}"
 
 		)
 
-	Product.create!(
+	Product.create(
 
 		:title => Faker::Commerce.product_name,
 		:description => Faker::Lorem.sentences(1),
 		:sku => Faker::Number.number(25),
-		:price => Faker::Commerce.price
+		:price => Faker::Number.decimal(2)
 
 		)
 
