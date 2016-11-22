@@ -31,6 +31,15 @@ puts "Creating user #{first} #{last}"
 puts "Created email and username for #{first} #{last}"
 
 
+	Address.create(
+
+		:street => Faker::Address.street_address,
+		:city => Faker::Address.city,
+		:state => Faker::Address.state_abbr,
+		:zip_code => Faker::Address.zip
+
+		)
+
 
 
 
