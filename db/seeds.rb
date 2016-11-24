@@ -15,6 +15,7 @@ USERS = 100 * MULTIPLIER
 CITIES = 100 * MULTIPLIER
 PRODUCTS = 20 * MULTIPLIER
 ORDERS = 100 * MULTIPLIER
+CARTS = 25 * MULTIPLIER
 
 def create_date( n, max )
 
@@ -80,19 +81,36 @@ PRODUCTS.times do | n |
 end
 
 
-user = User.all
+users = User.all
 
 ORDERS.times do | n |
 
 
 	Order.create(
-		:user_id => user[n].id,
+		:user_id => users[n].id,
 		:created_at => create_date( n, ORDERS ),
 		:updated_at => create_date( n, ORDERS )
 	)
 
 
 end
+
+
+orders = Order.all
+products = Product.all
+
+CARTS.times do | n |
+
+	Cart.create(
+
+		:order_id => orders[ n ].id,
+		:product_id => products[ rand(19) ].id
+
+		)
+
+
+end
+
 
 
 
