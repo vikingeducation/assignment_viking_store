@@ -1,20 +1,29 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-User.destroy_all
-Profile.destroy_all
-Product.destroy_all
-Address.destroy_all
-Cart.destroy_all
 
-num_users = 100
-factor = 1
+#User.destroy_all
+#Profile.destroy_all
+#Product.destroy_all
+#Address.destroy_all
+#Cart.destroy_all
+#Order.destroy_all
 
-num_users do
+# reset the data
+Rake::Task["db:reset"].invoke
+
+MULTIPLIER = 1
+
+USERS = 100 * MULTIPLIER
+CITIES = 100 * MULTIPLIER
+PRODUCTS = 20 * MULTIPLIER
+ORDERS = 100 * MULTIPLIER
+
+def create_date( n, max )
+
+	(365 - (365 * Math.sqrt( n.to_f / max.to_f ))).days.ago
+
+end
+
+
+USERS.times do | n |
 
 	first = Faker::Name.first_name
 	last = Faker::Name.last_name
@@ -30,7 +39,9 @@ puts "Creating user #{first} #{last}"
 	User.create(
 
 			:email => Faker::Internet.free_email(first),
-			:username => Faker::Internet.user_name(last)
+			:username => Faker::Internet.user_name(last),
+			:created_at => create_date( n, USERS ),
+			:updated_at => create_date( n, USERS )
 
 		)
 
@@ -39,9 +50,7 @@ puts "Created email and username for #{first} #{last}"
 end
 
 
-5.times do
-
-
+CITIES.times do | n |
 
 
 	Address.create(
@@ -53,6 +62,12 @@ end
 
 		)
 
+end
+
+
+
+PRODUCTS.times do | n |
+
 	Product.create(
 
 		:title => Faker::Commerce.product_name,
@@ -62,6 +77,22 @@ end
 
 		)
 
+end
+
+
+user = User.all
+
+ORDERS.times do | n |
+
+
+	Order.create(
+		:user_id => user[n].id,
+		:created_at => create_date( n, ORDERS ),
+		:updated_at => create_date( n, ORDERS )
+	)
 
 
 end
+
+
+
