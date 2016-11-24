@@ -1,12 +1,5 @@
 
-#User.destroy_all
-#Profile.destroy_all
-#Product.destroy_all
-#Address.destroy_all
-#Cart.destroy_all
-#Order.destroy_all
-
-# reset the data
+puts "Resetting database"
 Rake::Task["db:reset"].invoke
 
 MULTIPLIER = 1
@@ -19,16 +12,17 @@ CARTS = 25 * MULTIPLIER
 
 def create_date( n, max )
 
-	(365 - (365 * Math.sqrt( n.to_f / max.to_f ))).days.ago
+	(365 - (365 * Math.sqrt( n / max ))).days.ago
 
 end
 
+puts "Creating profiles and users"
 
 USERS.times do | n |
 
 	first = Faker::Name.first_name
 	last = Faker::Name.last_name
-puts "Creating user #{first} #{last}"
+
 	Profile.create(
 
 			:first_name => first,
@@ -46,10 +40,10 @@ puts "Creating user #{first} #{last}"
 
 		)
 
-puts "Created email and username for #{first} #{last}"
 
 end
 
+puts "Creating addresses"
 
 CITIES.times do | n |
 
@@ -66,6 +60,7 @@ CITIES.times do | n |
 end
 
 
+puts "Creating products"
 
 PRODUCTS.times do | n |
 
@@ -83,6 +78,8 @@ end
 
 users = User.all
 
+puts "Creating orders"
+
 ORDERS.times do | n |
 
 
@@ -98,6 +95,8 @@ end
 
 orders = Order.all
 products = Product.all
+
+puts "Creating carts"
 
 CARTS.times do | n |
 
