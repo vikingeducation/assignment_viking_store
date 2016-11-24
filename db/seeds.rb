@@ -9,8 +9,12 @@ User.destroy_all
 Profile.destroy_all
 Product.destroy_all
 Address.destroy_all
+Cart.destroy_all
 
-5.times do
+num_users = 100
+factor = 1
+
+num_users do
 
 	first = Faker::Name.first_name
 	last = Faker::Name.last_name
@@ -31,6 +35,13 @@ puts "Creating user #{first} #{last}"
 		)
 
 puts "Created email and username for #{first} #{last}"
+
+end
+
+
+5.times do
+
+
 
 
 	Address.create(
