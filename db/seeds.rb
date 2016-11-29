@@ -149,7 +149,8 @@ def create_user(address_id, billing_id)
     phone_number: Faker::PhoneNumber.phone_number,
     credit_card: Faker::Business.credit_card_number,
     shipping_address_id: address_id,
-    billing_address_id: billing_id
+    billing_address_id: billing_id,
+    created_at: Faker::Date.between(3.years.ago, 1.year.ago)
   )
   Address.find(address_id).update_attribute(:user_id, user.id)
   Address.find(billing_id).update_attribute(:user_id, user.id)
@@ -174,7 +175,7 @@ def generate_cart(user_id)
     shipping_address_id: user.shipping_address_id, 
     billing_address_id: user.billing_address_id,
     checked_out: false,
-    created_at: Faker::Date.backward(500)
+    created_at: Faker::Date.backward(365)
     )
 
   rand(1..15).times do 
@@ -195,7 +196,9 @@ end
 puts "Order history generated, 500 orders"
 
 25.times do 
-  cart = generate_cart(user_id = Faker::Number.between(User.first.id, User.last.id))
+  id = Faker::Number.between(User.first.id, User.last.id
+  unless ShoppingCart.where(user_id: id).exists?( :checked_out = false)
+  cart = generate_cart(user_id = id)) 
 end
 
 puts "Open carts generated, 25"
