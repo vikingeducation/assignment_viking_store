@@ -87,6 +87,10 @@ User.destroy_all
 puts "Destroyed all users"
 Address.destroy_all
 puts "Destroyed all addresses"
+ShoppingCart.destroy_all
+puts "Destroyed all orders"
+ProdToCart.destroy_all
+puts "Destroyed product/cart relationship"
 
 us_states.each do |place|
   State.create!(state: place[0])
@@ -99,12 +103,18 @@ Country.create!(country: "New Zwanziand")
 puts "generated sample countries"
 
 
-10.times do
+100.times do 
+ City.create!( state_id: Faker::Number.between(State.first.id, State.last.id),
+  name: Faker::Address.city) 
+end
+puts "generated 100 cities"
+
+6.times do
   Category.create!(tag: Faker::Company.buzzword)
 end
-puts "generated 10 categories"
+puts "generated 6 categories"
 
-25.times do
+30.times do
   Product.create!(
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph(2, true),
@@ -114,14 +124,18 @@ puts "generated 10 categories"
     )
 end
 
-puts "generated 25 products"
+puts "generated 30 products"
 
-def create_address()
+def create_address(user_id = nil)
+  city = Faker::Number.between(City.first.id, City.last.id),
+
   address = Address.create!(
               street: Faker::Address.street_address,
-              city: Faker::Address.city,
-              state_id: Faker::Number.between(State.first.id, State.last.id),
-              country_id: Faker::Number.between(Country.first.id, Country.last.id)
+              city: city.id
+              state_id: city.state_id,
+              country_id: Faker::Number.between(Country.first.id, Country.last.id),
+              user_id: user_id,
+              zip: Faker::Address.zip_code
               )
   address.id
 end
@@ -131,6 +145,7 @@ def create_user(address_id, billing_id)
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     username: Faker::Internet.user_name,
+    email: Faker::Internet.email,
     phone_number: Faker::PhoneNumber.phone_number,
     credit_card: Faker::Business.credit_card_number,
     shipping_address_id: address_id,
@@ -141,6 +156,52 @@ def create_user(address_id, billing_id)
 end
 
 
-10.times do
+150.times do
   create_user(create_address, create_address)
 end
+puts "created 150 users and their addresses"
+
+60.times do 
+  address = create_address(Faker::Number.between(User.first.id, User.last.id))
+end
+puts "created 60 random addresses and assigned them to users"
+
+
+def generate_cart(user_id)
+  user = User.find(user_id)
+  cart = ShoppingCart.create!(
+    user_id: user_id,
+    shipping_address_id: user.shipping_address_id, 
+    billing_address_id: user.billing_address_id,
+    checked_out: false,
+    created_at: Faker::Date.backward(500)
+    )
+
+  rand(1..15).times do 
+    ProdToCart.create(
+      amount: Faker::Number.between(1, 10),
+      shopping_cart_id: cart.id,
+      product_id: Faker::Number.between(Product.first.id, Product.last.id)
+      )
+  end
+  cart.id
+end
+
+500.times do 
+  cart = generate_cart(user_id = Faker::Number.between(User.first.id, User.last.id))
+  ShoppingCart.find(cart).update_attribute(:checked_out, true)
+end
+
+puts "Order history generated, 500 orders"
+
+25.times do 
+  cart = generate_cart(user_id = Faker::Number.between(User.first.id, User.last.id))
+end
+
+puts "Open carts generated, 25"
+
+##todo
+
+##seed multiplier!
+##dates of orders! 
+
