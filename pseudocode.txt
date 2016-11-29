@@ -1,0 +1,58 @@
+Need to Track:
+
+Users
+  - email
+  - name
+  if complete order
+    - phone
+    - shipping address*
+    - billing address*
+    - credit card info
+
+* can save multiple addresses, but only one will be default for both shipping and billing
+
+
+Products
+  - title
+  - description
+  - price
+  - SKU #
+
+* grouped into categories which have their own descriptions. Each product is only in 1 category
+
+
+Customers add items (of various quantity) to shopping carts, saved
+
+When customer checks out, cart --> order
+
+Order can ship to any address (default to default), can bill to any address (default to default)
+
+
+Overall Platform
+
+For last 7 days and last 30 days and total to date, count...
+  - new users
+  - orders
+  - new products
+  - revenue
+
+User Demographics and Behavior
+
+  - find top 3 states users live in (attached to billing address)
+  - find top 3 cities users live in (attached to billing address)
+  - various top user stats (stat, username, quantity)
+    - highest single order value
+    - highest lifetime value
+    - highest avg order value
+    - most orders placed
+
+
+
+
+
+
+
+
+
+
+
