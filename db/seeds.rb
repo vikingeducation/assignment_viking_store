@@ -83,6 +83,10 @@ Category.destroy_all
 puts "Destroyed all categories"
 Product.destroy_all
 puts "Destroyed all products"
+User.destroy_all
+puts "Destroyed all users"
+Address.destroy_all
+puts "Destroyed all addresses"
 
 us_states.each do |place|
   State.create!(state: place[0])
@@ -95,36 +99,48 @@ Country.create!(country: "New Zwanziand")
 puts "generated sample countries"
 
 
-10.times do 
+10.times do
   Category.create!(tag: Faker::Company.buzzword)
 end
 puts "generated 10 categories"
 
-25.times do 
+25.times do
   Product.create!(
-    title: Faker::Commerce.product_name, 
-    description: Faker::Lorem.paragraph(2, true), 
-    price: Faker::Commerce.price, 
-    sku: Faker::Code.asin, 
+    title: Faker::Commerce.product_name,
+    description: Faker::Lorem.paragraph(2, true),
+    price: Faker::Commerce.price,
+    sku: Faker::Code.asin,
     category_id: Faker::Number.between(Category.first.id, Category.last.id)
     )
 end
 
 puts "generated 25 products"
 
-def create_address
-
+def create_address()
+  address = Address.create!(
+              street: Faker::Address.street_address,
+              city: Faker::Address.city,
+              state_id: Faker::Number.between(State.first.id, State.last.id),
+              country_id: Faker::Number.between(Country.first.id, Country.last.id)
+              )
+  address.id
 end
 
 def create_user(address_id, billing_id)
-
+  user = User.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    username: Faker::Internet.user_name,
+    phone_number: Faker::PhoneNumber.phone_number,
+    credit_card: Faker::Business.credit_card_number,
+    shipping_address_id: address_id,
+    billing_address_id: billing_id
+  )
+  Address.find(address_id).update_attribute(:user_id, user.id)
+  Address.find(billing_id).update_attribute(:user_id, user.id)
 end
 
 
-10.times do 
-  #generate user
-  #for each user generate 1-4 addresses
-  #associate addresses and users together
-  User.create!(
-
-    )
+10.times do
+  create_user(create_address, create_address)
+end
