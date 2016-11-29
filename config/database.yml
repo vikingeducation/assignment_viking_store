@@ -12,7 +12,7 @@ default: &default
 development:
 
   adapter: postgresql
-  database: assignment/development
+  database: assignment/viking_store/development
   host: localhost
   pool: 5                             
   timeout: 5000
@@ -22,8 +22,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: assignment/viking_store/test
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: assignment/viking_store/production
