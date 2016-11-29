@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-#generate states, generate countries
-#generate categroies (6-7)
-#generate products (8)
+#generate coutnries and states, DONE
+#generate categroies 10, DONE
+#generate products 25 DONE
 #generate user
   #for each user generate 1-4 addresses
   #associate addresses and users together
@@ -75,8 +75,48 @@ us_states = [
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
-
+State.destroy_all
+puts "Destroyed all states"
+Country.destroy_all
+puts "Destroyed all countries"
+Category.destroy_all
+puts "Destroyed all categories"
+Product.destroy_all
+puts "Destroyed all products"
 
 us_states.each do |place|
-  State.create!(state: place)
+  State.create!(state: place[0])
 end
+puts "generated us states!"
+
+Country.create!(country: "USA")
+Country.create!(country: "Canada")
+Country.create!(country: "New Zwanziand")
+puts "generated sample countries"
+
+
+10.times do 
+  Category.create!(tag: Faker::Company.buzzword)
+end
+puts "generated 10 categories"
+
+25.times do 
+  Product.create!(
+    title: Faker::Commerce.product_name, 
+    description: Faker::Lorem.paragraph(2, true), 
+    price: Faker::Commerce.price, 
+    sku: Faker::Code.asin, 
+    category_id: Faker::Number.between(Category.first.id, Category.last.id)
+    )
+end
+
+puts "generated 25 products"
+
+
+10.times do 
+  #generate user
+  #for each user generate 1-4 addresses
+  #associate addresses and users together
+  User.create!(
+    
+    )

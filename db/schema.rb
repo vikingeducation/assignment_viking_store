@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161129181209) do
+ActiveRecord::Schema.define(version: 20161129193230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,19 +25,19 @@ ActiveRecord::Schema.define(version: 20161129181209) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "category", force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "country", force: :cascade do |t|
+  create_table "countries", force: :cascade do |t|
     t.string   "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "prod_to_cart", force: :cascade do |t|
+  create_table "prod_to_carts", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "shopping_cart_id"
     t.integer  "amount"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20161129181209) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "shopping_cart", force: :cascade do |t|
+  create_table "shopping_carts", force: :cascade do |t|
     t.integer  "shipping_address_id"
     t.integer  "billing_address_id"
     t.integer  "user_id"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20161129181209) do
     t.datetime "updated_at",          null: false
   end
 
-  create_table "state", force: :cascade do |t|
+  create_table "states", force: :cascade do |t|
     t.string   "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
