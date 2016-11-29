@@ -5,23 +5,24 @@ Users
   - name (present, string)
   - phone (present, string)
 
-User:address -> one to many, need to differentiate shipping and billing? -> NOPE. Do in Orders.
 Address
-  - Foreign key (User_id)
-  - street address (present, string)
-  - city (present, string)
-  - state (present if country = US, string (two letter code))  (could possibly foreign key to prepopulated table)
-  - zip (present, integer)
-  - country (present, string(country_code?))  (could possibly foreign key to prepopulated table)
+  - id
+  - User_id             (Foreign key )
+  - street address      (present, string)
+  - city                (present, string)
+  - state               (present if country = US, string (two letter code))  (could possibly foreign key to prepopulated table)
+  - zip                 (present, integer)
+  - country             (present, string(country_code?))  (could possibly foreign key to prepopulated table)
+  - default             (bool)
 
 User:credit_card -> one to many
 CreditCard
-  - Foreign Key (user id)
   - id
-  - cc number (hash)
-  - cc exp (hash)
-  - cc csv (hash)
-
+  - user_id             (foreign key)
+  - billing_address_id  (foreign key)
+  - cc number           (hash)
+  - cc exp              (hash)
+  - cc csv              (hash)
 
 One category has many products
 
@@ -37,7 +38,6 @@ Products
   - price         (float)
   - SKU #         (set up unique index)
 
-
 One user has one cart
 Many carts have many products
 
@@ -50,27 +50,14 @@ CartsProductsJoin
   - productid     (integer)
   - quantity      (integer)
 
-
-One user has many orders
-One address (shipping) has many orders
-One address (billing) has many orders
-
 Orders
-  - id                  (integer)
-  - userid              (integer)
-  - address_shipping_id (integer)
-  - address_billing_id  (integer)
+  - id                  (primary key)
+  - userid              (foreign key)
+  - address_shipping_id (foreign key)
+  - address_billing_id  (foreign key)
 
-ProductsOrderJoin
-  - order_id            (integer)
-  - product_id          (integer)
+OrderProductsJoin
+  - order_id            (foreign key)
+  - product_id          (foreign key)
   - quantity            (integer)
   - cost                (float)
-
-When customer checks out, cart --> order
-
-Order can ship to any address (default to default), can bill to any address (default to default)
-
-
-
-

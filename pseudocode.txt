@@ -31,32 +31,34 @@ Order can ship to any address (default to default), can bill to any address (def
 Overall Platform
 
 For last 7 days and last 30 days and total to date, count...
-  - new users
-  - orders
-  - new products
-  - revenue
+  - new users     (look at users created_at)
+  - orders        (look at orders created_at)
+  - new products  (look at products created_at)
+  - revenue       (Order -> products quantity and price from
+                   OrderProductsJoin Table -> sum for all orders)
 
 User Demographics and Behavior
 
   - find top 3 states users live in (attached to billing address)
+                                        (Addresses, uniq user_id, look at default addresses)
   - find top 3 cities users live in (attached to billing address)
-  - various top user stats (stat, username, quantity)
-    - highest single order value
-    - highest lifetime value
-    - highest avg order value
-    - most orders placed
+  - various top user stats              (stat, username, quantity)
+    - highest single order value        (join users with orders, calculate price from       OrderProductsJoin, find max)
+    - highest lifetime value            (join users with orders, calculate price from       OrderProductsJoin, sum)
+    - highest avg order value           (join users with orders, calculate price from       OrderProductsJoin, sum/count(orders))
+    - most orders placed                (Orders Join users, group, count, max)
 
 Order Statistics
 
   - over last 7, 30 days and total track ...
-    - number of orders
-    - total revenue
-    - avg order value
-    - largest order value
+    - number of orders                  (count orders)
+    - total revenue                     (join orders and OrderProductJoin, do math)
+    - avg order value                   (join orders and OrderProductJoin, do math)
+    - largest order value               (join orders and OrderProductJoin, do math)
 
 Time Series Data
 
   - tables of orders by day and orders by week
-    - date
-    - quantity of orders for that date
+    - date                              (orders join OrdProdJoin, group by day/week)
+    - quantity of orders for that date  
     - value of orders for that date
