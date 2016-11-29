@@ -112,11 +112,19 @@ end
 
 puts "generated 25 products"
 
+def create_address
+
+end
+
+def create_user(address_id, billing_id)
+
+end
+
 
 10.times do 
   #generate user
   #for each user generate 1-4 addresses
   #associate addresses and users together
   User.create!(
-    
+
     )
