@@ -1,0 +1,39 @@
+Tables:
+
+Users
+  - email (present, string)
+  - name (present, string)
+  - phone (present, string)
+
+User:address -> one to many, need to differentiate shipping and billing? -> NOPE. Do in Orders.
+Address
+  - Foreign key (User_id)
+  - street address (present, string)
+  - city (present, string)
+  - state (present if country = US, string (two letter code))  (could possibly foreign key to prepopulated table)
+  - zip (present, integer)
+  - country (present, string(country_code?))  (could possibly foreign key to prepopulated table)
+
+User:credit_card -> one to many
+CreditCard
+  - Foreign Key (user id)
+  - id
+  - cc number (hash)
+  - cc exp (hash)
+  - cc csv (hash)
+  - address??? 
+
+Products
+  - title
+  - description
+  - price
+  - SKU #
+
+* grouped into categories which have their own descriptions. Each product is only in 1 category
+
+
+Customers add items (of various quantity) to shopping carts, saved
+
+When customer checks out, cart --> order
+
+Order can ship to any address (default to default), can bill to any address (default to default)

@@ -27,7 +27,7 @@ When customer checks out, cart --> order
 
 Order can ship to any address (default to default), can bill to any address (default to default)
 
-
+------------------------------------------------------------------------------------------------------
 Overall Platform
 
 For last 7 days and last 30 days and total to date, count...
@@ -46,13 +46,17 @@ User Demographics and Behavior
     - highest avg order value
     - most orders placed
 
+Order Statistics
 
+  - over last 7, 30 days and total track ...
+    - number of orders
+    - total revenue
+    - avg order value
+    - largest order value
 
+Time Series Data
 
-
-
-
-
-
-
-
+  - tables of orders by day and orders by week
+    - date
+    - quantity of orders for that date
+    - value of orders for that date
