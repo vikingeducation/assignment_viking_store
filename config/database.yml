@@ -2,5 +2,8 @@ development:
   adapter: postgresql
   database: viking_store_development   # name this whatever you want
   host: localhost
+  username: postgres
+  password: postgres
+  port: 5433
   pool: 5                             # Not required
   timeout: 5000 
