@@ -215,7 +215,7 @@ puts "Order history generated, #{(SEED_VALUE*250)} orders, each containing up to
   cart = nil
   until cart
     user_id = Faker::Number.between(User.first.id, User.last.id)
-    unless ShoppingCart.where(user_id: id).exists?( checked_out: false)
+    unless ShoppingCart.where(user_id: user_id).exists?( checked_out: false)
       cart = generate_cart(user_id: user_id)
     end
   end
