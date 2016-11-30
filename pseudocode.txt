@@ -1,0 +1,64 @@
+Need to Track:
+
+Users
+  - email
+  - name
+  if complete order
+    - phone
+    - shipping address*
+    - billing address*
+    - credit card info
+
+* can save multiple addresses, but only one will be default for both shipping and billing
+
+
+Products
+  - title
+  - description
+  - price
+  - SKU #
+
+* grouped into categories which have their own descriptions. Each product is only in 1 category
+
+
+Customers add items (of various quantity) to shopping carts, saved
+
+When customer checks out, cart --> order
+
+Order can ship to any address (default to default), can bill to any address (default to default)
+
+------------------------------------------------------------------------------------------------------
+Overall Platform
+
+For last 7 days and last 30 days and total to date, count...
+  - new users     (look at users created_at)
+  - orders        (look at orders created_at)
+  - new products  (look at products created_at)
+  - revenue       (Order -> products quantity and price from
+                   OrderProductsJoin Table -> sum for all orders)
+
+User Demographics and Behavior
+
+  - find top 3 states users live in (attached to billing address)
+                                        (Addresses, uniq user_id, look at default addresses)
+  - find top 3 cities users live in (attached to billing address)
+  - various top user stats              (stat, username, quantity)
+    - highest single order value        (join users with orders, calculate price from       OrderProductsJoin, find max)
+    - highest lifetime value            (join users with orders, calculate price from       OrderProductsJoin, sum)
+    - highest avg order value           (join users with orders, calculate price from       OrderProductsJoin, sum/count(orders))
+    - most orders placed                (Orders Join users, group, count, max)
+
+Order Statistics
+
+  - over last 7, 30 days and total track ...
+    - number of orders                  (count orders)
+    - total revenue                     (join orders and OrderProductJoin, do math)
+    - avg order value                   (join orders and OrderProductJoin, do math)
+    - largest order value               (join orders and OrderProductJoin, do math)
+
+Time Series Data
+
+  - tables of orders by day and orders by week
+    - date                              (orders join OrdProdJoin, group by day/week)
+    - quantity of orders for that date  
+    - value of orders for that date
