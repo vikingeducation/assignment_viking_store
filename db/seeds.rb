@@ -21,6 +21,10 @@
 #end loop
 
 #generate filled carts for random users, following above loop process, minus marking as complete
+
+SEED_VALUE = ENV['seed'].to_i
+SEED_VALUE = 1 if SEED_VALUE == 0
+
 us_states = [
       ['Alabama', 'AL'],
       ['Alaska', 'AK'],
@@ -103,9 +107,11 @@ Country.create!(country: "New Zwanziand")
 puts "generated sample countries"
 
 
-100.times do 
- City.create!( state_id: Faker::Number.between(State.first.id, State.last.id),
-  name: Faker::Address.city) 
+100.times do
+ City.create!(
+    state_id: Faker::Number.between(State.first.id, State.last.id),
+    name: Faker::Address.city
+    )
 end
 puts "generated 100 cities"
 
@@ -127,11 +133,12 @@ end
 puts "generated 30 products"
 
 def create_address(user_id = nil)
-  city = Faker::Number.between(City.first.id, City.last.id),
-
+  city_id = Faker::Number.between(City.first.id+10, City.last.id-10)
+  city_id = City.first.id if Faker::Number.between(1,4) == 4
+  city = City.find(city_id)
   address = Address.create!(
               street: Faker::Address.street_address,
-              city: city.id
+              city: city_id,
               state_id: city.state_id,
               country_id: Faker::Number.between(Country.first.id, Country.last.id),
               user_id: user_id,
@@ -150,35 +157,40 @@ def create_user(address_id, billing_id)
     credit_card: Faker::Business.credit_card_number,
     shipping_address_id: address_id,
     billing_address_id: billing_id,
-    created_at: Faker::Date.between(3.years.ago, 1.year.ago)
+    created_at: join_date
   )
   Address.find(address_id).update_attribute(:user_id, user.id)
   Address.find(billing_id).update_attribute(:user_id, user.id)
 end
 
+def join_date
+  join_date = Faker::Time.between(1.years.ago, Date.today)
+  join_date = Faker::Time.between(6.months.ago, Date.today) if Faker::Number.between(1,3) == 3
+  join_date = Faker::Time.between(3.months.ago, Date.today) if Faker::Number.between(1,3) == 3
+end
 
-150.times do
+(SEED_VALUE*150).times do
   create_user(create_address, create_address)
 end
-puts "created 150 users and their addresses"
+puts "created #{(SEED_VALUE*150)} users and their addresses"
 
-60.times do 
+(SEED_VALUE*60).times do
   address = create_address(Faker::Number.between(User.first.id, User.last.id))
 end
-puts "created 60 random addresses and assigned them to users"
+puts "created #{(SEED_VALUE*60)} random addresses and assigned them to users"
 
 
 def generate_cart(user_id)
   user = User.find(user_id)
   cart = ShoppingCart.create!(
     user_id: user_id,
-    shipping_address_id: user.shipping_address_id, 
+    shipping_address_id: user.shipping_address_id,
     billing_address_id: user.billing_address_id,
     checked_out: false,
-    created_at: Faker::Date.backward(365)
+    created_at: cart_date(user)
     )
 
-  rand(1..15).times do 
+  rand(1..8).times do
     ProdToCart.create(
       amount: Faker::Number.between(1, 10),
       shopping_cart_id: cart.id,
@@ -188,23 +200,28 @@ def generate_cart(user_id)
   cart.id
 end
 
-500.times do 
+def cart_date(user)
+  Faker::Time.between(user.created_at, Date.today)
+end
+
+(SEED_VALUE*250).times do
   cart = generate_cart(user_id = Faker::Number.between(User.first.id, User.last.id))
   ShoppingCart.find(cart).update_attribute(:checked_out, true)
 end
 
-puts "Order history generated, 500 orders"
-
-25.times do 
-  id = Faker::Number.between(User.first.id, User.last.id
-  unless ShoppingCart.where(user_id: id).exists?( :checked_out = false)
-  cart = generate_cart(user_id = id)) 
+puts "Order history generated, #{(SEED_VALUE*250)} orders, each containing up to 8 items!"
+  
+(SEED_VALUE*25).times do
+  cart = nil
+  until cart
+    user_id = Faker::Number.between(User.first.id, User.last.id)
+    unless ShoppingCart.where(user_id: id).exists?( checked_out: false)
+      cart = generate_cart(user_id: user_id)
+    end
+  end
+ 
 end
 
-puts "Open carts generated, 25"
+puts "Open carts generated,#{(SEED_VALUE*25)}"
 
-##todo
-
-##seed multiplier!
-##dates of orders! 
-
+# cluster join dates more to the present
