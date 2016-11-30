@@ -12,6 +12,11 @@
 
 # CREATING USERS
 
+puts "Cleaning database"
+if Rails.env == 'development'
+  Rake::Task['db:migrate:reset'].invoke
+end
+
 25.times do |i|
   User.create(name: Faker::Name.name, email: Faker::Internet.email, created_at: Faker::Time.between(DateTime.now - 365, DateTime.now - 180))
 end
