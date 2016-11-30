@@ -85,6 +85,8 @@ Country.destroy_all
 puts "Destroyed all countries"
 Category.destroy_all
 puts "Destroyed all categories"
+City.destroy_all
+puts "Destroyed all cities"
 Product.destroy_all
 puts "Destroyed all products"
 User.destroy_all
@@ -135,10 +137,11 @@ puts "generated 30 products"
 def create_address(user_id = nil)
   city_id = Faker::Number.between(City.first.id+10, City.last.id-10)
   city_id = City.first.id if Faker::Number.between(1,4) == 4
+  city_id = City.last.id if Faker::Number.between(1,4) == 4
   city = City.find(city_id)
   address = Address.create!(
               street: Faker::Address.street_address,
-              city: city_id,
+              city_id: city_id,
               state_id: city.state_id,
               country_id: Faker::Number.between(Country.first.id, Country.last.id),
               user_id: user_id,
@@ -216,12 +219,10 @@ puts "Order history generated, #{(SEED_VALUE*250)} orders, each containing up to
   until cart
     user_id = Faker::Number.between(User.first.id, User.last.id)
     unless ShoppingCart.where(user_id: user_id).exists?( checked_out: false)
-      cart = generate_cart(user_id: user_id)
+      cart = generate_cart(user_id)
     end
   end
  
 end
 
 puts "Open carts generated,#{(SEED_VALUE*25)}"
-
-# cluster join dates more to the present
