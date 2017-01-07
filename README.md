@@ -6,54 +6,56 @@ The Viking Store e-commerce application for Viking Commerce Inc
 Tingting
 
 USER
-name
-email
-phone
-credit card
+id (PRIMARY)
+first name, string 1-30 chars, req
+last name, string 1-30 chars, req
+email, string 5-50 chars, req
+phone, string 20?? chars
+credit card id (FOREIGN)
+shipping_id (FOREIGN)
+billing_id (FOREIGN)
 
-SHIPPING
-id
-user id
-street
-city 
-state
-zip
+CREDIT CARD
+user id (FOREIGN)
+number, string
+exp, string
+ccv, string
 
-BILLING
-id
-user id
-street
-city
-state
-zip
+ADDRESSES
+id (PRIMARY)
+user id (FOREIGN)
+street, string
+city id (FOREIGN)
+state id (FOREIGN)
+zip, string
 
 CITY
-city id
-name
+id (PRIMARY)
+name, string
 
 STATE
-state id
-name
+id (PRIMARY)
+name, string
 
 PRODUCT
-title
-description
-price
-sku
-category id
-
-PRODUCT ORDER JOIN TABLE
-product id
-order id
+name, string
+price, string
+sku, string
+category id (FOREIGN)
 
 CATEGORY
-id
-name
+id (PRIMARY)
+name, string
+
+PRODUCT ORDER JOIN TABLE
+id (PRIMARY)
+product id (FOREIGN)
+quantity integer
+order id (FOREIGN)
 
 ORDERS
-id
-user id
-
-CARTS
-id
-order id
+id (PRIMARY)
+billing (FOREIGN)
+shipping (FOREIGN)
+checkout, datetime
+user (FOREIGN)
