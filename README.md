@@ -1,31 +1,6 @@
-<<<<<<< HEAD
-# README
+# E-COMMERCE WEB APP - VIKING STORE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Dariusz Biskupski](https://github.com/Visiona)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-=======
-viking_store
-============
-
-The Viking Store e-commerce application for Viking Commerce Inc
->>>>>>> origin/master
+###Description
+The Web App contains the data model based on client requirements; populated database with mock user details, demographic info, historical orders etc.
