@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-MULTIPLIER = 10
+MULTIPLIER = 4
 
 puts "Starting seeds...\n\n"
 start_time = Time.now
@@ -27,16 +27,155 @@ puts "Old data removed.\n\n"
 
 puts "Creating users..."
 
-User.create
+num_users = MULTIPLIER * 25
+total_users = 0
+
+num_users.times do
+  User.create(
+    nickname: Faker::Internet.user_name,
+    email: Faker::Internet.email
+    )
+  total_users += 1
+end
+
+puts "#{total_users} users created."
 
 
 puts "Creating customers..."
-puts "Creating products..."
+total_customers = 0
+
+User.all.each do |user|
+  next if 1 < rand(0..4)
+  Customer.create(
+    user_id: user.id,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    phone_no: Faker::PhoneNumber.cell_phone,
+    credit_card: Faker::Business.credit_card_number,
+    def_shipping_address: !!!!!!!!,
+    def_billing_address: !!!!!!!!!!!
+  )
+
+  total_customers += 1
+end
+puts "#{total_customers} customers created."
+
+
 puts "Creating addresses..."
+total_addresses = 0
+
+(num_users + MULTIPLIER*2).times do |user|
+  Address.create(
+    state_id: State.pluck(:id).sample,
+    city_id: City.pluck(:id).sample,
+    street: Faker::Address.street_name,
+    home_no: Faker::Address.building_number,
+    post_code: Faker::Address.postcode
+    )
+end
+puts "#{total_addresses} addresses created."
+
+
+
+puts "Creating products..."
+total_products = 0
+num_products = MULTIPLIER * 8
+
+num_products.times do
+  Product.create(
+    title: Faker::Commerce.product_name,
+    description: Faker::Lorem.paragraphs,
+    price: rand(60..600).round(2),
+    sku_no: ('0'..'z').to_a.shuffle.first(8).join,
+    category_id: Category.pluck(:id).sample
+    )
+
+  total_products += 1
+end
+puts "#{total_products} products created."
+
+
 puts "Creating categories..."
+total_categories = 0
+
+(total_products/4).times do
+  Category.create(
+    description: Faker::Commerce.department
+  )
+  total_categories += 1
+end
+
+puts "#{total_categories} categories created."
+
+
+
+
 puts "Creating cities..."
+num_cities = MULTIPLIER * 25
+total_cities = 0
+
+num_cities.times do
+  City.create(
+    name: Faker::Address.city
+    )
+
+  total_cities += 1
+end
+
+puts "#{total_cities} cities created."
+
+
 puts "Creating states..."
+num_states = MULTIPLIER * 3
+total_states = 0
+
+num_states.times do
+  State.create(
+    name: Faker::Address.state
+    )
+
+  total_states += 1
+end
+
+puts "#{total_states} states created."
+
+
+
 puts "Creating carts..."
+num_of_carts = MULTIPLIER * 6
+total_carts = 0
+
+num_of_carts.times do
+  Cart.create(
+    customer_id: City.pluck(:id).sample
+  )
+
+  total_carts += 1
+end
+
+puts "#{total_carts} shopping carts created."
+
+
+
+puts "Creating carts_details ..."
+total_carts_details = 0
+
+Cart.all.each do |cart|
+  num_of_products = rand(1..5)
+  num_of_products.times do
+    CartDetail.create(
+      cart_id: cart.id,
+      product_id: City.pluck(:id).sample,
+      quantity: rand(1..6)
+    )
+    total_carts_details += 1
+  end
+end
+
+puts "#{total_carts_details} product entries created in all shopping carts."
+
+
+
 puts "Creating orders..."
 puts "Creating address types..."
 puts "Creating customer address references..."
