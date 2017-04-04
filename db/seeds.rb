@@ -52,8 +52,8 @@ User.all.each do |user|
     last_name: Faker::Name.last_name,
     phone_no: Faker::PhoneNumber.cell_phone,
     credit_card: Faker::Business.credit_card_number,
-    def_shipping_address: !!!!!!!!,
-    def_billing_address: !!!!!!!!!!!
+    def_shipping_address: get_address_by_cust_id(id)[0],# how to get current id
+    def_billing_address: get_address_by_cust_id(id)[1] # how to get current id
   )
 
   total_customers += 1
@@ -64,7 +64,7 @@ puts "#{total_customers} customers created."
 puts "Creating addresses..."
 total_addresses = 0
 
-(num_users + MULTIPLIER*2).times do |user|
+(num_users + MULTIPLIER*6).times do |user|
   Address.create(
     state_id: State.pluck(:id).sample,
     city_id: City.pluck(:id).sample,
@@ -72,6 +72,8 @@ total_addresses = 0
     home_no: Faker::Address.building_number,
     post_code: Faker::Address.postcode
     )
+
+  total_addresses += 1
 end
 puts "#{total_addresses} addresses created."
 
@@ -165,7 +167,7 @@ Cart.all.each do |cart|
   num_of_products.times do
     CartDetail.create(
       cart_id: cart.id,
-      product_id: City.pluck(:id).sample,
+      product_id: Product.pluck(:id).sample,
       quantity: rand(1..6)
     )
     total_carts_details += 1
@@ -177,14 +179,98 @@ puts "#{total_carts_details} product entries created in all shopping carts."
 
 
 puts "Creating orders..."
-puts "Creating address types..."
-puts "Creating customer address references..."
-puts "Creating customer address types references..."
+num_of_orders = 25 * MULTIPLIER
+total_orders = 0
 
+num_of_orders.times do
+  Order.create(
+    customer_id: , #Update also migration file
+    product_id: Product.pluck(:id).sample, # UPDATE orders migration!!!! with rolling back all
+    quantity: rand(1..6),
+    shipping_addr_id: ,
+    billing_addr_id:
+  )
+  total_orders += 1
+
+end
+puts "#{total_orders} orders created"
+
+
+puts "Creating address types..."
+
+  AddressType.create(
+    description: 'shipping'
+    )
+
+  AddressType.create(
+    description: 'billing'
+    )
+
+puts "Two address types created in a table - shipping and billing"
+
+
+puts "Creating customer address references..."
+total_addresses = Address.count
+addr_idx = 0
+
+while total_addresses >= 0
+  Customer.all.each do |cust|
+    addr_idx += 1
+    CustomerAddrRef.create(
+        customer_id: cust.id,
+        address_id: Address.find(addr_idx)
+    )
+    total_addresses -= 1
+  end
+end
+
+puts "Address Type Ref able matching customers with addresses - created."
+
+
+puts "Creating customer address types references..."
+total_addresses = Address.count
+
+CustomerAddrRef.all.each do |refs|
+  CustomerAddrTypeRefs.create(
+    customer_addr_ref_id: refs.id,
+    adress_type_id: AddressType.pluck(:id).sample
+  )
+end
+
+
+puts "Address Type Ref able matching customers with addresses - created."
 
 
 
 
 puts "\n\nDatabase is seeded now!!!"
 puts "It took #{Time.now - start_time} seconds."
+
+
+private
+
+def no_addresses_under_user
+  find_by_sql("
+    SELECT COUNT(address_id) FROM customer_addr_refs AS cust_and_addr
+    JOIN customer_addr_type_refs AS addr_and_type ON cust_and_addr.id = addr_and_type.cust_and_addr
+    GROUP BY customer_id
+    ")
+end
+
+def find_address_by_cust_id(cust_id)
+    find_by_sql("
+    SELECT address_id FROM customer_addr_refs AS cust_and_addr
+    JOIN customer_addr_type_refs AS addr_and_type ON cust_and_addr.id = addr_and_type.cust_and_addr
+    WHERE customer_id = cust_id
+    LIMIT 2
+    ")
+end
+
+def default_addresses(custid)
+  if no_addresses_under_user == 1
+    [find_address_by_cust_id(custid), find_address_by_cust_id(custid)]
+  else
+    find_address_by_cust_id(custid)
+  end
+end
 
