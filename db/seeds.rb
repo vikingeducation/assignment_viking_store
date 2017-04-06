@@ -52,8 +52,8 @@ User.all.each do |user|
     last_name: Faker::Name.last_name,
     phone_no: Faker::PhoneNumber.cell_phone,
     credit_card: Faker::Business.credit_card_number,
-    def_shipping_address: get_address_by_cust_id(id)[0],# how to get current id
-    def_billing_address: get_address_by_cust_id(id)[1] # how to get current id
+    def_shipping_address: get_address_by_cust_id(user.id)[0],
+    def_billing_address: get_address_by_cust_id(user.id)[1]
   )
 
   total_customers += 1
@@ -149,7 +149,7 @@ total_carts = 0
 
 num_of_carts.times do
   Cart.create(
-    customer_id: City.pluck(:id).sample
+    customer_id: Customer.pluck(:id).sample
   )
 
   total_carts += 1
@@ -182,17 +182,22 @@ puts "Creating orders..."
 num_of_orders = 25 * MULTIPLIER
 total_orders = 0
 
-num_of_orders.times do
-  Order.create(
-    customer_id: , #Update also migration file
-    product_id: Product.pluck(:id).sample, # UPDATE orders migration!!!! with rolling back all
-    quantity: rand(1..6),
-    shipping_addr_id: ,
-    billing_addr_id:
-  )
-  total_orders += 1
 
-end
+  Customer.all.each do |customer|
+    3.times do |x|
+      Order.create(
+        customer_id: customer.id,
+        product_id: Product.pluck(:id).sample,
+        quantity: rand(1..6),
+        shipping_addr_id: customer.def_shipping_address,
+        billing_addr_id: customer.def_billing_address
+      )
+      total_orders += 1
+    end
+    break if total_orders >= num_of_orders
+  end
+  
+
 puts "#{total_orders} orders created"
 
 
