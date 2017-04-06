@@ -12,28 +12,24 @@
 
 ActiveRecord::Schema.define(version: 20170403175127) do
 
-  create_table "address_types", force: :cascade do |t|
-    t.string   "description", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "addresses", force: :cascade do |t|
+    t.integer  "customer_id"
     t.integer  "state_id"
     t.integer  "city_id"
     t.string   "street"
     t.string   "home_no"
     t.string   "post_code"
-    t.integer  "customer_id"
-    t.integer  "address_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "address_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["customer_id"], name: "index_addresses_on_customer_id"
   end
 
   create_table "carts", force: :cascade do |t|
     t.integer  "customer_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["customer_id"], name: "index_carts_on_customer_id"
   end
 
   create_table "carts_details", force: :cascade do |t|

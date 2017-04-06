@@ -23,9 +23,8 @@ Category.delete_all
 City.delete_all
 State.delete_all
 Cart.delete_all
-CartsDetail.delete.all
-Order.delete.all
-AddressType.delete.all
+CartsDetail.delete_all
+Order.delete_all
 puts "Old data removed.\n\n"
 
 
@@ -72,19 +71,21 @@ puts "#{total_customers} customers created."
 puts "Creating addresses..."
 
 total_addresses = 0
+
 Customer.all.each do |customer|
-  rand(1..3).times do
+  n = rand(1..4)
+  n.times do
     Address.create(
       state_id: State.pluck(:id).sample,
       city_id: City.pluck(:id).sample,
       street: Faker::Address.street_name,
       home_no: Faker::Address.building_number,
       post_code: Faker::Address.postcode,
-      customer_id: Customer.find(n).id,
-      address_type_id: AddressType.pluck(:id).sample
-      )
+      customer_id: customer.id,
+      address_type: ["shipping", "billing", "default_shipping", "default_billing", "shipping_and_billing"].sample
+    )
+    total_addresses += 1
   end
-  total_addresses += 1
 end
 
 puts "#{total_addresses} addresses created."
@@ -164,9 +165,8 @@ num_of_carts = MULTIPLIER * 6
 total_carts = 0
 num_of_carts.times do
   Cart.create(
-    customer_id: Customer.pluck(:id).sample
+    customer_id: Customer.pluck(:id).sample,
   )
-
   total_carts += 1
 end
 
@@ -176,7 +176,7 @@ puts "#{total_carts} shopping carts created."
 
 puts "Creating carts_details ..."
 
-total_carts_details = 0
+total_carts_rows = 0
 Cart.all.each do |cart|
   num_of_products = rand(1..5)
   num_of_products.times do
@@ -186,33 +186,44 @@ Cart.all.each do |cart|
       quantity: rand(1..6)
     )
 
-    total_carts_details += 1
+    total_carts_rows += 1
   end
+
 end
 
-puts "#{total_carts_details} product entries created in all shopping carts."
+puts "#{total_carts_rows} product entries created in all shopping carts."
+
+# def find_cust_default_ship_address(customer)
+
+# Address.find_by_sql("
+#   SELECT address.id FROM addresses
+#   JOIN address_types ON address_types.id = address.address_type_id
+#   WHERE customer_id = customer.id
+#   AND address_types.description = \"shipping default\"
+#   ")
+
+# end
 
 def find_cust_default_ship_address(customer)
-
-find_by_sql("
-  SELECT address.id FROM addresses
-  JOIN address_types ON address_types.id = address.address_type_id
-  WHERE customer_id = customer.id
-  AND address_types.description = \"shipping default\"
-  ")
-
+  customer.addresses.find_by(address_type: 'shipping_address')
+  customer.addresses.find_by(address_type: 'shipping_and_billing')
 end
 
 def find_cust_default_bill_address(customer)
-
-find_by_sql("
-  SELECT address.id FROM addresses
-  JOIN address_types ON address_types.id = address.address_type_id
-  WHERE customer_id = customer.id
-  AND address_types.description = \"billing default\"
-  ")
-
+  customer.addresses.find_by(address_type: 'shipping_address')
+  customer.addresses.find_by(address_type: 'shipping_and_billing')
 end
+
+# def find_cust_default_bill_address(customer)
+
+# Address.find_by_sql("
+#   SELECT address.id FROM addresses
+#   JOIN address_types ON address_types.id = address.address_type_id
+#   WHERE customer_id = customer.id
+#   AND address_types.description = \"billing default\"
+#   ")
+
+# end
 
 puts "Creating orders..."
 
@@ -236,14 +247,14 @@ puts "#{total_orders} orders created"
 
 
 
-puts "Creating address types..."
+# puts "Creating address types..."
 
-  AddressType.create( description: 'shipping')
-  AddressType.create( description: 'billing' )
-  AddressType.create( description: 'billing default' )
-  AddressType.create( description: 'shipping default' )
+#   AddressType.create( description: 'shipping')
+#   AddressType.create( description: 'billing' )
+#   AddressType.create( description: 'billing default' )
+#   AddressType.create( description: 'shipping default' )
 
-puts "FOUR address types created in a table - shipping and billing"
+# puts "FOUR address types created in a table - shipping and billing"
 
 
 
