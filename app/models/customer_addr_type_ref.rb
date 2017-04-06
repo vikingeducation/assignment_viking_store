@@ -1,2 +1,0 @@
-class CustomerAddrTypeRef < ApplicationRecord
-end

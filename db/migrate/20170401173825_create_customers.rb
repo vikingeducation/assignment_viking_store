@@ -7,8 +7,6 @@ class CreateCustomers < ActiveRecord::Migration[5.0]
       t.string :last_name, null: false
       t.string :phone_no, null: false
       t.string :credit_card, null: false
-      t.integer :def_shipping_address, null: false
-      t.integer :def_billing_address, null: false
 
       t.timestamps
     end
