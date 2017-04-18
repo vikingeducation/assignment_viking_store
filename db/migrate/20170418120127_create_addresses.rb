@@ -7,7 +7,6 @@ class CreateAddresses < ActiveRecord::Migration[5.0]
       t.string :state, :null => false
       t.string :country, :null => false
       t.string :zip_code, :null => false
-      t.boolean :is_default, :null => false
 
       t.timestamps
     end
