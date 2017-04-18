@@ -17,9 +17,49 @@ def reset_database
   OrderProduct.delete_all
 end
 
+def create_credit_card
+  CreditCard.create(
+    number: Faker::Business.credit_card_number,
+    expiry_date: Faker::Business.credit_card_expiry_date,
+    flag: Faker::Business.credit_card_type
+  )
+end
+
+def create_address
+  Address.create(
+    line_1: Faker::Address.street_address,
+    line_2: Faker::Address.secondary_address,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    country: Faker::Address.country,
+    zip_code: Faker::Address.zip_code,
+  )
+end
+
+# Have at least 100 users. Stagger their join dates any time in the last year.
+# Show growth in the rate of user signups over time.
+def create_users
+  # credit card id
+  # shipping address id
+  # billing address id
+  # profile id
+  num_users = 100
+  num_users.times do
+    User.create(
+      email: Faker::Internet.email,
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      profile_id:  # TODO
+    )
+  end
+
+end
+
 # Run
 puts "Starting seeds...\n\n"
 
 puts "Removing old data..."
 reset_database
 puts "Old data removed.\n\n"
+
+create_users
