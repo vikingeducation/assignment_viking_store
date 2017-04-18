@@ -36,6 +36,14 @@ def create_address
   )
 end
 
+def create_category
+  Category.create(
+    :title => Faker::Commerce.department,
+    :description => Faker::Lorem.sentence
+  )
+end
+
+
 # Have at least 100 users. Stagger their join dates any time in the last year.
 # Show growth in the rate of user signups over time.
 def create_users
