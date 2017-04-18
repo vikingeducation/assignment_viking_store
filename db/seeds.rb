@@ -43,7 +43,6 @@ def create_category
   )
 end
 
-
 # Have at least 100 users. Stagger their join dates any time in the last year.
 # Show growth in the rate of user signups over time.
 def create_users
@@ -62,6 +61,15 @@ def create_users
   end
 
 end
+
+def create_order
+  Order.create(
+    :user_id =>,
+    :shipping_address =>,
+    :billing_address =>
+  )
+end
+
 
 # Run
 puts "Starting seeds...\n\n"
