@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: viking_store_production
-  username: viking_store
+  #username: viking_store
   password: <%= ENV['VIKING_STORE_DATABASE_PASSWORD'] %>

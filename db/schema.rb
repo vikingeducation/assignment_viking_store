@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418133651) do
+ActiveRecord::Schema.define(version: 20170501133826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,17 +41,9 @@ ActiveRecord::Schema.define(version: 20170418133651) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "order_products", force: :cascade do |t|
-    t.integer  "order_id",   null: false
-    t.integer  "product_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",          null: false
-    t.integer  "shipping_address", null: false
-    t.integer  "billing_address",  null: false
+    t.integer  "product_id",       null: false
+    t.integer  "shopping_cart_id", null: false
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
@@ -67,6 +59,7 @@ ActiveRecord::Schema.define(version: 20170418133651) do
   end
 
   create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
     t.string   "phone_number"
     t.integer  "credit_card_info"
     t.integer  "shipping_address"
@@ -75,9 +68,18 @@ ActiveRecord::Schema.define(version: 20170418133651) do
     t.datetime "updated_at",       null: false
   end
 
-  create_table "user_profiles", force: :cascade do |t|
+  create_table "shopping_carts", force: :cascade do |t|
+    t.integer  "user_id",          null: false
+    t.boolean  "checked_out",      null: false
+    t.integer  "shipping_address"
+    t.integer  "billing_address"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "user_addresses", force: :cascade do |t|
     t.integer  "user_id",    null: false
-    t.integer  "profile_id", null: false
+    t.integer  "address_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
