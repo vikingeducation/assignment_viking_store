@@ -39,8 +39,10 @@ def create_users
 end
 
 def create_credit_cards
+  usr_ids = User.all.map{ |usr| usr.id }
   100.times do
     CreditCard.create(
+      user_id: usr_ids.pop,
       number: Faker::Business.credit_card_number,
       expiry_date: Faker::Business.credit_card_expiry_date,
       flag: Faker::Business.credit_card_type
