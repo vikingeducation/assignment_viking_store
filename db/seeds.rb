@@ -19,7 +19,6 @@ def reset_database
   Profile.delete_all
   CreditCard.delete_all
   Address.delete_all
-  UserAddress.delete_all
   Product.delete_all
   Category.delete_all
   ShoppingCart.delete_all
@@ -53,6 +52,7 @@ def create_addresses
   address_qty = 100 * rand(1..5)
   address_qty.times do
     Address.create(
+      user_id: User.pluck(:id).sample,
       line_1: Faker::Address.street_address,
       line_2: Faker::Address.secondary_address,
       city: Faker::Address.city,
@@ -61,19 +61,12 @@ def create_addresses
       zip_code: Faker::Address.zip_code,
     )
   end
-
-  Address.all.each do |address|
-    UserAddress.create(
-      user_id: User.pluck(:id).sample,
-      address_id: address.id
-    )
-  end
 end
 
 def create_profiles
   cc = CreditCard.all.to_a
   User.all.each do |usr|
-    addresses = UserAddress.where(:user_id => usr.id)
+    addresses = Address.where(:user_id => usr.id)
     address_id = addresses.blank? ? nil : addresses.first.id
     Profile.create(
     user_id: usr.id,
