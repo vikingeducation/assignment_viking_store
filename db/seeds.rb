@@ -73,7 +73,6 @@ def create_profiles
     Profile.create(
     user_id: usr.id,
     phone_number: Faker::PhoneNumber.phone_number,
-    credit_card_info: cc.pop.id,
     shipping_address: address_id,
     billing_address: address_id
     )

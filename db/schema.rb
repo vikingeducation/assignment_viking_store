@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20170505112551) do
   create_table "products", force: :cascade do |t|
     t.string   "title",       null: false
     t.text     "description", null: false
-    t.float    "decimal",     null: false
+    t.decimal  "price",       null: false
     t.string   "sku_number"
     t.integer  "category_id", null: false
     t.datetime "created_at",  null: false
@@ -78,13 +78,6 @@ ActiveRecord::Schema.define(version: 20170505112551) do
     t.integer  "billing_address"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-  end
-
-  create_table "user_addresses", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "address_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
