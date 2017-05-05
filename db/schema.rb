@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501133826) do
+ActiveRecord::Schema.define(version: 20170505112551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
+    t.string   "user_id",    null: false
     t.string   "line_1",     null: false
     t.string   "line_2"
     t.string   "city",       null: false
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(version: 20170501133826) do
   end
 
   create_table "credit_cards", force: :cascade do |t|
+    t.integer  "user_id",     null: false
     t.integer  "number",      null: false
     t.datetime "expiry_date", null: false
     t.string   "flag",        null: false
@@ -41,17 +43,28 @@ ActiveRecord::Schema.define(version: 20170501133826) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "order_contents", force: :cascade do |t|
+    t.integer  "order_id",               null: false
+    t.integer  "product_id",             null: false
+    t.integer  "quantity",   default: 1, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "orders", force: :cascade do |t|
-    t.integer  "product_id",       null: false
-    t.integer  "shopping_cart_id", null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "checkout_date"
+    t.integer  "user_id",        null: false
+    t.integer  "shipping_id"
+    t.integer  "billing_id"
+    t.integer  "credit_card_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "products", force: :cascade do |t|
     t.string   "title",       null: false
     t.text     "description", null: false
-    t.float    "price",       null: false
+    t.float    "decimal",     null: false
     t.string   "sku_number"
     t.integer  "category_id", null: false
     t.datetime "created_at",  null: false
@@ -61,16 +74,6 @@ ActiveRecord::Schema.define(version: 20170501133826) do
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "phone_number"
-    t.integer  "credit_card_info"
-    t.integer  "shipping_address"
-    t.integer  "billing_address"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  create_table "shopping_carts", force: :cascade do |t|
-    t.integer  "user_id",          null: false
-    t.boolean  "checked_out",      null: false
     t.integer  "shipping_address"
     t.integer  "billing_address"
     t.datetime "created_at",       null: false

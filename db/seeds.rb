@@ -21,8 +21,8 @@ def reset_database
   Address.delete_all
   Product.delete_all
   Category.delete_all
-  ShoppingCart.delete_all
   Order.delete_all
+  OrderContent.delete_all
 end
 
 def create_users
@@ -103,25 +103,23 @@ def create_products
   end
 end
 
-def create_shopping_carts
+def create_orders
   25.times do
     usr = User.pluck(:id).sample
-    ShoppingCart.create(
+    Order.create(
+      :checkout_date => random_date,
       :user_id => usr,
-      :checked_out => [true, false].sample,
-      :shipping_address => Profile.find_by(:user_id => usr).shipping_address,
-      :billing_address => Profile.find_by(:user_id => usr).billing_address,
+      :shipping_id => Profile.find_by(:user_id => usr).shipping_address,
+      :billing_id => Profile.find_by(:user_id => usr).billing_address
     )
   end
-end
 
-def create_orders
-  creation_date = random_date
   100.times do
-    Order.create(
-      product_id: Product.pluck(:id).sample,
-      shopping_cart_id: ShoppingCart.pluck(:id).sample,
-      created_at: creation_date
+    OrderContent.create(
+      :order_id => Order.pluck(:id).sample,
+      :product_id => Product.pluck(:id).sample,
+      :quantity => rand(1..5),
+      :created_at => random_date
     )
   end
 end
@@ -152,7 +150,6 @@ puts "Creating products..."
 create_products
 # populate at least 25 active shopping carts
 puts "Creating shopping carts..."
-create_shopping_carts
 # populate a historical record of at least 100 orders staggered
 # throughout the past year. Show growth in the rate of orders over time.
 puts "Creating orders..."

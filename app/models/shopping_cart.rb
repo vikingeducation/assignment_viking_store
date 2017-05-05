@@ -1,2 +1,0 @@
-class ShoppingCart < ApplicationRecord
-end
