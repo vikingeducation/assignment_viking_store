@@ -1,6 +1,6 @@
-class CreateOrderItems < ActiveRecord::Migration[5.0]
+class CreateOrderItem < ActiveRecord::Migration[5.0]
   def change
-    drop_table :order_items do |t|
+    create_table :order_items do |t|
       t.integer :order_id
       t.integer :product_id
       t.integer :quantity

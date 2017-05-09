@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503212155) do
+ActiveRecord::Schema.define(version: 20170504221114) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street"
     t.string   "city"
-    t.string   "state"
-    t.string   "zip"
+    t.string   "state",      limit: 2
+    t.string   "zip",        limit: 5
     t.string   "default"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "user_id"
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
@@ -62,12 +62,11 @@ ActiveRecord::Schema.define(version: 20170503212155) do
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
-    t.string   "middle_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
