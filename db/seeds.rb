@@ -1,3 +1,7 @@
+# seeds.rb
+
+# NEEDS IMPROVING
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -34,8 +38,13 @@ end
 # Most cities are not associted with addresses
 CITIES_WITH_ADDRESSES = CITIES[1..20]
 
+# We need from 5 states and upwards according to multiplier (max 50)
+STATES = []
+(MULTIPLIER/2)*5.times do
+  CITIES << city: Faker::Address.city
+end
 
-
+# We need 10 categories
 
 
 MULTIPLIER * 25.times do
@@ -47,24 +56,32 @@ MULTIPLIER * 25.times do
 
   # create 1 - 5 address per user
   address_count = (rand(5) + 1)
-  address_count.times do
-    Address.create(street: Faker::Address.street_address, city: CITIES_WITH_ADDRESSES.sample, state: Faker::Address.state, zip: Faker::Address.zip, user_id: u.id)   
-  end
-  # determine default addresses
-  default_shipping = address_count.sample + 1 # this will be its id
-  default_billing = address_count.sample + 1 # this will be its id
-        # No! The address id's will increment beyond 5 as more are created ... think again
+  # determine default shipping and billing ids
+  shipping_default_id = (address_count.sample) + 1 # this will be its id
+  billing_default_id = (address_count.sample + 1) # this will be its id
+  u = User.create(shipping_default_id: shipping_default_id, billing_default_id: billing_default_id)
 
-  if default_shipping == default_billing
-    Address.where(id = default_shipping).create(default: "both")
-  else
-    Address.where(id = default_shipping).create(default: "shipping")
-    Address.where(id = default_billing).create(default: "billing")
+  # create addresses for this user
+  address_count.times do
+    Address.create(street: Faker::Address.street_address, city: CITIES_WITH_ADDRESSES.sample, state: STATES.sample, zip: Faker::Address.zip, user_id: u.id)   
   end
 
 end
 
-  Product.create(title: Faker::Superhero.name, description: Faker::Superhero.descriptor, price: Faker::Commerce.price, sku: Faker::Code.isbn)
+
+
+CATEGORIES = ["spear", "axe", "bow", "arrow", "knife", "sax", "sword", "shield", "mailcoat", "helmet"]
+
+# We need 30 products. Create from concatenation of category + "long/medium/short" (10 * 3 = 30)
+
+PRODUCT_NAMES = []
+CATEGORIES.each do |cat|
+  PRODUCT_NAMES << cat + "-small"
+  PRODUCT_NAMES << cat + "-medium"
+  PRODUCT_NAMES << cat + "-large"
+end
+
+  Product.create(title: PRODUCT_NAMES.sample, description: Faker::Superhero.descriptor, price: Faker::Commerce.price, sku: Faker::Code.isbn)
 
   Category.create(name: Faker::Cat.registry, description: Faker::Cat.breed)
 

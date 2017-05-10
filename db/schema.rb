@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504221114) do
+ActiveRecord::Schema.define(version: 20170510162415) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street"
     t.string   "city"
     t.string   "state",      limit: 2
     t.string   "zip",        limit: 5
-    t.string   "default"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "user_id"
@@ -65,8 +64,10 @@ ActiveRecord::Schema.define(version: 20170504221114) do
     t.string   "last_name"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "shipping_default_id"
+    t.integer  "billing_default_id"
   end
 
 end
