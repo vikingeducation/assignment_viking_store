@@ -5,6 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.destroy_all
+Ship_add.destroy_all
+Bill_add.destroy_all
+Product.destroy_all
+Category.destroy_all
+Order.destroy_all
+Cart.destroy_all
+Order_status.destroy_all
+
 100.times do
   User.create(
     email: Faker::Internet.unique.email,
