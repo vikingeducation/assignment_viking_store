@@ -23,8 +23,8 @@ Things you may want to cover:
 
 * ...
 
-##Viking Store
+## Viking Store
 
-####Chad Lucas
+#### Chad Lucas
 
 [github](https://github/chadl76)
