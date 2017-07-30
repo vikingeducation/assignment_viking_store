@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+# require 'faker'
+
+# Faker::Name.unique.clear # Clears used values for Faker::Name
+# Faker::UniqueGenerator.clear # Clears used values for all generators
+
+
+# Faker::Config.random = Random.new(42) - create grouping of data from the same place
+# Faker::Name.unique.name

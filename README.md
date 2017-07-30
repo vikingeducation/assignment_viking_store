@@ -5,7 +5,6 @@ Viking Store
 
 
 The Viking Store e-commerce application for Viking Commerce Inc
-From the [Viking Code School](http://vikingcodeschool.com)
-
+from the [Viking Code School](http://vikingcodeschool.com)
 
 
