@@ -126,6 +126,8 @@ def create_orders
       o.user_id = User.pluck(:id).sample
       o.default_shipping_addr_id = Address.pluck(:id).sample
       o.default_billing_addr_id = Address.pluck(:id).sample
+      # o.total_cost will be populated based on model logic 
+   
       o.save!
   end
 end
