@@ -1,0 +1,75 @@
+
+User (use faker.name)
+-id : number (PK)
+-firstname : string
+-lastname : string
+-email : string
+-phone_num (use fake.phone_number ) : string
+-default_billing_addr_id : number
+-default_shipping_addr_id :number
+
+One user can have many billing addresses
+One user can have many shipping addresses
+
+Address (user faker.address)
+-id : number (PK)
+-user_id : number
+-Building_number : string
+-Street name : string
+-state_id : number
+- city_id : number
+-Zip : string
+-address_type : string (b)illing or (s)hipping
+-default_flag: number
+
+Not required --if one address type used
+ShippingAddress
+-id : number (PK)
+-user_id : number
+-Building_number : number
+-Street name : string
+-state_id : number
+- city_id : number
+-Zip : string
+-default_shipping_flag : number
+
+States
+-id : number
+-name : string
+
+City
+-id : number
+-name : string
+
+Product (use Faker.Commerce)
+-id : number
+-title : string
+-description : text
+-price : number
+-sku : string
+-category_id : number
+
+Each product is only grouped into a single category
+
+Category
+- id : number
+- name : string
+- description : text
+
+
+- A user can buy mutiple producsts
+
+Shopping_cart
+-user_id : number
+-Product_id : number
+-Quantity : number
+-Total : number
+
+
+A shipping order only has one billing and shiping address
+Shipping_order
+-id : number
+-user_id : number
+-default_shipping_addr_id : number
+-default_billing_addr_id : number
+-total_cost :number

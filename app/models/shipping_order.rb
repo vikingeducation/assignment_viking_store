@@ -1,0 +1,2 @@
+class ShippingOrder < ApplicationRecord
+end
