@@ -21,7 +21,7 @@ ShoppingCart.destroy_all
 Category.destroy_all
 ShippingOrder.destroy_all
 
-SEED_MULTIPLIER = 1
+SEED_MULTIPLIER = 2
 
 # Create grouping of data from the same place
 Faker::Config.random = Random.new(42)
@@ -36,12 +36,26 @@ def create_users
       u.email = Faker::Internet.email
       u.phone_num = Faker::PhoneNumber.phone_number
       u.credit_card = Faker::Business.credit_card_number
-     
-      u.default_billing_addr_id = Address.pluck(:id).sample
-      u.default_shipping_addr_id = Address.pluck(:id).sample
+      u.save!  
+      u.default_billing_addr_id = user_address(u)
+      u.default_shipping_addr_id = user_address(u)
    
       u.save!
   end
+end
+
+def user_address(user)
+  a = Address.new
+  a.user_id = user.id
+  a.building_number = Faker::Address.building_number
+  a.street_name = Faker::Address.street_name
+  a.state_id = State.pluck(:id).sample
+  a.city_id = City.pluck(:id).sample
+  a.zip = Faker::Address.zip_code
+  a.address_type = ["B", "S"].sample
+  a.default_flag = [1, 0].sample
+
+  a.save!
 end
 
 def create_cities
@@ -64,21 +78,22 @@ def create_states
   end
 end
 
-def create_addresses
-  records = SEED_MULTIPLIER * 50
-  records.times do |i|
-    a = Address.new
-      a.building_number = Faker::Address.building_number
-      a.street_name = Faker::Address.street_name
-      a.state_id = State.pluck(:id).sample
-      a.city_id = City.pluck(:id).sample
-      a.zip = Faker::Address.zip_code
-      a.address_type = ["B", "S"].sample
-      a.default_flag = [1, 0].sample
+# def create_addresses
+#   # records = SEED_MULTIPLIER * 50
+#   # records.times do |i|
+#     a = Address.new
+#       a.user_id = User.pluck(:id).sample
+#       a.building_number = Faker::Address.building_number
+#       a.street_name = Faker::Address.street_name
+#       a.state_id = State.pluck(:id).sample
+#       a.city_id = City.pluck(:id).sample
+#       a.zip = Faker::Address.zip_code
+#       a.address_type = ["B", "S"].sample
+#       a.default_flag = [1, 0].sample
    
-      a.save!
-  end
-end
+#       a.save!
+#   # end
+# end
 
 def create_categories
   records = SEED_MULTIPLIER * 3
@@ -112,7 +127,6 @@ def create_shopping_carts
       sc.user_id = User.pluck(:id).sample
       sc.product_id = Product.pluck(:id).sample
       sc.quantity = rand(1..25) 
-      sc.total = 
    
       sc.save!
   end
@@ -134,7 +148,7 @@ end
 
 create_states
 create_cities
-create_addresses
+# create_addresses
 create_users
 create_categories
 create_products
