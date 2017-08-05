@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
-	belongs_to :order
-	has_one :sku, primary_key: :sku
+	has_many :order_contents
+	has_many :orders, through: :order_contents
+
+	belongs_to :category
 end

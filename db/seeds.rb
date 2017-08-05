@@ -15,4 +15,5 @@ BillingAddress.destroy_all
 create_user
 create_orders
 create_products
-#create_address(BillingAddress)
+create_address(ShippingAddress)
+create_address(BillingAddress)

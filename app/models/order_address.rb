@@ -1,2 +1,0 @@
-class OrderAddress < ApplicationRecord
-end

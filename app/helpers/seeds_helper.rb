@@ -1,5 +1,7 @@
 module SeedsHelper
-	attr_accessor :user
+
+MULTIPLIER = 1
+
 	def test
 		puts "hello"
 	end
@@ -18,7 +20,7 @@ module SeedsHelper
 
 
 	def create_user
-		100.times do
+		(100 * MULTIPLIER).times do
 	     	user = User.create(
 			  first_name: Faker::Name.first_name,
 			  last_name: Faker::Name.last_name,
@@ -27,7 +29,7 @@ module SeedsHelper
 	end
 
 	def create_products
-		20.times do
+		(20 * MULTIPLIER).times do
 		  product = Product.create(
 		    title: Faker::Commerce.unique.product_name,
 		    description: Faker::Lorem.sentence,
@@ -38,7 +40,7 @@ module SeedsHelper
 	end
 
 	def create_address(address)
-		100.times do
+		 (100 * MULTIPLIER).times do 
 		  address = address.create(
 			line1: Faker::Address.street_address,
 			line2: Faker::Address.street_name,

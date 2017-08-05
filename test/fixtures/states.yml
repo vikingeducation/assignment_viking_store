@@ -1,9 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  quantity: 1
-  total: 1
+  name: MyString
 
 two:
-  quantity: 1
-  total: 1
+  name: MyString

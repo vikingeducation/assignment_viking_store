@@ -1,4 +1,4 @@
-# Thisa  file is auto-generated from the current state of the database. Instead
+# This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
@@ -10,94 +10,88 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804020914) do
+ActiveRecord::Schema.define(version: 20170805000808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "billing_addresses", force: :cascade do |t|
+  create_table "addresses", force: :cascade do |t|
     t.string   "line1"
     t.string   "line2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
+    t.integer  "city_id"
+    t.integer  "state_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "order_addresses", force: :cascade do |t|
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "billing_addresses_id"
-    t.integer  "shipping_addresses_id"
-    t.index ["billing_addresses_id"], name: "index_order_addresses_on_billing_addresses_id", using: :btree
-    t.index ["shipping_addresses_id"], name: "index_order_addresses_on_shipping_addresses_id", using: :btree
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "nickname"
+    t.integer  "card_number"
+    t.integer  "exp_month"
+    t.integer  "epx_year"
+    t.string   "brand"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "order_contents", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "poduct_categories", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "product_categories", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "products_id"
-    t.index ["products_id"], name: "index_product_categories_on_products_id", using: :btree
+    t.boolean  "checked_out"
+    t.datetime "checkout_date"
+    t.integer  "user_id"
+    t.integer  "billing_id"
+    t.integer  "shipping_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "credit_card_id"
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
+    t.integer  "sku"
     t.text     "description"
-    t.integer  "price"
-    t.integer  "sku_number"
+    t.decimal  "price"
+    t.integer  "category_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "shipping_addresses", force: :cascade do |t|
-    t.string   "line1"
-    t.string   "line2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
+  create_table "states", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "shopping_carts", force: :cascade do |t|
-    t.integer  "quantity"
-    t.integer  "total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "skus", force: :cascade do |t|
-    t.integer  "number"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "products_id"
-    t.index ["products_id"], name: "index_skus_on_products_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "billing_id"
+    t.integer  "shipping_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_foreign_key "order_addresses", "billing_addresses", column: "billing_addresses_id"
-  add_foreign_key "order_addresses", "shipping_addresses", column: "shipping_addresses_id"
-  add_foreign_key "product_categories", "products", column: "products_id"
-  add_foreign_key "skus", "products", column: "products_id"
 end

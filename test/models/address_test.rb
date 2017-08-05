@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProductCategoryTest < ActiveSupport::TestCase
+class AddressTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

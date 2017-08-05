@@ -1,7 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  status: MyString
+  checked_out: false
+  checkout_date: 2017-08-04 18:59:57
+  user_id: 1
+  billing_id: 1
+  shipping_id: 1
 
 two:
-  status: MyString
+  checked_out: false
+  checkout_date: 2017-08-04 18:59:57
+  user_id: 1
+  billing_id: 1
+  shipping_id: 1

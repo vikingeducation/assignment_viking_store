@@ -4,8 +4,12 @@ one:
   first_name: MyString
   last_name: MyString
   email: MyString
+  billing_id: 1
+  shipping_id: 1
 
 two:
   first_name: MyString
   last_name: MyString
   email: MyString
+  billing_id: 1
+  shipping_id: 1
