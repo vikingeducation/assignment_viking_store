@@ -14,7 +14,7 @@ CreditCard
   - user_id (foreign key, required)
 
 Address
-  - address (String, required)
+  - street_address (String, required)
   - city (foreign key, required)
   - state (foreign key, required)
   - country (foreign key, required)
