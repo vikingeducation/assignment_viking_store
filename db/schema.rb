@@ -10,12 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814015451) do
+ActiveRecord::Schema.define(version: 20170814020307) do
 
   create_table "address_types", force: :cascade do |t|
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street_address"
+    t.integer "city_id"
+    t.integer "state_id"
+    t.integer "country_id"
+    t.string "zipcode"
+    t.string "phone_number"
+    t.integer "address_type_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_type_id"], name: "index_addresses_on_address_type_id"
+    t.index ["city_id"], name: "index_addresses_on_city_id"
+    t.index ["country_id"], name: "index_addresses_on_country_id"
+    t.index ["state_id"], name: "index_addresses_on_state_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "cities", force: :cascade do |t|
