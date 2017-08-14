@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shipping_date: 2017-08-14
+  fulfilled: false
+  user: one
+
+two:
+  shipping_date: 2017-08-14
+  fulfilled: false
+  user: two
