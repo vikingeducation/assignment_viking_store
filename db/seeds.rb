@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 def delete_all_data_in_db
+  CreditCard.delete_all
   User.delete_all
   Address.delete_all
   Order.delete_all
@@ -60,12 +61,9 @@ def test
   order = Order.new(shipping_date: Time.now, fulfilled: false, user_id: user.id, shipping_address_id: shipping_address.id, billing_address_id: billing_address.id)
   puts "Order created" if order.save
 
-  # begin
-  #   order.save!
-  # rescue Exception => e
-  #   puts e.message
-  #   puts e.backtrace.inspect
-  # end
+  # create CreditCard
+  credit_card = CreditCard.new(card_number: "1234567812345678", expiry_date: "2018-12-31", user_id: user.id)
+  puts "CreditCard created" if credit_card.save
 end
 
 
