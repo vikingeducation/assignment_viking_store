@@ -6,6 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# wrapper methods to allow us to swap out
+# the Faker gem in the future, if required
+
+def random_state
+  Faker::Address.state
+end
+
+def random_city
+  Faker::Address.city
+end
+
+########################################
+
 def delete_all_data_in_db
   ShoppingCartProduct.delete_all
   OrderProduct.delete_all
@@ -23,6 +36,7 @@ def delete_all_data_in_db
   Country.delete_all
 end
 
+# test method to generate an instance of each Model
 def test
   # delete all data in DB
   delete_all_data_in_db
@@ -91,4 +105,62 @@ def test
   puts "OrderProduct created" if order_product.save
 end
 
-test
+########################################
+
+# create the Country model object
+# we're assuming that we only have one Country, the USA
+def create_country
+  country = Country.new(name: "United States of America")
+  if country.save
+    puts "The Country: #{country.name} was created."
+  else
+    puts "Error creating Country model instance."
+  end
+end
+
+# create 5 to 10 random State objects
+# unaffected by seed multipler
+def create_states
+  country_id = Country.first.id
+  num_states = rand(5..10)
+
+  num_states.times do
+    state = State.new(name: random_state, country_id: country_id)
+
+    if state.save
+      puts "The State: #{state.name} was created."
+    else
+      puts "Error creating State model instance."
+    end
+  end
+end
+
+# create at least 100 random City objects
+# affected by seed multiplier
+def create_cities(seed_multiplier = 1)
+  state_ids = State.all.map { |state| state.id }
+
+  # # determine a random number of Cities to create, with some variance
+  num_cities = ((100 + rand(0..10)) * seed_multiplier).ceil
+
+  num_cities.times do
+    city = City.new(name: random_city, state_id: state_ids.sample)
+
+    if city.save
+      puts "The City: #{city.name} with state_id: #{city.state_id} was created."
+    else
+      puts "Error creating City model instance."
+    end
+  end
+end
+
+# seeds the database with test data
+def seed_database
+  delete_all_data_in_db
+
+  create_country
+  create_states
+  create_cities
+end
+
+seed_database
