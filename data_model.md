@@ -58,7 +58,7 @@ ShoppingCartProduct
   - shopping_cart_id (foreign key, required)
 
 Order
-  - shipping_date (Datetime, required)
+  - shipping_date (Date, required)
   - fulfilled (Boolean, required, default: false)
   - user_id (foreign key, required)
   - shipping_address_id (foreign key, required)
