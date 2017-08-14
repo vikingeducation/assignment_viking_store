@@ -16,6 +16,8 @@ def delete_all_data_in_db
   City.delete_all
   State.delete_all
   Country.delete_all
+
+  ProductCategory.delete_all
 end
 
 def test
@@ -64,6 +66,10 @@ def test
   # create CreditCard
   credit_card = CreditCard.new(card_number: "1234567812345678", expiry_date: "2018-12-31", user_id: user.id)
   puts "CreditCard created" if credit_card.save
+
+  # create ProductCategory
+  product_category = ProductCategory.new(name: "Outdoor and Sport", description: "Outdoor and sporting goods.")
+  puts "ProductCategory created" if product_category.save
 end
 
 
