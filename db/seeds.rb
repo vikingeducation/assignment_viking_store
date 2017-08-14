@@ -8,20 +8,19 @@
 
 def delete_all_data_in_db
   ShoppingCartProduct.delete_all
+  OrderProduct.delete_all
   ShoppingCart.delete_all
-  CreditCard.delete_all
+  Order.delete_all
+  Product.delete_all
+  ProductCategory.delete_all
 
+  CreditCard.delete_all
   User.delete_all
   Address.delete_all
-  Order.delete_all
-
   AddressType.delete_all
   City.delete_all
   State.delete_all
   Country.delete_all
-
-  Product.delete_all
-  ProductCategory.delete_all
 end
 
 def test
@@ -86,7 +85,10 @@ def test
   # Create a ShoppingCartProduct
   shopping_cart_product = ShoppingCartProduct.new(product_id: product.id, shopping_cart_id: shopping_cart.id, quantity: 1)
   puts "ShoppingCartProduct created" if shopping_cart_product.save
-end
 
+  # Create an OrderProduct
+  order_product = OrderProduct.new(product_id: product.id, order_id: order.id, quantity: 2)
+  puts "OrderProduct created" if order_product.save
+end
 
 test
