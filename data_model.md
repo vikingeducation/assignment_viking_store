@@ -38,7 +38,7 @@ Country
   - name (String, required)
 
 Product
-  - title (String, required)
+  - name (String, required)
   - description (String, required)
   - price (Number, required, positive number)
   - sku (String, required, unique)
@@ -46,7 +46,7 @@ Product
   - product_category_id (foreign key, required)
 
 ProductCategory
-  - title (String, required)
+  - name (String, required)
   - description (String, required)
 
 ShoppingCart
