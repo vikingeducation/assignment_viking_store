@@ -154,6 +154,23 @@ def create_cities(seed_multiplier = 1)
   end
 end
 
+# creates 2 AddressType model instances: "Billing" and "Shipping"
+def create_address_types
+  billing = AddressType.new(address_type: "Billing")
+  if billing.save
+    puts "The AddressType: #{billing.address_type} was created."
+  else
+    puts "Error creating Billing AddressType."
+  end
+
+  shipping = AddressType.new(address_type: "Shipping")
+  if shipping.save
+    puts "The AddressType: #{shipping.address_type} was created."
+  else
+    puts "Error creating Shipping AddressType."
+  end
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -161,6 +178,8 @@ def seed_database
   create_country
   create_states
   create_cities
+
+  create_address_types
 end
 
 seed_database
