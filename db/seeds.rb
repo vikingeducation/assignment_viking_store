@@ -17,6 +17,7 @@ def delete_all_data_in_db
   State.delete_all
   Country.delete_all
 
+  Product.delete_all
   ProductCategory.delete_all
 end
 
@@ -70,6 +71,10 @@ def test
   # create ProductCategory
   product_category = ProductCategory.new(name: "Outdoor and Sport", description: "Outdoor and sporting goods.")
   puts "ProductCategory created" if product_category.save
+
+  # create Product
+  product = Product.new(name: "Backpack", description: "A nifty all-weather backpack", sku: "OUTBAC123", price: 10000, stock: 100, product_category_id: product_category.id)
+  puts "Product created" if product.save
 end
 
 
