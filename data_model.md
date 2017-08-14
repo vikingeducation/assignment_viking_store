@@ -10,7 +10,7 @@ User
 
 CreditCard
   - card_number (String, required, unique, 16 digits)
-  - expiry_date (String, required)
+  - expiry_date (Time, required)
   - user_id (foreign key, required)
 
 Address
@@ -18,7 +18,7 @@ Address
   - city (foreign key, required)
   - state (foreign key, required)
   - country (foreign key, required)
-  - postal_code (String, required)
+  - zipcode (String, required)
   - phone_number (String, required)
   - address_type_id (foreign key, required)
   - user_id (foreign key, required)
