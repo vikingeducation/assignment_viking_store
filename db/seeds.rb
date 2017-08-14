@@ -17,6 +17,31 @@ def random_city
   Faker::Address.city
 end
 
+def random_first_name
+  Faker::Name.first_name
+end
+
+def random_last_name
+  Faker::Name.last_name
+end
+
+def random_email_address(first_name)
+  email_type = rand(0..2)
+
+  case email_type
+  when 0
+    Faker::Internet.email(first_name)
+  when 1
+    Faker::Internet.free_email(first_name)
+  when 2
+    Faker::Internet.safe_email(first_name)
+  end
+end
+
+def random_password(min_length = 12, max_length = 16)
+  Faker::Internet.password(min_length, max_length)
+end
+
 ########################################
 
 def delete_all_data_in_db
@@ -171,6 +196,26 @@ def create_address_types
   end
 end
 
+# creates a single User model instance
+def create_user
+  first_name = random_first_name
+
+  user = User.new(
+    first_name: first_name,
+    last_name: random_first_name,
+    password: random_password,
+    email_address: random_email_address(first_name)
+  )
+
+  if user.save
+    puts "The User: #{user.first_name} #{user.last_name} was created."
+  else
+    puts "Error creating User model instance."
+  end
+
+  user
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -180,6 +225,8 @@ def seed_database
   create_cities
 
   create_address_types
+
+  create_user
 end
 
 seed_database
