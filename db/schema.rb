@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814035424) do
+ActiveRecord::Schema.define(version: 20170814055603) do
 
   create_table "address_types", force: :cascade do |t|
     t.string "type"
@@ -56,6 +56,10 @@ ActiveRecord::Schema.define(version: 20170814035424) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "billing_address_id"
+    t.integer "shipping_address_id"
+    t.index ["billing_address_id"], name: "index_orders_on_billing_address_id"
+    t.index ["shipping_address_id"], name: "index_orders_on_shipping_address_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
