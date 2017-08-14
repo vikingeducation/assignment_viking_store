@@ -10,7 +10,7 @@ User
 
 CreditCard
   - card_number (String, required, unique, 16 digits)
-  - expiry_date (Time, required)
+  - expiry_date (Date, required)
   - user_id (foreign key, required)
 
 Address
