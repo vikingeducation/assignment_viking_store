@@ -7,7 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 def delete_all_data_in_db
+  ShoppingCart.delete_all
   CreditCard.delete_all
+
   User.delete_all
   Address.delete_all
   Order.delete_all
@@ -75,6 +77,10 @@ def test
   # create Product
   product = Product.new(name: "Backpack", description: "A nifty all-weather backpack", sku: "OUTBAC123", price: 10000, stock: 100, product_category_id: product_category.id)
   puts "Product created" if product.save
+
+  # Create ShoppingCart
+  shopping_cart = ShoppingCart.new(user_id: user.id)
+  puts "ShoppingCart created" if shopping_cart.save
 end
 
 
