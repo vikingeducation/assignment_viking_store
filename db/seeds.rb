@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
+########################################
+
 # wrapper methods to allow us to swap out
 # the Faker gem in the future, if required
 
@@ -30,16 +33,34 @@ def random_email_address(first_name)
 
   case email_type
   when 0
-    Faker::Internet.email(first_name)
+    Faker::Internet.unique.email(first_name)
   when 1
-    Faker::Internet.free_email(first_name)
+    Faker::Internet.unique.free_email(first_name)
   when 2
-    Faker::Internet.safe_email(first_name)
+    Faker::Internet.unique.safe_email(first_name)
   end
 end
 
 def random_password(min_length = 12, max_length = 16)
   Faker::Internet.password(min_length, max_length)
+end
+
+def random_street_address
+  coin_flip = rand(0..1)
+
+  if coin_flip == 0
+    Faker::Address.street_address
+  else
+    "#{Faker::Address.street_address} #{Faker::Address.secondary_address}"
+  end
+end
+
+def random_zipcode
+  Faker::Address.zip_code
+end
+
+def random_phone_number
+  Faker::PhoneNumber.phone_number
 end
 
 ########################################
@@ -196,6 +217,42 @@ def create_address_types
   end
 end
 
+# gets ids of all instances of the Model that are
+# already persisted to the DB.
+def get_ids(model)
+  model.all.map { |instance| instance.id }
+end
+
+# returns an Array of intervals length, where each element is
+# the number of Model instances that we want to create over time.
+# Each element is >= the element before it, to simulate an
+# increase over time.
+def instances_over_time(initial = 5, intervals = 12, min_increment = 0, max_increment = 2, multiplier = 1)
+  instances = []
+  current_num = initial
+
+  instances.push(current_num)
+  (intervals - 1).times do
+    increment = (rand(min_increment..max_increment) * multiplier).ceil
+    current_num += increment
+    instances.push(current_num)
+  end
+
+  instances
+end
+
+# generates a date months_ago months ago (with some variance
+# in days / hours / minutes / seconds), to allow us to simulate
+# Users signing up and Orders being placed in the past
+def generate_past_date(months_ago)
+  days_variance = rand(-7..7)
+  hours_variance = rand(0..12)
+  minutes_variance = rand(0..60)
+  seconds_variance = rand(0..60)
+
+  Time.now - months_ago.months + days_variance.days + hours_variance.hours + minutes_variance.minutes + seconds_variance.seconds
+end
+
 # creates a single User model instance
 def create_user
   first_name = random_first_name
@@ -216,6 +273,119 @@ def create_user
   user
 end
 
+# modifies the User's created_at attribute to a date
+# in the past to simulate him signing up then
+def modify_signup_date(user, months_ago)
+  user.created_at = generate_past_date(months_ago)
+
+  if user.save
+    puts "Modified User with id: #{user.id}, created_at date is now: #{user.created_at}."
+  else
+    puts "Error modifying User created_at date."
+  end
+
+  user
+end
+
+# creates a random number of User model instances.
+# each User's created_at date is adjusted to give
+# the impression of more Users joining over time.
+def create_users
+  num_users_per_month = instances_over_time
+  months_ago = 12
+
+  num_users_per_month.each do |user_count|
+    user_count.times do
+      user = create_user
+      modify_signup_date(user, months_ago)
+    end
+
+    puts "Created #{user_count} Users."
+    months_ago -= 1
+  end
+end
+
+# creates a single Address for a User.
+def create_address(user, city_id, state_id, country_id, address_type_id)
+  address = Address.new(
+    street_address: random_street_address,
+    city_id: city_id,
+    state_id: state_id,
+    country_id: country_id,
+    zipcode: random_zipcode,
+    phone_number: random_phone_number,
+    address_type_id: address_type_id,
+    user_id: user.id
+  )
+
+  if address.save
+    puts "The Address with id: #{address.id} was created for User with id: #{user.id}."
+  else
+    puts "Error creating Address model instance."
+  end
+end
+
+# creates 0 to 5 Addresses per User.
+def create_addresses(users)
+  country_ids = get_ids(Country)
+  state_ids = get_ids(State)
+  city_ids = get_ids(City)
+  address_type_ids = get_ids(AddressType)
+
+  users.each do |user|
+    num_addresses = rand(0..5)
+
+    num_addresses.times do
+      create_address(
+        user,
+        city_ids.sample,
+        state_ids.sample,
+        country_ids.sample,
+        address_type_ids.sample
+      )
+    end
+  end
+end
+
+# Returns the id of the appropriate AddressType model object.
+def get_address_type_id(address_type)
+  AddressType.find_by(address_type: address_type).id
+end
+
+# sets the User's default Address for each AddressType ("Billing" or "Shipping"), if at least one exists
+def set_default_address(user, address_type)
+  address = Address.find_by(user_id: user.id, address_type_id: get_address_type_id(address_type))
+
+  unless address.nil?
+    case address_type
+    when "Billing"
+      user.default_billing_address_id = address.id
+
+      if user.save
+        puts "User with id: #{user.id}'s default billing address set to Address with id: #{address.id}"
+      else
+        puts "Error when setting User with id: #{user.id}'s default billing address."
+      end
+    when "Shipping"
+      user.default_shipping_address_id = address.id
+
+      if user.save
+        puts "User with id: #{user.id}'s default shipping address set to Address with id: #{address.id}"
+      else
+        puts "Error when setting User with id: #{user.id}'s default shipping address."
+      end
+    end
+  end
+end
+
+# sets default billing and shipping Addresses for all Users
+def set_default_addresses(users)
+  users.each do |user|
+    set_default_address(user, "Billing")
+    set_default_address(user, "Shipping")
+  end
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -225,8 +395,11 @@ def seed_database
   create_cities
 
   create_address_types
+  create_users
 
-  create_user
+  users = User.all
+  create_addresses(users)
+  set_default_addresses(users)
 end
 
 seed_database
