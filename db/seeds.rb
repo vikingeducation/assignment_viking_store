@@ -79,6 +79,27 @@ def random_product_category_description
   Faker::Lorem.sentence
 end
 
+def random_product_name
+  "#{Faker::Commerce.product_name}, #{Faker::Commerce.color}"
+end
+
+def random_product_description
+  Faker::Lorem.sentence
+end
+
+def random_product_sku(name)
+  "#{name[0..2].upcase}#{Faker::Number.number(4)}"
+end
+
+# generates a random Product price in cents.
+def random_product_price(min_price = 100, max_price = 10000)
+  Faker::Number.between(min_price, max_price)
+end
+
+def random_product_stock(min_stock = 1, max_stock = 1000)
+  Faker::Number.between(min_stock, max_stock)
+end
+
 ########################################
 
 def delete_all_data_in_db
@@ -443,6 +464,36 @@ def create_product_categories(num_categories = 6)
   end
 end
 
+# creates a single Product tied to a ProductCategory.
+def create_product(product_category_id)
+  product_name = random_product_name
+
+  product = Product.new(
+    name: product_name,
+    description: random_product_description,
+    sku: random_product_sku(product_name),
+    price: random_product_price,
+    stock: random_product_stock,
+    product_category_id: product_category_id
+  )
+
+  if product.save
+    puts "Product: #{product.name} created."
+  else
+    puts "Error creating Product."
+  end
+end
+
+# creates a random number of Product model instances.
+def create_products(min = 10, max = 30)
+  num_products = rand(min..max)
+  product_category_ids = get_ids(ProductCategory)
+
+  num_products.times do
+    create_product(product_category_ids.sample)
+  end
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -461,6 +512,7 @@ def seed_database
   create_credit_cards
 
   create_product_categories
+  create_products
 end
 
 seed_database
