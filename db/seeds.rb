@@ -428,6 +428,84 @@ def create_products(min = 10, max = 30)
   end
 end
 
+# creates an initial Order object for a single User.
+def create_order(user)
+  order = Order.new(
+    user_id: user.id,
+    billing_address_id: user.default_billing_address_id,
+    shipping_address_id: user.default_shipping_address_id
+  )
+
+  if order.save
+    puts "Order id: #{order.id} created."
+  else
+    puts "Error creating Order."
+  end
+
+  order
+end
+
+# modifies the created_at attribute of a particular Order,
+# to simulate that Order being placed in the past.
+def modify_placed_date(order, months_ago)
+  order.created_at = generate_past_date(months_ago)
+
+  if order.save
+    puts "Order id: #{order.id}'s created_at date modified to: #{order.created_at}"
+  else
+    puts "Error modifying Order created_at date."
+  end
+end
+
+# modifies the shipping_date of a particular Order, sets it
+# from 1 to 7 days ahead of its created_at date.
+def modify_shipping_date(order)
+  order.shipping_date = order.created_at + rand(1..7).days
+
+  if order.save
+    puts "Order id: #{order.id}'s shipping date modified to: #{order.shipping_date}"
+  else
+    puts "Error modifying Order shipping_date."
+  end
+end
+
+# checks whether an Order was shipped before the current time,
+# and if so, sets the Order as fulfilled.
+def set_fulfilled(order)
+  if order.shipping_date < Time.now
+    order.fulfilled = true
+  end
+
+  if order.save
+    puts "Order id: #{order.id} set as fulfilled."
+  else
+    puts "Error modifying Order fulfilled attribute."
+  end
+end
+
+# creates Orders for Users with both billing and shipping Addresses.
+# Orders are created in increasing quantities over time, for random Users.
+def create_orders
+  users_with_both_addresses = User.all.select { |user| !user.default_billing_address_id.nil? && !user.default_shipping_address_id.nil? }
+
+  num_orders_per_month = instances_over_time
+  months_ago = 12
+
+  num_orders_per_month.each do |order_count|
+    order_count.times do
+      user = users_with_both_addresses.sample
+
+      order = create_order(user)
+      modify_placed_date(order, months_ago)
+      modify_shipping_date(order)
+      set_fulfilled(order)
+    end
+
+    puts "Created #{order_count} Orders."
+    months_ago -= 1
+  end
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -447,6 +525,7 @@ def seed_database
 
   create_product_categories
   create_products
+  create_orders
 end
 
 seed_database
