@@ -6,6 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+########################################
+
+# Constants
+
+SEED_MULTIPLIER = 1
+
 
 ########################################
 
@@ -72,7 +78,7 @@ def random_credit_card_expiry_date
 end
 
 def random_product_category_name
-  Faker::Commerce.department
+  Faker::Commerce.unique.department
 end
 
 def random_product_category_description
@@ -102,6 +108,14 @@ end
 
 def random_quantity(min_qty = 1, max_qty = 100)
   Faker::Number.between(min_qty, max_qty)
+end
+
+def reset_unique_values
+  Faker::UniqueGenerator.clear
+end
+
+def chuck_norris
+  Faker::ChuckNorris.fact
 end
 
 ########################################
@@ -136,13 +150,14 @@ end
 # the number of Model instances that we want to create over time.
 # Each element is >= the element before it, to simulate an
 # increase over time.
-def instances_over_time(initial = 5, intervals = 12, min_increment = 0, max_increment = 2, multiplier = 1)
+# affected by seed_multiplier
+def instances_over_time(initial = 5, intervals = 12, min_increment = 0, max_increment = 2, seed_multiplier = SEED_MULTIPLIER)
   instances = []
   current_num = initial
 
   instances.push(current_num)
   (intervals - 1).times do
-    increment = (rand(min_increment..max_increment) * multiplier).ceil
+    increment = (rand(min_increment..max_increment) * seed_multiplier).ceil
     current_num += increment
     instances.push(current_num)
   end
@@ -166,6 +181,7 @@ end
 
 # create the Country model object
 # we're assuming that we only have one Country, the USA
+# unaffected by seed multiplier
 def create_country
   country = Country.new(name: "United States of America")
   if country.save
@@ -194,7 +210,7 @@ end
 
 # create at least 100 random City objects
 # affected by seed multiplier
-def create_cities(seed_multiplier = 1)
+def create_cities(seed_multiplier = SEED_MULTIPLIER)
   state_ids = State.all.map { |state| state.id }
 
   # # determine a random number of Cities to create, with some variance
@@ -212,6 +228,7 @@ def create_cities(seed_multiplier = 1)
 end
 
 # creates 2 AddressType model instances: "Billing" and "Shipping"
+# unaffected by seed multiplier
 def create_address_types
   billing = AddressType.new(address_type: "Billing")
   if billing.save
@@ -265,6 +282,7 @@ end
 # creates a random number of User model instances.
 # each User's created_at date is adjusted to give
 # the impression of more Users joining over time.
+# affected by seed multiplier
 def create_users
   num_users_per_month = instances_over_time
   months_ago = 12
@@ -301,14 +319,15 @@ def create_address(user, city_id, state_id, country_id, address_type_id)
 end
 
 # creates 0 to 5 Addresses per User.
-def create_addresses(users)
+# affected by seed multiplier
+def create_addresses(users, seed_multiplier = SEED_MULTIPLIER)
   country_ids = get_ids(Country)
   state_ids = get_ids(State)
   city_ids = get_ids(City)
   address_type_ids = get_ids(AddressType)
 
   users.each do |user|
-    num_addresses = rand(0..5)
+    num_addresses = (rand(0..5) * seed_multiplier).floor
 
     num_addresses.times do
       create_address(
@@ -379,16 +398,22 @@ def create_credit_card(user)
 end
 
 # creates a random CreditCard model object, for all
-# Users that have a default billing Address
-def create_credit_cards
+# Users that have a default billing Address.
+# affected by seed multiplier
+def create_credit_cards(seed_multiplier = SEED_MULTIPLIER)
   users_with_billing_addresses = User.all.select { |user| !user.default_billing_address_id.nil? }
 
-  users_with_billing_addresses.each { |user| create_credit_card(user) }
+  users_with_billing_addresses.each do |user|
+    seed_multiplier.ceil.times do
+      create_credit_card(user)
+    end
+  end
 end
 
 # creates a number of ProductCategory model instances.
-def create_product_categories(num_categories = 6)
-  num_categories.times do
+# affected by seed multiplier
+def create_product_categories(num_categories = 6, seed_multiplier = SEED_MULTIPLIER)
+  (num_categories * seed_multiplier).ceil.times do
     product_category = ProductCategory.new(
       name: random_product_category_name,
       description: random_product_category_description
@@ -423,8 +448,9 @@ def create_product(product_category_id)
 end
 
 # creates a random number of Product model instances.
-def create_products(min = 10, max = 30)
-  num_products = rand(min..max)
+# affected by seed multiplier
+def create_products(min = 10, max = 30, seed_multiplier = SEED_MULTIPLIER)
+  num_products = (rand(min..max) * seed_multiplier).ceil
   product_category_ids = get_ids(ProductCategory)
 
   num_products.times do
@@ -489,6 +515,7 @@ end
 
 # creates Orders for Users with both billing and shipping Addresses.
 # Orders are created in increasing quantities over time, for random Users.
+# affected by seed multiplier
 def create_orders
   users_with_both_addresses = User.all.select { |user| !user.default_billing_address_id.nil? && !user.default_shipping_address_id.nil? }
 
@@ -511,14 +538,15 @@ def create_orders
 end
 
 # creates a number of OrderProducts - Products in each Order tied to a User.
-def create_order_products(min_products_in_order = 1, max_products_in_order = 20)
+# affected by seed multiplier
+def create_order_products(min_products_in_order = 1, max_products_in_order = 20, seed_multiplier = SEED_MULTIPLIER)
   order_ids = get_ids(Order)
   product_ids = get_ids(Product)
 
   order_ids.each do |order_id|
     order = Order.find(order_id)
 
-    rand(min_products_in_order..max_products_in_order).times do
+    (rand(min_products_in_order..max_products_in_order) * seed_multiplier).ceil.times do
       order_product = OrderProduct.new(
         order_id: order_id,
         product_id: product_ids.sample,
@@ -536,6 +564,7 @@ def create_order_products(min_products_in_order = 1, max_products_in_order = 20)
 end
 
 # creates ShoppingCarts for at least 25 Users
+# unaffected by seed multiplier
 def create_active_shopping_carts(min_users = 25)
   user_count = User.count
 
@@ -560,12 +589,13 @@ def create_active_shopping_carts(min_users = 25)
 end
 
 # populates active ShoppingCarts with Products
-def create_shopping_cart_products(min_products_in_cart = 1, max_products_in_cart = 20)
+# affected by seed multiplier
+def create_shopping_cart_products(min_products_in_cart = 1, max_products_in_cart = 20, seed_multiplier = SEED_MULTIPLIER)
   shopping_cart_ids = get_ids(ShoppingCart)
   product_ids = get_ids(Product)
 
   shopping_cart_ids.each do |shopping_cart_id|
-    rand(min_products_in_cart..max_products_in_cart).times do
+    (rand(min_products_in_cart..max_products_in_cart) * seed_multiplier).ceil.times do
       shopping_cart_product = ShoppingCartProduct.new(
         shopping_cart_id: shopping_cart_id,
         product_id: product_ids.sample,
@@ -584,6 +614,7 @@ end
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
+  reset_unique_values
 
   create_country
   create_states
@@ -603,7 +634,11 @@ def seed_database
   create_orders
   create_order_products
   create_active_shopping_carts
-  create_shopping_cart_products 
+  create_shopping_cart_products
+
+  puts
+  puts "All done."
+  puts chuck_norris
 end
 
 seed_database
