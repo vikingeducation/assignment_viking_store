@@ -535,6 +535,52 @@ def create_order_products(min_products_in_order = 1, max_products_in_order = 20)
   end
 end
 
+# creates ShoppingCarts for at least 25 Users
+def create_active_shopping_carts(min_users = 25)
+  user_count = User.count
+
+  if user_count <= min_users
+    users = User.all
+  else
+    users = User.all.shuffle[0..rand(25..user_count - 1)]
+  end
+
+  users.each do |user|
+    shopping_cart = ShoppingCart.new(
+      user_id: user.id,
+      created_at: user.created_at
+    )
+
+    if shopping_cart.save
+      puts "ShoppingCart created for User id: #{user.id}"
+    else
+      puts "Error creating ShoppingCart for User id: #{user.id}"
+    end
+  end
+end
+
+# populates active ShoppingCarts with Products
+def create_shopping_cart_products(min_products_in_cart = 1, max_products_in_cart = 20)
+  shopping_cart_ids = get_ids(ShoppingCart)
+  product_ids = get_ids(Product)
+
+  shopping_cart_ids.each do |shopping_cart_id|
+    rand(min_products_in_cart..max_products_in_cart).times do
+      shopping_cart_product = ShoppingCartProduct.new(
+        shopping_cart_id: shopping_cart_id,
+        product_id: product_ids.sample,
+        quantity: random_quantity
+      )
+
+      if shopping_cart_product.save
+        puts "ShoppingCartProduct with ShoppingCart id: #{shopping_cart_product.shopping_cart_id}, Product id: #{shopping_cart_product.product_id} created."
+      else
+        puts "Error creating ShoppingCartProduct."
+      end
+    end
+  end
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -556,6 +602,8 @@ def seed_database
   create_products
   create_orders
   create_order_products
+  create_active_shopping_carts
+  create_shopping_cart_products 
 end
 
 seed_database
