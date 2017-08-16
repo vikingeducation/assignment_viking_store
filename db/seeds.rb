@@ -102,6 +102,9 @@ end
 
 ########################################
 
+# Helper methods
+
+# deletes all data in the database
 def delete_all_data_in_db
   ShoppingCartProduct.delete_all
   OrderProduct.delete_all
@@ -117,6 +120,42 @@ def delete_all_data_in_db
   City.delete_all
   State.delete_all
   Country.delete_all
+end
+
+# gets ids of all instances of the Model that are
+# already persisted to the DB.
+def get_ids(model)
+  model.all.map { |instance| instance.id }
+end
+
+# returns an Array of intervals length, where each element is
+# the number of Model instances that we want to create over time.
+# Each element is >= the element before it, to simulate an
+# increase over time.
+def instances_over_time(initial = 5, intervals = 12, min_increment = 0, max_increment = 2, multiplier = 1)
+  instances = []
+  current_num = initial
+
+  instances.push(current_num)
+  (intervals - 1).times do
+    increment = (rand(min_increment..max_increment) * multiplier).ceil
+    current_num += increment
+    instances.push(current_num)
+  end
+
+  instances
+end
+
+# generates a date months_ago months ago (with some variance
+# in days / hours / minutes / seconds), to allow us to simulate
+# Users signing up and Orders being placed in the past
+def generate_past_date(months_ago)
+  days_variance = rand(-7..7)
+  hours_variance = rand(0..12)
+  minutes_variance = rand(0..60)
+  seconds_variance = rand(0..60)
+
+  Time.now - months_ago.months + days_variance.days + hours_variance.hours + minutes_variance.minutes + seconds_variance.seconds
 end
 
 ########################################
@@ -183,42 +222,6 @@ def create_address_types
   else
     puts "Error creating Shipping AddressType."
   end
-end
-
-# gets ids of all instances of the Model that are
-# already persisted to the DB.
-def get_ids(model)
-  model.all.map { |instance| instance.id }
-end
-
-# returns an Array of intervals length, where each element is
-# the number of Model instances that we want to create over time.
-# Each element is >= the element before it, to simulate an
-# increase over time.
-def instances_over_time(initial = 5, intervals = 12, min_increment = 0, max_increment = 2, multiplier = 1)
-  instances = []
-  current_num = initial
-
-  instances.push(current_num)
-  (intervals - 1).times do
-    increment = (rand(min_increment..max_increment) * multiplier).ceil
-    current_num += increment
-    instances.push(current_num)
-  end
-
-  instances
-end
-
-# generates a date months_ago months ago (with some variance
-# in days / hours / minutes / seconds), to allow us to simulate
-# Users signing up and Orders being placed in the past
-def generate_past_date(months_ago)
-  days_variance = rand(-7..7)
-  hours_variance = rand(0..12)
-  minutes_variance = rand(0..60)
-  seconds_variance = rand(0..60)
-
-  Time.now - months_ago.months + days_variance.days + hours_variance.hours + minutes_variance.minutes + seconds_variance.seconds
 end
 
 # creates a single User model instance
