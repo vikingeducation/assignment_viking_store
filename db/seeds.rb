@@ -100,6 +100,10 @@ def random_product_stock(min_stock = 1, max_stock = 1000)
   Faker::Number.between(min_stock, max_stock)
 end
 
+def random_quantity(min_qty = 1, max_qty = 100)
+  Faker::Number.between(min_qty, max_qty)
+end
+
 ########################################
 
 # Helper methods
@@ -506,6 +510,31 @@ def create_orders
   end
 end
 
+# creates a number of OrderProducts - Products in each Order tied to a User.
+def create_order_products(min_products_in_order = 1, max_products_in_order = 20)
+  order_ids = get_ids(Order)
+  product_ids = get_ids(Product)
+
+  order_ids.each do |order_id|
+    order = Order.find(order_id)
+
+    rand(min_products_in_order..max_products_in_order).times do
+      order_product = OrderProduct.new(
+        order_id: order_id,
+        product_id: product_ids.sample,
+        quantity: random_quantity,
+        created_at: order.created_at
+      )
+
+      if order_product.save
+        puts "OrderProduct for Order id: #{order_product.order_id}, Product id: #{order_product.product_id} created."
+      else
+        puts "Error creating OrderProduct."
+      end
+    end
+  end
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -526,6 +555,7 @@ def seed_database
   create_product_categories
   create_products
   create_orders
+  create_order_products
 end
 
 seed_database
