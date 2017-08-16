@@ -71,6 +71,14 @@ def random_credit_card_expiry_date
   Faker::Business.credit_card_expiry_date
 end
 
+def random_product_category_name
+  Faker::Commerce.department
+end
+
+def random_product_category_description
+  Faker::Lorem.sentence
+end
+
 ########################################
 
 def delete_all_data_in_db
@@ -419,6 +427,22 @@ def create_credit_cards
   users_with_billing_addresses.each { |user| create_credit_card(user) }
 end
 
+# creates a number of ProductCategory model instances.
+def create_product_categories(num_categories = 6)
+  num_categories.times do
+    product_category = ProductCategory.new(
+      name: random_product_category_name,
+      description: random_product_category_description
+    )
+
+    if product_category.save
+      puts "ProductCategory: #{product_category.name} created."
+    else
+      puts "Error creating ProductCategory."
+    end
+  end
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -435,6 +459,8 @@ def seed_database
   set_default_addresses(users)
 
   create_credit_cards
+
+  create_product_categories
 end
 
 seed_database
