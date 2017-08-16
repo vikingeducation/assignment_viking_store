@@ -63,6 +63,14 @@ def random_phone_number
   Faker::PhoneNumber.phone_number
 end
 
+def random_credit_card_number
+  Faker::Business.credit_card_number
+end
+
+def random_credit_card_expiry_date
+  Faker::Business.credit_card_expiry_date
+end
+
 ########################################
 
 def delete_all_data_in_db
@@ -386,6 +394,31 @@ def set_default_addresses(users)
   end
 end
 
+# creates a Credit Card model instance for a single User.
+def create_credit_card(user)
+  credit_card = CreditCard.new(
+    card_number: random_credit_card_number,
+    expiry_date: random_credit_card_expiry_date,
+    user_id: user.id
+  )
+
+  if credit_card.save
+    puts "CreditCard created for User with id: #{credit_card.user_id}."
+  else
+    puts "Error creating CreditCard for User with id: #{user.id}."
+  end
+
+  credit_card
+end
+
+# creates a random CreditCard model object, for all
+# Users that have a default billing Address
+def create_credit_cards
+  users_with_billing_addresses = User.all.select { |user| !user.default_billing_address_id.nil? }
+
+  users_with_billing_addresses.each { |user| create_credit_card(user) }
+end
+
 # seeds the database with test data
 def seed_database
   delete_all_data_in_db
@@ -400,6 +433,8 @@ def seed_database
   users = User.all
   create_addresses(users)
   set_default_addresses(users)
+
+  create_credit_cards
 end
 
 seed_database
