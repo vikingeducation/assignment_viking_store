@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :phone_number
 
       t.timestamps
+      t.datetime :deleted_at, default: nil
     end
   end
 end

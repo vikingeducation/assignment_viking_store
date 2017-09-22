@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20170922142637) do
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
   add_foreign_key "carts", "users"
