@@ -41,8 +41,12 @@ RSpec.describe User, type: :model do
 
   it 'can have a cart' do
     user = User.create user_attributes
-    expect(user.cart).to be_nil
     user.create_cart
     expect(user.cart.id).not_to be_nil
+  end
+
+  it 'can have a credit card' do
+    user = User.create user_attributes
+    user.credit_cards.create number: '123', expiration: '123'
   end
 end

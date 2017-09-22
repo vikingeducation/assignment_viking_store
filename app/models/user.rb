@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_one :cart
+  has_many :credit_cards
 
   validates :first_name, presence: true
   validates :last_name, presence: true
