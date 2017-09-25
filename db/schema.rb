@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170922175949) do
   create_table "credit_cards", force: :cascade do |t|
     t.string "number", null: false
     t.datetime "expiration", null: false
-    t.string "cvs"
+    t.string "cvv"
     t.bigint "user_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
