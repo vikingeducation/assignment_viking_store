@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170922175949) do
+ActiveRecord::Schema.define(version: 20170926152518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street_1", null: false
+    t.string "street_2"
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "post_code", null: false
+    t.string "plus_4"
+    t.string "country"
+    t.string "province"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "addr_type", default: 0, null: false
+    t.index ["addr_type"], name: "index_addresses_on_addr_type"
+  end
 
   create_table "carts", force: :cascade do |t|
     t.bigint "user_id"
@@ -31,6 +47,15 @@ ActiveRecord::Schema.define(version: 20170922175949) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_credit_cards_on_user_id"
+  end
+
+  create_table "user_addresses", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "address_id"
+    t.boolean "default_address", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "address_id"], name: "index_user_addresses_on_user_id_and_address_id"
   end
 
   create_table "users", force: :cascade do |t|

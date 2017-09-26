@@ -40,13 +40,30 @@ RSpec.describe User, type: :model do
   end
 
   it 'can have a cart' do
-    user = User.create user_attributes
-    user.create_cart
-    expect(user.cart.id).not_to be_nil
+    user = User.new user_attributes
+    user.build_cart
+    expect(user.cart).to be_valid
   end
 
   it 'can have a credit card' do
-    user = User.create user_attributes
-    user.credit_cards.create number: '123', expiration: '123'
+    user = User.new user_attributes
+    user.credit_cards.build number: '123', expiration: '123'
+    expect(user.credit_cards.first).to be_valid
+  end
+
+  describe 'addresses' do
+    let(:user) { User.new user_attributes }
+
+    it 'can have a shipping address' do
+      user.addresses.build
+      expect(user.addresses.first.shipping?).to be true
+    end
+
+    it 'has a default shipping address' do
+      user.save
+      address = Address.create street_1: '123', city: 'Denver', state: 'CO', post_code: '80202'
+      user.user_addresses.create address_id: address.id, default_address: true
+      expect(user.shipping_address).to eq address
+    end
   end
 end

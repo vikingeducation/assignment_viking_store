@@ -10,9 +10,9 @@ RSpec.describe CreditCard, type: :model do
   end
 
   it 'is valid without a cvs' do
-    card = CreditCard.new cvs: nil
+    card = CreditCard.new cvv: nil
     card.valid?
-    expect(card.errors[:cvs]).not_to include "can't be blank"
+    expect(card.errors[:cvv]).not_to include "can't be blank"
   end
 
   it 'is invalid without a user' do
