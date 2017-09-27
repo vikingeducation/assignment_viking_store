@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927154343) do
+ActiveRecord::Schema.define(version: 20170927155112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,18 @@ ActiveRecord::Schema.define(version: 20170927154343) do
     t.index ["user_id"], name: "index_credit_cards_on_user_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.bigint "category_id"
+    t.string "title", null: false
+    t.text "description"
+    t.float "price"
+    t.string "sku"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
   create_table "user_addresses", force: :cascade do |t|
     t.integer "user_id"
     t.integer "address_id"
@@ -79,4 +91,5 @@ ActiveRecord::Schema.define(version: 20170927154343) do
 
   add_foreign_key "carts", "users"
   add_foreign_key "credit_cards", "users"
+  add_foreign_key "products", "categories"
 end
