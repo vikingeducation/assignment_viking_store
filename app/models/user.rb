@@ -9,7 +9,16 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def shipping_address
-    ids = user_addresses.where(default_address: true).pluck(:address_id)
-    addresses.where(id: ids).first
+    addresses.where(id: default_address_ids, addr_type: :shipping).first
+  end
+
+  def billing_address
+    addresses.where(id: default_address_ids, addr_type: :billing).first
+  end
+
+  private
+
+  def default_address_ids
+    user_addresses.where(default_address: true).pluck(:address_id)
   end
 end

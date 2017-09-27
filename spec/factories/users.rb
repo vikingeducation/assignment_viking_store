@@ -16,9 +16,10 @@ FactoryGirl.define do
       after(:build) { |user| user.addresses << build(:address) }
     end
 
-    factory :user_with_default_shipping_address do
+    factory :user_with_default_addresses do
       after(:create) do |user|
         create(:user_address, :default, user: user)
+        create(:user_address_billing, :default, user: user)
       end
     end
   end

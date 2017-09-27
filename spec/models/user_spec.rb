@@ -13,13 +13,13 @@ RSpec.describe User, type: :model do
   end
 
   it 'is invalid without last_name' do
-    user = User.new(last_name: nil)
+    user = build :user, last_name: nil
     user.valid?
     expect(user.errors[:last_name]).to include "can't be blank"
   end
 
   it 'is invalid without email' do
-    user = User.new(email: nil)
+    user = build :user, email: nil
     user.valid?
     expect(user.errors[:email]).to include "can't be blank"
   end
@@ -53,9 +53,13 @@ RSpec.describe User, type: :model do
     end
 
     it 'has a default shipping address' do
-      user = create :user_with_default_shipping_address
-      expected_address = user.addresses.first
-      expect(user.shipping_address).to eq expected_address
+      user = create :user_with_default_addresses
+      expect(user.shipping_address.addr_type).to eq 'shipping'
+    end
+
+    it 'has a default billing address' do
+      user = create :user_with_default_addresses
+      expect(user.billing_address.addr_type).to eq 'billing'
     end
   end
 end
