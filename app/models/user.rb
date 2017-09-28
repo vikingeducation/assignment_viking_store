@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-  has_one :cart
-  has_many :credit_cards
+  has_one :cart, dependent: :destroy
+  has_many :credit_cards, dependent: :destroy
   has_many :user_addresses
-  has_many :addresses, through: :user_addresses
+  has_many :addresses, through: :user_addresses, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true

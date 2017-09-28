@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  has_many :user_addresses
+  has_many :user_addresses, dependent: :restrict_with_exception
   has_many :users, through: :user_addresses
 
   has_many :orders_as_billing_address, :class_name => 'Order', :foreign_key => 'billing_address_id'
