@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927203056) do
+ActiveRecord::Schema.define(version: 20170928203044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,6 @@ ActiveRecord::Schema.define(version: 20170927203056) do
   create_table "addresses", force: :cascade do |t|
     t.string "street_1", null: false
     t.string "street_2"
-    t.string "city", null: false
-    t.string "state", null: false
     t.string "post_code", null: false
     t.string "plus_4"
     t.string "country"
@@ -28,7 +26,11 @@ ActiveRecord::Schema.define(version: 20170927203056) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "addr_type", default: 0, null: false
+    t.bigint "city_id"
+    t.bigint "state_id"
     t.index ["addr_type"], name: "index_addresses_on_addr_type"
+    t.index ["city_id"], name: "index_addresses_on_city_id"
+    t.index ["state_id"], name: "index_addresses_on_state_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -44,6 +46,14 @@ ActiveRecord::Schema.define(version: 20170927203056) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.bigint "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_id"], name: "index_cities_on_state_id"
   end
 
   create_table "credit_cards", force: :cascade do |t|
@@ -92,6 +102,13 @@ ActiveRecord::Schema.define(version: 20170927203056) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.string "abbrev"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_addresses", force: :cascade do |t|
     t.integer "user_id"
     t.integer "address_id"
@@ -112,7 +129,10 @@ ActiveRecord::Schema.define(version: 20170927203056) do
     t.index ["email"], name: "index_users_on_email"
   end
 
+  add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses", "states"
   add_foreign_key "carts", "users"
+  add_foreign_key "cities", "states"
   add_foreign_key "credit_cards", "users"
   add_foreign_key "orders", "carts"
   add_foreign_key "orders", "users"

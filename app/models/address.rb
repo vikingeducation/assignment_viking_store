@@ -1,4 +1,7 @@
 class Address < ApplicationRecord
+  belongs_to :city
+  belongs_to :state
+
   has_many :user_addresses, dependent: :restrict_with_exception
   has_many :users, through: :user_addresses
 
