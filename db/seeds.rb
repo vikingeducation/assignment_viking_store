@@ -51,32 +51,80 @@ def create_user_and_cart(join_date)
   User.create first_name: Faker::Name.first_name,
               last_name: Faker::Name.last_name,
               email: Faker::Internet.safe_email,
-              created_at: join_date,
-              updated_at: join_date,
+              joined_at: join_date,
               cart: Cart.create(created_at: join_date, updated_at: join_date)
 end
 
-puts "\n Randomizing users, giving them shopping carts\n"
+def date_from_and_to(start_date, end_date)
+  Time.at((end_date.to_f - start_date.to_f) * rand + start_date.to_f)
+end
 
+puts "\n Randomizing users, giving them shopping carts\n"
 ###########################
 # Create users with carts #
 ###########################
 
-date = 12.months.ago.to_time
+# 11 to 12 months ago
+date_1 = 12.months.ago.to_time
+date_2 = 10.months.ago.to_time
+
+5.times do
+  random_date = date_from_and_to(date_1, date_2)
+  create_user_and_cart(random_date)
+end
+
+# 9 to 10 months ago
+date_1 = 10.months.ago.to_time
+date_2 = 8.months.ago.to_time
 
 10.times do
-  create_user_and_cart(date)
-  date += rand(1..4) * 7 * 24 * 60 * 60
+  random_date = date_from_and_to(date_1, date_2)
+  create_user_and_cart(random_date)
 end
+
+# 7 to 8 months ago
+date_1 = 8.months.ago.to_time
+date_2 = 6.months.ago.to_time
+
+15.times do
+  random_date = date_from_and_to(date_1, date_2)
+  create_user_and_cart(random_date)
+end
+
+# 5 to 6 months ago
+date_1 = 6.months.ago.to_time
+date_2 = 4.months.ago.to_time
+
+20.times do
+  random_date = date_from_and_to(date_1, date_2)
+  create_user_and_cart(random_date)
+end
+
+# 3 to 4 months ago
+date_1 = 4.months.ago.to_time
+date_2 = 2.months.ago.to_time
+
+30.times do
+  random_date = date_from_and_to(date_1, date_2)
+  create_user_and_cart(random_date)
+end
+
+# 2 months ago
+date_1 = 2.months.ago.to_time
+date_2 = 1.month.ago.to_time
 
 40.times do
-  create_user_and_cart(date)
-  date += rand(1..4) * 24 * 60 * 60
+  random_date = date_from_and_to(date_1, date_2)
+  create_user_and_cart(random_date)
 end
 
-60.times do
-  create_user_and_cart(date)
-  date += rand(12..24) * 60 * 60
+# last month
+date_1 = 1.month.ago.to_time
+date_2 = Date.today.to_time
+
+50.times do
+  random_date = date_from_and_to(date_1, date_2)
+  create_user_and_cart(random_date)
 end
 
 USER_COUNT = User.count
@@ -164,75 +212,15 @@ User.order('RANDOM()').limit(30).each do |user|
   end
 end
 
+puts "\n Creating orders--the smell of commerce in the morning"
+#################
+# Create orders #
+#################
 
-## FIRST STAB AT RANDOM - LIKELY USE
-# def date_from_and_to(start_date, end_date)
-#   Time.at((end_date.to_f - start_date.to_f) * rand + start_date.to_f)
-# end
-#
-# ###########################
-# # Create users with carts #
-# ###########################
-#
-# # 11 to 12 months ago
-# date_1 = 12.months.ago.to_time
-# date_2 = 10.months.ago.to_time
-#
-# 5.times do
-#   random_date = date_from_and_to(date_1, date_2)
-#   create_user_and_cart(random_date)
-# end
-#
-# # 9 to 10 months ago
-# date_1 = 10.months.ago.to_time
-# date_2 = 8.months.ago.to_time
-#
-# 10.times do
-#   random_date = date_from_and_to(date_1, date_2)
-#   create_user_and_cart(random_date)
-# end
-#
-# # 7 to 8 months ago
-# date_1 = 8.months.ago.to_time
-# date_2 = 6.months.ago.to_time
-#
-# 15.times do
-#   random_date = date_from_and_to(date_1, date_2)
-#   create_user_and_cart(random_date)
-# end
-#
-# # 5 to 6 months ago
-# date_1 = 6.months.ago.to_time
-# date_2 = 4.months.ago.to_time
-#
-# 20.times do
-#   random_date = date_from_and_to(date_1, date_2)
-#   create_user_and_cart(random_date)
-# end
-#
-# # 3 to 4 months ago
-# date_1 = 4.months.ago.to_time
-# date_2 = 2.months.ago.to_time
-#
-# 30.times do
-#   random_date = date_from_and_to(date_1, date_2)
-#   create_user_and_cart(random_date)
-# end
-#
-# # 2 months ago
-# date_1 = 2.months.ago.to_time
-# date_2 = 1.month.ago.to_time
-#
-# 40.times do
-#   random_date = date_from_and_to(date_1, date_2)
-#   create_user_and_cart(random_date)
-# end
-#
-# # last month
-# date_1 = 1.month.ago.to_time
-# date_2 = Date.today.to_time
-#
-# 50.times do
-#   random_date = date_from_and_to(date_1, date_2)
-#   create_user_and_cart(random_date)
-# end
+# user.orders.create(
+#        cart: user.cart,
+#        billing_address: user.billing_address,
+#        shipping_address: user.shipping_address,
+#        created_at: user.join_date
+# )
+
