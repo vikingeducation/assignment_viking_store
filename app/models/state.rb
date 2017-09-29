@@ -1,4 +1,4 @@
 class State < ApplicationRecord
   has_many :addresses
-  has_many :states
+  has_many :cities
 end
