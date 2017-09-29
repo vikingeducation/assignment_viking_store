@@ -8,6 +8,10 @@
 require 'faker/name'
 require 'faker/internet'
 require 'faker/address'
+require 'faker/commerce'
+require 'faker/business'
+require 'faker/lorem'
+require 'faker/the_fresh_prince_of_bel_air'
 
 def add_default_addresses(user, city)
   shipping_address = Address.create street_1: Faker::Address.street_address,
@@ -53,6 +57,8 @@ def create_user_and_cart(join_date)
               cart: Cart.create(created_at: join_date, updated_at: join_date)
 end
 
+puts "\n Randomizing users, giving them shopping carts\n"
+
 ###########################
 # Create users with carts #
 ###########################
@@ -76,6 +82,7 @@ end
 
 USER_COUNT = User.count
 
+puts "\n Creating the world, randomizing cities and states\n"
 ############################
 # Create cities and states #
 ############################
@@ -93,6 +100,7 @@ end
 
 CITY_COUNT = City.count
 
+puts "\n Giving the denizens homes to live in\n"
 ####################
 # Create addresses #
 ####################
@@ -131,6 +139,26 @@ User.all.each do |user|
   add_default_addresses(user, random_city)
   add_extra_shipping_address(user, random_city)
 end
+
+puts "\n Products and categories are random; spend lots of money\n"
+##################################
+# Create products and categories #
+##################################
+
+6.times do
+  category = Category.create name: Faker::Commerce.department,
+                         description: Faker::Lorem.paragraph
+
+  5.times do
+    category.products.create title: Faker::Commerce.product_name,
+                            description: Faker::TheFreshPrinceOfBelAir.quote,
+                            price: Faker::Commerce.price,
+                            sku: Faker::Commerce.promotion_code
+  end
+end
+
+
+
 
 ## FIRST STAB AT RANDOM - LIKELY USE
 # def date_from_and_to(start_date, end_date)
