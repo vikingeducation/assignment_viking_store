@@ -35,7 +35,6 @@ def add_extra_shipping_address(user, city)
 
   num_to_add.times do
     create_shipping_address_for(user, city)
-
   end
 end
 
@@ -141,23 +140,29 @@ User.all.each do |user|
 end
 
 puts "\n Products and categories are random; spend lots of money\n"
-##################################
-# Create products and categories #
-##################################
+#########################################################
+# Create products and categories; put them in the carts #
+#########################################################
 
 6.times do
   category = Category.create name: Faker::Commerce.department,
-                         description: Faker::Lorem.paragraph
+                             description: Faker::Lorem.paragraph
 
   5.times do
     category.products.create title: Faker::Commerce.product_name,
-                            description: Faker::TheFreshPrinceOfBelAir.quote,
-                            price: Faker::Commerce.price,
-                            sku: Faker::Commerce.promotion_code
+                             description: Faker::TheFreshPrinceOfBelAir.quote,
+                             price: Faker::Commerce.price,
+                             sku: Faker::Commerce.promotion_code
   end
 end
 
+PRODUCT_COUNT = Product.count
 
+User.order('RANDOM()').limit(30).each do |user|
+  rand(1..5).times do
+    user.cart.product_carts.create product_id: rand(1..PRODUCT_COUNT)
+  end
+end
 
 
 ## FIRST STAB AT RANDOM - LIKELY USE
@@ -231,4 +236,3 @@ end
 #   random_date = date_from_and_to(date_1, date_2)
 #   create_user_and_cart(random_date)
 # end
-
