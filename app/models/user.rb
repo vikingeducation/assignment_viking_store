@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_many :credit_cards, dependent: :destroy
+  has_many :orders
   has_many :user_addresses
   has_many :addresses, through: :user_addresses, dependent: :destroy
 

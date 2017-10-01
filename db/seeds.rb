@@ -47,6 +47,25 @@ def create_shipping_address_for(user, city)
   user.user_addresses.create(address_id: address.id, default_address: false)
 end
 
+def create_orders(user, num_orders_to_create, start_time, end_time)
+  user_joined_time = user.joined_at.to_time
+  start_time = user_joined_time > start_time ? user_joined_time : start_time
+
+  num_orders_to_create.times do
+    user.orders.create(
+      billing_address: user.billing_address,
+      shipping_address: user.shipping_address,
+      created_at: date_from_and_to(start_time, end_time)
+    )
+  end
+
+  user.orders.each do |order|
+    2.times do
+      order.product_orders.create product: Product.find(rand(1..PRODUCT_COUNT))
+    end
+  end
+end
+
 def create_user_and_cart(join_date)
   User.create first_name: Faker::Name.first_name,
               last_name: Faker::Name.last_name,
@@ -217,10 +236,39 @@ puts "\n Creating orders--the smell of commerce in the morning"
 # Create orders #
 #################
 
-# user.orders.create(
-#        cart: user.cart,
-#        billing_address: user.billing_address,
-#        shipping_address: user.shipping_address,
-#        created_at: user.join_date
-# )
+start_time = 12.months.ago.to_time
+cutoff_time_1 = 7.months.ago.to_time
+users = User
+          .joins(:addresses)
+          .group('users.id')
+          .where('joined_at > ? AND joined_at < ?', start_time, cutoff_time_1)
+          .having('count(user_id) > 0')
+
+users.each do |user|
+  create_orders(user, 1, user.joined_at.to_time, cutoff_time_1)
+end
+
+
+cutoff_time_2 = 3.months.ago.to_time
+users = User
+          .joins(:addresses)
+          .group('users.id')
+          .where('joined_at > ? AND joined_at < ?', start_time, cutoff_time_2)
+          .having('count(user_id) > 0')
+
+users.each do |user|
+  create_orders(user, 2, cutoff_time_1, cutoff_time_2)
+end
+
+
+cutoff_time_3 = 1.month.ago.to_time
+users = User
+          .joins(:addresses)
+          .group('users.id')
+          .where('joined_at > ? AND joined_at < ?', start_time, cutoff_time_3)
+          .having('count(user_id) > 0')
+
+users.each do |user|
+  create_orders(user, 3, cutoff_time_2, cutoff_time_3)
+end
 
