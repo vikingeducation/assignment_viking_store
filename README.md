@@ -1,7 +1,7 @@
 viking_store
 ============
 
-###[Sean Luckett](https://github.com/SeanLuckett)
+### [Sean Luckett](https://github.com/SeanLuckett)
 
 The Viking Store e-commerce application for Viking Commerce Inc
 
