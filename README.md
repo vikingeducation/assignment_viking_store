@@ -1,4 +1,4 @@
-##Viking Store
+Viking Store
 ============
 
 The Viking Store e-commerce Database setup
