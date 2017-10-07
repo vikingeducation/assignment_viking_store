@@ -1,9 +1,9 @@
 if defined?(JazzFingers)
   JazzFingers.configure do |config|
-    config.color_prompt = true
+    config.colored_prompt = true
     config.awesome_print = true
     config.coolline = false
-    config.application_name = Rails5Sandbox
+    config.application_name = VikingStore
   end
 
   require 'jazz_fingers/setup'

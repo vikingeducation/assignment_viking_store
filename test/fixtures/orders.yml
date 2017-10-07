@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  carts: one
+  phone: MyString
+  cc: MyString
+
+two:
+  carts: two
+  phone: MyString
+  cc: MyString
