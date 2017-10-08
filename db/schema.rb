@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007211407) do
+ActiveRecord::Schema.define(version: 20171007223612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 20171007211407) do
     t.integer  "user_id"
     t.integer  "product_id"
     t.integer  "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.boolean  "active",     default: true
     t.index ["product_id"], name: "index_carts_on_product_id", using: :btree
     t.index ["user_id"], name: "index_carts_on_user_id", using: :btree
   end
@@ -56,6 +57,8 @@ ActiveRecord::Schema.define(version: 20171007211407) do
     t.integer  "billing_address_id",  null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.datetime "cc_expiration",       null: false
+    t.string   "type_of_card",        null: false
     t.index ["cart_id"], name: "index_orders_on_cart_id", using: :btree
     t.index ["shipping_address_id", "billing_address_id"], name: "index_orders_on_shipping_address_id_and_billing_address_id", using: :btree
   end
@@ -72,7 +75,6 @@ ActiveRecord::Schema.define(version: 20171007211407) do
   end
 
   create_table "states", force: :cascade do |t|
-    t.string   "long_name",  null: false
     t.string   "abbr",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
