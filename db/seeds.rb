@@ -68,6 +68,39 @@ puts "#{total_customers} customers created."
 
 
 
+puts "Creating cities..."
+
+num_cities = MULTIPLIER * 25
+total_cities = 0
+num_cities.times do
+  City.create(
+    name: Faker::Address.city
+    )
+
+  total_cities += 1
+end
+
+puts "#{total_cities} cities created."
+
+
+
+puts "Creating states..."
+
+num_states = MULTIPLIER * 3
+total_states = 0
+num_states.times do
+  State.create(
+    name: Faker::Address.state
+    )
+
+  total_states += 1
+end
+
+puts "#{total_states} states created."
+
+
+
+
 puts "Creating addresses..."
 
 total_addresses = 0
@@ -123,39 +156,6 @@ total_categories = 0
 end
 
 puts "#{total_categories} categories created."
-
-
-
-
-puts "Creating cities..."
-
-num_cities = MULTIPLIER * 25
-total_cities = 0
-num_cities.times do
-  City.create(
-    name: Faker::Address.city
-    )
-
-  total_cities += 1
-end
-
-puts "#{total_cities} cities created."
-
-
-
-puts "Creating states..."
-
-num_states = MULTIPLIER * 3
-total_states = 0
-num_states.times do
-  State.create(
-    name: Faker::Address.state
-    )
-
-  total_states += 1
-end
-
-puts "#{total_states} states created."
 
 
 
