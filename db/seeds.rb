@@ -1,65 +1,65 @@
 require 'benchmark'
 
 SEED_MULTIPLIER = 1
-USERS_AMOUNT = 100 * SEED_MULTIPLIER
+
 STATES_AMOUNT = 10
 CITIES_AMOUNT = 100 * SEED_MULTIPLIER
+
+USERS_AMOUNT = 100 * SEED_MULTIPLIER
 CATEGORIES_AMOUNT = 7 * SEED_MULTIPLIER
 PRODUCTS_AMOUNT = 20 * SEED_MULTIPLIER
 HISTORICAL_ORDERS_AMOUNT = 100 * SEED_MULTIPLIER
 ACTIVE_SHOPPING_CARTS = 25 * SEED_MULTIPLIER
+DAYS_IN_YEAR = 365
+MAX_QUANTITY = 200 * SEED_MULTIPLIER
+MIN_QUANTITY = 40 * SEED_MULTIPLIER
+MAX_PRODUCTS_PER_CATEGORY = 18 * SEED_MULTIPLIER
 
-def times(amount, task, &block)
+def create(task, amount)
   time = Benchmark.realtime do
-    amount.times(&block)
+    amount.times { send("create_#{task.to_s.singularize}") }
   end
 
   puts "#{amount} #{task} created in #{time} seconds."
 end
 
-def create_users
-  times(USERS_AMOUNT, 'users') do
-    User.create! do |u|
-      u.first_name = Faker::Name.first_name
-      u.last_name = Faker::Name.last_name
-      u.email = Faker::Internet.free_email
-      u.created_at = Faker::Time.backward(365)
-      u.updated_at = u.created_at
-    end
+def random_id(limit)
+  rand(1..limit)
+end
+
+def create_user
+  User.create! do |u|
+    u.first_name = Faker::Name.first_name
+    u.last_name = Faker::Name.last_name
+    u.email = Faker::Internet.free_email
+    u.created_at = Faker::Time.backward(DAYS_IN_YEAR)
+    u.updated_at = u.created_at
   end
 end
 
-def create_states
-  times(STATES_AMOUNT, 'states') do
-    State.create! do |s|
-      s.name = Faker::Address.unique.state
-    end
+def create_state
+  State.create!(name: Faker::Address.unique.state)
+end
+
+def create_city
+  City.create!(name: Faker::Address.unique.city, state_id: random_id(STATES_AMOUNT))
+end
+
+def create_category
+  Category.create! do |c|
+    c.name = Faker::Commerce.unique.department(1)
+    c.description = Faker::Hipster.paragraph
   end
 end
 
-def create_cities
-  times(CITIES_AMOUNT, 'cities') do
-    City.create!(name: Faker::Address.unique.city, state_id: rand(1..STATES_AMOUNT))
-  end
-end
-
-def create_categories
-  times(CATEGORIES_AMOUNT, 'categories') do
-    Category.create!(name: Faker::Commerce.unique.department(1))
-  end
-end
-
-def create_products
-  category_ids = (1..CATEGORIES_AMOUNT).to_a
-  category_ids = category_ids - category_ids.sample(3)
-
-  times(PRODUCTS_AMOUNT, 'products') do
-    Product.create! do |p|
-      p.title = Faker::Commerce.product_name
-      p.price = Faker::Commerce.price
-      p.quantity = rand(40..200)
-      p.category_id = category_ids.sample
-    end
+def create_product
+  Product.create! do |p|
+    p.title = Faker::Commerce.product_name
+    p.price = Faker::Commerce.price
+    p.quantity = rand(MIN_QUANTITY..MAX_QUANTITY)
+    p.description = Faker::Hipster.paragraph
+    p.sku = Faker::Code.ean
+    p.category_id = random_id(CATEGORIES_AMOUNT)
   end
 end
 
@@ -70,12 +70,15 @@ def create_address(user_id, type)
     a.street = Faker::Address.street_address
     a.zipcode = Faker::Address.zip
     a.phone_number = Faker::PhoneNumber.phone_number
-    a.city_id = rand((1..CITIES_AMOUNT))
+    a.city_id = random_id(CITIES_AMOUNT)
   end
 end
 
 def create_default_shipping_and_billing_address(user_id)
-  default_types = [[:default_billing, :default_shipping], [:default_shipping_and_billing]]
+  default_types = [
+    [:default_billing, :default_shipping],
+    [:default_shipping_and_billing]
+  ]
 
   default_types.sample.each do |type|
     create_address(user_id, type)
@@ -105,42 +108,35 @@ def create_order(user_id, status, created_at)
     c.updated_at = created_at
   end
 
-  rand((1..18)).times do
+  rand(1..MAX_PRODUCTS_PER_CATEGORY).times do
     ProductCart.create! do |p|
       p.cart_id = cart.id
-      p.product_id = rand((1..PRODUCTS_AMOUNT))
-      # p.quantity = ''
+      p.product_id = random_id(PRODUCTS_AMOUNT)
       p.created_at = created_at
       p.updated_at = created_at
     end
   end
 end
 
-def create_historical_orders
-  times(HISTORICAL_ORDERS_AMOUNT, 'historical_orders') do
-    user_id = rand(1..USERS_AMOUNT)
-    created_at = Faker::Time.backward(365)
-
-    create_order(user_id, :shipped, created_at)
-  end
+def create_historical_order
+  created_at = Faker::Time.backward(DAYS_IN_YEAR)
+  create_order(random_id(USERS_AMOUNT), :shipped, created_at)
 end
 
-def create_active_shopping_carts
-  times(ACTIVE_SHOPPING_CARTS, 'active_shopping_carts') do
-    create_order(rand(1..USERS_AMOUNT), :open_order, Time.now)
-  end
+def create_active_shopping_cart
+  create_order(random_id(USERS_AMOUNT), :open_order, Time.now)
 end
 
 time = Benchmark.realtime do
   DatabaseCleaner.clean_with :truncation
-  create_users
-  create_states
-  create_cities
-  create_categories
-  create_products
+  create :users, USERS_AMOUNT
+  create :states, STATES_AMOUNT
+  create :cities, CITIES_AMOUNT
+  create :categories, CATEGORIES_AMOUNT
+  create :products, PRODUCTS_AMOUNT
   add_addresses_to_users
-  create_historical_orders
-  create_active_shopping_carts
+  create :historical_orders, HISTORICAL_ORDERS_AMOUNT
+  create :active_shopping_carts, ACTIVE_SHOPPING_CARTS
 end
 
 puts "\nIt took #{time} seconds"
