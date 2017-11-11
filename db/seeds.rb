@@ -1,60 +1,60 @@
 # ---
 # Constants
 # ---
-# STATES = [
-#   "Alabama",
-#   "Alaska",
-#   "Arizona",
-#   "Arkansas",
-#   "California",
-#   "Colorado",
-#   "Connecticut",
-#   "Delaware",
-#   "Florida",
-#   "Georgia",
-#   "Hawaii",
-#   "Idaho",
-#   "Illinois",
-#   "Indiana",
-#   "Iowa",
-#   "Kansas",
-#   "Kentucky",
-#   "Louisiana",
-#   "Maine",
-#   "Maryland",
-#   "Massachusetts",
-#   "Michigan",
-#   "Minnesota",
-#   "Mississippi",
-#   "Missouri",
-#   "Montana",
-#   "Nebraska",
-#   "Nevada",
-#   "New Hampshire",
-#   "New Jersey",
-#   "New Mexico",
-#   "New York",
-#   "North Carolina",
-#   "North Dakota",
-#   "Ohio",
-#   "Oklahoma",
-#   "Oregon",
-#   "Pennsylvania",
-#   "Rhode Island",
-#   "South Carolina",
-#   "South Dakota",
-#   "Tennessee",
-#   "Texas",
-#   "Utah",
-#   "Vermont",
-#   "Virginia",
-#   "Washington",
-#   "West Virginia",
-#   "Wisconsin",
-#   "Wyoming"
-# ]
+STATES = [
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
+  "Wyoming"
+]
 
-MULTIPLIER = 10
+MULTIPLIER = 1
 
 
 # Remove existing data
@@ -62,11 +62,18 @@ Address.delete_all
 User.delete_all
 
 # create_states
-STATES.each do |state_name|
+STATES.sample(10).each do |state_name|
   State.create(:name => state_name)
-  num_states_created += 1
-  print_num_of(num_states_created, num_states)
 end
+
+# create_cities
+num_cities = 100 * MULTIPLIER
+
+num_cities.times do
+  
+end
+
+
 
 # create_addresses
 MULTIPLIER.times do
@@ -74,16 +81,15 @@ MULTIPLIER.times do
     line_1: Faker::Address.street_address,
     line_2: Faker::Address.secondary_address,
     city: Faker::Address.city,
-    state: Faker::Address.state_abbr,
+    state: State.pluck(:id).sample,
     zip: Faker::Address.zip
   )
 end
 # create_users
-MULTIPLIER.times do
+num_users = 100 * MULTIPLIER
+
+num_users.times do
   mail_add, bill_add = Address.pluck(:id).sample(2)
-  # if [true, false].sample
-  #   bill_add = mail_add
-  # end
   bill_add = mail_add if [true, false].sample
   User.create(
     name: Faker::Name.name,
