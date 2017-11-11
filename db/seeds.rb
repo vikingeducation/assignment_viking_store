@@ -70,9 +70,8 @@ end
 num_cities = 100 * MULTIPLIER
 
 num_cities.times do
-  
+  State.create(:name => Faker::Address.city)
 end
-
 
 
 # create_addresses
@@ -80,7 +79,7 @@ MULTIPLIER.times do
   Address.create(
     line_1: Faker::Address.street_address,
     line_2: Faker::Address.secondary_address,
-    city: Faker::Address.city,
+    city: City.pluck(:id).sample,
     state: State.pluck(:id).sample,
     zip: Faker::Address.zip
   )
@@ -101,7 +100,8 @@ num_users.times do
 end
 
 # create_categories
-MULTIPLIER.times do
+num_categories = MULTIPLIER * 
+num_categories.times do
 
 
 
