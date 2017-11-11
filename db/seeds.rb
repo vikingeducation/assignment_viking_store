@@ -102,16 +102,22 @@ end
 # create_categories
 num_categories = 6
 num_categories.times do
-  Category.create(name: Faker::Commerce.unique.department)
+  Category.create(name: Faker::Commerce.unique.department, description: Faker::Simpsons.quote)
 end
-
 
 # create_products
 num_products = 15 * MULTIPLIER
 
 num_products.times do
+  Product.create(
+    title: Faker::Commerce.product_name,
+    description: ,
+    price: Faker::Commerce.price,
+    sku: Faker::Number.hexadecimal(5)
 
-  
+  )
+
+
 end
 
 

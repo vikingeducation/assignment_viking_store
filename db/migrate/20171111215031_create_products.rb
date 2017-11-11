@@ -9,6 +9,6 @@ class CreateProducts < ActiveRecord::Migration[5.0]
     end
 
     add_column :categories, :description, :text
-    
+
   end
 end
