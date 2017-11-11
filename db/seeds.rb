@@ -59,7 +59,13 @@ MULTIPLIER = 1
 
 # Remove existing data
 Address.delete_all
+Category.delete_all
+City.delete_all
+Product.delete_all
+State.delete_all
 User.delete_all
+
+
 
 # create_states
 STATES.sample(10).each do |state_name|
@@ -70,7 +76,7 @@ end
 num_cities = 100 * MULTIPLIER
 
 num_cities.times do
-  State.create(:name => Faker::Address.city)
+  City.create(:name => Faker::Address.city)
 end
 
 
