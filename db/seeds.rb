@@ -100,14 +100,19 @@ num_users.times do
 end
 
 # create_categories
-num_categories = MULTIPLIER * 
+num_categories = 6
 num_categories.times do
-
-
-
+  Category.create(name: Faker::Commerce.unique.department)
 end
 
 
 # create_products
+num_products = 15 * MULTIPLIER
+
+num_products.times do
+
+  
+end
+
 
   #
