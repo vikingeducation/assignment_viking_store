@@ -103,8 +103,6 @@ GEM
     pry-doc (0.11.1)
       pry (~> 0.9)
       yard (~> 0.9)
-    pry-rails (0.3.6)
-      pry (>= 0.10.4)
     puma (3.10.0)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -188,7 +186,6 @@ DEPENDENCIES
   jazz_fingers
   jbuilder (~> 2.5)
   jquery-rails
-  pry-rails
   puma (~> 3.0)
   rails (~> 5.0.6)
   sass-rails (~> 5.0)
