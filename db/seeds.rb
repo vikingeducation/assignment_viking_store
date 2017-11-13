@@ -81,7 +81,8 @@ end
 
 
 # create_addresses
-MULTIPLIER.times do
+num_addresses = MULTIPLIER * 100
+num_addresses.times do
   Address.create(
     line_1: Faker::Address.street_address,
     line_2: Faker::Address.secondary_address,
@@ -99,8 +100,8 @@ num_users.times do
   User.create(
     name: Faker::Name.name,
     email: Faker::Internet.safe_email,
-    default_mail: mail_add,
-    default_bill: bill_add,
+    default_mail_address_id: mail_add,
+    default_bill_address_id: bill_add,
     phone: Faker::PhoneNumber.phone_number
   )
 end
@@ -122,11 +123,15 @@ num_products.times do
     title: Faker::Commerce.product_name,
     description: Faker::Seinfeld.quote,
     price: Faker::Commerce.price,
-    sku: Faker::Number.hexadecimal(5)
-    # Must add category
+    sku: Faker::Number.hexadecimal(5),
+    category_id: Category.pluck(:id).sample
   )
+end
 
-
+# create_orders
+num_orders = 1 * MULTIPLIER
+num_orders.times do
+  
 end
 
 
