@@ -61,6 +61,7 @@ MULTIPLIER = 1
 Address.delete_all
 Category.delete_all
 City.delete_all
+Order.delete_all
 Product.delete_all
 State.delete_all
 User.delete_all
@@ -129,9 +130,29 @@ num_products.times do
 end
 
 # create_orders
-num_orders = 1 * MULTIPLIER
+num_orders = 10 * MULTIPLIER
 num_orders.times do
+  order_user_id = User.pluck(:id).sample
+  Order.create(
+    user_id: order_user_id,
+    placed_date: Faker::Time.between(365.days.ago, Date.today, :all),
+    mail_address_id: User.find(order_user_id).default_mail_address_id,
+    bill_address_id: User.find(order_user_id).default_bill_address_id,
+    completed: true
+  )
+# remove completed.
+# fix date formula
+
+
+
+# seed orders_products
+num_orders_products = 1 * MULTIPLIER
+Orders_products.create(
   
+
+)
+
+
 end
 
 
