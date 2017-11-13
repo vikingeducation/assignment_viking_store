@@ -5,7 +5,6 @@ class CreateOrders < ActiveRecord::Migration[5.0]
       t.datetime :placed_date, :null => true
       t.integer :mail_address_id
       t.integer :bill_address_id
-      t.boolean :completed
       t.timestamps
     end
   end

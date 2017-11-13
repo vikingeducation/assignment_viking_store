@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20171112162758) do
     t.datetime "placed_date"
     t.integer  "mail_address_id"
     t.integer  "bill_address_id"
-    t.boolean  "completed"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["user_id"], name: "index_orders_on_user_id"

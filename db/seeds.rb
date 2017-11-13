@@ -131,29 +131,31 @@ end
 
 # create_orders
 num_orders = 10 * MULTIPLIER
+[true, false].sample ? placed_date = nil : placed_date = Faker::Time.between(365.days.ago, Date.today, :all)
+
 num_orders.times do
   order_user_id = User.pluck(:id).sample
   Order.create(
     user_id: order_user_id,
-    placed_date: Faker::Time.between(365.days.ago, Date.today, :all),
+    placed_date: placed_date,
     mail_address_id: User.find(order_user_id).default_mail_address_id,
     bill_address_id: User.find(order_user_id).default_bill_address_id,
-    completed: true
   )
-# remove completed.
-# fix date formula
-
-
+end
 
 # seed orders_products
-num_orders_products = 1 * MULTIPLIER
-Orders_products.create(
-  
+num_orders_products = 25 * MULTIPLIER
 
-)
-
+num_orders_products.times do
+  Orders_products.create(
+    order_id: Order.pluck(:id).sample,
+    product_id: Product.pluck(:id).sample,
+    product_quantity: rand(6)
+  )
 
 end
+
+
 
 
   #
