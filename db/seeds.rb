@@ -62,6 +62,7 @@ Address.delete_all
 Category.delete_all
 City.delete_all
 Order.delete_all
+OrdersProducts.delete_all
 Product.delete_all
 State.delete_all
 User.delete_all
@@ -147,7 +148,7 @@ end
 num_orders_products = 25 * MULTIPLIER
 
 num_orders_products.times do
-  Orders_products.create(
+  OrdersProducts.create(
     order_id: Order.pluck(:id).sample,
     product_id: Product.pluck(:id).sample,
     product_quantity: rand(6)
