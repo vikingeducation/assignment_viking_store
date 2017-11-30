@@ -20,11 +20,11 @@ This is an e-commerce project for [Viking Code School](http://vikingcodeschool.c
 ### Complete
 - Basic readme info
 - generate rails app
+- install jazz hands gem
 
 
 ### Pending
 - install favorite gems
-  - jazzyhands
   - faker
 - erm modeling
 
