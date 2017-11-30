@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+
   root 'products#index'
 
   devise_for :users
+  resources :users, only: [:index, :show]
   resources :addresses
   resources :address_types
   resources :products
