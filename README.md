@@ -33,6 +33,10 @@ This is an e-commerce project for [Viking Code School](http://vikingcodeschool.c
  - products & categories
  - users
   - addresses
+- views
+  - navbar
+  - user: index, show
+  - products: index, show
 
 
 ### Pending
