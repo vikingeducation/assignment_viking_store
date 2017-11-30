@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'products#index'
 
   devise_for :users
+  resources :addresses
   resources :address_types
   resources :products
 
