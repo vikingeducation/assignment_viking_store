@@ -20,12 +20,20 @@ This is an e-commerce project for [Viking Code School](http://vikingcodeschool.c
 ### Complete
 - Basic readme info
 - generate rails app
-- install jazz hands gem
+- erm modeling
+- basic address types files
+- set up category model
+- [devise gem](https://github.com/plataformatec/devise)
 
 
 ### Pending
+- set up address model
+- set up product model
+- set up user model
+- set up order model
+- set up order_item model
+- erm for analytics features
+- any design whatsoever
 - install favorite gems
-  - faker
-- erm modeling
-
-
+  - [faker](https://github.com/stympy/faker)
+  - jazz hands / [fingers](https://github.com/plribeiro3000/jazz_fingers)
