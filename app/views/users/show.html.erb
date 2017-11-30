@@ -5,14 +5,14 @@
   <h4>Billing Addresses</h4>
   <% @user.addresses.billing.each do |address| %>
     <article>
-      <p><%= address.street_1 %>,  TBD FROM A HELPER | <%= link_to 'edit WIP', '#' %></p>
+      <p><%= display_address(address) %> | <%= link_to 'edit', edit_address_path(address) %></p>
     </article>
   <% end %>
 
   <h4>Shipping Addresses</h4>
   <% @user.addresses.shipping.each do |address| %>
     <article>
-      <p><%= address.street_1 %>,  TBD FROM A HELPER | <%= link_to 'edit WIP', '#' %></p>
+      <p><%= display_address(address) %> | <%= link_to 'edit', edit_address_path(address) %></p>
     </article>
   <% end %>
 
