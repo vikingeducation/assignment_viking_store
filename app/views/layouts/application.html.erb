@@ -13,10 +13,14 @@
     <%= javascript_include_tag 'application' %>
   </head>
   <body>
+    <%= render 'shared/header' %>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div> <!-- container -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
