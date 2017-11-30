@@ -7,7 +7,7 @@ The Viking Store e-commerce application for Viking Commerce Inc
 
 ## About the Project
 
-This is an e-commerce project for Viking Code School. The goal is to practice Rails, Active Record, and Database design using postgres.
+This is an e-commerce project for [Viking Code School](http://vikingcodeschool.com). The goal is to practice Rails, Active Record, and Database design using postgres.
 
 ## Stats
 - Rails 5.0.6
