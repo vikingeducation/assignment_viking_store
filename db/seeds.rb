@@ -1,7 +1,9 @@
 require 'faker'
 
+MULTIPLIER = 1
 
 # STATES --------------------
+puts "Generating US States"
 state_data = [
   {name: 'Alabama', abbv: 'AL'},
   {name: 'Alaska', abbv: 'AK'},
@@ -62,12 +64,16 @@ end
 
 # PRODUCTS & CATEGORIES -------------------
 
-5.times do
+15.times do
   # Generate Category name
+  puts "Generating Categories"
+
   category = Category.create!(name: Faker::Commerce.unique.department)
 
-  3.times do
+  (MULTIPLIER * 3).times do
     # Generate Product for this category
+    puts "Generating Products for #{category.name}"
+
     Product.create!(
       category_id: category.id,
       title: Faker::Commerce.unique.product_name,
@@ -83,38 +89,60 @@ end #category
 billing = AddressType.find_or_create_by!(name: 'Billing')
 shipping = AddressType.find_or_create_by!(name: 'Shipping')
 
-3.times do
-  # Generate a User
+# Generate Users without addresses
+puts "Generating Users"
+
+(MULTIPLIER * 3).times do
+  User.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.email,
+    phone: Faker::PhoneNumber.phone_number,
+    password: 'password', encrypted_password: 'password'
+  )
+end
+
+# Generate Users with addresses
+puts "Generating Users with addresses"
+
+(MULTIPLIER * 3).times do
   user = User.create!(
-    name: Faker::TwinPeaks.unique.character,
+    name: Faker::Name.name,
     email: Faker::Internet.unique.email,
     phone: Faker::PhoneNumber.phone_number,
     password: 'password', encrypted_password: 'password')
 
-  # Generate User's Shipping Address
-  Address.create!(
-    user_id: user.id,
-    address_type_id: shipping.id,
-    default: true,
-    street_1: Faker::Address.street_address,
-    street_2: "",
-    city: Faker::Address.city,
-    state_id: State.all.sample.id,
-    zip: Faker::Address.zip_code
-  )
-  # Generate User's Billing Address
-  Address.create!(
-    user_id: user.id,
-    address_type_id: billing.id,
-    default: true,
-    street_1: Faker::Address.street_address,
-    street_2: "",
-    city: Faker::Address.city,
-    state_id: State.all.sample.id,
-    zip: Faker::Address.zip_code
-  )
+  # Generate User's Shipping Addresses
+  (MULTIPLIER * 3).times do
+    Address.create!(
+      user_id: user.id,
+      address_type_id: shipping.id,
+      default: false,
+      street_1: Faker::Address.street_address,
+      street_2: "",
+      city: Faker::Address.city,
+      state_id: State.all.sample.id,
+      zip: Faker::Address.zip_code
+    )
+    # Generate User's Billing Address
+    Address.create!(
+      user_id: user.id,
+      address_type_id: billing.id,
+      default: false,
+      street_1: Faker::Address.street_address,
+      street_2: "",
+      city: Faker::Address.city,
+      state_id: State.all.sample.id,
+      zip: Faker::Address.zip_code
+    )
+  end #addresses
+
+  # Set a default shipping and billing address
+  puts "Setting address defaults for #{user.name}"
+
+  sa = user.addresses.where(address_type_id: shipping.id).first
+  sa.update!(default: true)
+
+  ba = user.addresses.where(address_type_id: billing.id).first
+  ba.update!(default: true)
 end #user
-
-
-
 
