@@ -24,11 +24,10 @@ This is an e-commerce project for [Viking Code School](http://vikingcodeschool.c
 - basic address types files
 - set up category model
 - [devise gem](https://github.com/plataformatec/devise)
-
+- set up product model, controller, routes
 
 ### Pending
 - set up address model
-- set up product model
 - set up user model
 - set up order model
 - set up order_item model
