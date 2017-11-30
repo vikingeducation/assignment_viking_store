@@ -1,15 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
 
-
-# ADDRESS TYPES -------------------
-AddressType.find_or_create_by!(name: 'Billing')
-AddressType.find_or_create_by!(name: 'Shipping')
 
 # STATES --------------------
 state_data = [
@@ -69,6 +59,61 @@ state_data.each do |state|
   State.find_or_create_by!(abbreviation: state[:abbv] ){ |s| s.name = state[:name] }
 end
 
+
+# PRODUCTS & CATEGORIES -------------------
+
+5.times do
+  # Generate Category name
+  category = Category.create!(name: Faker::Commerce.unique.department)
+
+  3.times do
+    # Generate Product for this category
+    Product.create!(
+      category_id: category.id,
+      title: Faker::Commerce.unique.product_name,
+      description: Faker::Lorem.paragraph,
+      price: Faker::Commerce.price,
+      sku: Faker::Code.unique.asin
+    )
+  end #product
+end #category
+
+
+# USERS, ADDRESSES, AND ORDERS -------------------
+billing = AddressType.find_or_create_by!(name: 'Billing')
+shipping = AddressType.find_or_create_by!(name: 'Shipping')
+
+3.times do
+  # Generate a User
+  user = User.create!(
+    name: Faker::TwinPeaks.unique.character,
+    email: Faker::Internet.unique.email,
+    phone: Faker::PhoneNumber.phone_number,
+    password: 'password', encrypted_password: 'password')
+
+  # Generate User's Shipping Address
+  Address.create!(
+    user_id: user.id,
+    address_type_id: shipping.id,
+    default: true,
+    street_1: Faker::Address.street_address,
+    street_2: "",
+    city: Faker::Address.city,
+    state_id: State.all.sample.id,
+    zip: Faker::Address.zip_code
+  )
+  # Generate User's Billing Address
+  Address.create!(
+    user_id: user.id,
+    address_type_id: billing.id,
+    default: true,
+    street_1: Faker::Address.street_address,
+    street_2: "",
+    city: Faker::Address.city,
+    state_id: State.all.sample.id,
+    zip: Faker::Address.zip_code
+  )
+end #user
 
 
 

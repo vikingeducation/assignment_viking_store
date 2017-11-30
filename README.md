@@ -25,14 +25,23 @@ This is an e-commerce project for [Viking Code School](http://vikingcodeschool.c
 - set up category model
 - [devise gem](https://github.com/plataformatec/devise)
 - set up product model, controller, routes
+- set up user model
+- set up address model
+- install [faker gem](https://github.com/stympy/faker)
+- seeds
+ - US states
+ - products & categories
+ - users
+  - addresses
+
 
 ### Pending
-- set up address model
-- set up user model
 - set up order model
 - set up order_item model
+- seeds
+  - order items
+  - orders
 - erm for analytics features
 - any design whatsoever
 - install favorite gems
-  - [faker](https://github.com/stympy/faker)
   - jazz hands / [fingers](https://github.com/plribeiro3000/jazz_fingers)
