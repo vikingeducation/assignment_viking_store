@@ -24,8 +24,12 @@
   <% end %>
 
 <h3>Cart</h3>
+<% if @user.cart == nil || @user.cart.items.empty? %>
+<p>Cart Empty</p>
+<% else %>
 <% @user.cart.items.each do |item| %>
     <article>
       <p><%= item.qty %> of <%= item.product.title %></p>
     </article>
   <% end %>
+<% end %>
