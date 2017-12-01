@@ -37,12 +37,15 @@ This is an e-commerce project for [Viking Code School](http://vikingcodeschool.c
   - navbar
   - user: index, show
   - products: index, show, new, edit
+- set up order_item model
+- set up order model
 
 
 ### Pending
 - figure out user registration vs rest of user profile info and workflow between those states
-- set up order model
-- set up order_item model
+- fill out order model details
+- crud controller & views
+  - orders & order items
 - seeds
   - order items
   - orders

@@ -9,9 +9,3 @@ class CreateOrderItems < ActiveRecord::Migration[5.0]
     end
   end
 end
-
-
-order = Order.first
-products = Product.all
-
-item = OrderItem.create!(order_id: order.id, qty: rand(1..5), product_id: products.sample.id)
