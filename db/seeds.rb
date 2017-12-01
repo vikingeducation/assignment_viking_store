@@ -1,5 +1,20 @@
 require 'faker'
 
+
+MULTIPLIER = 1
+
+def creation_date
+  time_frames = []
+  (MULTIPLIER**2).times do |x|
+     time_frames << Date.today - (MULTIPLIER + rand(1..36) ).month
+  end
+  date_range = (time_frames.sample..(Date.today))
+  rand(date_range)
+end
+
+# ----------------------------
+# DESTROY ALL DATA
+# ----------------------------
 puts "Deleting ALL current data"
 CartItem.destroy_all
 OrderItem.destroy_all
@@ -13,7 +28,9 @@ State.destroy_all
 User.destroy_all
 
 
-MULTIPLIER = 1
+# ----------------------------
+# GENERATE SEEDS
+# ----------------------------
 
 # STATES --------------------
 puts "Generating US States"
@@ -110,7 +127,8 @@ puts "Generating Users"
     name: Faker::Name.name,
     email: Faker::Internet.unique.email,
     phone: Faker::PhoneNumber.phone_number,
-    password: 'password', encrypted_password: 'password'
+    password: 'password', encrypted_password: 'password',
+    created_at: creation_date
   )
 end
 
@@ -122,7 +140,9 @@ puts "Generating Users with addresses"
     name: Faker::Name.name,
     email: Faker::Internet.unique.email,
     phone: Faker::PhoneNumber.phone_number,
-    password: 'password', encrypted_password: 'password')
+    password: 'password', encrypted_password: 'password',
+    created_at: creation_date
+  )
 
   # Generate User's Shipping Addresses
   3.times do
@@ -170,7 +190,11 @@ users.each do |user|
   cart = Cart.create!(user_id: user.id)
   # Generate a random number of items for this cart
   rand(1..(MULTIPLIER * 2)).times do
-    CartItem.create!(cart_id: cart.id, qty: rand(1..5), product_id: products.sample.id)
+    CartItem.create!({
+      cart_id: cart.id,
+      qty: rand(1..5),
+      product_id: products.sample.id
+    })
   end #items
 end #users
 
@@ -178,10 +202,14 @@ puts "Generating orders for users"
 users.each do |user|
   # Generate a random number of orders for this user
   rand(1..(MULTIPLIER * 2)).times do
-    order = Order.create!(user_id: user.id)
+    order = Order.create!(user_id: user.id, created_at: creation_date )
     # Generate a random number of items for this order
     rand(1..(MULTIPLIER * 2)).times do
-      OrderItem.create!(order_id: order.id, qty: rand(1..5), product_id: products.sample.id)
+      OrderItem.create!({
+        order_id: order.id,
+        qty: rand(1..5),
+        product_id: products.sample.id
+      })
     end #items
   end #orders
 end #users
