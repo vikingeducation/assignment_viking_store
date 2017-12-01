@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :addresses, dependent: :destroy
   has_many :address_types, through: :addresses
+  has_many :orders
 end

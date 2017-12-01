@@ -17,4 +17,8 @@
   <% end %>
 
 <h3>Orders</h3>
-<p>WIP</p>
+<% @user.orders.each do |order| %>
+    <article>
+      <p>#<%= order.id %> (<%= order.order_items.count %> items) | <%= link_to 'view', order_path(order) %></p>
+    </article>
+  <% end %>
