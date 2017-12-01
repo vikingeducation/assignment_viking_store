@@ -1,8 +1,11 @@
 require 'faker'
 
+puts "Deleting ALL current data"
+CartItem.destroy_all
 OrderItem.destroy_all
 Product.destroy_all
 Category.destroy_all
+Cart.destroy_all
 Order.destroy_all
 AddressType.destroy_all
 Address.destroy_all
@@ -157,10 +160,19 @@ puts "Generating Users with addresses"
 end #user
 
 
-# ORDERS & ITEMS -------------------
+# CART, ORDERS, & ITEMS -------------------
 
 users = User.all.sample(MULTIPLIER * 4)
 products = Product.all
+
+puts "Generating cart and items for users"
+users.each do |user|
+  cart = Cart.create!(user_id: user.id)
+  # Generate a random number of items for this cart
+  rand(1..(MULTIPLIER * 2)).times do
+    CartItem.create!(cart_id: cart.id, qty: rand(1..5), product_id: products.sample.id)
+  end #items
+end #users
 
 puts "Generating orders for users"
 users.each do |user|
