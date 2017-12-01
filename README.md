@@ -39,6 +39,7 @@ This is an e-commerce project for [Viking Code School](http://vikingcodeschool.c
   - products: index, show, new, edit
 - set up order_item model
 - set up order model
+- build models for cart & items
 
 
 ### Pending

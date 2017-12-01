@@ -19,6 +19,6 @@
 <h3>Orders</h3>
 <% @user.orders.each do |order| %>
     <article>
-      <p>#<%= order.id %> (<%= order.order_items.count %> items) | <%= link_to 'view', order_path(order) %></p>
+      <p>#<%= order.id %> (<%= order.items.count %> items) | <%= link_to 'view', order_path(order) %></p>
     </article>
   <% end %>
