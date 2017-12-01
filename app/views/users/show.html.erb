@@ -22,3 +22,10 @@
       <p>#<%= order.id %> (<%= order.items.count %> items) | <%= link_to 'view', order_path(order) %></p>
     </article>
   <% end %>
+
+<h3>Cart</h3>
+<% @user.cart.items.each do |item| %>
+    <article>
+      <p><%= item.qty %> of <%= item.product.title %></p>
+    </article>
+  <% end %>
