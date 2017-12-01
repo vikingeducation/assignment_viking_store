@@ -22,16 +22,16 @@ ActiveRecord::Schema.define(version: 20171201171232) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.integer  "address_type_id",              null: false
-    t.integer  "user_id",                      null: false
-    t.boolean  "default"
-    t.string   "street_1",        default: "", null: false
-    t.string   "street_2"
-    t.string   "city",            default: "", null: false
-    t.integer  "state_id",                     null: false
-    t.string   "zip",             default: "", null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "address_type_id",                 null: false
+    t.integer  "user_id",                         null: false
+    t.boolean  "default",         default: false, null: false
+    t.string   "street_1",        default: "",    null: false
+    t.string   "street_2",        default: "",    null: false
+    t.string   "city",            default: "",    null: false
+    t.integer  "state_id",                        null: false
+    t.string   "zip",             default: "",    null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.index ["address_type_id"], name: "index_addresses_on_address_type_id", using: :btree
     t.index ["state_id"], name: "index_addresses_on_state_id", using: :btree
     t.index ["user_id"], name: "index_addresses_on_user_id", using: :btree
