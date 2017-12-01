@@ -1,9 +1,11 @@
 require 'faker'
 
+OrderItem.destroy_all
+Product.destroy_all
+Category.destroy_all
+Order.destroy_all
 AddressType.destroy_all
 Address.destroy_all
-Category.destroy_all
-Product.destroy_all
 State.destroy_all
 User.destroy_all
 
@@ -93,7 +95,7 @@ end
 end #category
 
 
-# USERS, ADDRESSES, AND ORDERS -------------------
+# USERS and ADDRESSES -------------------
 billing = AddressType.find_or_create_by!(name: 'Billing')
 shipping = AddressType.find_or_create_by!(name: 'Shipping')
 
@@ -120,7 +122,7 @@ puts "Generating Users with addresses"
     password: 'password', encrypted_password: 'password')
 
   # Generate User's Shipping Addresses
-  (MULTIPLIER * 3).times do
+  3.times do
     Address.create!(
       user_id: user.id,
       address_type_id: shipping.id,
@@ -154,3 +156,20 @@ puts "Generating Users with addresses"
   ba.update!(default: true)
 end #user
 
+
+# ORDERS & ITEMS -------------------
+
+users = User.all.sample(MULTIPLIER * 4)
+products = Product.all
+
+puts "Generating orders for users"
+users.each do |user|
+  # Generate a random number of orders for this user
+  rand(1..(MULTIPLIER * 2)).times do
+    order = Order.create!(user_id: user.id)
+    # Generate a random number of items for this order
+    rand(1..(MULTIPLIER * 2)).times do
+      OrderItem.create!(order_id: order.id, qty: rand(1..5), product_id: products.sample.id)
+    end #items
+  end #orders
+end #users
