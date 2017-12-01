@@ -1,5 +1,13 @@
 require 'faker'
 
+AddressType.destroy_all
+Address.destroy_all
+Category.destroy_all
+Product.destroy_all
+State.destroy_all
+User.destroy_all
+
+
 MULTIPLIER = 1
 
 # STATES --------------------
