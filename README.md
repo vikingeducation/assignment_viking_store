@@ -33,13 +33,14 @@ This is an e-commerce project for [Viking Code School](http://vikingcodeschool.c
  - products & categories
  - users
   - addresses
-- views
+- views & controllers
   - navbar
   - user: index, show
-  - products: index, show
+  - products: index, show, new, edit
 
 
 ### Pending
+- figure out user registration vs rest of user profile info and workflow between those states
 - set up order model
 - set up order_item model
 - seeds

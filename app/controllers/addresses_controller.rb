@@ -11,31 +11,24 @@ class AddressesController < ApplicationController
 
   def create
     @address = Address.new(address_params)
-
-    respond_to do |format|
-      if @address.save
-        redirect_to @address, notice: 'Address was successfully created.'
-      else
-        render :new
-      end
+    if @address.save
+      redirect_to @address, notice: 'Address was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @address.update(address_params)
-        redirect_to @address, notice: 'Address was successfully updated.'
-      else
-        render :edit
-      end
+    if @address.update(address_params)
+      redirect_to @address, notice: 'Address was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @address.destroy
-    respond_to do |format|
-      redirect_to addresss_url, notice: 'Address was successfully destroyed.'
-    end
+    redirect_to addresss_url, notice: 'Address was successfully destroyed.'
   end
 
   private

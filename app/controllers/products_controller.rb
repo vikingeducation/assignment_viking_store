@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all.order(:title)
+    @products = Product.includes(:category).all.order(:title)
   end
 
   def show
@@ -17,9 +17,20 @@ class ProductsController < ApplicationController
   end
 
   def create
+    @product = Product.new(product_params)
+    if @product.save
+      redirect_to @product, notice: "#{@product.title} was successfully created."
+    else
+      render :new
+    end
   end
 
   def update
+    if @product.update(product_params)
+      redirect_to @product, notice: "#{@product.title} was successfully updated."
+    else
+      render :edit
+    end
   end
 
   def destroy
