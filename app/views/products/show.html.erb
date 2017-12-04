@@ -1,0 +1,7 @@
+<h1><%= @product.title %></h1>
+<p><%= @product.sku %></p>
+<p>$<%= @product.price %></p>
+<p><%= @product.category.name %></p>
+<p><%= @product.description %></p>
+
+<p><%= link_to 'edit', edit_product_path(@product) %> | <%= link_to 'all products', products_path %></p>

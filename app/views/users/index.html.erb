@@ -1,0 +1,20 @@
+<h1>All Users</h1>
+
+<p><%= link_to '+ New User', new_user_registration_path %></p>
+
+<table class="table">
+  <tr>
+    <th>Signup</th>
+    <th>Name</th>
+    <th>Orders</th>
+  </tr>
+  <% @users.order('created_at DESC').each do |user| %>
+    <tr>
+      <td><%= user.created_at.to_date %></td>
+      <td><%= link_to user.name, user %> (#<%= user.id %>)<br>
+      <%= user.email %></td>
+      <td><%= has_orders(user) %></td>
+    </tr>
+  <% end %>
+</table>
+

@@ -1,0 +1,54 @@
+<h2><%= @user.name %></h2>
+<p><%= @user.email %></p>
+
+<hr>
+<h3>Addresses</h3>
+<div class="row">
+  <div class="col-6">
+    <h4>Billing Addresses</h4>
+    <% @user.addresses.billing.each do |address| %>
+      <article>
+        <p><%= display_address(address) %> | <%= link_to 'edit', edit_address_path(address) %></p>
+      </article>
+    <% end %>
+  </div> <!-- col-6 -->
+  <div class="col-6">
+    <h4>Shipping Addresses</h4>
+    <% @user.addresses.shipping.each do |address| %>
+      <article>
+        <p><%= display_address(address) %> | <%= link_to 'edit', edit_address_path(address) %></p>
+      </article>
+    <% end %>
+  </div> <!-- col-6 -->
+</div> <!-- row -->
+
+<hr>
+<h3>Orders</h3>
+<table class="table">
+  <tr>
+    <th>Order #</th>
+    <th>Purchase Date</th>
+    <th>Item Count</th>
+    <th>Details</th>
+  </tr>
+  <% @user.orders.each do |order| %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.created_at.to_date %></td>
+      <td><%= order.items.count %></td>
+      <th><%= link_to 'view', order_path(order) %></th>
+    </tr>
+  <% end %>
+</table>
+
+<hr>
+<h3>Cart</h3>
+<% if @user.cart == nil || @user.cart.items.empty? %>
+<p>Cart Empty</p>
+<% else %>
+<% @user.cart.items.each do |item| %>
+    <ul>
+      <li><%= item.qty %> of <%= item.product.title %></li>
+    </ul>
+  <% end %>
+<% end %>
