@@ -10,29 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171201171232) do
+ActiveRecord::Schema.define(version: 20171204132104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "address_types", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "addresses", force: :cascade do |t|
-    t.integer  "address_type_id",                 null: false
-    t.integer  "user_id",                         null: false
-    t.boolean  "default",         default: false, null: false
-    t.string   "street_1",        default: "",    null: false
-    t.string   "street_2",        default: "",    null: false
-    t.string   "city",            default: "",    null: false
-    t.integer  "state_id",                        null: false
-    t.string   "zip",             default: "",    null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.index ["address_type_id"], name: "index_addresses_on_address_type_id", using: :btree
+    t.integer  "user_id",                 null: false
+    t.string   "street_1",   default: "", null: false
+    t.string   "street_2",   default: "", null: false
+    t.string   "city",       default: "", null: false
+    t.integer  "state_id",                null: false
+    t.string   "zip",        default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.index ["state_id"], name: "index_addresses_on_state_id", using: :btree
     t.index ["user_id"], name: "index_addresses_on_user_id", using: :btree
   end
@@ -110,11 +101,12 @@ ActiveRecord::Schema.define(version: 20171201171232) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "addresses", "address_types"
   add_foreign_key "addresses", "states"
   add_foreign_key "addresses", "users"
   add_foreign_key "cart_items", "carts"

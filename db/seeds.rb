@@ -22,7 +22,6 @@ Product.destroy_all
 Category.destroy_all
 Cart.destroy_all
 Order.destroy_all
-AddressType.destroy_all
 Address.destroy_all
 State.destroy_all
 User.destroy_all
@@ -116,13 +115,11 @@ end #category
 
 
 # USERS and ADDRESSES -------------------
-billing = AddressType.find_or_create_by!(name: 'Billing')
-shipping = AddressType.find_or_create_by!(name: 'Shipping')
 
-# Generate Users without addresses
+# Generate Users
 puts "Generating Users"
 
-(MULTIPLIER * 3).times do
+(MULTIPLIER * 6).times do
   User.create!(
     name: Faker::Name.name,
     email: Faker::Internet.unique.email,
@@ -133,50 +130,29 @@ puts "Generating Users"
 end
 
 # Generate Users with addresses
-puts "Generating Users with addresses"
+puts "Generating Addresses for some Users"
 
-(MULTIPLIER * 3).times do
-  user = User.create!(
-    name: Faker::Name.name,
-    email: Faker::Internet.unique.email,
-    phone: Faker::PhoneNumber.phone_number,
-    password: 'password', encrypted_password: 'password',
-    created_at: creation_date
-  )
-
-  # Generate User's Shipping Addresses
-  3.times do
+# Generate User's Addresses
+users = User.all.sample(MULTIPLIER * 3)
+users.each do |user|
+  puts "Building addresses for #{user.name}"
+  6.times do
     Address.create!(
       user_id: user.id,
-      address_type_id: shipping.id,
-      default: false,
       street_1: Faker::Address.street_address,
-      street_2: "",
+      street_2: [Faker::Address.secondary_address, ""].sample,
       city: Faker::Address.city,
       state_id: State.all.sample.id,
       zip: Faker::Address.zip_code
     )
-    # Generate User's Billing Address
-    Address.create!(
-      user_id: user.id,
-      address_type_id: billing.id,
-      default: false,
-      street_1: Faker::Address.street_address,
-      street_2: "",
-      city: Faker::Address.city,
-      state_id: State.all.sample.id,
-      zip: Faker::Address.zip_code
-    )
-  end #addresses
+  end #timesdo
 
-  # Set a default shipping and billing address
+  # Assign User's Billing & Shipping Addresses
   puts "Setting address defaults for #{user.name}"
-
-  sa = user.addresses.where(address_type_id: shipping.id).first
-  sa.update!(default: true)
-
-  ba = user.addresses.where(address_type_id: billing.id).first
-  ba.update!(default: true)
+  addresses = user.addresses
+  user.billing_address_id = addresses.sample.id
+  user.shipping_address_id = addresses.sample.id
+  user.save
 end #user
 
 
